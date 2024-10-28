@@ -11,7 +11,7 @@ const Home = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <code>Javascript</code> is NOT <code>Java</code>, it's the best lan-guano-ge in the world.
         </p>
         <a
           className="App-link"
@@ -19,7 +19,7 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          ~ Learn JAVAscript ~
         </a>
       </header>
     </div>

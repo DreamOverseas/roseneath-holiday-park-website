@@ -7,7 +7,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <p> This is Navbar </p>
+            <p> I am Navbar, above all comps </p>
         </div>
     );
 };

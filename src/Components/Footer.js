@@ -7,7 +7,7 @@ const Footer = () => {
 
     return (
         <div>
-            <p> This is Footer </p>
+            <p> This is Footer, nobody would really take a look. </p>
         </div>
     );
 };
