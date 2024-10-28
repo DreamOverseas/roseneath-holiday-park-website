@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 // Pages/Components Imports
-import Navbar from './Components/Navbar';
+import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
 import Home from './Pages/Home';
 import FindUs from './Pages/FindUs';
@@ -18,7 +18,7 @@ import Contact from './Pages/Contact';
 function App() {
   return (
     <div className='App'>
-      <Navbar />
+      <Navigation />
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/find-us' element={<FindUs />} />
