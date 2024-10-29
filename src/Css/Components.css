@@ -1,18 +1,18 @@
 /* Stylesheet for PageTitle.js */
 .page-title-bg {
     width: 100%;
-    height: 200px;
+    height: 120px;
+    background-color: lightslategray;
+    display: flex;
+    align-items: center;  /* Centers vertically */
 }
 
 .page-title-text {
-    display: flex;
-    align-items: center;  /* Centers vertically */
-    font-size: x-large;
     color: aliceblue;
 }
 
 /* Stylesheet for ContactForm.js */
 .submit-button {
     width: 100px;
-    height: 32px;
+    height: 40px;
 }
