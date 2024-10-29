@@ -8,7 +8,7 @@ const Navigation = () => {
     // TODO
 
     return (
-      <Navbar bg="light" data-bs-theme="light" className="NavigationBar fixed-top">
+      <Navbar bg="light" data-bs-theme="light" className="NavigationBar sticky-top">
         <Container>
           <Navbar.Brand href="/">
             <Figure.Image
@@ -17,11 +17,11 @@ const Navigation = () => {
             />
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/find-us">FindUs</Nav.Link>
-            <Nav.Link href="/gallery">Gallery</Nav.Link>
-            <Nav.Link href="/about-us">About</Nav.Link>
-            <Nav.Link href="/contact-us">Contact</Nav.Link>
+            <Nav.Link className="NavWord" href="/">Home</Nav.Link>
+            <Nav.Link className="NavWord" href="/find-us">Find us</Nav.Link>
+            <Nav.Link className="NavWord" href="/gallery">Gallery</Nav.Link>
+            <Nav.Link className="NavWord" href="/about-us">About</Nav.Link>
+            <Nav.Link className="NavWord" href="/contact-us">Contact</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
