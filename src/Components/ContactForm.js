@@ -1,43 +1,147 @@
-import React from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 import "../Css/Components.css";
 
 const ContactForm = () => {
+    // State to hold form values
+    const [formData, setFormData] = useState({
+        name: '',
+        phoneNumber: '',
+        email: '',
+        company: '',
+        subject: '',
+        question: '',
+    });
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [responseMessage, setResponseMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    // Handle form input change
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData({ ...formData, [id]: value });
+    };
+
+    // Form submission handler
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch('https://mail-service.sapienplus.co/roseneathpark/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Name: formData.name,
+                    PhoneNumber: formData.phoneNumber,
+                    Email: formData.email,
+                    Company: formData.company,
+                    Subject: formData.subject,
+                    Question: formData.question,
+                }),
+            });
+
+            if (response.ok) {
+                setResponseMessage('Your enquiry has been submitted successfully!');
+                setIsSubmitting(false);
+                setErrorMessage(null);
+                setFormData({ name: '', phoneNumber: '', email: '', company: '', subject: '', question: '' });
+            } else {
+                setErrorMessage('There was a problem submitting your enquiry. Please try again later.');
+                setIsSubmitting(false);
+                setResponseMessage(null);
+            }
+        } catch (error) {
+            setIsSubmitting(false);
+            setErrorMessage('An error occurred. Please try again later.');
+            setResponseMessage(null);
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <Container className="my-5" style={{ maxWidth: '1000px' }}>
-            <Form>
-                <Form.Group controlId="formName" className="mb-3">
+            {/* Display success or error message */}
+            {responseMessage && <Alert variant="success">{responseMessage}</Alert>}
+            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="name" className="mb-3">
                     <Form.Label>Name *</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your name" required />
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter your name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
                 </Form.Group>
 
-                <Form.Group controlId="formPhoneNumber" className="mb-3">
+                <Form.Group controlId="phoneNumber" className="mb-3">
                     <Form.Label>Phone Number</Form.Label>
-                    <Form.Control type="tel" placeholder="Enter your phone number" />
+                    <Form.Control
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                    />
                 </Form.Group>
 
-                <Form.Group controlId="formEmail" className="mb-3">
+                <Form.Group controlId="email" className="mb-3">
                     <Form.Label>Email *</Form.Label>
-                    <Form.Control type="email" placeholder="Enter your email" required />
+                    <Form.Control
+                        type="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
                 </Form.Group>
 
-                <Form.Group controlId="formCompany" className="mb-3">
+                <Form.Group controlId="company" className="mb-3">
                     <Form.Label>Company</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your company name" />
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter your company name"
+                        value={formData.company}
+                        onChange={handleChange}
+                    />
                 </Form.Group>
 
-                <Form.Group controlId="formSubject" className="mb-3">
+                <Form.Group controlId="subject" className="mb-3">
                     <Form.Label>Subject *</Form.Label>
-                    <Form.Control type="text" placeholder="Enter the subject" required />
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter the subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                    />
                 </Form.Group>
 
-                <Form.Group controlId="formQuestion" className="mb-3">
+                <Form.Group controlId="question" className="mb-3">
                     <Form.Label>Question *</Form.Label>
-                    <Form.Control as="textarea" rows={3} placeholder="Enter your question" required />
+                    <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Enter your question"
+                        value={formData.question}
+                        onChange={handleChange}
+                        required
+                    />
                 </Form.Group>
 
                 <Button variant="primary" type="submit" className='submit-button'>
-                    Submit
+                    {isSubmitting ? (
+                        <>
+                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </>
+                    ) : (
+                        "Submit"
+                    )}
                 </Button>
             </Form>
         </Container>
