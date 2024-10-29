@@ -29,7 +29,7 @@ const Navigation = () => {
             <Nav.Link className="NavWord" href="/contact-us">{t('Contact')}</Nav.Link>
           </Nav>
           <Nav.Link className="NavWord" href="/contact-us">+61 (03) 5157-8298</Nav.Link>
-          <Button className="NavWord">Contact us</Button>
+          <Button className="NavWord">{t('Contact us')}</Button>
         </Container>
       </Navbar>
     );
