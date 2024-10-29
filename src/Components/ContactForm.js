@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useTransition } from 'react-i18next';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 import "../Css/Components.css";
 
 const ContactForm = () => {
+const { t } = useTransition();
+
     // State to hold form values
     const [formData, setFormData] = useState({
         name: '',
@@ -70,7 +73,7 @@ const ContactForm = () => {
 
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="name" className="mb-3">
-                    <Form.Label>Name *</Form.Label>
+                    <Form.Label>{t("contactForm_name")} *</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="Enter your name"
@@ -81,7 +84,7 @@ const ContactForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="phoneNumber" className="mb-3">
-                    <Form.Label>Phone Number</Form.Label>
+                    <Form.Label>{t("contactForm_phone")}</Form.Label>
                     <Form.Control
                         type="tel"
                         placeholder="Enter your phone number"
@@ -91,7 +94,7 @@ const ContactForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="email" className="mb-3">
-                    <Form.Label>Email *</Form.Label>
+                    <Form.Label>{t("contactForm_email")} *</Form.Label>
                     <Form.Control
                         type="email"
                         placeholder="Enter your email"
@@ -102,7 +105,7 @@ const ContactForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="company" className="mb-3">
-                    <Form.Label>Company</Form.Label>
+                    <Form.Label>{t("contactForm_company")}</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="Enter your company name"
@@ -112,7 +115,7 @@ const ContactForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="subject" className="mb-3">
-                    <Form.Label>Subject *</Form.Label>
+                    <Form.Label>{t("contactForm_subject")} *</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="Enter the subject"
@@ -123,7 +126,7 @@ const ContactForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="question" className="mb-3">
-                    <Form.Label>Question *</Form.Label>
+                    <Form.Label>{t("contactForm_question")} *</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -140,7 +143,7 @@ const ContactForm = () => {
                             <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         </>
                     ) : (
-                        "Submit"
+                        t("contactForm_submit")
                     )}
                 </Button>
             </Form>

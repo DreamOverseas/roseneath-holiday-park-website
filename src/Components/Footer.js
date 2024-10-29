@@ -1,10 +1,12 @@
 import React from "react";
+import { useTransition } from "react-i18next";
 import { Row, Col, Image, Button, Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import "../Css/Footer.css";
 
 const Footer = () => {
     const navigate = useNavigate();
+    const { t } = useTransition();
 
     const jumpToContact = () => {
         navigate('/contact-us');
@@ -23,7 +25,7 @@ const Footer = () => {
                             className="footer-button" 
                             onClick={jumpToContact}
                         >
-                            Get in Touch
+                            {t("get_in_touch")}
                         </Button>
                     </Col>
                 </Row>
