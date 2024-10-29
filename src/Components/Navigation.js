@@ -1,14 +1,19 @@
 import React from "react";
 import "../Css/Navigation.css";
 import Container from 'react-bootstrap/Container';
-import {Navbar, Nav, Figure} from 'react-bootstrap';
+import {Navbar, Nav, Figure, Button} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
 
 const Navigation = () => {
+
+  const { t } = useTranslation();
+
 
     // TODO
 
     return (
-      <Navbar bg="light" data-bs-theme="light" className="NavigationBar fixed-top shadow p-3 mb-5 bg-white">
+      <Navbar bg="light" data-bs-theme="light" className="NavigationBar sticky-top">
         <Container>
           <Navbar.Brand href="/">
             <Figure.Image
@@ -17,12 +22,14 @@ const Navigation = () => {
             />
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/find-us">FindUs</Nav.Link>
-            <Nav.Link href="/gallery">Gallery</Nav.Link>
-            <Nav.Link href="/about-us">About</Nav.Link>
-            <Nav.Link href="/contact-us">Contact</Nav.Link>
+            <Nav.Link className="NavWord" href="/">{t('Home')}</Nav.Link>
+            <Nav.Link className="NavWord" href="/find-us">{t('Find us')}</Nav.Link>
+            <Nav.Link className="NavWord" href="/gallery">{t('Gallery')}</Nav.Link>
+            <Nav.Link className="NavWord" href="/about-us">{t('About')}</Nav.Link>
+            <Nav.Link className="NavWord" href="/contact-us">{t('Contact')}</Nav.Link>
           </Nav>
+          <Nav.Link className="NavWord" href="/contact-us">+61 (03) 5157-8298</Nav.Link>
+          <Button className="NavWord">Contact us</Button>
         </Container>
       </Navbar>
     );
