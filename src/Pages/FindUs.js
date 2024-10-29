@@ -1,10 +1,12 @@
 import React from "react";
 import "../Css/FindUs.css";
-import {Container,Row,Col,Image,Button} from 'react-bootstrap'
-// import MapComponent from "../Components/MapComponent";
+import {Container,Row,Col,Image} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faMapMarkerAlt, faUserTie } from '@fortawesome/free-solid-svg-icons';
 
 const FindUs = () => {
-
+    const { t } = useTranslation();
     // TODO
 
     return (
@@ -21,13 +23,21 @@ const FindUs = () => {
                 />
             </section>
             <section>
-                <Container>
+                <Container className="find-us-info">
                     <Row>
                         <Col>
                             <Image className="find-us-picture" src="/find_us/map.webp"/>
                         </Col>
-                        <Col>
-                            <p>The quickest way to get to us from Melbourne is to travel along Princes Hwy A1 till you get to Sale.  Turn left at the roundabout and stay on Princes Hwy (York St) till you get to Bengworden Road C106, where you turn right. follow Bengworden Rd all the way to the end and turn right. You then turn right onto Hollands Landing Road. Continue till you get to 422 Woodpile Road Meerlieu.</p>
+                        <Col className="d-flex align-items-center">
+                            <div>
+                                <p>The quickest way to get to us from Melbourne is to travel along Princes Hwy A1 till you get to Sale.  Turn left at the roundabout and stay on Princes Hwy (York St) till you get to Bengworden Road C106, where you turn right. follow Bengworden Rd all the way to the end and turn right. You then turn right onto Hollands Landing Road. Continue till you get to 422 Woodpile Road Meerlieu.</p>
+                                <Row>
+                                    <p>
+                                    <FontAwesomeIcon icon={faClock} />{' '}
+                                    <strong>{t("time")}:</strong>&nbsp;{"Monday - Friday 8:30 a.m. - 4:00 p.m."}
+                                    </p>
+                                </Row>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
