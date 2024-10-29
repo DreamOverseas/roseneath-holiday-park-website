@@ -1,10 +1,13 @@
 import React from "react";
 import "../Css/Contact.css";
+import { useTransition } from "react-i18next";
 import { Container, Col, Row } from 'react-bootstrap';
 import ContactForm from "../Components/ContactForm";
 import PageTitle from "../Components/PageTitle";
 
 const Contact = () => {
+
+    const { t } = useTransition();
 
     return (
         <div>
@@ -12,8 +15,10 @@ const Contact = () => {
             <Container>
                 <Row>
                     <Col md={8}>
-                        <h5>Contact us about anything related to our company or services.</h5>
-                        We'll do our best to get back to you as soon as possible.
+                        {/* <h5>Contact us about anything related to our company or services.</h5>
+                        We'll do our best to get back to you as soon as possible. */}
+                        <h5>{t("Contact_intro_title")}</h5>
+                        {t("Contact_intro_text")}
                         <ContactForm />
                     </Col>
                     <Col>
