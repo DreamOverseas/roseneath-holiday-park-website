@@ -4,7 +4,7 @@ import "../Css/Components.css";
 
 const ContactForm = () => {
     return (
-        <Container className="my-5" style={{ maxWidth: '600px' }}>
+        <Container className="my-5" style={{ maxWidth: '1000px' }}>
             <Form>
                 <Form.Group controlId="formName" className="mb-3">
                     <Form.Label>Name *</Form.Label>

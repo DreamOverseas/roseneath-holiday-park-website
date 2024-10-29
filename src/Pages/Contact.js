@@ -8,7 +8,7 @@ const Contact = () => {
 
     return (
         <div>
-            <PageTitle page_title="Contact Us" />
+            <PageTitle page_title="Contact Us" /> <br />
             <Container>
                 <Row>
                     <Col md={8}>
@@ -18,19 +18,27 @@ const Contact = () => {
                     </Col>
                     <Col>
                         <Row>
-                            <b>Roseneath Caravan Park</b>
+                            <p>
+                                <b>Roseneath Holiday Park</b> &#9978;
+                            </p>
                         </Row>
                         <Row>
-                            <i class="bi bi-pin-angle"></i>
-                            422 Woodpile Rd, Meerlieu VIC 3862
+                            <p>
+                                <i class="bi bi-pin-angle"></i> &nbsp;
+                                422 Woodpile Rd, Meerlieu VIC 3862
+                            </p>
                         </Row>
                         <Row>
-                            <i class="bi bi-telephone-inbound"></i>
-                            +61 (03) 5157-8298
+                            <p>
+                                <i class="bi bi-telephone-inbound"></i> &nbsp;
+                                +61 (03) 5157-8298
+                            </p>
                         </Row>
                         <Row>
-                            <i class="bi bi-mailbox"></i>
-                            kinzhuo0212@gmail.com
+                            <p>
+                                <i class="bi bi-mailbox"></i> &nbsp;
+                                kinzhuo0212@gmail.com
+                            </p>
                         </Row>
                     </Col>
                 </Row>
