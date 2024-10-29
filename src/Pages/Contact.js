@@ -1,13 +1,13 @@
 import React from "react";
 import "../Css/Contact.css";
-import { useTransition } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { Container, Col, Row } from 'react-bootstrap';
 import ContactForm from "../Components/ContactForm";
 import PageTitle from "../Components/PageTitle";
 
 const Contact = () => {
 
-    const { t } = useTransition();
+    const { t } = useTranslation();
 
     return (
         <div>
