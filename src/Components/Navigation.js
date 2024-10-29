@@ -8,7 +8,7 @@ const Navigation = () => {
     // TODO
 
     return (
-      <Navbar bg="light" data-bs-theme="light" className="NavigationBar fixed-top shadow p-3 mb-5 bg-white">
+      <Navbar bg="light" data-bs-theme="light" className="NavigationBar fixed-top">
         <Container>
           <Navbar.Brand href="/">
             <Figure.Image
