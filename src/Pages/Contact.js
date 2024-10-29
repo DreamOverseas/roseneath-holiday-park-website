@@ -8,7 +8,7 @@ const Contact = () => {
 
     return (
         <div>
-            <PageTitle page_title="Contact Us" /> <br />
+            <PageTitle pageTitle="Contact Us" /> <br />
             <Container>
                 <Row>
                     <Col md={8}>

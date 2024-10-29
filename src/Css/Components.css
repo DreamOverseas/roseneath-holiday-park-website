@@ -1,16 +1,3 @@
-/* Stylesheet for PageTitle.js */
-.page-title-bg {
-    width: 100%;
-    height: 100px;
-    background-color: rgb(48, 57, 65);
-    display: flex;
-    align-items: center;  /* Centers vertically */
-}
-
-.page-title-text {
-    color: aliceblue;
-}
-
 /* Stylesheet for ContactForm.js */
 .submit-button {
     width: 100px;
