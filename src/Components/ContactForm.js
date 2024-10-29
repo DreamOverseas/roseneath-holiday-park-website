@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useTransition } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 import "../Css/Components.css";
 
 const ContactForm = () => {
-const { t } = useTransition();
+const { t } = useTranslation();
 
     // State to hold form values
     const [formData, setFormData] = useState({

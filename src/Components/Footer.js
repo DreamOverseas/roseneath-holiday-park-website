@@ -1,12 +1,12 @@
 import React from "react";
-import { useTransition } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { Row, Col, Image, Button, Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import "../Css/Footer.css";
 
 const Footer = () => {
     const navigate = useNavigate();
-    const { t } = useTransition();
+    const { t } = useTranslation();
 
     const jumpToContact = () => {
         navigate('/contact-us');
