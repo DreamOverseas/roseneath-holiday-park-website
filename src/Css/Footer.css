@@ -1,0 +1,32 @@
+.footer-body {
+    width: 100%;
+    background-color: rgb(17, 24, 39);
+}
+
+.footer-logo {
+    margin: 16px;
+    margin-right: 2px !important;
+    height: 50px;
+    width: auto;
+}
+
+.footer-slogan-text {
+    display: flex;
+    align-items: center;  /* Centers vertically */
+    font-size: small;
+    color: aliceblue;
+}
+
+.footer-button {
+    margin: 20px;
+    height: 40px;
+    width: 155px;
+}
+
+@media (max-width: 768px) {
+    .footer-button {
+        margin: 30px;
+        height: 40px;
+        width: 80vw;
+    }
+}
