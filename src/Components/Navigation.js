@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Cookies from "js-cookie";
 import "../Css/Navigation.css";
 import { Navbar, Nav, Figure, NavDropdown, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -9,9 +10,18 @@ const Navigation = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation(); // Get the current URL path
 
+  useEffect(() => {
+    const savedLanguage = Cookies.get("i18nextLng") || "en";
+    if (i18n && i18n.changeLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, [i18n]);
+
   const changeLanguage = lng => {
-    i18n.changeLanguage(lng);
-    // Cookies.set("i18next", lng, { expires: 7 });
+    if (i18n && i18n.changeLanguage) {
+      i18n.changeLanguage(lng);
+      Cookies.set("i18nextLng", lng, { expires: 365 });
+    }
   };
 
   return (
