@@ -4,7 +4,8 @@ import { Form, Button, Container, Alert } from 'react-bootstrap';
 import "../Css/Components.css";
 
 const ContactForm = () => {
-const { t } = useTranslation();
+    const { t } = useTranslation();
+    const mail_API_endpoint = process.env.REACT_APP_EMAIL_ENQUIRY;
 
     // State to hold form values
     const [formData, setFormData] = useState({
@@ -30,9 +31,10 @@ const { t } = useTranslation();
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        alert(mail_API_endpoint);
 
         try {
-            const response = await fetch('https://mail-service.sapienplus.co/roseneathpark/contact', {
+            const response = await fetch(mail_API_endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
