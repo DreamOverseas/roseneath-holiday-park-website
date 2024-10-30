@@ -19,8 +19,8 @@ const Contact = () => {
                         {t("Contact_intro_text")}
                         <ContactForm />
                     </Col>
-                    <Col>
-                        <Row>
+                    <Col className="contact-info-col">
+                        <Row className="contact-info-row">
                             <p>
                                 <b>Roseneath Holiday Park</b> &#9978;
                             </p>
@@ -40,7 +40,7 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                kinzhuo0212@gmail.com
+                                info@roseneathholidaypark.au
                             </p>
                         </Row>
                     </Col>
