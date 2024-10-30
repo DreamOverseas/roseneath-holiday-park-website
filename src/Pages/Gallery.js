@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Css/Gallery.css";
-import { Container, Row, Col, Image, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Image, Carousel, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 const Gallery = () => {
-
     const { t } = useTranslation();
 
     const images = [
@@ -30,6 +29,16 @@ const Gallery = () => {
         "/GalleryImage/DSC03083.jpg",
     ];
 
+    const [showModal, setShowModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageClick = (src) => {
+        setSelectedImage(src);
+        setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
+
     return (
         <>
             <Carousel className="text-center">
@@ -45,16 +54,34 @@ const Gallery = () => {
             </Carousel>
 
             <Container fluid>
-            <h2 className="text-center my-4">{t('Image Gallery')}</h2>
-            <Row>
-                {images.map((src, index) => (
-                <Col key={index} xs={6} md={6} lg={4} className="mb-4">
-                    <Image className="galleryImage" src={src} thumbnail fluid />
-                </Col>
-                ))}
-            </Row>
+                <h2 className="my-4 GalleryImageTextTitle">{t('Image Gallery')}</h2>
+                <Row>
+                    {images.map((src, index) => (
+                        <Col key={index} xs={6} md={6} lg={4} className="mb-4">
+                            <Image 
+                                className="galleryImage" 
+                                src={src} 
+                                thumbnail 
+                                fluid 
+                                onClick={() => handleImageClick(src)} 
+                                style={{ cursor: 'pointer' }}
+                            />
+                        </Col>
+                    ))}
+                </Row>
             </Container>
+
+            {/* Modal for full-screen image view */}
+            <Modal show={showModal} onHide={handleClose} centered size="xl">
+                <Modal.Header closeButton>
+                    <Modal.Title className="ms-auto GalleryImageTextTitle">{t('Shot in Roseneath Caravan Park')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Image src={selectedImage} fluid className="w-100" />
+                </Modal.Body>
+            </Modal>
         </>
-      );
-    }
+    );
+}
+
 export default Gallery;

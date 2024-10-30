@@ -10,3 +10,8 @@
     object-fit: cover;
     width: 90%;
 }
+
+.GalleryImageTextTitle {
+    text-align: center;
+    font-family: Georgia, serif;
+}
