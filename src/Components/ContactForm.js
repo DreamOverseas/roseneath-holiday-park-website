@@ -5,7 +5,7 @@ import "../Css/Components.css";
 
 const ContactForm = () => {
     const { t } = useTranslation();
-    const mail_API_endpoint = 'https://mail-service.sapienplus.co/roseneathpark/contact';
+    const mail_API_endpoint = process.env.REACT_APP_EMAIL_ENQUIRY;
 
     // State to hold form values
     const [formData, setFormData] = useState({
@@ -31,6 +31,7 @@ const ContactForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        alert(mail_API_endpoint);
 
         try {
             const response = await fetch(mail_API_endpoint, {
