@@ -1,0 +1,23 @@
+{
+  "contactForm_name": "姓名",
+  "contactForm_phone": "电话",
+  "contactForm_email": "电子邮件",
+  "contactForm_company": "公司",
+  "contactForm_subject": "主题",
+  "contactForm_question": "问题",
+  "contactForm_submit": "提交",
+  "get_in_touch": "保持联系",
+  "Home": "首页",
+  "Find us": "找到我们",
+  "Gallery": "画廊",
+  "About": "关于我们",
+  "Contact": "联系我们",
+  "Contact us": "联系我们",
+  "Contact_intro_title": "联系我们简介",
+  "Contact_intro_text": "如果您有任何问题或想了解更多信息，请联系我们。",
+  "time": "时间",
+  "Image Gallery": "图片画廊",
+  "Shot in Roseneath Caravan Park": "拍摄于 Roseneath 房车公园",
+  "book_Now": "立即预订",
+  "find_Us_OnMap": "在地图上找到我们"
+}
