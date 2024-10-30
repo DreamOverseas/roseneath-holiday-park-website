@@ -2,7 +2,6 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 
 /**
- * 
  * @param pageTitle: Set the title text
  * @param titleColor: The Title text color with default value of aliceblue
  * @param background: Set the background image, if not provided, fallback to dark gray
@@ -18,6 +17,7 @@ const PageTitle = ({ pageTitle = 'Title', titleColor = '#f0f8ff', background }) 
                 backgroundImage: background ? `url(${background})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                fontFamily: 'Georgia, serif',
                 color: titleColor,
             }}
         >

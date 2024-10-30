@@ -11,18 +11,16 @@ const Contact = () => {
 
     return (
         <div>
-            <PageTitle pageTitle="Contact Us" /> <br />
+            <PageTitle pageTitle={t("Contact_title")} /> <br />
             <Container>
                 <Row>
                     <Col md={8}>
-                        {/* <h5>Contact us about anything related to our company or services.</h5>
-                        We'll do our best to get back to you as soon as possible. */}
                         <h5>{t("Contact_intro_title")}</h5>
                         {t("Contact_intro_text")}
                         <ContactForm />
                     </Col>
-                    <Col>
-                        <Row>
+                    <Col className="contact-info-col">
+                        <Row className="contact-info-row">
                             <p>
                                 <b>Roseneath Holiday Park</b> &#9978;
                             </p>
@@ -42,7 +40,7 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                kinzhuo0212@gmail.com
+                                info@roseneathholidaypark.au
                             </p>
                         </Row>
                     </Col>
