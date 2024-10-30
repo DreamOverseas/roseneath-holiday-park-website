@@ -1,95 +1,42 @@
-/* CSS File: Navigation.css */
 .NavigationBar {
-  margin: 2% auto;
-  padding: 0;
-  border: 1px solid lightblue;
-  border-radius: 50px;
-  box-shadow: 7px 7px 5px lightblue;
-  max-width: 1200px;
-  width: 90%;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-style: solid;
+    border-color: lightblue;
+    border-radius: 50px;
+    box-shadow: 7px 7px 5px lightblue;
 }
 
 .NavWord {
-  text-align: center;
-  margin-left: 30px;
-  font-family: Georgia, serif;
-  font-size: 18px;
-  border-radius: 50px;
-  transition: background-color 0.3s ease;
-  padding: 15px;
+    width:100px;
+    text-align: center;
+    margin-left: 20px;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    border-radius: 50px;
 }
 
 .NavWord:hover {
-  background-color: lightblue;
-  box-shadow: 3px 5px 5px lightblue;
-  border-radius: 25px; /* Reduced the border radius */
+    background-color: lightblue;
 }
 
 .NavActive {
-  color: white;
-  background-color: darkblue;
-  box-shadow: 3px 5px 5px lightblue;
-  border-radius: 25px; /* Reduced the border radius */
+    color: white;
+    background-color: darkblue;
+    box-shadow: 3px 5px 5px lightblue;
 }
 
 .NavContactWord {
-  margin-left: 20px;
-  font-family: Georgia, serif;
-  font-size: 18px;
+    margin-left: 20px;
+    font-family: Georgia, serif;
+    font-size: 20px;
 }
 
 .NavContact {
-  display: flex;
-  align-items: center;
-}
-
-#language-switch {
-  font-family: Georgia, serif;
-  font-size: 18px;
-  margin-left: 20px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .NavigationBar {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 20px;
-  }
-
-  .NavWord {
-    font-size: 16px;
-    margin-left: 15px;
-    padding: 12px;
-  }
-
-  .NavContactWord {
-    font-size: 16px;
-  }
-
-  #language-switch {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 576px) {
-  .Nav {
-    flex-direction: column;
+    display: flex;
     align-items: center;
-  }
-
-  .NavWord {
-    margin: 5px 0;
-    width: 100%;
-  }
-
-  .NavContact {
-    flex-direction: column;
-    margin-top: 10px;
-  }
-
-  .NavContactWord {
-    margin-left: 0;
-    margin-top: 5px;
-  }
 }

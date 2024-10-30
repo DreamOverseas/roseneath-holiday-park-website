@@ -1,173 +1,55 @@
-import React, { useState } from "react";
-import { Alert, Button, Container, Form } from "react-bootstrap";
+import React from "react";
+import "../Css/Contact.css";
 import { useTranslation } from "react-i18next";
-import "../Css/Components.css";
+import { Container, Col, Row } from 'react-bootstrap';
+import ContactForm from "../Components/ContactForm";
+import PageTitle from "../Components/PageTitle";
 
-const ContactForm = () => {
-  const { t } = useTranslation();
+const Contact = () => {
 
-  // State to hold form values
-  const [formData, setFormData] = useState({
-    name: "",
-    phoneNumber: "",
-    email: "",
-    company: "",
-    subject: "",
-    question: "",
-  });
+    const { t } = useTranslation();
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [responseMessage, setResponseMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  // Handle form input change
-  const handleChange = e => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
-  };
-
-  // Form submission handler
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch(
-        "https://mail-service.sapienplus.co/roseneathpark/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            Name: formData.name,
-            PhoneNumber: formData.phoneNumber,
-            Email: formData.email,
-            Company: formData.company,
-            Subject: formData.subject,
-            Question: formData.question,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        setResponseMessage(t("contactForm_success"));
-        setIsSubmitting(false);
-        setErrorMessage(null);
-        setFormData({
-          name: "",
-          phoneNumber: "",
-          email: "",
-          company: "",
-          subject: "",
-          question: "",
-        });
-      } else {
-        setErrorMessage(t("contactForm_failure"));
-        setIsSubmitting(false);
-        setResponseMessage(null);
-      }
-    } catch (error) {
-      setIsSubmitting(false);
-      setErrorMessage(t("contactForm_error"));
-      setResponseMessage(null);
-      console.error("Error:", error);
-    }
-  };
-
-  return (
-    <Container className='my-5' style={{ maxWidth: "1000px" }}>
-      {/* Display success or error message */}
-      {responseMessage && <Alert variant='success'>{responseMessage}</Alert>}
-      {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
-
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId='name' className='mb-3'>
-          <Form.Label>{t("contactForm_name")} *</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder={t("contactForm_name_placeholder")}
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId='phoneNumber' className='mb-3'>
-          <Form.Label>{t("contactForm_phone")}</Form.Label>
-          <Form.Control
-            type='tel'
-            placeholder={t("contactForm_phone_placeholder")}
-            value={formData.phoneNumber}
-            onChange={handleChange}
-          />
-        </Form.Group>
-
-        <Form.Group controlId='email' className='mb-3'>
-          <Form.Label>{t("contactForm_email")} *</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder={t("contactForm_email_placeholder")}
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId='company' className='mb-3'>
-          <Form.Label>{t("contactForm_company")}</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder={t("contactForm_company_placeholder")}
-            value={formData.company}
-            onChange={handleChange}
-          />
-        </Form.Group>
-
-        <Form.Group controlId='subject' className='mb-3'>
-          <Form.Label>{t("contactForm_subject")} *</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder={t("contactForm_subject_placeholder")}
-            value={formData.subject}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId='question' className='mb-3'>
-          <Form.Label>{t("contactForm_question")} *</Form.Label>
-          <Form.Control
-            as='textarea'
-            rows={3}
-            placeholder={t("contactForm_question_placeholder")}
-            value={formData.question}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Button
-          variant='primary'
-          type='submit'
-          className='submit-button'
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? (
-            <>
-              <span
-                className='spinner-border spinner-border-sm'
-                role='status'
-                aria-hidden='true'
-              ></span>
-            </>
-          ) : (
-            t("contactForm_submit")
-          )}
-        </Button>
-      </Form>
-    </Container>
-  );
+    return (
+        <div>
+            <PageTitle pageTitle="Contact Us" /> <br />
+            <Container>
+                <Row>
+                    <Col md={8}>
+                        {/* <h5>Contact us about anything related to our company or services.</h5>
+                        We'll do our best to get back to you as soon as possible. */}
+                        <h5>{t("Contact_intro_title")}</h5>
+                        {t("Contact_intro_text")}
+                        <ContactForm />
+                    </Col>
+                    <Col>
+                        <Row>
+                            <p>
+                                <b>Roseneath Holiday Park</b> &#9978;
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-pin-angle"></i> &nbsp;
+                                422 Woodpile Rd, Meerlieu VIC 3862
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-telephone-inbound"></i> &nbsp;
+                                +61 (03) 5157-8298
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-mailbox"></i> &nbsp;
+                                kinzhuo0212@gmail.com
+                            </p>
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    );
 };
 
-export default ContactForm;
+export default Contact;
