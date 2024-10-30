@@ -31,7 +31,6 @@ const ContactForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        alert(mail_API_endpoint);
 
         try {
             const response = await fetch(mail_API_endpoint, {
