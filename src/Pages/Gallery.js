@@ -54,7 +54,7 @@ const Gallery = () => {
             </Carousel>
 
             <Container fluid>
-                <h2 className="text-center my-4">{t('Image Gallery')}</h2>
+                <h2 className="my-4 GalleryImageTextTitle">{t('Image Gallery')}</h2>
                 <Row>
                     {images.map((src, index) => (
                         <Col key={index} xs={6} md={6} lg={4} className="mb-4">
@@ -74,7 +74,7 @@ const Gallery = () => {
             {/* Modal for full-screen image view */}
             <Modal show={showModal} onHide={handleClose} centered size="xl">
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title className="ms-auto GalleryImageTextTitle">{t('Shot in Roseneath Caravan Park')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Image src={selectedImage} fluid className="w-100" />
