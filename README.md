@@ -52,3 +52,5 @@ Joshua: Navbar, Gallery Page \
 Hanny: Page Footer, Contact Us \
 Stephen: Home Page, Find Us \
 Evan: About Us, Translation
+
+Last Edit: 30/10/2024
