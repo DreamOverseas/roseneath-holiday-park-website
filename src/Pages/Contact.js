@@ -11,12 +11,10 @@ const Contact = () => {
 
     return (
         <div>
-            <PageTitle pageTitle="Contact Us" /> <br />
+            <PageTitle pageTitle={t("Contact_title")} /> <br />
             <Container>
                 <Row>
                     <Col md={8}>
-                        {/* <h5>Contact us about anything related to our company or services.</h5>
-                        We'll do our best to get back to you as soon as possible. */}
                         <h5>{t("Contact_intro_title")}</h5>
                         {t("Contact_intro_text")}
                         <ContactForm />

@@ -1,14 +1,15 @@
 import React from "react";
 import "../Css/About.css";
+import PageTitle from "../Components/PageTitle";
 
 function AboutUs() {
   return (
     <main>
-      <section className='about-section'>
-        <div className='container'>
-          <h1>About Us</h1>
-        </div>
-      </section>
+      <PageTitle 
+        pageTitle="About Us" 
+        titleColor="aliceblue" 
+        background="DSC0E2965.webp" 
+      />
 
       <section className='info-section'>
         <div className='container'>

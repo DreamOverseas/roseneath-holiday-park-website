@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../Css/Gallery.css";
 import { Container, Row, Col, Image, Carousel, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import PageTitle from "../Components/PageTitle";
 
 const Gallery = () => {
     const { t } = useTranslation();
@@ -41,34 +42,38 @@ const Gallery = () => {
 
     return (
         <>
+            <PageTitle
+                pageTitle={t('Image Gallery')}
+            /> <br />
+            <Container>
             <Carousel className="text-center">
                 <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/DSC02707.jpg" thumbnail/>
+                    <Image className="slideImage" src="/GalleryImage/DSC02707.jpg" thumbnail />
                 </Carousel.Item>
                 <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/DSC02800.jpg" thumbnail/>
+                    <Image className="slideImage" src="/GalleryImage/DSC02800.jpg" thumbnail />
                 </Carousel.Item>
                 <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/DSC03083.jpg" thumbnail/>
+                    <Image className="slideImage" src="/GalleryImage/DSC03083.jpg" thumbnail />
                 </Carousel.Item>
             </Carousel>
-
+            <br />
             <Container fluid>
-                <h2 className="my-4 GalleryImageTextTitle">{t('Image Gallery')}</h2>
                 <Row>
                     {images.map((src, index) => (
                         <Col key={index} xs={6} md={6} lg={4} className="mb-4">
-                            <Image 
-                                className="galleryImage" 
-                                src={src} 
-                                thumbnail 
-                                fluid 
-                                onClick={() => handleImageClick(src)} 
+                            <Image
+                                className="galleryImage"
+                                src={src}
+                                thumbnail
+                                fluid
+                                onClick={() => handleImageClick(src)}
                                 style={{ cursor: 'pointer' }}
                             />
                         </Col>
                     ))}
                 </Row>
+            </Container>
             </Container>
 
             {/* Modal for full-screen image view */}
