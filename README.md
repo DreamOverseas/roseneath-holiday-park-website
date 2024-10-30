@@ -1,6 +1,5 @@
 # Roseneath Holiday Park Website by React
-Current Version: Beta 0.32.1 [Not Deployed] \
-~~[Deployment Link Here](https://roseneathholidaypark.au/)~~
+Current Version: 1.8 [Deployed (Click to view)](https://roseneathholidaypark.au/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
