@@ -60,3 +60,42 @@ main {
   margin-bottom: 20px;
   line-height: 1.6;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-section h1 {
+    font-size: 2rem;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .image-col,
+  .text-col {
+    flex: 1 1 100%;
+    padding: 8px;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-section {
+    text-align: center;
+  }
+
+  .about-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .info-section {
+    padding: 24px 0;
+  }
+
+  .activities-section {
+    padding: 24px 0;
+  }
+}
