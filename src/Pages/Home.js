@@ -18,32 +18,32 @@ const Home = () => {
               <Col>
                 <Image className="home-animal" src="/home/home_animal.webp"/>
               </Col>
-              <Col>
+              <Col className="food-info">
                 <h2>Delicious Wild Food</h2>
                 <p>
                   Discover the rich flavors of nature with Delicious Wild Food. Our carefully curated selection of wild ingredients brings the taste of the wilderness straight to your table. Experience the pure, untamed essence of wild foraged foods, perfect for the adventurous palate. Savor the wild, taste the difference!
                 </p>
-                <Button>{t("book_Now")}</Button>
+                <div className="food-btn-container"><Button>{t("book_Now")}</Button></div>
               </Col>
             </Row>
             <Row className="animal">
               <Col>
                 <Image className="home-food" src="/home/home_food.webp"/>
               </Col>
-              <Col>
+              <Col className="animal-info">
                 <h2>Wild Animals</h2>
                 <p>Experience the thrill of the wild! Discover breathtaking footage of majestic kanguroos, elusive leopards, and untamed wilderness. Our wildlife documentary brings you closer to nature's most extraordinary creatures. Witness the beauty, power, and mystery of the animal kingdom in stunning high-definition. Don't miss this incredible journey into the heart of the wild!</p>
-                <Button>{t("book_Now")}</Button>
+                <div className="animal-btn-container"><Button>{t("book_Now")}</Button></div>
               </Col>
             </Row>
             <Row className="landscape">
               <Col>
                 <Image className="home-landscape" src="/home/home_landscape.webp"/>
               </Col>
-              <Col>
+              <Col className="landscape-info">
                 <h2>Beautiful Landscape</h2>
                 <p>Escape to a world of breathtaking landscapes where nature's beauty unfolds before your eyes. From serene mountain peaks to tranquil seaside sunsets, immerse yourself in the stunning vistas that refresh your soul and inspire your spirit. Experience the allure of nature like never before with Beautiful Scenery, where every view is a masterpiece.</p>
-                <Button>{t("book_Now")}</Button>
+                <div className="landscape-btn-container"><Button>{t("book_Now")}</Button></div>
               </Col>
             </Row>
           </Container>

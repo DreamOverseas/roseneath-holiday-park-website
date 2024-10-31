@@ -4,6 +4,7 @@ import {Container,Row,Col,Image} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock} from '@fortawesome/free-solid-svg-icons';
+import PageTitle from "../Components/PageTitle";
 
 const FindUs = () => {
     const { t } = useTranslation();
@@ -11,6 +12,7 @@ const FindUs = () => {
 
     return (
         <div>
+            <PageTitle pageTitle={t("Find us")} /> <br />
             <section className="find-us-map">
                 <iframe
                     title="Roseneath Holiday Park Location Map"
