@@ -7,7 +7,7 @@ const Home = () => {
   const { t } = useTranslation();
 
     return (
-      <div>
+      <div className="home-background">
         <section className="home-banner-title">
           <h1>Roseneath Holiday Park</h1>
           <strong><h3>By Lake Willington</h3></strong>
