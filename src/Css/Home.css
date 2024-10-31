@@ -1,12 +1,42 @@
-.home-banner-title {
-    text-align: center;
-    margin-bottom: 10%;
+.home-background {
+    background-image: url("/public/home/background_image.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 10px 40px;
 }
 
-/* Desktop and tablet layout */
-.food, .animal, .landscape {
+.home-banner-title h1,
+.home-banner-title h3 {
+    color: white;
+}
+
+.home-introduction,.home-find-us {
+    padding-top: 20px;
+    background-color: white;
+    border-radius:8px 8px 0 0;
+}
+
+.home-find-us {
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+    padding: 20px 0;
+
+}
+
+.home-banner-title {
+    text-align: center;
+    padding-top: 2%;
+    margin-bottom: 8%;
+}
+
+.food, .animal{
     height: 300px;
-    margin: 5% 0;
+    margin-bottom: 5%;
+}
+.landscape {
+    height: 300px;
 }
 .animal {
     flex-direction: row-reverse;
