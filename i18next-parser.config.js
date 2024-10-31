@@ -3,7 +3,7 @@ module.exports = {
   locales: ["en", "zh"],
 
   // 指定输出目录及文件名称。$LOCALE 会被替换为具体语言代码
-  output: "src/locales/$LOCALE.json",
+  output: "public/locales/$LOCALE.json",
 
   // 是否使用键名作为默认值
   useKeysAsDefaultValue: true,
