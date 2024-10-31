@@ -3,7 +3,7 @@ import "../Css/FindUs.css";
 import {Container,Row,Col,Image} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faMapMarkerAlt, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { faClock} from '@fortawesome/free-solid-svg-icons';
 
 const FindUs = () => {
     const { t } = useTranslation();
@@ -11,8 +11,9 @@ const FindUs = () => {
 
     return (
         <div>
-            <section>
+            <section className="find-us-map">
                 <iframe
+                    title="Roseneath Holiday Park Location Map"
                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d474013.57073654904!2d150.801209!3d-37.457687!3m2!1i1024!2i768!4f13.5!3m3!1m2!1s0x6b2f12fa55ba106b%3A0x97796bb5b7b2aa37!2sRoseneath%20Holiday%20Park!5e1!3m2!1sen!2sus!4v1730163420007!5m2!1sen!2sus"
                     width="100%"
                     height="700"
@@ -23,10 +24,10 @@ const FindUs = () => {
                 />
             </section>
             <section>
-                <Container className="find-us-info">
-                    <Row>
+                <Container className="find-us-info-container">
+                    <Row className="find-us-info">
                         <Col>
-                            <Image className="find-us-picture" src="/find_us/map.webp"/>
+                            <Image className="find-us-picture" src="/find_us/map.webp" fluid/>
                         </Col>
                         <Col className="d-flex align-items-center">
                             <div>
