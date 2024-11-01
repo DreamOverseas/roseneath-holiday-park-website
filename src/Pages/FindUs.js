@@ -3,7 +3,7 @@ import "../Css/FindUs.css";
 import {Container,Row,Col,Image} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock} from '@fortawesome/free-solid-svg-icons';
+import { faClock, faTrain} from '@fortawesome/free-solid-svg-icons';
 import PageTitle from "../Components/PageTitle";
 
 const FindUs = () => {
@@ -33,11 +33,17 @@ const FindUs = () => {
                         </Col>
                         <Col className="d-flex align-items-center">
                             <div>
-                                <p>The quickest way to get to us from Melbourne is to travel along Princes Hwy A1 till you get to Sale.  Turn left at the roundabout and stay on Princes Hwy (York St) till you get to Bengworden Road C106, where you turn right. follow Bengworden Rd all the way to the end and turn right. You then turn right onto Hollands Landing Road. Continue till you get to 422 Woodpile Road Meerlieu.</p>
+                                <p>{t('The quickest way to get to us from Melbourne is to travel along Princes Hwy A1 till you get to Sale.  Turn left at the roundabout and stay on Princes Hwy (York St) till you get to Bengworden Road C106, where you turn right. follow Bengworden Rd all the way to the end and turn right. You then turn right onto Hollands Landing Road. Continue till you get to 422 Woodpile Road Meerlieu.')}</p>
                                 <Row>
                                     <p>
                                     <FontAwesomeIcon icon={faClock} />{' '}
-                                    <strong>{t("time")}:</strong>&nbsp;{"Monday - Friday 8:30 a.m. - 4:00 p.m."}
+                                    <strong>{t("time")}:</strong>&nbsp;{t("Monday - Friday 8:30 a.m. - 4:00 p.m.")}
+                                    </p>
+                                </Row>
+                                <Row>
+                                    <p>
+                                    <FontAwesomeIcon icon={faTrain} />{' '}
+                                    <strong>{t("You can book V/Line in here")}:</strong>&nbsp;<a href="https://www.vline.com.au/">https://www.vline.com.au/</a>
                                     </p>
                                 </Row>
                             </div>
