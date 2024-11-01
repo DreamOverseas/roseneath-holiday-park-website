@@ -28,6 +28,24 @@ const Gallery = () => {
         "/GalleryImage/DSC02925.jpg",
         "/GalleryImage/DSC02934.jpg",
         "/GalleryImage/DSC03083.jpg",
+        "/GalleryImage/IMG_5004.webp",
+        "/GalleryImage/IMG_5007.webp",
+        "/GalleryImage/IMG_5025.webp",
+        "/GalleryImage/IMG_5031.webp",
+        "/GalleryImage/IMG_5033.webp",
+        "/GalleryImage/IMG_5080.webp",
+        "/GalleryImage/IMG_5091.webp",
+        "/GalleryImage/IMG_5094.webp",
+        "/GalleryImage/IMG_5115.webp",
+        "/GalleryImage/IMG_5116.webp",
+        "/GalleryImage/IMG_5126.webp",
+        "/GalleryImage/IMG_5128.webp",
+        "/GalleryImage/IMG_5131.webp",
+        "/GalleryImage/IMG_5160.webp",
+        "/GalleryImage/IMG_E5111.webp",
+        "/GalleryImage/IMG_E5136.webp",
+        "/GalleryImage/IMG_E5149.webp",
+        "/GalleryImage/IMG_E5152.webp",
     ];
 
     const [showModal, setShowModal] = useState(false);
@@ -48,13 +66,13 @@ const Gallery = () => {
             <Container>
             <Carousel className="text-center">
                 <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/DSC02707.jpg" thumbnail />
+                    <Image className="slideImage" src="/GalleryImage/IMG_5151.webp" thumbnail />
                 </Carousel.Item>
                 <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/DSC02800.jpg" thumbnail />
+                    <Image className="slideImage" src="/GalleryImage/IMG_5097.webp" thumbnail />
                 </Carousel.Item>
                 <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/DSC03083.jpg" thumbnail />
+                    <Image className="slideImage" src="/GalleryImage/IMG_5111.webp" thumbnail />
                 </Carousel.Item>
             </Carousel>
             <br />
