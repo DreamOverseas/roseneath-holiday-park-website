@@ -61,7 +61,7 @@ const Gallery = () => {
             <Container fluid>
                 <Row>
                     {images.map((src, index) => (
-                        <Col key={index} xs={6} md={6} lg={4} className="mb-4">
+                        <Col key={index} xs={12} md={6} lg={4} className="mb-4">
                             <Image
                                 className="galleryImage"
                                 src={src}
