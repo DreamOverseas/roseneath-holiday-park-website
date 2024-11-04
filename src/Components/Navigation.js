@@ -26,7 +26,7 @@ const Navigation = () => {
 
   return (
     <Navbar bg="light" expand="lg" data-bs-theme="light" className="NavigationBar sticky-top">
-      <Container>
+      <Container fluid>
 
         <Navbar.Brand href="/">
           <Figure.Image width={100} src="/logo192.png" />
