@@ -32,7 +32,7 @@
     margin-bottom: 8%;
 }
 
-.live, .animal{
+.food, .animal{
     height: 300px;
     margin-bottom: 5%;
 }
@@ -44,7 +44,7 @@
 }
 
 .home-food,
-.home-life,
+.home-animal,
 .home-landscape {
     height: 300px;
     object-fit: cover;
