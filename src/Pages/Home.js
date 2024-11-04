@@ -16,19 +16,19 @@ const Home = () => {
           <Container>
             <Row className="food">
               <Col>
-                <Image className="home-animal" src="/home/home_animal.webp"/>
+                <Image className="home-animal" src="/home/home_life.jpg"/>
               </Col>
               <Col className="food-info">
-                <h2>Delicious Wild Food</h2>
+                <h2>Escape to Pure Tranquility</h2>
                 <p>
-                  Discover the rich flavors of nature with Delicious Wild Food. Our carefully curated selection of wild ingredients brings the taste of the wilderness straight to your table. Experience the pure, untamed essence of wild foraged foods, perfect for the adventurous palate. Savor the wild, taste the difference!
+                Escape the city's hustle and embrace a serene getaway at a camping holiday park. Here, guests enjoy the calming beauty of nature, with fresh air, star-filled skies, and peaceful surroundings. Unwind by campfires, explore scenic trails, and savor simple pleasures like morning coffee by the lake. A camping holiday park offers a refreshing, leisurely retreat perfect for relaxation.
                 </p>
                 <div className="food-btn-container"><Button>{t("book_Now")}</Button></div>
               </Col>
             </Row>
             <Row className="animal">
               <Col>
-                <Image className="home-food" src="/home/home_food.webp"/>
+                <Image className="home-food" src="/home/home_animal.webp"/>
               </Col>
               <Col className="animal-info">
                 <h2>Wild Animals</h2>
