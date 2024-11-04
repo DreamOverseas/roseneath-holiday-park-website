@@ -43,6 +43,30 @@ const Contact = () => {
                                 info@roseneathholidaypark.au
                             </p>
                         </Row>
+                        <br />
+                        <Row className="contact-info-row">
+                            <p>
+                                <b>Melbourne Office</b> &#128188;
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-pin-angle"></i> &nbsp;
+                                171 La Trobe Street, Melbourne VIC 3000
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-telephone-inbound"></i> &nbsp;
+                                +61 (04)13 168 533
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-mailbox"></i> &nbsp;
+                                john.du@do360.com
+                            </p>
+                        </Row>
                     </Col>
                 </Row>
             </Container>
