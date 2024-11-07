@@ -1,0 +1,60 @@
+.investment-list {
+    padding-top: 20px;
+    background-color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.smart-house {
+    height: 300px;
+    margin-bottom: 5%;
+}
+
+.smart-house-short-description {
+    padding: 10px;
+}
+
+.smart-house-picture {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 2%;
+}
+
+/* .More-Details-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4%;
+} */
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+    .smart-house {
+        flex-direction: column;
+        height: auto;
+        margin-bottom: 5%;
+    }
+    
+    .smart-house-picture {
+        height: 200px;
+        width: 100%;
+        border-radius: 2%;
+    }
+
+    .More-Details-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    /* Adjust font sizes */
+    .smart-house-short-description h2 {
+        font-size: 1.5em;
+        margin-top: 2%;
+    }
+
+    .investment-list p {
+        font-size: 1em;
+    }
+}
