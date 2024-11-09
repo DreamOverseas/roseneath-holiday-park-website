@@ -1,12 +1,36 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "../Css/Home.css";
-import {Container,Row,Col,Image,Button} from 'react-bootstrap'
+import {Container,Row,Col,Image,Button,Modal} from 'react-bootstrap'
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const { t } = useTranslation();
 
+  // Welcome Modal function
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    // Show the modal as soon as the component mounts
+    setShow(true);
+  }, []);
+
+  const handleClose = () => setShow(false);
+
     return (
+      <>
+        <Modal show={show} onHide={handleClose} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>{t('welcome_title')}</Modal.Title>
+          </Modal.Header>
+          {/* Add split function to make sure welcome_text can change line. */}
+          <Modal.Body>{t('welcome_text').split('\n').map((line, index) => (
+            <p key={index}>{line}</p>))}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       <div className="home-background">
         <section className="home-banner-title">
           <h1>Roseneath Holiday Park</h1>
@@ -59,8 +83,8 @@ const Home = () => {
           </Container>
         </section>
       </div>
-        
-    );
+    </>
+  );
 };
 
 export default Home;
