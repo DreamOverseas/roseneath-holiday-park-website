@@ -38,5 +38,7 @@
   "contactForm_email_placeholder": "请输入您的电子邮箱",
   "contactForm_company_placeholder": "请输入您的公司名称",
   "contactForm_subject_placeholder": "请输入主题",
-  "contactForm_question_placeholder": "请输入您的问题"
+  "contactForm_question_placeholder": "请输入您的问题",
+  "welcome_title": "欢迎!",
+  "welcome_text": "欢迎来到我们的网站！\n\n订票系统正在整合马上推出，现在如需预定可以电话联系营地：+61 (03) 5157-8298"
 }

@@ -42,7 +42,6 @@ const Gallery = () => {
         "/GalleryImage/IMG_5128.webp",
         "/GalleryImage/IMG_5131.webp",
         "/GalleryImage/IMG_5160.webp",
-        "/GalleryImage/IMG_E5111.webp",
         "/GalleryImage/IMG_E5136.webp",
         "/GalleryImage/IMG_E5149.webp",
         "/GalleryImage/IMG_E5152.webp",
