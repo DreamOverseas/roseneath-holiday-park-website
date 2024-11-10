@@ -44,12 +44,7 @@ const Navigation = () => {
               >
                 {t('Home')}
               </Nav.Link>
-              <Nav.Link
-                className={`NavWord ${location.pathname === '/find-us' ? 'NavActive' : ''}`}
-                href="/find-us"
-              >
-                {t('Find us')}
-              </Nav.Link>
+              
               <Nav.Link
                 className={`NavWord ${location.pathname === '/gallery' ? 'NavActive' : ''}`}
                 href="/gallery"
