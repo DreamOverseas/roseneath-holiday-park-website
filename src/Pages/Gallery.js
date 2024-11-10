@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import "../Css/Gallery.css";
-import { Container, Row, Col, Image, Carousel, Modal } from 'react-bootstrap';
+import { Container, Image, Carousel, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PageTitle from "../Components/PageTitle";
 
 const Gallery = () => {
+
+    require('../Css/Tailwind.css')
+
     const { t } = useTranslation();
 
     const images = [
@@ -62,34 +64,45 @@ const Gallery = () => {
             <PageTitle
                 pageTitle={t('Image Gallery')}
             /> <br />
-            <Container>
-            <Carousel className="text-center">
-                <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/IMG_5151.webp" thumbnail />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/IMG_5097.webp" thumbnail />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Image className="slideImage" src="/GalleryImage/IMG_5111.webp" thumbnail />
-                </Carousel.Item>
-            </Carousel>
+            {/* I don't know why <Container className="pb-8"> in here didn't work :( */}
+            <Container style={{ paddingBottom: '2rem' }}>
+            <Container className="d-flex justify-content-center">
+                <Carousel className="flex">
+                    <Carousel.Item>
+                        <Image className="slideImage" src="/GalleryImage/IMG_5151.webp" thumbnail />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <Image className="slideImage" src="/GalleryImage/IMG_5097.webp" thumbnail />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <Image className="slideImage" src="/GalleryImage/IMG_5111.webp" thumbnail />
+                    </Carousel.Item>
+                </Carousel>
+            </Container>
             <br />
             <Container fluid>
-                <Row>
-                    {images.map((src, index) => (
-                        <Col key={index} xs={12} md={6} lg={4} className="mb-4">
-                            <Image
-                                className="galleryImage"
-                                src={src}
-                                thumbnail
-                                fluid
-                                onClick={() => handleImageClick(src)}
-                                style={{ cursor: 'pointer' }}
+                <div className="container mx-auto px-4">
+                    {/* Masonry Grid */}
+                    <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+                        {images.map((image, index) => (
+                        <div 
+                            key={index} 
+                            className="break-inside-avoid mb-4 relative group"
+                            onClick={() => handleImageClick(image)}
+                        >
+                            <div className="relative overflow-hidden rounded-lg">
+                            {/* Image */}
+                            <img
+                                src={image}
+                                alt={`${index + 1}`}
+                                className="cursor-pointer w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+                                loading="lazy"
                             />
-                        </Col>
-                    ))}
-                </Row>
+                            </div>
+                        </div>
+                        ))}
+                    </div>
+                </div>
             </Container>
             </Container>
 
