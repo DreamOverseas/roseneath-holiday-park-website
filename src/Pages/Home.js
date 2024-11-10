@@ -201,9 +201,7 @@ const Home = () => {
 
         <section className="home-gallery">
           <Container>
-            <div className="home-gallery-header">
-              <h1>Gallery</h1>
-            </div>
+            <h1>Gallery</h1>
             <Slider {...gallery_sliderSettings}>
               {gallery.map(picture => (
                 <div key={picture.id} className="gallery-slider">
@@ -242,53 +240,60 @@ const Home = () => {
             <strong><h4>Customize Your own Journey</h4></strong>
             <Row className="home-contact-us-board">
 
-              <Col className="d-flex flex-column" style={{ height: '100%' }} md={4}>
+              <Col className="contact-info-column" md={5}>
               
-                <Row className="flex-fill">                 
-                  <Col className="text-start"> 
-                    <h5>Telephone Number</h5>
-                    <p>+61 (03) 5157-8298</p> 
-                  </Col>
-                  <Col md={4} className='d-flex justify-content-center align-items-center' > <i class="bi bi-telephone-inbound-fill fs-3"></i> </Col>
-                </Row>
+                  <Row className="contact-row">
+                      <Col className="contact-text">
+                          <h5>Telephone Number</h5>
+                          <p>+61 (03) 5157-8298</p>
+                      </Col>
+                      <Col className="contact-icon">
+                          <i className="bi bi-telephone-inbound-fill icon"></i>
+                      </Col>
+                  </Row>
 
-                <Row className="flex-fill"> 
-                  <Col className="text-start">
-                    <h5>Email</h5>
-                    <p>info@roseneathholidaypark.au</p>
-                  </Col>
-                  <Col md={4} className='d-flex justify-content-center align-items-center' > <i class="bi bi-mailbox2 fs-3"></i> </Col>
-                </Row>
+                  <Row className="contact-row">
+                      <Col className="contact-text">
+                          <h5>Email</h5>
+                          <p>info@roseneathholidaypark.au</p>
+                      </Col>
+                      <Col className="contact-icon">
+                          <i className="bi bi-mailbox2 icon"></i>
+                      </Col>
+                  </Row>
 
-                <Row className="flex-fill">
-                  <Col className="text-start"> 
-                    <h5>Address</h5>
-                    <p>422 Woodpile Rd<br/>Meerlieu VIC 3862<br/>Australia</p>
-                  </Col>
-                  <Col md={4} className='d-flex justify-content-center align-items-center' > <i class="bi bi-pin-map-fill fs-3"></i> </Col>
-                </Row>
-
+                  <Row className="contact-row">
+                      <Col className="contact-text">
+                          <h5>Address</h5>
+                          <p>422 Woodpile Rd<br />Meerlieu VIC 3862<br />Australia</p>
+                      </Col>
+                      <Col className="contact-icon">
+                          <i className="bi bi-pin-map-fill icon"></i>
+                      </Col>
+                  </Row>
               </Col>
 
-              <Col className="home-map" md={8}>
-                <iframe
-                    title="Roseneath Holiday Park Location Map"
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d474013.57073654904!2d150.801209!3d-37.457687!3m2!1i1024!2i768!4f13.5!3m3!1m2!1s0x6b2f12fa55ba106b%3A0x97796bb5b7b2aa37!2sRoseneath%20Holiday%20Park!5e1!3m2!1sen!2sus!4v1730163420007!5m2!1sen!2sus"
-                    width="100%"
-                    height="400px"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                />
+
+              <Col className="home-map" md={7}>
+                <>
+                  <iframe
+                      title="Roseneath Holiday Park Location Map"
+                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d474013.57073654904!2d150.801209!3d-37.457687!3m2!1i1024!2i768!4f13.5!3m3!1m2!1s0x6b2f12fa55ba106b%3A0x97796bb5b7b2aa37!2sRoseneath%20Holiday%20Park!5e1!3m2!1sen!2sus!4v1730163420007!5m2!1sen!2sus"
+                      width="100%"
+                      height="400px"
+                      style={{ border: 0 }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </>
               </Col>
-              
             </Row>
-            <div className="home-contact-us-btn-container">
+            <Row className="home-contact-us-btn-container">
               <a href="/contact-us">
                 <Button className="contact-us-btn">{t("Contact")}</Button>
               </a>
-            </div>
+          </Row>
           </Container>
         </section>
       </div>

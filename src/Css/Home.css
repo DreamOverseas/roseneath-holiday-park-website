@@ -22,7 +22,7 @@
     text-align: center;
     background-color: white;
     border-radius: 0 0 8px 8px;
-    padding: 50px 0;
+    padding-bottom: 2%;
 }
 
 .home-banner-title {
@@ -43,12 +43,13 @@
 
 .room-presentation h1,
 .home-attraction h1,
-.home-gallery h1 {
+.home-gallery h1,
+.home-contact-us h1 {
     padding-bottom: 2%;
 }
 
-.home-room-card .card-text{
-    padding-bottom:2px;
+.home-room-card .card-text {
+    padding-bottom: 2px;
 }
 
 .home-room-card {
@@ -71,13 +72,6 @@
     -webkit-line-clamp: 6;
 }
 
-/* .home-gallery-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-} */
-
 .more-btn-container {
     display: flex;
     justify-content: center;
@@ -98,6 +92,7 @@
 }
 
 .home-contact-us-board {
+    margin-top: 2%;
     display: flex;
     flex-direction: row;
     height: 400px;
@@ -108,10 +103,7 @@
 }
 
 .home-contact-us-btn-container {
-    margin-top: 4%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: 2%;
 }
 
 .room-presentation .room_slider-card {
@@ -120,7 +112,7 @@
 
 .room-presentation .slick-dots,
 .home-gallery .slick-dots {
-    bottom:-25px;
+    bottom: -25px;
 }
 
 .room-presentation .slick-dots li button:before,
@@ -164,6 +156,35 @@
     border-radius: 2%;
 }
 
+.contact-info-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.contact-row {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.contact-text {
+    flex: 1;
+    text-align: left;
+}
+
+.contact-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    font-size: 1.5rem;
+}
+
 /* Mobile Layout */
 @media (max-width: 768px) {
     .home-banner-title {
@@ -193,23 +214,33 @@
         height: auto;
     }
 
-    .home-contact-us-board .col {
+    /* Set each contact info row to take full width */
+    .home-contact-us-board .contact-info,
+    .home-map {
         width: 100%;
-    }
-
-    .home-contact-us-board .row {
         margin-bottom: 20px;
     }
 
+    /* Adjust each contact row to be full width on mobile */
+    .contact-info .contact-row {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Map should appear below contact info */
     .home-map {
-        height: 300px;
+        height: 400px;
     }
 
     .home-contact-us-btn-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 5%;
     }
 
     /* Adjust font sizes */
@@ -266,7 +297,7 @@
     }
 
     .home-room-card {
-        height:420px;
+        height: 420px;
     }
 
     .home-room-card h5 {
@@ -286,5 +317,27 @@
 
     .gallery-link {
         margin-top: 10px;
+    }
+
+    .contact-info-column {
+        width: 100%;
+    }
+
+    .contact-row {
+        flex-direction: row;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .contact-row .contact-icon {
+        justify-content: end;
+    }
+
+    .contact-text p{
+        font-size: 0.8em;
+    }
+
+    .contact-text h5{
+        font-size: 0.9em;
     }
 }
