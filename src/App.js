@@ -13,8 +13,7 @@ import "./App.css";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation";
 import About from "./Pages/About";
-import Contact from "./Pages/Contact";
-import FindUs from "./Pages/FindUs";
+import Contact from "./Pages/Contact"
 import Gallery from "./Pages/Gallery";
 import Home from "./Pages/Home";
 import Investment from "./Pages/Investment.js";
@@ -26,7 +25,6 @@ function App() {
         <Navigation />
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route path='/find-us' element={<FindUs />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />

@@ -1,44 +1,154 @@
-.home-background {
-    background-image: url("/public/home/background_image.webp");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    padding: 10px 40px;
-}
-
 .home-banner-title h1,
 .home-banner-title h3 {
     color: white;
 }
 
-.home-introduction,.home-find-us {
+.home-introduction, .home-find-us {
     padding-top: 20px;
     background-color: white;
-    border-radius:8px 8px 0 0;
+    border-radius: 8px 8px 0 0;
 }
 
-.home-find-us {
+.home-contact-us {
     text-align: center;
     background-color: white;
     border-radius: 0 0 8px 8px;
-    padding: 50px 0;
-
+    padding-bottom: 2%;
 }
 
 .home-banner-title {
+    background-image: url("/public/home/background_image.webp");
+    background-repeat: no-repeat;
+    background-position: 50% 20%;
+    background-size: cover;
+    min-height: 25vh;
     text-align: center;
     padding-top: 5%;
-    margin-bottom: 8%;
+    margin-bottom: 2%;
 }
 
-.food, .animal{
+.room-presentation,
+.home-attraction,
+.home-gallery {
+    margin-bottom: 2%;
+}
+
+.room-presentation h1,
+.home-attraction h1,
+.home-gallery h1,
+.home-contact-us h1 {
+    padding-bottom: 2%;
+}
+
+.home-room-card {
+    position: relative;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 40px;
+}
+
+.home-room-card img {
+    max-width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.home-room-card .card-body {
+    padding-bottom: 60px;
+}
+
+.home-room-card .card-text {
+    font-size: 0.8rem;
+    line-height: 1.2;
+    max-height: calc(1.2em * 6);
+    overflow: hidden;
+    position: relative;
+}
+
+.home-room-card .card-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.2em;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%);
+    pointer-events: none;
+}
+
+.home-room-card .btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.more-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+
+.gallery-link {
+    text-decoration: underline;
+    margin-top: auto;
+    color: grey;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.gallery-link:hover {
+    color: black;
+}
+
+.home-contact-us-board {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+}
+
+.home-map {
+    height: 400px;
+}
+
+.home-contact-us-btn-container {
+    margin-top: 2%;
+}
+
+.room-presentation .room_slider-card {
+    padding: 5px;
+}
+
+.room-presentation .slick-dots,
+.home-gallery .slick-dots {
+    bottom: -25px;
+}
+
+.room-presentation .slick-dots li button:before,
+.home-gallery .slick-dots li button:before {
+    font-size: 12px;
+    color: gray;
+    opacity: 1;
+}
+
+.room-presentation .slick-dots li.slick-active button:before,
+.home-gallery .slick-dots li.slick-active button:before {
+    color: #007bff;
+}
+
+.food, .animal {
     height: 300px;
     margin-bottom: 5%;
 }
+
 .landscape {
     height: 300px;
 }
+
 .animal {
     flex-direction: row-reverse;
 }
@@ -52,11 +162,40 @@
     border-radius: 2%;
 }
 
-.home-find-us-btn-container {
-    margin-top: 4%;
+.gallery-slider-img {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 2%;
+}
+
+.contact-info-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.contact-row {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.contact-text {
+    flex: 1;
+    text-align: left;
+}
+
+.contact-icon {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.icon {
+    font-size: 1.5rem;
 }
 
 /* Mobile Layout */
@@ -65,7 +204,7 @@
         margin-bottom: 5%;
     }
     
-    .food, .animal{
+    .food, .animal {
         flex-direction: column;
         height: auto;
         margin-bottom: 5%;
@@ -83,14 +222,37 @@
         border-radius: 2%;
     }
 
-    .home-find-us-btn-container {
+    .home-contact-us-board {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .home-contact-us-board .contact-info,
+    .home-map {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .contact-info .contact-row {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .home-map {
+        height: 400px;
+    }
+
+    .home-contact-us-btn-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 5%;
     }
 
-    /* Adjust font sizes */
     .home-banner-title h1 {
         font-size: 1.8em;
     }
@@ -99,22 +261,20 @@
         font-size: 1.2em;
     }
 
-    .home-introduction h2 {
-        font-size: 1.5em;
+    .home-attraction h3 {
+        font-size: 1.1em;
     }
 
-    .home-find-us h1 {
+    .home-find-us h1,
+    .home-find-us h4 {
         font-size: 1.25em;
         text-align: center;
     }
-    .home-find-us h4 {
+
+    .home-attraction p {
         font-size: 1em;
-        text-align: center;
     }
 
-    .home-introduction p {
-        font-size: 1em;
-    }
     .food-btn-container,
     .animal-btn-container,
     .landscape-btn-container {
@@ -131,7 +291,62 @@
 
     .food-info,
     .animal-info,
-    .landscape-info h2 {
+    .landscape-info h3 {
         margin-top: 2%;
+    }
+
+    .home-room-card .card-text {
+        font-size: 0.75rem;
+        line-height: 1.1;
+        max-height: calc(1.1em * 4); /* 限制移动端为 4 行 */
+    }
+
+    .home-room-card .card-text::after {
+        height: 1.1em; /* 遮罩高度与移动端行高一致 */
+    }
+
+    .home-room-card {
+        height: 420px;
+    }
+
+    .home-room-card h5 {
+        font-size: 0.9em;
+    }
+
+    .home-room-card img {
+        height: 200px;
+        object-fit: fill;
+        width: 100%;
+    }
+
+    .home-gallery-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .gallery-link {
+        margin-top: 10px;
+    }
+
+    .contact-info-column {
+        width: 100%;
+    }
+
+    .contact-row {
+        flex-direction: row;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .contact-row .contact-icon {
+        justify-content: end;
+    }
+
+    .contact-text p {
+        font-size: 0.8em;
+    }
+
+    .contact-text h5 {
+        font-size: 0.9em;
     }
 }
