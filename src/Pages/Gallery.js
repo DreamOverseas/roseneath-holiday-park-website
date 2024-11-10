@@ -63,7 +63,7 @@ const Gallery = () => {
                 pageTitle={t('Image Gallery')}
             /> <br />
             <Container>
-            <Carousel className="text-center">
+            <Carousel className="flex justify-center">
                 <Carousel.Item>
                     <Image className="slideImage" src="/GalleryImage/IMG_5151.webp" thumbnail />
                 </Carousel.Item>
@@ -76,20 +76,58 @@ const Gallery = () => {
             </Carousel>
             <br />
             <Container fluid>
-                <Row>
-                    {images.map((src, index) => (
-                        <Col key={index} xs={12} md={6} lg={4} className="mb-4">
-                            <Image
-                                className="galleryImage"
-                                src={src}
-                                thumbnail
-                                fluid
-                                onClick={() => handleImageClick(src)}
-                                style={{ cursor: 'pointer' }}
-                            />
-                        </Col>
+            <div className="container mx-auto px-4">
+                {/* Masonry Grid */}
+                <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+                    {images.map((image, index) => (
+                    <div 
+                        key={index} 
+                        className="break-inside-avoid mb-4 relative group"
+                        onClick={() => setSelectedImage(image)}
+                    >
+                        <div className="relative overflow-hidden rounded-lg">
+                        {/* Image */}
+                        <img
+                            src={image}
+                            alt={`Gallery image ${index + 1}`}
+                            className="w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                        />
+                        {/* Hover Overlay */}
+                        <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 flex items-center justify-center">
+                            <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <span className="text-white text-lg font-semibold">
+                                View
+                            </span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     ))}
-                </Row>
+                </div>
+
+                {/* Lightbox */}
+                {selectedImage && (
+                    <div 
+                    className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+                    onClick={() => setSelectedImage(null)}
+                    >
+                    <div className="max-w-4xl max-h-full">
+                        <img
+                        src={selectedImage}
+                        alt="Selected gallery image"
+                        className="max-h-[90vh] w-auto mx-auto"
+                        />
+                        <button 
+                        className="absolute top-4 right-4 text-white text-xl p-2 hover:bg-white hover:bg-opacity-20 rounded-full"
+                        onClick={() => setSelectedImage(null)}
+                        >
+                        ✕
+                        </button>
+                    </div>
+                    </div>
+                )}
+                </div>
             </Container>
             </Container>
 
