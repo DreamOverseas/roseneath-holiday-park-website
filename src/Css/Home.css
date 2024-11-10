@@ -18,7 +18,7 @@
     border-radius:8px 8px 0 0;
 }
 
-.home-find-us {
+.home-contact-us {
     text-align: center;
     background-color: white;
     border-radius: 0 0 8px 8px;
@@ -79,6 +79,15 @@
 }
 
 
+.home-contact-us-board {
+    height:400px;
+}
+
+.home-map {
+    height: 400px;
+}
+
+
 .room-presentation .room_slider-card {
     padding: 5px;
 }
@@ -128,7 +137,7 @@ color: #007bff;
     border-radius: 2%;
 }
 
-.home-find-us-btn-container {
+.home-contact-us-btn-container {
     margin-top: 4%;
     display: flex;
     justify-content: center;
@@ -159,7 +168,7 @@ color: #007bff;
         border-radius: 2%;
     }
 
-    .home-find-us-btn-container {
+    .home-contact-us-btn-container {
         display: flex;
         justify-content: center;
         align-items: center;
