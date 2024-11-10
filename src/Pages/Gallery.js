@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import "../Css/Gallery.css";
 import { Container, Row, Col, Image, Carousel, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PageTitle from "../Components/PageTitle";
 
 const Gallery = () => {
+
+    require('../Css/Tailwind.css')
+
     const { t } = useTranslation();
 
     const images = [
@@ -76,55 +78,55 @@ const Gallery = () => {
             </Carousel>
             <br />
             <Container fluid>
-            <div className="container mx-auto px-4">
-                {/* Masonry Grid */}
-                <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
-                    {images.map((image, index) => (
-                    <div 
-                        key={index} 
-                        className="break-inside-avoid mb-4 relative group"
-                        onClick={() => setSelectedImage(image)}
-                    >
-                        <div className="relative overflow-hidden rounded-lg">
-                        {/* Image */}
-                        <img
-                            src={image}
-                            alt={`Gallery image ${index + 1}`}
-                            className="w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
-                            loading="lazy"
-                        />
-                        {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 flex items-center justify-center">
-                            <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                            <span className="text-white text-lg font-semibold">
-                                View
-                            </span>
+                <div className="container mx-auto px-4">
+                    {/* Masonry Grid */}
+                    <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+                        {images.map((image, index) => (
+                        <div 
+                            key={index} 
+                            className="break-inside-avoid mb-4 relative group"
+                            onClick={() => setSelectedImage(image)}
+                        >
+                            <div className="relative overflow-hidden rounded-lg">
+                            {/* Image */}
+                            <img
+                                src={image}
+                                alt={`Gallery image ${index + 1}`}
+                                className="w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+                                loading="lazy"
+                            />
+                            {/* Hover Overlay */}
+                            <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 flex items-center justify-center">
+                                <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                <span className="text-white text-lg font-semibold">
+                                    View
+                                </span>
+                                </div>
+                            </div>
                             </div>
                         </div>
-                        </div>
+                        ))}
                     </div>
-                    ))}
-                </div>
 
-                {/* Lightbox */}
-                {selectedImage && (
-                    <div 
-                    className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
-                    onClick={() => setSelectedImage(null)}
-                    >
-                    <div className="max-w-4xl max-h-full">
-                        <img
-                        src={selectedImage}
-                        alt="Selected gallery image"
-                        className="max-h-[90vh] w-auto mx-auto"
-                        />
-                        <button 
-                        className="absolute top-4 right-4 text-white text-xl p-2 hover:bg-white hover:bg-opacity-20 rounded-full"
+                    {/* Lightbox */}
+                    {selectedImage && (
+                        <div 
+                        className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
                         onClick={() => setSelectedImage(null)}
                         >
-                        ✕
-                        </button>
-                    </div>
+                        <div className="max-w-4xl max-h-full">
+                            <img
+                            src={selectedImage}
+                            alt="Selected gallery image"
+                            className="max-h-[90vh] w-auto mx-auto"
+                            />
+                            <button 
+                            className="absolute top-4 right-4 text-white text-xl p-2 hover:bg-white hover:bg-opacity-20 rounded-full"
+                            onClick={() => setSelectedImage(null)}
+                            >
+                            ✕
+                            </button>
+                        </div>
                     </div>
                 )}
                 </div>
