@@ -1,0 +1,32 @@
+{
+    "rooms": [
+      {
+        "id":1,
+        "name": "A Rustic Cabin",
+        "subtitle":"Entire cabin in Meerlieu, Australia",
+        "description": "Welcome to our cozy cabin in a serene caravan park. Pets are welcome, and outdoor activities like campfires, boating, and fishing await by the lake. Nearby, four natural reserves offer easy access to nature. Experience authentic Australian caravan park culture on our 740,000 square meter site with self-sufficient amenities. Book now for a tranquil getaway.",
+        "image_path": "/room/rustic_cabin.webp"
+      },
+      {
+        "id":2,
+        "name": "Stylish Tent for Families",
+        "subtitle":"Tent in Meerlieu, Australia",
+        "description": "Welcome to our luxurious glamping tent nestled in the forest near the lakeside - an ideal retreat for families seeking to escape the hustle and bustle, immersing themselves beneath the starry skies. Unplug, take a stroll in nature, and perhaps even paddle a boat by the lakeside.",
+        "image_path": "/room/stylish_tent.jpg"
+      },
+      {
+        "id":3,
+        "name": "Cozy Caravan Retreat Near Lake",
+        "subtitle":"Campervan/RV in Meerlieu, Australia",
+        "description": "Reconnect with nature at this unforgettable escape.",
+        "image_path": "/room/campervan_rv.webp"
+      },
+      {
+        "id":4,
+        "name": "House in the bush",
+        "subtitle":"Entire home in Meerlieu, Australia",
+        "description": "Welcome to House in the Bush - perfect choice for a holiday for a big group of family & friends. Located in Roseneath Caravan Park, this property is a one-storey spacious house that can host up to 18 guests. Enjoy your lakeside stroll and bush walks just . Plenty of outdoor space (picnic/BBQ areas, playground, swimming pool) for the little ones to enjoy. We are very animal-friendly so no need to hesitate if you don't want your fur babies to miss out this amazing experience in the country.",
+        "image_path": "/room/entire_home.webp"
+      }
+    ]
+  }
