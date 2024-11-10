@@ -8,18 +8,20 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
-  const path = "/static_data/room.json";
+  const room_path = "/static_data/room.json";
+  const gallery_path = "/static_data/gallery.json";
   const { t } = useTranslation();
 
   const [show, setShow] = useState(false);
   const [rooms, setRooms] = useState([]);
+  const [gallery, setGallery] = useState([]);
 
   useEffect(() => {
     setShow(true);
   }, []);
 
   useEffect(() => {
-    axios.get(path)
+    axios.get(room_path)
       .then(response => {
         setRooms(response.data.rooms);
       })
@@ -28,10 +30,43 @@ const Home = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios.get(gallery_path)
+      .then(response => {
+        setGallery(response.data.gallery.slice(15,24));
+      })
+      .catch(error => {
+        console.error("Error loading JSON file:", error);
+      });
+  }, []);
+
   const handleClose = () => setShow(false);
 
-  // Slider 配置
-  const sliderSettings = {
+  const room_sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  };
+
+  const gallery_sliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -88,9 +123,9 @@ const Home = () => {
         <section className="room-presentation">
           <Container>
             <h1>Room</h1>
-            <Slider {...sliderSettings}>
+            <Slider {...room_sliderSettings}>
               {rooms.map((room) => (
-                <div key={room.id} className="slider-card">
+                <div key={room.id} className="room_slider-card">
                   <Card className="home-room-card">
                     {room.image_path ? (
                       <Card.Img
@@ -112,6 +147,7 @@ const Home = () => {
                       <p className="home-room-card-subtitle">{room.subtitle}</p>
                       <Card.Text>{room.description}</Card.Text>
                     </Card.Body>
+                    <div className="food-btn-container"><Button>{t("book_Now")}</Button></div>
                   </Card>
                 </div>
               ))}
@@ -121,16 +157,16 @@ const Home = () => {
 
         <section className="home-introduction">
           <Container>
+            <h1>Attractions</h1>
             <Row className="food">
               <Col>
-                <Image className="home-animal" src="/home/home_life.jpg" />
+                <Image className="home-animal" src="/home/home_life.jpg"/>
               </Col>
               <Col className="food-info">
                 <h2>Escape to Pure Tranquility</h2>
                 <p>
                   Escape the city's hustle and embrace a serene getaway at a camping holiday park. Here, guests enjoy the calming beauty of nature, with fresh air, star-filled skies, and peaceful surroundings. Unwind by campfires, explore scenic trails, and savor simple pleasures like morning coffee by the lake. A camping holiday park offers a refreshing, leisurely retreat perfect for relaxation.
                 </p>
-                <div className="food-btn-container"><Button>{t("book_Now")}</Button></div>
               </Col>
             </Row>
             <Row className="animal">
@@ -142,7 +178,6 @@ const Home = () => {
                 <p>
                   Experience the thrill of the wild! Discover breathtaking footage of majestic kangaroos, elusive leopards, and untamed wilderness. Our wildlife documentary brings you closer to nature's most extraordinary creatures. Witness the beauty, power, and mystery of the animal kingdom in stunning high-definition. Don't miss this incredible journey into the heart of the wild!
                 </p>
-                <div className="animal-btn-container"><Button>{t("book_Now")}</Button></div>
               </Col>
             </Row>
             <Row className="landscape">
@@ -154,9 +189,42 @@ const Home = () => {
                 <p>
                   Escape to a world of breathtaking landscapes where nature's beauty unfolds before your eyes. From serene mountain peaks to tranquil seaside sunsets, immerse yourself in the stunning vistas that refresh your soul and inspire your spirit. Experience the allure of nature like never before with Beautiful Scenery, where every view is a masterpiece.
                 </p>
-                <div className="landscape-btn-container"><Button>{t("book_Now")}</Button></div>
               </Col>
             </Row>
+          </Container>
+        </section>
+
+        <section className="home-gallery">
+          <Container>
+            <div className="gallery-header">
+              <h1>Gallery</h1>
+              <a href="/gallery" className="gallery-link">
+                {t("btn_more")}
+              </a>
+            </div>
+            <Slider {...gallery_sliderSettings}>
+              {gallery.map(picture => (
+                <div key={picture.id} className="gallery-slider">
+                    {picture.image_path ? (
+                      <Image
+                        variant="top"
+                        src={picture.image_path}
+                        alt={picture.name}
+                        className="gallery-slider-img"
+                        thumbnail
+                      />
+                    ) : (
+                      <Image
+                        variant="top"
+                        src="https://placehold.co/250x350"
+                        alt="Placeholder"
+                        className="gallery-slider-img"
+                        thumbnail
+                      />
+                    )}
+                </div>
+              ))}
+            </Slider>
           </Container>
         </section>
         

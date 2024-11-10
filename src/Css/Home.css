@@ -58,21 +58,45 @@
 }
 
 
-.room-presentation .slider-card {
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.gallery-link {
+    text-decoration: underline;
+    margin-top: auto;
+    color: grey;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.gallery-link:hover {
+    color: black;
+}
+
+
+.room-presentation .room_slider-card {
     padding: 5px;
 }
 
-.room-presentation .slick-dots {
+.room-presentation .slick-dots,
+.home-gallery .slick-dots {
     bottom: -20px;
   }
   
-.room-presentation .slick-dots li button:before {
+.room-presentation .slick-dots li button:before,
+.home-gallery .slick-dots li button:before{
 font-size: 12px;
 color: gray;
 opacity: 1;
 }
 
-.room-presentation .slick-dots li.slick-active button:before {
+.room-presentation .slick-dots li.slick-active button:before,
+.home-gallery .slick-dots li.slick-active button:before {
 color: #007bff;
 }
 
@@ -90,6 +114,14 @@ color: #007bff;
 .home-food,
 .home-animal,
 .home-landscape {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 2%;
+}
+
+
+.gallery-slider-img {
     height: 300px;
     object-fit: cover;
     width: 100%;
