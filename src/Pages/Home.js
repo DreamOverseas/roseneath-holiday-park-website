@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import "../Css/Home.css";
 import { Container, Row, Col, Image, Button, Modal, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -147,16 +146,21 @@ const Home = () => {
                       <Card.Title title={room.name}>{room.name}</Card.Title>
                       <p className="home-room-card-subtitle">{room.subtitle}</p>
                       <Card.Text>{room.description}</Card.Text>
+                      <div className="food-btn-container"><Button>{t("book_Now")}</Button></div>
                     </Card.Body>
-                    <div className="food-btn-container"><Button>{t("book_Now")}</Button></div>
                   </Card>
                 </div>
               ))}
             </Slider>
+            <div className="more-btn-container">
+              <a href="/gallery" className="gallery-link">
+                {t("btn_more")}
+              </a>
+            </div>
           </Container>
         </section>
 
-        <section className="home-introduction">
+        <section className="home-attraction">
           <Container>
             <h1>Attractions</h1>
             <Row className="food">
@@ -164,7 +168,7 @@ const Home = () => {
                 <Image className="home-animal" src="/home/home_life.jpg"/>
               </Col>
               <Col className="food-info">
-                <h2>Escape to Pure Tranquility</h2>
+                <h3>Escape to Pure Tranquility</h3>
                 <p>
                   Escape the city's hustle and embrace a serene getaway at a camping holiday park. Here, guests enjoy the calming beauty of nature, with fresh air, star-filled skies, and peaceful surroundings. Unwind by campfires, explore scenic trails, and savor simple pleasures like morning coffee by the lake. A camping holiday park offers a refreshing, leisurely retreat perfect for relaxation.
                 </p>
@@ -175,7 +179,7 @@ const Home = () => {
                 <Image className="home-food" src="/home/home_animal.webp" />
               </Col>
               <Col className="animal-info">
-                <h2>Wild Animals</h2>
+                <h3>Wild Animals</h3>
                 <p>
                   Experience the thrill of the wild! Discover breathtaking footage of majestic kangaroos, elusive leopards, and untamed wilderness. Our wildlife documentary brings you closer to nature's most extraordinary creatures. Witness the beauty, power, and mystery of the animal kingdom in stunning high-definition. Don't miss this incredible journey into the heart of the wild!
                 </p>
@@ -186,7 +190,7 @@ const Home = () => {
                 <Image className="home-landscape" src="/home/home_landscape.webp" />
               </Col>
               <Col className="landscape-info">
-                <h2>Beautiful Landscape</h2>
+                <h3>Beautiful Landscape</h3>
                 <p>
                   Escape to a world of breathtaking landscapes where nature's beauty unfolds before your eyes. From serene mountain peaks to tranquil seaside sunsets, immerse yourself in the stunning vistas that refresh your soul and inspire your spirit. Experience the allure of nature like never before with Beautiful Scenery, where every view is a masterpiece.
                 </p>
@@ -199,9 +203,6 @@ const Home = () => {
           <Container>
             <div className="home-gallery-header">
               <h1>Gallery</h1>
-              <a href="/gallery" className="gallery-link">
-                {t("btn_more")}
-              </a>
             </div>
             <Slider {...gallery_sliderSettings}>
               {gallery.map(picture => (
@@ -226,6 +227,11 @@ const Home = () => {
                 </div>
               ))}
             </Slider>
+            <div className="more-btn-container">
+              <a href="/gallery" className="gallery-link">
+                {t("btn_more")}
+              </a>
+            </div>
           </Container>
         </section>
         

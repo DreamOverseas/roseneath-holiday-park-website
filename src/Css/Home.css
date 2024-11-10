@@ -12,10 +12,10 @@
     color: black;
 }
 
-.home-introduction,.home-find-us {
+.home-introduction, .home-find-us {
     padding-top: 20px;
     background-color: white;
-    border-radius:8px 8px 0 0;
+    border-radius: 8px 8px 0 0;
 }
 
 .home-contact-us {
@@ -23,7 +23,6 @@
     background-color: white;
     border-radius: 0 0 8px 8px;
     padding: 50px 0;
-
 }
 
 .home-banner-title {
@@ -33,12 +32,27 @@
     min-height: 30vh;
     text-align: center;
     padding-top: 5%;
-    margin-bottom:2%;
+    margin-bottom: 2%;
+}
 
+.room-presentation,
+.home-attraction,
+.home-gallery {
+    margin-bottom: 2%;
+}
+
+.room-presentation h1,
+.home-attraction h1,
+.home-gallery h1 {
+    padding-bottom: 2%;
+}
+
+.home-room-card .card-text{
+    padding-bottom:2px;
 }
 
 .home-room-card {
-    height:500px;
+    height: 500px;
 }
 
 .home-room-card img {
@@ -54,15 +68,20 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp:6;
+    -webkit-line-clamp: 6;
 }
 
-
-.home-gallery-header {
+/* .home-gallery-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+} */
+
+.more-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
 }
 
 .gallery-link {
@@ -78,15 +97,22 @@
     color: black;
 }
 
-
 .home-contact-us-board {
-    height:400px;
+    display: flex;
+    flex-direction: row;
+    height: 400px;
 }
 
 .home-map {
     height: 400px;
 }
 
+.home-contact-us-btn-container {
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .room-presentation .room_slider-card {
     padding: 5px;
@@ -94,28 +120,30 @@
 
 .room-presentation .slick-dots,
 .home-gallery .slick-dots {
-    bottom: -20px;
-  }
-  
+    bottom:-25px;
+}
+
 .room-presentation .slick-dots li button:before,
-.home-gallery .slick-dots li button:before{
-font-size: 12px;
-color: gray;
-opacity: 1;
+.home-gallery .slick-dots li button:before {
+    font-size: 12px;
+    color: gray;
+    opacity: 1;
 }
 
 .room-presentation .slick-dots li.slick-active button:before,
 .home-gallery .slick-dots li.slick-active button:before {
-color: #007bff;
+    color: #007bff;
 }
 
-.food, .animal{
+.food, .animal {
     height: 300px;
     margin-bottom: 5%;
 }
+
 .landscape {
     height: 300px;
 }
+
 .animal {
     flex-direction: row-reverse;
 }
@@ -129,19 +157,11 @@ color: #007bff;
     border-radius: 2%;
 }
 
-
 .gallery-slider-img {
     height: 300px;
     object-fit: cover;
     width: 100%;
     border-radius: 2%;
-}
-
-.home-contact-us-btn-container {
-    margin-top: 4%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* Mobile Layout */
@@ -150,7 +170,7 @@ color: #007bff;
         margin-bottom: 5%;
     }
     
-    .food, .animal{
+    .food, .animal {
         flex-direction: column;
         height: auto;
         margin-bottom: 5%;
@@ -166,6 +186,23 @@ color: #007bff;
         height: 200px;
         width: 100%;
         border-radius: 2%;
+    }
+
+    .home-contact-us-board {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .home-contact-us-board .col {
+        width: 100%;
+    }
+
+    .home-contact-us-board .row {
+        margin-bottom: 20px;
+    }
+
+    .home-map {
+        height: 300px;
     }
 
     .home-contact-us-btn-container {
@@ -184,22 +221,20 @@ color: #007bff;
         font-size: 1.2em;
     }
 
-    .home-introduction h2 {
-        font-size: 1.5em;
+    .home-attraction h3 {
+        font-size: 1.1em;
     }
 
-    .home-find-us h1 {
+    .home-find-us h1,
+    .home-find-us h4 {
         font-size: 1.25em;
         text-align: center;
     }
-    .home-find-us h4 {
+
+    .home-attraction p {
         font-size: 1em;
-        text-align: center;
     }
 
-    .home-introduction p {
-        font-size: 1em;
-    }
     .food-btn-container,
     .animal-btn-container,
     .landscape-btn-container {
@@ -216,7 +251,40 @@ color: #007bff;
 
     .food-info,
     .animal-info,
-    .landscape-info h2 {
+    .landscape-info h3 {
         margin-top: 2%;
+    }
+
+    .home-room-card .card-text {
+        font-size: 0.8rem;
+        line-height: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 4;
+    }
+
+    .home-room-card {
+        height:420px;
+    }
+
+    .home-room-card h5 {
+        font-size: 0.9em;
+    }
+
+    .home-room-card img {
+        height: 200px;
+        object-fit: fill;
+        width: 100%;
+    }
+
+    .home-gallery-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .gallery-link {
+        margin-top: 10px;
     }
 }
