@@ -116,7 +116,7 @@ const Home = () => {
 
         <section className="home-banner-subtitle">
           <Container>
-            <h3>Start your journey now!</h3>
+            <h4>Start your journey now!</h4>
           </Container>
         </section>
 
@@ -146,14 +146,14 @@ const Home = () => {
                       <Card.Title title={room.name}>{room.name}</Card.Title>
                       <p className="home-room-card-subtitle">{room.subtitle}</p>
                       <Card.Text>{room.description}</Card.Text>
-                      <div className="food-btn-container"><Button>{t("book_Now")}</Button></div>
+                      <Button>{t("book_Now")}</Button>
                     </Card.Body>
                   </Card>
                 </div>
               ))}
             </Slider>
             <div className="more-btn-container">
-              <a href="/gallery" className="gallery-link">
+              <a href="/" className="gallery-link">
                 {t("btn_more")}
               </a>
             </div>

@@ -1,15 +1,6 @@
-/* .home-background {
-    background-image: url("/public/home/background_image.webp");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    padding: 10px 40px;
-} */
-
 .home-banner-title h1,
 .home-banner-title h3 {
-    color: black;
+    color: white;
 }
 
 .home-introduction, .home-find-us {
@@ -27,9 +18,10 @@
 
 .home-banner-title {
     background-image: url("/public/home/background_image.webp");
-    background-size: cover;
     background-repeat: no-repeat;
-    min-height: 30vh;
+    background-position: 50% 20%;
+    background-size: cover;
+    min-height: 25vh;
     text-align: center;
     padding-top: 5%;
     margin-bottom: 2%;
@@ -48,12 +40,13 @@
     padding-bottom: 2%;
 }
 
-.home-room-card .card-text {
-    padding-bottom: 2px;
-}
-
 .home-room-card {
+    position: relative;
     height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 40px;
 }
 
 .home-room-card img {
@@ -62,14 +55,34 @@
     object-fit: cover;
 }
 
+.home-room-card .card-body {
+    padding-bottom: 60px;
+}
+
 .home-room-card .card-text {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1.2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    max-height: calc(1.2em * 6);
     overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 6;
+    position: relative;
+}
+
+.home-room-card .card-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.2em;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%);
+    pointer-events: none;
+}
+
+.home-room-card .btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .more-btn-container {
@@ -214,14 +227,12 @@
         height: auto;
     }
 
-    /* Set each contact info row to take full width */
     .home-contact-us-board .contact-info,
     .home-map {
         width: 100%;
         margin-bottom: 20px;
     }
 
-    /* Adjust each contact row to be full width on mobile */
     .contact-info .contact-row {
         flex-direction: row;
         width: 100%;
@@ -231,7 +242,6 @@
         border-bottom: 1px solid #ddd;
     }
 
-    /* Map should appear below contact info */
     .home-map {
         height: 400px;
     }
@@ -243,7 +253,6 @@
         margin-top: 5%;
     }
 
-    /* Adjust font sizes */
     .home-banner-title h1 {
         font-size: 1.8em;
     }
@@ -287,13 +296,13 @@
     }
 
     .home-room-card .card-text {
-        font-size: 0.8rem;
-        line-height: 1;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 4;
+        font-size: 0.75rem;
+        line-height: 1.1;
+        max-height: calc(1.1em * 4); /* 限制移动端为 4 行 */
+    }
+
+    .home-room-card .card-text::after {
+        height: 1.1em; /* 遮罩高度与移动端行高一致 */
     }
 
     .home-room-card {
@@ -333,11 +342,11 @@
         justify-content: end;
     }
 
-    .contact-text p{
+    .contact-text p {
         font-size: 0.8em;
     }
 
-    .contact-text h5{
+    .contact-text h5 {
         font-size: 0.9em;
     }
 }
