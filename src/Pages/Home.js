@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import "../Css/Home.css";
 import { Container, Row, Col, Image, Button, Modal, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -278,7 +279,9 @@ const Home = () => {
               
             </Row>
             <div className="home-contact-us-btn-container">
-              <Button className="contact-us-btn">{t("Contact")}</Button>
+              <a href="/contact-us">
+                <Button className="contact-us-btn">{t("Contact")}</Button>
+              </a>
             </div>
           </Container>
         </section>
