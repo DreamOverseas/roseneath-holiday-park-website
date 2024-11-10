@@ -196,7 +196,7 @@ const Home = () => {
 
         <section className="home-gallery">
           <Container>
-            <div className="gallery-header">
+            <div className="home-gallery-header">
               <h1>Gallery</h1>
               <a href="/gallery" className="gallery-link">
                 {t("btn_more")}
