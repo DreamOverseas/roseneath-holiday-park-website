@@ -1,0 +1,42 @@
+.room-list {
+  padding: 20px;
+  text-align: center;
+}
+
+.room-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.room-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 250px;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s;
+  padding: 15px;
+}
+
+.room-card:hover {
+  transform: scale(1.05);
+}
+
+.room-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.room-name {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.room-subtitle {
+  font-size: 14px;
+  color: #555;
+}
