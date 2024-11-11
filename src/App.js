@@ -17,6 +17,7 @@ import Contact from "./Pages/Contact"
 import Gallery from "./Pages/Gallery";
 import Home from "./Pages/Home";
 import Investment from "./Pages/Investment.js";
+import Room from "./Pages/Room.js";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
           <Route path='/investment' element={<Investment />} />
+          <Route path='/room' element={<Room />} />
         </Routes>
         <Footer />
       </div>
