@@ -46,6 +46,13 @@ const Navigation = () => {
               </Nav.Link>
               
               <Nav.Link
+                className={`NavWord ${location.pathname === '/room' ? 'NavActive' : ''}`}
+                href="/room"
+              >
+                {t('Room')}
+              </Nav.Link>
+
+              <Nav.Link
                 className={`NavWord ${location.pathname === '/gallery' ? 'NavActive' : ''}`}
                 href="/gallery"
               >
