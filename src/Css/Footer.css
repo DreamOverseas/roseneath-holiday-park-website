@@ -1,32 +1,103 @@
 .footer-body {
-    width: 100%;
-    background-color: rgb(17, 24, 39);
+  background-color: #2c3e50;
+  padding: 20px 0;
+  color: #ecf0f1;
+  font-family: Arial, sans-serif;
+}
+
+.footer-logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .footer-logo {
-    margin: 16px;
-    margin-right: 2px !important;
-    height: 50px;
-    width: auto;
+  width: 80px; /* Increased logo size */
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .footer-slogan-text {
-    display: flex;
-    align-items: center;  /* Centers vertically */
-    font-size: small;
-    color: aliceblue;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ecf0f1;
+}
+
+.footer-contact-info {
+  text-align: left !important; /* Force left alignment */
+}
+
+.footer-section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ecf0f1;
+  margin-bottom: 10px;
+}
+
+.footer-contact-info p {
+  margin: 5px 0;
+  color: #bdc3c7;
+}
+
+.footer-button-section {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .footer-button {
-    margin: 20px;
-    height: 40px;
-    width: 155px;
+  background-color: #e67e22;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
+.footer-button:hover {
+  background-color: #d35400;
+  color: #fff;
+}
+
+.footer-body .container {
+  max-width: 1200px;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-    .footer-button {
-        margin: 30px;
-        height: 40px;
-        width: 80vw;
-    }
+  .footer-body {
+    text-align: center;
+  }
+
+  .footer-logo-section {
+    justify-content: center;
+  }
+
+  .footer-contact-info {
+    text-align: left; /* Remains left-aligned on smaller screens */
+  }
+
+  .footer-button-section {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .footer-logo {
+    width: 70px; /* Slightly reduce logo size for smaller screens */
+  }
+
+  .footer-slogan-text {
+    font-size: 16px;
+  }
+
+  .footer-button {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-contact-info p {
+    font-size: 14px;
+  }
 }

@@ -13,12 +13,12 @@ import "./App.css";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation";
 import About from "./Pages/About";
-import Contact from "./Pages/Contact"
+import Contact from "./Pages/Contact";
 import Gallery from "./Pages/Gallery";
 import Home from "./Pages/Home";
 import Investment from "./Pages/Investment.js";
-import Room from "./Pages/Room.js";
-
+import RoomDetail from "./Pages/RoomDetail";
+import RoomList from "./Pages/RoomList.js";
 function App() {
   return (
     <I18nextProvider i18n={i18n}>
@@ -30,7 +30,8 @@ function App() {
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
           <Route path='/investment' element={<Investment />} />
-          <Route path='/room' element={<Room />} />
+          <Route path='/roomlist' element={<RoomList />} />
+          <Route path='/room/:id' element={<RoomDetail />} />
         </Routes>
         <Footer />
       </div>
