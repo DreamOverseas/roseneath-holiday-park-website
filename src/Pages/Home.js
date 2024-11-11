@@ -8,8 +8,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
-  const room_path = "/static_data/room.json";
-  const gallery_path = "/static_data/gallery.json";
+  // const room_path = "/static_data/room.json";
+  // const gallery_path = "/static_data/gallery.json";
+  const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
+  const CMS_token = process.env.REACT_APP_CMS_TOKEN;
   const { t } = useTranslation();
 
   const [show, setShow] = useState(false);
@@ -21,24 +23,49 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(room_path)
-      .then(response => {
-        setRooms(response.data.rooms);
-      })
-      .catch(error => {
-        console.error("Error loading JSON file:", error);
-      });
+    const fetchRooms = async () => {
+      try {
+        const response = await axios.get(`${CMS_endpoint}/api/room-types?populate=Cover`, {
+          headers: {
+            Authorization: `Bearer ${CMS_token}`,
+          },
+        });
+        setRooms(response.data.data);
+      } catch (error) {
+        console.error("Error loading:", error);
+      }
+    };
+  
+    fetchRooms();
   }, []);
+  
 
   useEffect(() => {
-    axios.get(gallery_path)
-      .then(response => {
-        setGallery(response.data.gallery.slice(15,24));
-      })
-      .catch(error => {
-        console.error("Error loading JSON file:", error);
-      });
+    const fetchGalleryPreview = async () => {
+      try {
+        const response = await axios.get(`${CMS_endpoint}/api/media-images?filters[PageLocation][$eq]=gallery&populate=Image`, {
+          headers: {
+            Authorization: `Bearer ${CMS_token}`,
+          },
+        });
+  
+        // Check the data structure and safely retrieve the images
+        const images = response.data.data[0].Image;
+        console.log("Gallery: ");
+        console.log(images);
+        if (images) {
+          setGallery(images.slice(15, 24));
+        } else {
+          console.warn("No images found in response data.");
+        }
+      } catch (error) {
+        console.error("Error loading:", error);
+      }
+    };
+  
+    fetchGalleryPreview();
   }, []);
+  
 
   const handleClose = () => setShow(false);
 
@@ -127,11 +154,11 @@ const Home = () => {
               {rooms.map((room) => (
                 <div key={room.id} className="room_slider-card">
                   <Card className="home-room-card">
-                    {room.image_path ? (
+                    {room.Cover.url ? (
                       <Card.Img
                         variant="top"
-                        src={room.image_path}
-                        alt={room.name}
+                        src={`${CMS_endpoint}${room.Cover.url}`}
+                        alt={room.Name_en}
                         className="slider-card-img"
                       />
                     ) : (
@@ -143,9 +170,9 @@ const Home = () => {
                       />
                     )}
                     <Card.Body>
-                      <Card.Title title={room.name}>{room.name}</Card.Title>
-                      <p className="home-room-card-subtitle">{room.subtitle}</p>
-                      <Card.Text>{room.description}</Card.Text>
+                      <Card.Title title={room.Name_en}>{room.Name_en}</Card.Title>
+                      <p className="home-room-card-subtitle">{room.Title_en}</p>
+                      <Card.Text>{room.Description_en}</Card.Text>
                       <Button>{t("book_Now")}</Button>
                     </Card.Body>
                   </Card>
@@ -205,11 +232,11 @@ const Home = () => {
             <Slider {...gallery_sliderSettings}>
               {gallery.map(picture => (
                 <div key={picture.id} className="gallery-slider">
-                    {picture.image_path ? (
+                    {picture.url ? (
                       <Image
                         variant="top"
-                        src={picture.image_path}
-                        alt={picture.name}
+                        src={`${CMS_endpoint}${picture.url}`}
+                        alt={picture.Name}
                         className="gallery-slider-img"
                         thumbnail
                       />
