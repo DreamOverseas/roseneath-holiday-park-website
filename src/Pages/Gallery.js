@@ -67,7 +67,7 @@ const Gallery = () => {
             {/* I don't know why <Container className="pb-8"> in here didn't work :( */}
             <Container style={{ paddingBottom: '2rem' }}>
             <Container className="d-flex justify-content-center">
-                <Carousel className="flex">
+                <Carousel className="flex w-80%">
                     <Carousel.Item>
                         <Image className="slideImage" src="/GalleryImage/IMG_5151.webp" thumbnail />
                     </Carousel.Item>
