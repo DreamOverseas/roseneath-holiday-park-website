@@ -28,6 +28,9 @@ const RoomDetail = () => {
           },
         });
         
+        console.log("Room is currently: ");
+        console.log(response.data.data.find(r => r.Name_en === Name_en));
+
         setRoom(response.data.data.find(r => r.Name_en === Name_en));
       } catch (error) {
         console.error("Error loading:", error);
@@ -42,13 +45,13 @@ const RoomDetail = () => {
   return (
     <div className='room-detail'>
       <img
-        src={room.image_path}
-        alt={room.name}
+        src={`${CMS_endpoint}${room.Cover.url}`}
+        alt={room.Name_en}
         className='room-detail-image'
       />
-      <h1 className='room-detail-name'>{room.name}</h1>
-      <p className='room-detail-subtitle'>{room.subtitle}</p>
-      <p className='room-detail-description'>{room.description}</p>
+      <h1 className='room-detail-name'>{room.Name_en}</h1>
+      <p className='room-detail-subtitle'>{room.Title_en}</p>
+      <p className='room-detail-description'>{room.Description_en}</p>
     </div>
   );
 };
