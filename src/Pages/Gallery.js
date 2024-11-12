@@ -103,8 +103,8 @@ const Gallery = () => {
         fetchGalleryPreview();
     }, []);
 
-    const handleImageClick = (src) => {
-        setSelectedImage(src);
+    const handleImageClick = (imageUrl) => {
+        setSelectedImage(imageUrl);
         setShowModal(true);
     };
 
@@ -136,7 +136,7 @@ const Gallery = () => {
                                 <div
                                     key={index}
                                     className="break-inside-avoid mb-4 relative group"
-                                    onClick={() => handleImageClick(image)}
+                                    onClick={() => handleImageClick(`${CMS_endpoint}${image.url}`)}
                                 >
                                     <div className="relative overflow-hidden rounded-lg">
                                         {/* Image */}
