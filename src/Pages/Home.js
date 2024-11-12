@@ -180,7 +180,7 @@ const Home = () => {
               ))}
             </Slider>
             <div className="more-btn-container">
-              <a href="/" className="gallery-link">
+              <a href="/roomlist" className="gallery-link">
                 {t("btn_more")}
               </a>
             </div>

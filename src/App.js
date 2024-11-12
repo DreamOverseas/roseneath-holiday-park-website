@@ -31,7 +31,7 @@ function App() {
           <Route path='/contact-us' element={<Contact />} />
           <Route path='/investment' element={<Investment />} />
           <Route path='/roomlist' element={<RoomList />} />
-          <Route path='/room/:id' element={<RoomDetail />} />
+          <Route path='/room/:Name_en' element={<RoomDetail />} />
         </Routes>
         <Footer />
       </div>
