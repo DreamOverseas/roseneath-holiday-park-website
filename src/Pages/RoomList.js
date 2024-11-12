@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../Css/RoomList.css";
@@ -5,10 +6,24 @@ import "../Css/RoomList.css";
 const RoomList = () => {
   const [rooms, setRooms] = useState([]);
 
+  const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
+  const CMS_token = process.env.REACT_APP_CMS_TOKEN;
+
   useEffect(() => {
-    fetch("/static_data/room.json")
-      .then(response => response.json())
-      .then(data => setRooms(data.rooms));
+    const fetchRooms = async () => {
+      try {
+        const response = await axios.get(`${CMS_endpoint}/api/room-types?populate=Cover`, {
+          headers: {
+            Authorization: `Bearer ${CMS_token}`,
+          },
+        });
+        setRooms(response.data.data);
+      } catch (error) {
+        console.error("Error loading:", error);
+      }
+    };
+  
+    fetchRooms();
   }, []);
 
   return (
@@ -16,10 +31,10 @@ const RoomList = () => {
       <h1>Our Accommodations</h1>
       <div className='room-grid'>
         {rooms.map(room => (
-          <Link key={room.id} to={`/room/${room.id}`} className='room-card'>
-            <img src={room.image_path} alt={room.name} className='room-image' />
-            <h2 className='room-name'>{room.name}</h2>
-            <p className='room-subtitle'>{room.subtitle}</p>
+          <Link key={room.id} to={`/room/${room.Name_en}`} className='room-card'>
+            <img src={`${CMS_endpoint}${room.Cover.url}`} alt={room.Name_en} className='room-image' />
+            <h2 className='room-name'>{room.Name_en}</h2>
+            <p className='room-subtitle'>{room.Title_en}</p>
           </Link>
         ))}
       </div>
