@@ -1,5 +1,5 @@
 # Roseneath Holiday Park Website by React
-Current Version: 2.1 [Deployed (Click to view)](https://roseneathholidaypark.au/)
+Current Version: 3.2 [Deployed (Click to view)](https://roseneathholidaypark.au/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -46,10 +46,11 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+
 ## Role in Dev:
 Joshua: Navbar, Gallery Page \
 Hanny: Page Footer, Contact Us \
 Stephen: Home Page, Find Us \
 Evan: About Us, Translation
 
-Last Edit: 02/11/2024
+Last Edit: 12/11/2024
