@@ -51,8 +51,6 @@ const Home = () => {
   
         // Check the data structure and safely retrieve the images
         const images = response.data.data[0].Image;
-        console.log("Gallery: ");
-        console.log(images);
         if (images) {
           setGallery(images.slice(15, 24));
         } else {

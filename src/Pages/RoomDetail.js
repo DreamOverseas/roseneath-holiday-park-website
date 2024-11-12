@@ -27,9 +27,6 @@ const RoomDetail = () => {
             Authorization: `Bearer ${CMS_token}`,
           },
         });
-        
-        console.log("Room is currently: ");
-        console.log(response.data.data.find(r => r.Name_en === Name_en));
 
         setRoom(response.data.data.find(r => r.Name_en === Name_en));
       } catch (error) {

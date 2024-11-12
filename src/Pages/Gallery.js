@@ -69,8 +69,6 @@ const Gallery = () => {
 
                 // Check the data structure and safely retrieve the images
                 const images = response.data.data[0].Image;
-                console.log("Gallery Images: ");
-                console.log(images);
                 if (images) {
                     setGalleryImages(images);
                 } else {
@@ -91,8 +89,6 @@ const Gallery = () => {
 
                 // Check the data structure and safely retrieve the images
                 const images = response.data.data[0].Image;
-                console.log("Gallery Sliders: ");
-                console.log(images);
                 if (images) {
                     setSliderImages(images);
                 } else {
@@ -120,6 +116,7 @@ const Gallery = () => {
                 pageTitle={t('Image Gallery')}
             /> <br />
             {/* I don't know why <Container className="pb-8"> in here didn't work :( */}
+            {/* A: There must be some myth overrides over the bootstap original settings... */}
             <Container style={{ paddingBottom: '2rem' }}>
                 <Container className="d-flex justify-content-center">
                     <Carousel className="flex w-80%">
