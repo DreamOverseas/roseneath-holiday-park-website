@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
-  // const room_path = "/static_data/room.json";
+  // const room_path = "/static_data/room.json";                // Commended for update, pls detele after verified
   // const gallery_path = "/static_data/gallery.json";
   const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
   const CMS_token = process.env.REACT_APP_CMS_TOKEN;
@@ -51,8 +51,6 @@ const Home = () => {
   
         // Check the data structure and safely retrieve the images
         const images = response.data.data[0].Image;
-        console.log("Gallery: ");
-        console.log(images);
         if (images) {
           setGallery(images.slice(15, 24));
         } else {
@@ -180,7 +178,7 @@ const Home = () => {
               ))}
             </Slider>
             <div className="more-btn-container">
-              <a href="/" className="gallery-link">
+              <a href="/roomlist" className="gallery-link">
                 {t("btn_more")}
               </a>
             </div>
@@ -327,4 +325,5 @@ const Home = () => {
     </>
   );
 };
+
 export default Home;
