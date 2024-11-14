@@ -135,19 +135,19 @@ const Home = () => {
 
       <div>
         <section className="home-banner-title">
-          <h1>Roseneath Holiday Park</h1>
-          <strong><h3>By Lake Willington</h3></strong>
+          <h1>{t("home_place_name")}</h1>
+          <strong><h3>{t("home_place_short_description")}</h3></strong>
         </section>
 
         <section className="home-banner-subtitle">
           <Container>
-            <h4>Start your journey now!</h4>
+            <h4>{t("home_cheerup")}</h4>
           </Container>
         </section>
 
         <section className="room-presentation">
           <Container>
-            <h1>Room</h1>
+            <h1>{t("Room")}</h1>
             <Slider {...room_sliderSettings}>
               {rooms.map((room) => (
                 <div key={room.id} className="room_slider-card">
@@ -187,15 +187,15 @@ const Home = () => {
 
         <section className="home-attraction">
           <Container>
-            <h1>Attractions</h1>
+            <h1>{t("home_attraction")}</h1>
             <Row className="food">
               <Col>
                 <Image className="home-animal" src="/home/home_life.jpg"/>
               </Col>
               <Col className="food-info">
-                <h3>Escape to Pure Tranquility</h3>
+                <h3>{t("home_section1_title")}</h3>
                 <p>
-                  Escape the city's hustle and embrace a serene getaway at a camping holiday park. Here, guests enjoy the calming beauty of nature, with fresh air, star-filled skies, and peaceful surroundings. Unwind by campfires, explore scenic trails, and savor simple pleasures like morning coffee by the lake. A camping holiday park offers a refreshing, leisurely retreat perfect for relaxation.
+                {t("home_section1_txt")}
                 </p>
               </Col>
             </Row>
@@ -204,9 +204,9 @@ const Home = () => {
                 <Image className="home-food" src="/home/home_animal.webp" />
               </Col>
               <Col className="animal-info">
-                <h3>Wild Animals</h3>
+                <h3>{t("home_section2_title")}</h3>
                 <p>
-                  Experience the thrill of the wild! Discover breathtaking footage of majestic kangaroos, elusive leopards, and untamed wilderness. Our wildlife documentary brings you closer to nature's most extraordinary creatures. Witness the beauty, power, and mystery of the animal kingdom in stunning high-definition. Don't miss this incredible journey into the heart of the wild!
+                {t("home_section2_txt")}
                 </p>
               </Col>
             </Row>
@@ -215,10 +215,10 @@ const Home = () => {
                 <Image className="home-landscape" src="/home/home_landscape.webp" />
               </Col>
               <Col className="landscape-info">
-                <h3>Beautiful Landscape</h3>
+                <h3>{t("home_section3_title")}</h3>
                 <p>
-                  Escape to a world of breathtaking landscapes where nature's beauty unfolds before your eyes. From serene mountain peaks to tranquil seaside sunsets, immerse yourself in the stunning vistas that refresh your soul and inspire your spirit. Experience the allure of nature like never before with Beautiful Scenery, where every view is a masterpiece.
-                </p>
+                {t("home_section3_txt")}
+                  </p>
               </Col>
             </Row>
           </Container>
@@ -226,7 +226,7 @@ const Home = () => {
 
         <section className="home-gallery">
           <Container>
-            <h1>Gallery</h1>
+            <h1>{t("Gallery")}</h1>
             <Slider {...gallery_sliderSettings}>
               {gallery.map(picture => (
                 <div key={picture.id} className="gallery-slider">
@@ -260,16 +260,16 @@ const Home = () => {
         
         <section className="home-contact-us">
           <Container>
-            <h1>Roseneath Holiday Park</h1>
-            <strong><h4>Landed in between seaside & lake reserve</h4></strong>
-            <strong><h4>Customize Your own Journey</h4></strong>
+            <h1>{t("home_place_name")}</h1>
+            <strong><h4>{t("home_place_description_l1")}</h4></strong>
+            <strong><h4>{t("home_place_description_l2")}</h4></strong>
             <Row className="home-contact-us-board">
 
               <Col className="contact-info-column" md={5}>
               
                   <Row className="contact-row">
                       <Col className="contact-text">
-                          <h5>Telephone Number</h5>
+                          <h5>{t("telephone")}</h5>
                           <p>+61 (03) 5157-8298</p>
                       </Col>
                       <Col className="contact-icon">
@@ -279,7 +279,7 @@ const Home = () => {
 
                   <Row className="contact-row">
                       <Col className="contact-text">
-                          <h5>Email</h5>
+                          <h5>{t("email")}</h5>
                           <p>info@roseneathholidaypark.au</p>
                       </Col>
                       <Col className="contact-icon">
@@ -289,7 +289,7 @@ const Home = () => {
 
                   <Row className="contact-row">
                       <Col className="contact-text">
-                          <h5>Address</h5>
+                          <h5>{t("address")}</h5>
                           <p>422 Woodpile Rd<br />Meerlieu VIC 3862<br />Australia</p>
                       </Col>
                       <Col className="contact-icon">
