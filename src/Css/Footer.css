@@ -40,6 +40,24 @@
   color: #bdc3c7;
 }
 
+.footer-aboutus-info {
+  text-align: left !important; /* Force left alignment */
+}
+
+.footer-aboutus-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.footer-aboutus-info p {
+  margin: 5px 0;
+  font-size: 0.8rem;
+  color: #bdc3c7;
+}
+
 .footer-button-section {
   display: flex;
   justify-content: flex-end;
