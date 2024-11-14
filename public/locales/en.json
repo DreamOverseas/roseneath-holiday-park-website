@@ -1,4 +1,7 @@
 {
+  "telephone": "Telephone",
+  "email": "Email",
+  "address": "Address",
   "contactForm_name": "Name",
   "contactForm_phone": "Phone",
   "contactForm_email": "Email",
@@ -42,5 +45,6 @@
   "contactForm_question_placeholder": "Enter your question",
   "welcome_title": "Welcome!",
   "welcome_text": "Welcome to our website!\n\nThe booking system is integrating and will be launched soon. If you would like to make a reservation now, please contact the campsite by phone at: +61 (03) 5157-8298.",
-  "Room": "Room"
+  "Room": "Room",
+  "footer_slogan": "In the Bush - By the Beach"
 }
