@@ -56,10 +56,11 @@ const RoomDetail = () => {
         ? room.Title_zh
         : room.Title_en}
       </p>
-      <p className='room-detail-description'>{i18n.language === "zh"
-        ? room.Description_zh
-        : room.Description_en}
-      </p>
+      {/* Set description with the more detailed info */}
+      <div dangerouslySetInnerHTML={i18n.language === "zh"
+        ? { __html: room.Details_zh }
+        : { __html: room.Details_en }
+        } />
     </div>
   );
 };
