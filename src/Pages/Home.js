@@ -12,7 +12,7 @@ const Home = () => {
   // const gallery_path = "/static_data/gallery.json";
   const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
   const CMS_token = process.env.REACT_APP_CMS_TOKEN;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [show, setShow] = useState(false);
   const [rooms, setRooms] = useState([]);
@@ -35,10 +35,10 @@ const Home = () => {
         console.error("Error loading:", error);
       }
     };
-  
+
     fetchRooms();
   }, []);
-  
+
 
   useEffect(() => {
     const fetchGalleryPreview = async () => {
@@ -48,7 +48,7 @@ const Home = () => {
             Authorization: `Bearer ${CMS_token}`,
           },
         });
-  
+
         // Check the data structure and safely retrieve the images
         const images = response.data.data[0].Image;
         if (images) {
@@ -60,10 +60,10 @@ const Home = () => {
         console.error("Error loading:", error);
       }
     };
-  
+
     fetchGalleryPreview();
   }, []);
-  
+
 
   const handleClose = () => setShow(false);
 
@@ -168,9 +168,18 @@ const Home = () => {
                       />
                     )}
                     <Card.Body>
-                      <Card.Title title={room.Name_en}>{room.Name_en}</Card.Title>
-                      <p className="home-room-card-subtitle">{room.Title_en}</p>
-                      <Card.Text>{room.Description_en}</Card.Text>
+                      <Card.Title>{i18n.language === "zh"
+                        ? room.Name_zh
+                        : room.Name_en}
+                      </Card.Title>
+                      <p className="home-room-card-subtitle">{i18n.language === "zh"
+                        ? room.Title_zh
+                        : room.Title_en}
+                      </p>
+                      <Card.Text>{i18n.language === "zh"
+                        ? room.Description_zh
+                        : room.Description_en}
+                      </Card.Text>
                       <Button>{t("book_Now")}</Button>
                     </Card.Body>
                   </Card>
@@ -190,12 +199,12 @@ const Home = () => {
             <h1>{t("home_attraction")}</h1>
             <Row className="food">
               <Col>
-                <Image className="home-animal" src="/home/home_life.jpg"/>
+                <Image className="home-animal" src="/home/home_life.jpg" />
               </Col>
               <Col className="food-info">
                 <h3>{t("home_section1_title")}</h3>
                 <p>
-                {t("home_section1_txt")}
+                  {t("home_section1_txt")}
                 </p>
               </Col>
             </Row>
@@ -206,7 +215,7 @@ const Home = () => {
               <Col className="animal-info">
                 <h3>{t("home_section2_title")}</h3>
                 <p>
-                {t("home_section2_txt")}
+                  {t("home_section2_txt")}
                 </p>
               </Col>
             </Row>
@@ -217,8 +226,8 @@ const Home = () => {
               <Col className="landscape-info">
                 <h3>{t("home_section3_title")}</h3>
                 <p>
-                {t("home_section3_txt")}
-                  </p>
+                  {t("home_section3_txt")}
+                </p>
               </Col>
             </Row>
           </Container>
@@ -230,23 +239,23 @@ const Home = () => {
             <Slider {...gallery_sliderSettings}>
               {gallery.map(picture => (
                 <div key={picture.id} className="gallery-slider">
-                    {picture.url ? (
-                      <Image
-                        variant="top"
-                        src={`${CMS_endpoint}${picture.url}`}
-                        alt={picture.Name}
-                        className="gallery-slider-img"
-                        thumbnail
-                      />
-                    ) : (
-                      <Image
-                        variant="top"
-                        src="https://placehold.co/250x350"
-                        alt="Placeholder"
-                        className="gallery-slider-img"
-                        thumbnail
-                      />
-                    )}
+                  {picture.url ? (
+                    <Image
+                      variant="top"
+                      src={`${CMS_endpoint}${picture.url}`}
+                      alt={picture.Name}
+                      className="gallery-slider-img"
+                      thumbnail
+                    />
+                  ) : (
+                    <Image
+                      variant="top"
+                      src="https://placehold.co/250x350"
+                      alt="Placeholder"
+                      className="gallery-slider-img"
+                      thumbnail
+                    />
+                  )}
                 </div>
               ))}
             </Slider>
@@ -257,7 +266,7 @@ const Home = () => {
             </div>
           </Container>
         </section>
-        
+
         <section className="home-contact-us">
           <Container>
             <h1>{t("home_place_name")}</h1>
@@ -266,50 +275,50 @@ const Home = () => {
             <Row className="home-contact-us-board">
 
               <Col className="contact-info-column" md={5}>
-              
-                  <Row className="contact-row">
-                      <Col className="contact-text">
-                          <h5>{t("telephone")}</h5>
-                          <p>+61 (03) 5157-8298</p>
-                      </Col>
-                      <Col className="contact-icon">
-                          <i className="bi bi-telephone-inbound-fill icon"></i>
-                      </Col>
-                  </Row>
 
-                  <Row className="contact-row">
-                      <Col className="contact-text">
-                          <h5>{t("email")}</h5>
-                          <p>info@roseneathholidaypark.au</p>
-                      </Col>
-                      <Col className="contact-icon">
-                          <i className="bi bi-mailbox2 icon"></i>
-                      </Col>
-                  </Row>
+                <Row className="contact-row">
+                  <Col className="contact-text">
+                    <h5>{t("telephone")}</h5>
+                    <p>+61 (03) 5157-8298</p>
+                  </Col>
+                  <Col className="contact-icon">
+                    <i className="bi bi-telephone-inbound-fill icon"></i>
+                  </Col>
+                </Row>
 
-                  <Row className="contact-row">
-                      <Col className="contact-text">
-                          <h5>{t("address")}</h5>
-                          <p>422 Woodpile Rd<br />Meerlieu VIC 3862<br />Australia</p>
-                      </Col>
-                      <Col className="contact-icon">
-                          <i className="bi bi-pin-map-fill icon"></i>
-                      </Col>
-                  </Row>
+                <Row className="contact-row">
+                  <Col className="contact-text">
+                    <h5>{t("email")}</h5>
+                    <p>info@roseneathholidaypark.au</p>
+                  </Col>
+                  <Col className="contact-icon">
+                    <i className="bi bi-mailbox2 icon"></i>
+                  </Col>
+                </Row>
+
+                <Row className="contact-row">
+                  <Col className="contact-text">
+                    <h5>{t("address")}</h5>
+                    <p>422 Woodpile Rd<br />Meerlieu VIC 3862<br />Australia</p>
+                  </Col>
+                  <Col className="contact-icon">
+                    <i className="bi bi-pin-map-fill icon"></i>
+                  </Col>
+                </Row>
               </Col>
 
 
               <Col className="home-map" md={7}>
                 <>
                   <iframe
-                      title="Roseneath Holiday Park Location Map"
-                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d474013.57073654904!2d150.801209!3d-37.457687!3m2!1i1024!2i768!4f13.5!3m3!1m2!1s0x6b2f12fa55ba106b%3A0x97796bb5b7b2aa37!2sRoseneath%20Holiday%20Park!5e1!3m2!1sen!2sus!4v1730163420007!5m2!1sen!2sus"
-                      width="100%"
-                      height="400px"
-                      style={{ border: 0 }}
-                      allowFullScreen=""
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
+                    title="Roseneath Holiday Park Location Map"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d474013.57073654904!2d150.801209!3d-37.457687!3m2!1i1024!2i768!4f13.5!3m3!1m2!1s0x6b2f12fa55ba106b%3A0x97796bb5b7b2aa37!2sRoseneath%20Holiday%20Park!5e1!3m2!1sen!2sus!4v1730163420007!5m2!1sen!2sus"
+                    width="100%"
+                    height="400px"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
                 </>
               </Col>
@@ -318,7 +327,7 @@ const Home = () => {
               <a href="/contact-us">
                 <Button className="contact-us-btn">{t("Contact")}</Button>
               </a>
-          </Row>
+            </Row>
           </Container>
         </section>
       </div>

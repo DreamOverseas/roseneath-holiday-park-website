@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import "../Css/RoomDetail.css";
 
 const RoomDetail = () => {
   const { Name_en } = useParams();
   const [room, setRoom] = useState(null);
+  const { i18n } = useTranslation();
 
   // useEffect(() => {
   //   fetch("/static_data/room.json")
@@ -33,7 +35,7 @@ const RoomDetail = () => {
         console.error("Error loading:", error);
       }
     };
-  
+
     fetchRooms();
   }, []);
 
@@ -46,9 +48,18 @@ const RoomDetail = () => {
         alt={room.Name_en}
         className='room-detail-image'
       />
-      <h1 className='room-detail-name'>{room.Name_en}</h1>
-      <p className='room-detail-subtitle'>{room.Title_en}</p>
-      <p className='room-detail-description'>{room.Description_en}</p>
+      <h1 className='room-detail-name'>{i18n.language === "zh"
+        ? room.Name_zh
+        : room.Name_en}
+      </h1>
+      <p className='room-detail-subtitle'>{i18n.language === "zh"
+        ? room.Title_zh
+        : room.Title_en}
+      </p>
+      <p className='room-detail-description'>{i18n.language === "zh"
+        ? room.Description_zh
+        : room.Description_en}
+      </p>
     </div>
   );
 };
