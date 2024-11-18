@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Row, Button } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import "../Css/RoomDetail.css";
@@ -7,7 +8,7 @@ import "../Css/RoomDetail.css";
 const RoomDetail = () => {
   const { Name_en } = useParams();
   const [room, setRoom] = useState(null);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // useEffect(() => {
   //   fetch("/static_data/room.json")
@@ -60,7 +61,11 @@ const RoomDetail = () => {
       <div dangerouslySetInnerHTML={i18n.language === "zh"
         ? { __html: room.Details_zh }
         : { __html: room.Details_en }
-        } />
+      } />
+
+      <Row className="home-contact-us-btn-container">
+        <Button className="room-detail-book-btn">{t("book_Now")}</Button>
+      </Row>
     </div>
   );
 };
