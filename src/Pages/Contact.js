@@ -52,7 +52,7 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-pin-angle"></i> &nbsp;
-                                171 La Trobe Street, Melbourne VIC 3000
+                                Level 2, 171 La Trobe Street, Melbourne VIC 3000
                             </p>
                         </Row>
                         <Row>
