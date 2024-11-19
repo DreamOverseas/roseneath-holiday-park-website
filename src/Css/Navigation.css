@@ -32,6 +32,7 @@
 
 .NavNoHighlightWord {
     margin-left: 20px;
+    white-space: nowrap;
     font-family: Georgia, serif;
     font-size: 20px;
 }
@@ -42,4 +43,15 @@
 
 .NavToggle {
     margin-right: 20px;
+}
+
+.NavContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.PlaceholderDiv {
+    width: 116px; /* Keep same with the NavBrand width + margin */
 }
