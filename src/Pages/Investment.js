@@ -34,7 +34,7 @@ const Investment = () => {
         };
 
         fetchInvestmentImgs();
-    }, []);
+    }, [CMS_endpoint, CMS_token]);
 
     return (
         <Container>

@@ -39,7 +39,7 @@ const RoomDetail = () => {
     };
 
     fetchRooms();
-  }, []);
+  }, [CMS_endpoint, CMS_token, Name_en]);
 
   if (!room) return <div>Loading...</div>;
 

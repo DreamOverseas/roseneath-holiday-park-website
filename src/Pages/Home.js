@@ -38,7 +38,7 @@ const Home = () => {
     };
 
     fetchRooms();
-  }, []);
+  }, [CMS_endpoint, CMS_token]);
 
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const Home = () => {
     };
 
     fetchGalleryPreview();
-  }, []);
+  }, [CMS_endpoint, CMS_token]);
 
 
   const handleClose = () => setShow(false);
