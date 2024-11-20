@@ -38,7 +38,7 @@ const Investment = () => {
 
     return (
         <Container>
-            { /*
+            { /* ========= Commented for OLD version of this page ==========
             <PageTitle pageTitle={t("Investment")} /> <br />
             <section className="investment-list">
                 <Container>
