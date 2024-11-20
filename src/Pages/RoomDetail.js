@@ -21,6 +21,7 @@ const RoomDetail = () => {
 
   const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
   const CMS_token = process.env.REACT_APP_CMS_TOKEN;
+  const DBLink_LH = process.env.REACT_APP_LH_DIRECT_BOOKING;
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -38,7 +39,7 @@ const RoomDetail = () => {
     };
 
     fetchRooms();
-  }, []);
+  }, [CMS_endpoint, CMS_token, Name_en]);
 
   if (!room) return <div>Loading...</div>;
 
@@ -64,7 +65,9 @@ const RoomDetail = () => {
       } />
 
       <Row className="home-contact-us-btn-container">
-        <Button className="room-detail-book-btn">{t("book_Now")}</Button>
+        <a href={`${DBLink_LH}?room_type=${room.RoomTypeID}`} target="_blank" rel="noopener noreferrer">
+          <Button className="room-detail-book-btn">{t("book_Now")}</Button>
+        </a>
       </Row>
     </div>
   );

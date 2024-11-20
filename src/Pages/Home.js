@@ -8,10 +8,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
-  // const room_path = "/static_data/room.json";                // Commended for update, pls detele after verified
-  // const gallery_path = "/static_data/gallery.json";
+  // Read Env from file
   const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
   const CMS_token = process.env.REACT_APP_CMS_TOKEN;
+  const DBLink_LH = process.env.REACT_APP_LH_DIRECT_BOOKING;
+
   const { t, i18n } = useTranslation();
 
   const [show, setShow] = useState(false);
@@ -37,7 +38,7 @@ const Home = () => {
     };
 
     fetchRooms();
-  }, []);
+  }, [CMS_endpoint, CMS_token]);
 
 
   useEffect(() => {
@@ -62,7 +63,7 @@ const Home = () => {
     };
 
     fetchGalleryPreview();
-  }, []);
+  }, [CMS_endpoint, CMS_token]);
 
 
   const handleClose = () => setShow(false);
@@ -180,7 +181,9 @@ const Home = () => {
                         ? room.Description_zh
                         : room.Description_en}
                       </Card.Text>
-                      <Button>{t("book_Now")}</Button>
+                      <a href={`${DBLink_LH}?room_type=${room.RoomTypeID}`} target="_blank" rel="noopener noreferrer">
+                        <Button>{t("book_Now")}</Button>
+                      </a>
                     </Card.Body>
                   </Card>
                 </div>
