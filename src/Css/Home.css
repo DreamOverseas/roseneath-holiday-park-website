@@ -350,3 +350,18 @@
         font-size: 0.9em;
     }
 }
+
+.home-clickable-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+  
+.home-clickable-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.price-list-icon {
+    height: 100px;
+    width: auto;
+}

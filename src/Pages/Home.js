@@ -7,6 +7,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import PriceList from "../Components/PriceListSection";
+
 const Home = () => {
   // Read Env from file
   const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
@@ -196,6 +198,11 @@ const Home = () => {
             </div>
           </Container>
         </section>
+
+        <Container className="home-price-list">
+          <h1>{t("home_pricelist")}</h1>
+          <PriceList />
+        </Container>
 
         <section className="home-attraction">
           <Container>

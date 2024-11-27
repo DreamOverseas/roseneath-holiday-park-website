@@ -59,5 +59,21 @@
   "welcome_title": "欢迎!",
   "welcome_text": "欢迎来到我们的网站！\n\n订票系统正在整合马上推出，现在如需预定可以电话联系营地：+61 (03) 5157-8298",
   "Room": "房间",
-  "footer_slogan": "坐落湖边·隐于林中"
+  "footer_slogan": "坐落湖边·隐于林中",
+
+  "home_pricelist": "其他服务",
+  "dining": "餐饮",
+  "retail": "商品销售及特殊活动费",
+  "education": "教育培训",
+  "facilities": "设施使用费",
+  "storage": "营地仓储服务",
+  "other": "其他",
+  "details": "详细信息",
+  "close": "关闭",
+  "diningDetails": "<ul><li>烤全羊：1000澳元</li><li>烤全羊套餐：1600澳元</li><li>烤乳猪：1200澳元</li><li>烤乳猪套餐：1600澳元</li><li>烤鸭套餐：300澳元</li><li>炸鱼薯条：18澳元</li><li>炒饭：18澳元</li><li>咖啡：5澳元起</li></ul>",
+  "retailDetails": "<ul><li>露营用品销售：价格根据物品不同</li><li>特色纪念品销售：10-50澳元</li><li>食品与饮料销售（在露营地商店）：价格根据商品不同</li><li>婚礼、公司年会、篝火晚会、音乐节等：20-50澳元/人</li></ul>",
+  "educationDetails": "<ul><li>越野培训：290澳元/车/次</li><li>越野培训加住宿餐饮500/day</li><li>越野救援培训：290澳元/次</li><li>越野救援培训住宿加餐饮$500</li><li>野外生存培训：200澳元起/天</li></ul>",
+  "facilitiesDetails": "<ul><li>洗澡间：5澳元/次</li><li>洗衣：5澳元/次</li><li>烘干：5澳元/次</li></ul>",
+  "storageDetails": "<ul><li>房车停放：500澳元/年</li><li>船只停放：500澳元/年</li><li>集装箱仓库出租：500澳元/年</li></ul>",
+  "otherDetails": "<ul><li>柴火：15澳元</li><li>火炉租赁：25澳元</li><li>四轮摩托：60澳元/小时</li><li>鱼竿租赁：10澳元/次</li><li>独木舟：35每小时</li></ul>"
 }
