@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import PageTitle from "../Components/PageTitle";
 import "../Css/About.css";
@@ -8,6 +9,12 @@ function AboutUs() {
 
   return (
     <main>
+      <Helmet>
+        <title>About us - Roseneath Holiday Park</title>
+        <meta name="description" content="Inroduction for the Roseneath Holiday Park near Lake Willinton, the place for Camping, Caravan and Accomadation in the nature." />
+        <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
+      </Helmet>
+
       <PageTitle
         pageTitle={t("aboutUs.pageTitle")}
         titleColor='aliceblue'

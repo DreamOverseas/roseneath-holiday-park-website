@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import "../Css/Investment.css";
 import { Container, Image } from 'react-bootstrap'
 // import PageTitle from "../Components/PageTitle";
@@ -38,23 +39,12 @@ const Investment = () => {
 
     return (
         <Container>
-            { /* ========= Commented for OLD version of this page ==========
-            <PageTitle pageTitle={t("Investment")} /> <br />
-            <section className="investment-list">
-                <Container>
-                    <Row className="smart-house">
-                        <Col>
-                            <Image className="smart-house-picture" src="/home/home_landscape.webp" />
-                        </Col>
-                        <Col className="smart-house-short-description">
-                            <h2>小白营地半岛度假村</h2>
-                            <p>Escape to a world of breathtaking landscapes where nature's beauty unfolds before your eyes. From serene mountain peaks to tranquil seaside sunsets, immerse yourself in the stunning vistas that refresh your soul and inspire your spirit. Experience the allure of nature like never before with Beautiful Scenery, where every view is a masterpiece.</p>
-                            <div className="More-Details-btn"><Button>{t("More_Details")}</Button></div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-             */ }
+            <Helmet>
+            <title>Investing - Roseneath Holiday Park</title>
+            <meta name="description" content="Interest in investing the Roseneath Holiday Park near Lake Willinton? This is the right place for you to know more about our business!" />
+            <meta name="keywords" content="Investment, Business, Holiday, Roseneath, Camp, Caravan, Nature, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
+            </Helmet>
+  
             {investmentImages.map((image) => (
                         <Image
                             src={`${CMS_endpoint}${image.url}`}
