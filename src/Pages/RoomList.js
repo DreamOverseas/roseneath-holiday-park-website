@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import "../Css/RoomList.css";
@@ -26,10 +27,16 @@ const RoomList = () => {
     };
 
     fetchRooms();
-  }, []);
+  }, [CMS_endpoint, CMS_token]);
 
   return (
     <div className='room-list'>
+      <Helmet>
+        <title>Rooms - Roseneath Holiday Park</title>
+        <meta name="description" content="Showing different types of rooms for the Roseneath Holiday Park near Lake Willinton, the place for Camping, Caravan and Accomadation in the nature." />
+        <meta name="keywords" content="Rooms, Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
+      </Helmet>
+
       <h1>{t("roomlist_title")}</h1>
       <div className='room-grid'>
         {rooms.map(room => (
