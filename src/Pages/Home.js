@@ -127,22 +127,6 @@ const Home = () => {
         <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
       </Helmet>
 
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>{t('welcome_title')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {t('welcome_text').split('\n').map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
       <div>
         <section className="home-banner-title">
           <h1>{t("home_place_name")}</h1>
