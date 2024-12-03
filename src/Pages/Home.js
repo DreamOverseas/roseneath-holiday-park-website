@@ -174,9 +174,13 @@ const Home = () => {
                         ? room.Description_zh
                         : room.Description_en}
                       </Card.Text>
+                      {room.Availability? 
                       <a href={`${DBLink_LH}?room_type=${room.RoomTypeID}`} target="_blank" rel="noopener noreferrer">
                         <Button>{t("book_Now")}</Button>
                       </a>
+                      :
+                      <Button variant="secondary">{t("book_unavailable")}</Button>
+                      }
                     </Card.Body>
                   </Card>
                 </div>
