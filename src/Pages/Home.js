@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import "../Css/Home.css";
-import { Container, Row, Col, Image, Button, Modal, Card } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -18,13 +18,8 @@ const Home = () => {
 
   const { t, i18n } = useTranslation();
 
-  const [show, setShow] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [gallery, setGallery] = useState([]);
-
-  useEffect(() => {
-    setShow(true);
-  }, []);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -67,9 +62,6 @@ const Home = () => {
 
     fetchGalleryPreview();
   }, [CMS_endpoint, CMS_token]);
-
-
-  const handleClose = () => setShow(false);
 
   const room_sliderSettings = {
     dots: true,
