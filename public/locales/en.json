@@ -62,6 +62,16 @@
   "footer_slogan": "In the Bush - By the Beach",
   "book_unavailable" : "Unavailable",
 
+  "regForm-title": "Costomer Registeration",
+  "regForm-fname": "First Name",
+  "regForm-lname": "Last Name",
+  "regForm-staytype": "Stay Type",
+  "regForm-campsite": "Preferred Campsite Area",
+  "regForm-vin": "Vehicle Identification Number (VIN)",
+  "regForm-ordernum": "Order Number",
+  "submitting": "Submitting...",
+  "regForm-comments": "Comments",
+
   "home_pricelist": "Other Services",
   "dining": "Dining",
   "retail": "Retail Sales and Special Events",

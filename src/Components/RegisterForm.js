@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Alert, Row, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import "../Css/Components.css";
 
-const RegisterForm = () => {
+const RegisterForm = () => {  
+    const { t } = useTranslation();
 
     // Read Env from file
     const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
@@ -19,7 +21,6 @@ const RegisterForm = () => {
         campsite: '',
         vin: '',
         orderNum: '',
-        plannedArrival: '',
         comments: ''
     });
 
@@ -42,6 +43,7 @@ const RegisterForm = () => {
         if (formData.stayType === 'Campsite' && !formData.vin.trim()) {
             newErrors.vin = 'VIN is required for Campsite stay type.';
         }
+        if (!formData.orderNum.trim()) newErrors.phone = 'Order Number is required.';
         return newErrors;
     };
 
@@ -63,7 +65,6 @@ const RegisterForm = () => {
                         Campsite: formData.campsite,
                         VIN: formData.vin,
                         OrderNumber: formData.orderNum,
-                        PlannedArrival: formData.plannedArrival,
                         Comments: formData.comments.slice(0, 500),
                     },
                 };
@@ -90,7 +91,6 @@ const RegisterForm = () => {
                         campsite: '',
                         vin: '',
                         orderNum: '',
-                        plannedArrival: '',
                         comments: ''
                     });
                 }
@@ -105,14 +105,14 @@ const RegisterForm = () => {
 
     return (
         <Container className="my-5">
-            <h1 className="mb-4">Register Form</h1>
+            <h1 className="mb-4">{t("regForm-title")}</h1>
             {success && <Alert variant="success">Registration successful!</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                     <Row className="mb-3">
                         <Col md={6}>
                             <Form.Group controlId="formFirstName">
-                                <Form.Label>First Name*</Form.Label>
+                                <Form.Label>{t("regForm-fname")}*</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="fname"
@@ -128,7 +128,7 @@ const RegisterForm = () => {
 
                         <Col md={6}>
                             <Form.Group controlId="formLastName">
-                                <Form.Label>Last Name</Form.Label>
+                                <Form.Label>{t("regForm-lname")}</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="lname"
@@ -143,7 +143,7 @@ const RegisterForm = () => {
                 <Row>
                     <Col>
                 <Form.Group className="mb-3">
-                    <Form.Label>Phone Number*</Form.Label>
+                    <Form.Label>{t("contactForm_phone")}*</Form.Label>
                     <Form.Control
                         type="text"
                         name="phone"
@@ -156,7 +156,7 @@ const RegisterForm = () => {
                 </Col>
                 <Col>
                 <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>{t("contactForm_email")}</Form.Label>
                     <Form.Control
                         type="email"
                         name="email"
@@ -168,7 +168,7 @@ const RegisterForm = () => {
                 </Row>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Stay Type*</Form.Label>
+                    <Form.Label>{t("regForm-staytype")}*</Form.Label>
                     <Form.Control
                         as="select"
                         name="stayType"
@@ -192,7 +192,7 @@ const RegisterForm = () => {
                         <Row>
                             <Col md={3}>
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Preferred Campsite Area</Form.Label>
+                                    <Form.Label>{t("regForm-campsite")}</Form.Label>
                                     <Form.Control
                                         as="select"
                                         name="campsite"
@@ -221,7 +221,7 @@ const RegisterForm = () => {
                         </Row>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Vehicle Identification Number (VIN)*</Form.Label>
+                            <Form.Label>{t("regForm-vin")}*</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="vin"
@@ -235,7 +235,7 @@ const RegisterForm = () => {
                 )}
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Order Number</Form.Label>
+                    <Form.Label>{t("regForm-ordernum")}*</Form.Label>
                     <Form.Control
                         type="text"
                         name="orderNum"
@@ -245,7 +245,7 @@ const RegisterForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Comments</Form.Label>
+                    <Form.Label>{t("regForm-comments")}</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -262,7 +262,7 @@ const RegisterForm = () => {
                 </Form.Group>
                 <p className='text-center'>
                     <Button type="submit" variant="primary" disabled={isSubmitting}>
-                        {isSubmitting ? 'Submitting...' : 'Submit'}
+                        {isSubmitting ? t("submitting") : t("contactForm_submit")}
                     </Button>
                 </p>
             </Form>
