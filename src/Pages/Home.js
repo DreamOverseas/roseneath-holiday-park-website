@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import PriceList from "../Components/PriceListSection";
 
 const Home = () => {

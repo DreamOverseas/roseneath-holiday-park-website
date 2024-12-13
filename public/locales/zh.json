@@ -62,6 +62,16 @@
   "footer_slogan": "坐落湖边·隐于林中",
   "book_unavailable" : "售罄",
 
+  "regForm-title": "客户登记表",
+  "regForm-fname": "名",
+  "regForm-lname": "姓",
+  "regForm-staytype": "房型",
+  "regForm-campsite": "营地区域倾向",
+  "regForm-vin": "车辆识别号 (VIN)",
+  "regForm-ordernum": "订单号",
+  "submitting": "提交中...",
+  "regForm-comments": "备注",
+
   "home_pricelist": "其他服务",
   "dining": "餐饮",
   "retail": "商品销售及特殊活动费",
