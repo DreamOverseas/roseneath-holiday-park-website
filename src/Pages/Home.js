@@ -28,7 +28,10 @@ const Home = () => {
             Authorization: `Bearer ${CMS_token}`,
           },
         });
-        setRooms(response.data.data);
+        const roomData = response.data.data.sort((a, b) => {
+          return b.Availability - a.Availability; // Let available room types going to the front
+        });
+        setRooms(roomData);
       } catch (error) {
         console.error("Error loading:", error);
       }
