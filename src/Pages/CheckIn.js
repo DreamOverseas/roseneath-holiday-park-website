@@ -1,10 +1,41 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
+import {Image, Carousel} from 'react-bootstrap';
 
 const CheckIn = () => {
 
     const { t } = useTranslation();
+
+    const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
+    const CMS_token = process.env.REACT_APP_CMS_TOKEN;
+
+    const [checkInImages, setCheckInImages] = useState([]);
+
+    useEffect(() => {
+        const fetchCheckInImage = async () => {
+            try {
+                const response = await axios.get(`${CMS_endpoint}/api/media-images?filters[Name][$eq]=CheckIn&populate=Image`, {
+                    headers: {
+                        Authorization: `Bearer ${CMS_token}`,
+                    },
+                });
+
+                // Check the data structure and safely retrieve the images
+                const images = response.data.data[0].Image;
+                if (images) {
+                    setCheckInImages(images);
+                } else {
+                    console.warn("No enough images are available.");
+                }
+            } catch (error) {
+                console.error("Error loading:", error);
+            }
+        };
+
+        fetchCheckInImage();
+    }, [CMS_endpoint, CMS_token]);
 
     return (
         <Container>
@@ -31,6 +62,9 @@ const CheckIn = () => {
                 • Toilets and Showers: Shared facilities are located throughout the park. Their locations are marked on the attached map.<br></br>
                 • Playground: Perfect for children, located near the BBQ area.<br></br>
                 • For late arrivals, please refer to the attached map to locate your reserved room or site. Keys will be on the door, and the door will be unlocked for your convenience.<br></br>
+                <br></br>
+                <Image className="checkInImage" src={`${CMS_endpoint}${checkInImages[0].url}`} thumbnail />
+                <br></br>
                 <br></br>
                 <h6>4. Adjustments or Additional Requests</h6>
                 If you require any adjustments or additional facilities, please notify us in advance.<br></br>
