@@ -21,6 +21,7 @@ import Investment from "./Pages/Investment.js";
 import RoomDetail from "./Pages/RoomDetail";
 import RoomList from "./Pages/RoomList.js";
 import RegisterForm from "./Components/RegisterForm.js";
+import CheckIn from "./Pages/CheckIn.js";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path='/roomlist' element={<RoomList />} />
           <Route path='/room/:Name_en' element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
+          <Route path='/check-in' element={<CheckIn />} />
         </Routes>
         <Footer />
       </div>
