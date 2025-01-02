@@ -16,7 +16,7 @@ const CheckIn = () => {
     useEffect(() => {
         const fetchCheckInImage = async () => {
             try {
-                const response = await axios.get(`${CMS_endpoint}/api/media-images?filters[Name][$eq]=CheckIn&populate=Image`, {
+                const response = await axios.get(`${CMS_endpoint}/api/media-images?filters[PageLocation][$eq]=CheckIn&populate=Image`, {
                     headers: {
                         Authorization: `Bearer ${CMS_token}`,
                     },
@@ -63,7 +63,15 @@ const CheckIn = () => {
                 • Playground: Perfect for children, located near the BBQ area.<br></br>
                 • For late arrivals, please refer to the attached map to locate your reserved room or site. Keys will be on the door, and the door will be unlocked for your convenience.<br></br>
                 <br></br>
-                <Image className="checkInImage" src={`${CMS_endpoint}${checkInImages[0].url}`} thumbnail />
+                {checkInImages.length > 0 && checkInImages[0].url ? (
+                    <Image
+                        className="checkInImage"
+                        src={`${CMS_endpoint}${checkInImages[0].url}`}
+                        thumbnail
+                    />
+                ) : (
+                    <p>Loading image...</p >
+                )}
                 <br></br>
                 <br></br>
                 <h6>4. Adjustments or Additional Requests</h6>
