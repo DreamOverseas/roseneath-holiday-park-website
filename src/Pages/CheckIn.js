@@ -16,7 +16,7 @@ const CheckIn = () => {
     useEffect(() => {
         const fetchCheckInImage = async () => {
             try {
-                const response = await axios.get(`${CMS_endpoint}/api/media-images?filters[PageLocation][$eq]=CheckIn&populate=Image`, {
+                const response = await axios.get(`${CMS_endpoint}/api/media-images?filters[Name][$eq]=CheckIn&populate=Image`, {
                     headers: {
                         Authorization: `Bearer ${CMS_token}`,
                     },
