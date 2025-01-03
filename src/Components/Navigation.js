@@ -88,7 +88,7 @@ const Navigation = () => {
               </Nav.Link>
               <NavDropdown
                 className='NavNoHighlightWord'
-                title={t("Language")}
+                title={"语言(Language)"}
                 id='language-dropdown'
               >
                 <NavDropdown.Item onClick={() => changeLanguage("en")}>

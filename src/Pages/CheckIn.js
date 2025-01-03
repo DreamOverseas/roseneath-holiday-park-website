@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
-import {Image, Carousel} from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 
 const CheckIn = () => {
 
