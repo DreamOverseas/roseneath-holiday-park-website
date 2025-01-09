@@ -33,8 +33,8 @@ const RoomList = () => {
     <div className='room-list'>
       <Helmet>
         <title>Rooms - Roseneath Holiday Park</title>
-        <meta name="description" content="Showing different types of rooms for the Roseneath Holiday Park near Lake Willinton, the place for Camping, Caravan and Accomadation in the nature." />
-        <meta name="keywords" content="Rooms, Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
+        <meta name="description" content="Showing different types of rooms for the Roseneath Holiday Park near Lake Wellington, the place for Camping, Caravan and Accomadation in the nature." />
+        <meta name="keywords" content="Rooms, Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
       </Helmet>
 
       <h1>{t("roomlist_title")}</h1>

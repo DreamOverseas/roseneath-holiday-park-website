@@ -75,8 +75,8 @@ const Gallery = () => {
         <>
             <Helmet>
             <title>Gallery - Roseneath Holiday Park</title>
-            <meta name="description" content="Gallery showing beautiful landscapes and sharinf people's experiences in the Roseneath Holiday Park near Lake Willinton, the place for Camping, Caravan and Accomadation in the nature." />
-            <meta name="keywords" content="Gallery, Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
+            <meta name="description" content="Gallery showing beautiful landscapes and sharinf people's experiences in the Roseneath Holiday Park near Lake Wellington, the place for Camping, Caravan and Accomadation in the nature." />
+            <meta name="keywords" content="Gallery, Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
             </Helmet>
   
             <PageTitle

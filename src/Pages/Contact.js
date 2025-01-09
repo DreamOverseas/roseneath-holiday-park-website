@@ -15,7 +15,7 @@ const Contact = () => {
             <Helmet>
             <title>Contact Us - Roseneath Holiday Park</title>
             <meta name="description" content="Contact Roseneath Holiday Park now and book your journey!" />
-            <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
+            <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
             </Helmet>
   
             <PageTitle pageTitle={t("Contact_title")} /> <br />
