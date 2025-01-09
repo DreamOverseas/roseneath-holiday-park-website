@@ -91,11 +91,11 @@ const Navigation = () => {
                 title={"语言(Language)"}
                 id='language-dropdown'
               >
-                <NavDropdown.Item onClick={() => changeLanguage("en")}>
-                  English
-                </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => changeLanguage("zh")}>
                   中文
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={() => changeLanguage("en")}>
+                  English
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
