@@ -29,8 +29,8 @@ function App() {
     <I18nextProvider i18n={i18n}>
       <Helmet>
         <title>Roseneath Holiday Park</title>
-        <meta name="description" content="Official website for the Roseneath Holiday Park near Lake Willinton, the place for Camping, Caravan and Accomadation in the nature." />
-        <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Willinton, Lake, Beach, Accomadatiob, Food, Service, Course, Facility, Storage, Landscape" />
+        <meta name="description" content="Official website for the Roseneath Holiday Park near Lake Wellington, the place for Camping, Caravan and Accomadation in the nature." />
+        <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadatiob, Food, Service, Course, Facility, Storage, Landscape" />
       </Helmet>
 
       <div className='App'>

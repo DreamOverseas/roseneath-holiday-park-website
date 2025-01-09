@@ -41,8 +41,8 @@ const Investment = () => {
         <Container>
             <Helmet>
             <title>Investing - Roseneath Holiday Park</title>
-            <meta name="description" content="Interest in investing the Roseneath Holiday Park near Lake Willinton? This is the right place for you to know more about our business!" />
-            <meta name="keywords" content="Investment, Business, Holiday, Roseneath, Camp, Caravan, Nature, Willinton, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
+            <meta name="description" content="Interest in investing the Roseneath Holiday Park near Lake Wellington? This is the right place for you to know more about our business!" />
+            <meta name="keywords" content="Investment, Business, Holiday, Roseneath, Camp, Caravan, Nature, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
             </Helmet>
   
             {investmentImages.map((image) => (
