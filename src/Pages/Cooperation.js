@@ -6,7 +6,7 @@ const Cooperation = () => {
     const { t } = useTranslation();
 
     return (
-        <></>
+        <h2>Coming Soon...</h2>
     );
 };
 
