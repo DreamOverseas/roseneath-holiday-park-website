@@ -18,6 +18,7 @@ import Contact from "./Pages/Contact";
 import Gallery from "./Pages/Gallery";
 import Home from "./Pages/Home";
 import Investment from "./Pages/Investment.js";
+import Cooperation from "./Pages/Cooperation.js";
 import RoomDetail from "./Pages/RoomDetail";
 import RoomList from "./Pages/RoomList.js";
 import RegisterForm from "./Components/RegisterForm.js";
@@ -41,6 +42,7 @@ function App() {
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
           <Route path='/investment' element={<Investment />} />
+          <Route path='/cooperation' element={<Cooperation />} />
           <Route path='/roomlist' element={<RoomList />} />
           <Route path='/room/:Name_en' element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
