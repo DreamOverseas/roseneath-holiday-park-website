@@ -188,6 +188,16 @@ const Home = () => {
           </Container>
         </section>
 
+        <Container>
+          <h1>{t("our_service_title")}</h1>
+          <div className="our-service-button">
+            <Button href="/individual-visitors">{t("our_service_individual")}</Button>
+            <Button href="/group-visitors">{t("our_service_group")}</Button>
+            <Button href="/investment">{t("investment")}</Button>
+            <Button href="/cooperation">{t("cooperation")}</Button>
+          </div>
+        </Container>
+
         <Container className="home-price-list">
           <h1>{t("home_pricelist")}</h1>
           <PriceList />
