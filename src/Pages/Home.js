@@ -190,11 +190,39 @@ const Home = () => {
 
         <Container>
           <h1>{t("our_service_title")}</h1>
-          <div className="our-service-button">
-            <Button href="/individual-visitors">{t("our_service_individual")}</Button>
-            <Button href="/group-visitors">{t("our_service_group")}</Button>
-            <Button href="/investment">{t("investment")}</Button>
-            <Button href="/cooperation">{t("cooperation")}</Button>
+          <div className="our-service-button-group">
+            <Button variant="outline-light" href="/individual-visitors">
+              <Card className="text-center home-clickable-card">
+                  <Card.Body>
+                      <Image className="our-service-button" src="/Icons/individual_visitor.png" />
+                      <Card.Title>{t("our_service_individual")}</Card.Title>
+                  </Card.Body>
+              </Card>
+            </Button>
+            <Button variant="outline-light" href="/group-visitors">
+              <Card className="text-center home-clickable-card">
+                  <Card.Body>
+                      <Image className="our-service-button" src="/Icons/group_visitor.png" />
+                      <Card.Title>{t("our_service_group")}</Card.Title>
+                  </Card.Body>
+              </Card>
+            </Button>
+            <Button variant="outline-light" href="/investment">
+              <Card className="text-center home-clickable-card">
+                  <Card.Body>
+                      <Image className="our-service-button" src="/Icons/investment.png" />
+                      <Card.Title>{t("investment")}</Card.Title>
+                  </Card.Body>
+              </Card>
+            </Button>
+            <Button variant="outline-light" href="/cooperation">
+              <Card className="text-center home-clickable-card">
+                  <Card.Body>
+                      <Image className="our-service-button" src="/Icons/cooperate.png" />
+                      <Card.Title>{t("cooperation")}</Card.Title>
+                  </Card.Body>
+              </Card>
+            </Button>
           </div>
         </Container>
 
