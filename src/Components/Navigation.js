@@ -79,13 +79,20 @@ const Navigation = () => {
               >
                 {t("Contact")}
               </Nav.Link>
-              <Nav.Link
-                className={`NavWord ${location.pathname === "/investment" ? "NavActive" : ""
-                  }`}
-                href='/investment'
+
+              <NavDropdown
+                className='NavNoHighlightWord'
+                title={t("Investment")}
+                id='investment-dropdown'
               >
-                {t("Investment")}
-              </Nav.Link>
+                <NavDropdown.Item href='/investment'>
+                    {t("Investment")}
+                </NavDropdown.Item>
+                <NavDropdown.Item href='/cooperation'>
+                    {t("Cooperation")}
+                </NavDropdown.Item>
+              </NavDropdown>
+
               <NavDropdown
                 className='NavNoHighlightWord'
                 title={"语言(Language)"}
