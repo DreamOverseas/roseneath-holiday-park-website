@@ -53,9 +53,11 @@ const Footer = () => {
             md={2}
             className='footer-button-section d-flex justify-content-center justify-content-md-end align-items-center'
           >
-            <Button className='footer-button' onClick={jumpToContact}>
+            <div><b>A member of 1club,</b> <a href="https://1club.world/">https://1club.world/</a></div>
+            {/* Adding this button is too crowded and a bit redundant too. */}
+            {/* <Button className='footer-button' onClick={jumpToContact}>
               {t("get_in_touch")}
-            </Button>
+            </Button> */}
           </Col>
         </Row>
       </Container>

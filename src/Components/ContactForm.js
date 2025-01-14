@@ -77,7 +77,7 @@ const ContactForm = () => {
                     <Form.Label>{t("contactForm_name")} *</Form.Label>
                     <Form.Control
                         type="text"
-                        placeholder="Enter your name"
+                        placeholder={t("contactForm_name_placeholder")}
                         value={formData.name}
                         onChange={handleChange}
                         required
@@ -88,7 +88,7 @@ const ContactForm = () => {
                     <Form.Label>{t("contactForm_phone")}</Form.Label>
                     <Form.Control
                         type="tel"
-                        placeholder="Enter your phone number"
+                        placeholder={t("contactForm_phone_placeholder")}
                         value={formData.phoneNumber}
                         onChange={handleChange}
                     />
@@ -98,7 +98,7 @@ const ContactForm = () => {
                     <Form.Label>{t("contactForm_email")} *</Form.Label>
                     <Form.Control
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder={t("contactForm_email_placeholder")}
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -109,7 +109,7 @@ const ContactForm = () => {
                     <Form.Label>{t("contactForm_company")}</Form.Label>
                     <Form.Control
                         type="text"
-                        placeholder="Enter your company name"
+                        placeholder={t("contactForm_company_placeholder")}
                         value={formData.company}
                         onChange={handleChange}
                     />
@@ -119,7 +119,7 @@ const ContactForm = () => {
                     <Form.Label>{t("contactForm_subject")} *</Form.Label>
                     <Form.Control
                         type="text"
-                        placeholder="Enter the subject"
+                        placeholder={t("contactForm_subject_placeholder")}
                         value={formData.subject}
                         onChange={handleChange}
                         required
@@ -131,7 +131,7 @@ const ContactForm = () => {
                     <Form.Control
                         as="textarea"
                         rows={3}
-                        placeholder="Enter your question"
+                        placeholder={t("contactForm_question_placeholder")}
                         value={formData.question}
                         onChange={handleChange}
                         required
