@@ -40,6 +40,12 @@ const Contact = () => {
                         </Row>
                         <Row>
                             <p>
+                                <i class="bi bi-person"></i> &nbsp;
+                                Katrina Crossthwaite (English Only)
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
                                 +61 (03) 5157-8298
                             </p>
@@ -56,10 +62,21 @@ const Contact = () => {
                                 <b>Melbourne Office</b> &#128188;
                             </p>
                         </Row>
+                        <Row className="contact-info-row">
+                            <p>
+                                <b>For Group Booking, Cooperation & Investment:</b>
+                            </p>
+                        </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-pin-angle"></i> &nbsp;
                                 Level 2, 171 La Trobe Street, Melbourne VIC 3000
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-person"></i> &nbsp;
+                                John Du (English & Chinese)
                             </p>
                         </Row>
                         <Row>
@@ -71,7 +88,7 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                john.du@do360.com
+                                Corp@roseneathholidaypark.au
                             </p>
                         </Row>
                     </Col>
