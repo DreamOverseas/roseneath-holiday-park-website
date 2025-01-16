@@ -81,6 +81,11 @@
   max-width: 1500px;
 }
 
+.footer-logo {
+  width: 150px;
+  height: auto;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .footer-body {
