@@ -311,40 +311,72 @@ const Home = () => {
             <strong><h4>{t("home_place_description_l2")}</h4></strong>
             <Row className="home-contact-us-board">
 
-              <Col className="contact-info-column" md={5}>
-
-                <Row className="contact-row">
-                  <Col className="contact-text">
-                    <h5>{t("telephone")}</h5>
-                    <p>+61 (03) 5157-8298</p>
-                  </Col>
-                  <Col className="contact-icon">
-                    <i className="bi bi-telephone-inbound-fill icon"></i>
-                  </Col>
+              <Col>
+                <Row className="contact-info-row">
+                    <p>
+                        <b>{t("contact_individual_title")}</b> &#9978;
+                    </p>
                 </Row>
-
-                <Row className="contact-row">
-                  <Col className="contact-text">
-                    <h5>{t("email")}</h5>
-                    <p>info@roseneathholidaypark.au</p>
-                  </Col>
-                  <Col className="contact-icon">
-                    <i className="bi bi-mailbox2 icon"></i>
-                  </Col>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-pin-angle"></i> &nbsp;
+                        {t("contact_individual_location")}
+                    </p>
                 </Row>
-
-                <Row className="contact-row">
-                  <Col className="contact-text">
-                    <h5>{t("address")}</h5>
-                    <p>422 Woodpile Rd<br />Meerlieu VIC 3862<br />Australia</p>
-                  </Col>
-                  <Col className="contact-icon">
-                    <i className="bi bi-pin-map-fill icon"></i>
-                  </Col>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-person"></i> &nbsp;
+                        {t("contact_individual_name")}
+                    </p>
+                </Row>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-telephone-inbound"></i> &nbsp;
+                        {t("contact_individual_phone")}
+                    </p>
+                </Row>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-mailbox"></i> &nbsp;
+                        {t("contact_individual_email")}
+                    </p>
+                </Row>
+                <br />
+                <Row className="contact-info-row">
+                    <p>
+                        <b>{t("contact_group_title")}</b> &#128188;
+                    </p>
+                </Row>
+                <Row className="contact-info-row">
+                    <p>
+                        <b>{t("contact_group_subject")}</b>
+                    </p>
+                </Row>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-pin-angle"></i> &nbsp;
+                        {t("contact_group_location")}
+                    </p>
+                </Row>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-person"></i> &nbsp;
+                        {t("contact_group_name")}
+                    </p>
+                </Row>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-telephone-inbound"></i> &nbsp;
+                        {t("contact_group_phone")}
+                    </p>
+                </Row>
+                <Row className="contact-info-row">
+                    <p>
+                        <i class="bi bi-mailbox"></i> &nbsp;
+                        {t("contact_group_email")}
+                    </p>
                 </Row>
               </Col>
-
-
               <Col className="home-map" md={7}>
                 <>
                   <iframe
