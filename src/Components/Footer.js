@@ -61,12 +61,12 @@ const Footer = () => {
                     {t("contact_individual_name")}
                 </p>
             </Row>
-            {/* <Row className="contact-info-row">
+            <Row className="contact-info-row">
                 <p>
                     <i class="bi bi-telephone-inbound"></i> &nbsp;
                     {t("contact_individual_phone")}
                 </p>
-            </Row> */}
+            </Row>
             <Row className="contact-info-row">
                 <p>
                     <i class="bi bi-mailbox"></i> &nbsp;
