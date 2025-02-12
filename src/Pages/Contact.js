@@ -44,12 +44,12 @@ const Contact = () => {
                                 {t("contact_individual_name")}
                             </p>
                         </Row>
-                        {/* <Row>
+                        <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
                                 {t("contact_individual_phone")}
                             </p>
-                        </Row> */}
+                        </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
