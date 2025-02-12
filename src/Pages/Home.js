@@ -188,9 +188,9 @@ const Home = () => {
           </Container>
         </section>
 
-        <Container>
+        <Container >
           <h1>{t("our_service_title")}</h1>
-          <div className="our-service-button-group">
+          <Col className="our-service-button-group">
             <Button variant="outline-light" href="/individual-visitors">
               <Card className="text-center home-clickable-card">
                   <Card.Body>
@@ -223,7 +223,7 @@ const Home = () => {
                   </Card.Body>
               </Card>
             </Button>
-          </div>
+          </Col>
         </Container>
 
         <Container className="home-price-list">

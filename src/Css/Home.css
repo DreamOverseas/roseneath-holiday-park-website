@@ -298,11 +298,11 @@
     .home-room-card .card-text {
         font-size: 0.75rem;
         line-height: 1.1;
-        max-height: calc(1.1em * 4); /* 限制移动端为 4 行 */
+        max-height: calc(1.1em * 4); 
     }
 
     .home-room-card .card-text::after {
-        height: 1.1em; /* 遮罩高度与移动端行高一致 */
+        height: 1.1em; 
     }
 
     .home-room-card {
@@ -348,6 +348,15 @@
 
     .contact-text h5 {
         font-size: 0.9em;
+    }
+
+    .our-service-button-group {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .our-service-button-group .btn {
+        width: calc(50% - 10px);  /* Takes up half the width minus gap spacing */
     }
 }
 
