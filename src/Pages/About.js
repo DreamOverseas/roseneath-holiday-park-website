@@ -47,6 +47,8 @@ function AboutUs() {
           <p>{t("aboutUs.activities.paragraph2")}</p>
           <p>{t("aboutUs.activities.paragraph3")}</p>
           <p>{t("aboutUs.activities.paragraph4")}</p>
+          <p>{t("aboutUs.activities.paragraph5")}</p>
+          <p>{t("aboutUs.activities.paragraph6")}</p>
           <div className='image-col'>
             <img
               src='DSC0E2965.webp' // Update to correct path
