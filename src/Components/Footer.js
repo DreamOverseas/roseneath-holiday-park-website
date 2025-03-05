@@ -23,7 +23,7 @@ const Footer = () => {
             className='footer-logo-section d-flex flex-column align-items-center mb-3 mb-md-0'
           >
             <Row>
-              <Image src='logo192.png' className='footer-logo' style={{ width: "150px", height: "auto" }}/>
+              <Image src='logo192.png' className='footer-logo'/>
             </Row>
             <Row>
               <span className='footer-slogan-text'>

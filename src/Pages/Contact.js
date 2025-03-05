@@ -20,7 +20,7 @@ const Contact = () => {
   
             <PageTitle pageTitle={t("Contact_title")} /> <br />
             <Container>
-                <Row>
+                <Row className="align-items-start">
                     <Col md={8}>
                         <h5>{t("Contact_intro_title")}</h5>
                         {t("Contact_intro_text")}
@@ -47,13 +47,13 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
-                                {t("contact_individual_phone")}
+                                +61 (04) 9051-8609
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                {t("contact_individual_email")}
+                                info@roseneathholidaypark.au
                             </p>
                         </Row>
                         <br />
@@ -82,13 +82,13 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
-                                {t("contact_group_phone")}
+                                +61 (04)13 168 533
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                {t("contact_group_email")}
+                                Corp@roseneathholidaypark.au
                             </p>
                         </Row>
                     </Col>
