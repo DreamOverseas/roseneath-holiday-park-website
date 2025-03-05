@@ -47,13 +47,13 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
-                                +61 (04) 9051-8609
+                                {t("contact_individual_phone")}
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                info@roseneathholidaypark.au
+                                {t("contact_individual_email")}
                             </p>
                         </Row>
                         <br />
@@ -82,13 +82,13 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
-                                +61 (04)13 168 533
+                                {t("contact_group_phone")}
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                Corp@roseneathholidaypark.au
+                                {t("contact_group_email")}
                             </p>
                         </Row>
                         <br />
