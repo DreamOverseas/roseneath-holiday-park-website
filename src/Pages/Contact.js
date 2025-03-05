@@ -21,7 +21,7 @@ const Contact = () => {
             <PageTitle pageTitle={t("Contact_title")} /> <br />
             <Container>
                 <Row className="align-items-start">
-                    <Col md={8}>
+                    <Col md={7}>
                         <h5>{t("Contact_intro_title")}</h5>
                         {t("Contact_intro_text")}
                         <ContactForm />
@@ -89,6 +89,59 @@ const Contact = () => {
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
                                 Corp@roseneathholidaypark.au
+                            </p>
+                        </Row>
+                        <br />
+                        <Row>
+                            <p>
+                                <b>{t("contact_lawyer_title")}</b> &#128100;
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-pin-angle"></i> &nbsp;
+                                {t("contact_lawyer_location")}
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-person"></i> &nbsp;
+                                Tim Kelly
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-globe2"></i> &nbsp;
+                                https://www.rigbycooke.com.au/
+                            </p>
+                        </Row>
+                        <br />
+                        <Row>
+                            <p>
+                                <b>{t("contact_real_estate_agent_title")}</b> &#128100;
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <b>{t("contact_real_estate_agent_subject")}</b>
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-person"></i> &nbsp;
+                                Richard Ivey
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-telephone-inbound"></i> &nbsp;
+                                +61 (04) 0111-3310
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-mailbox"></i> &nbsp;
+                                richard@ctcre.com.au
                             </p>
                         </Row>
                     </Col>
