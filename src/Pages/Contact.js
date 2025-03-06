@@ -27,9 +27,14 @@ const Contact = () => {
                         <ContactForm />
                     </Col>
                     <Col className="contact-info-col">
-                        <Row className="contact-info-row">
+                        <Row>
                             <p>
                                 <b>{t("contact_individual_title")}</b> &#9978;
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <b>{t("contact_individual_subject")}</b>
                             </p>
                         </Row>
                         <Row>
@@ -47,13 +52,13 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
-                                +61 (04) 9051-8609
+                                {t("contact_individual_phone")}
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                info@roseneathholidaypark.au
+                                {t("contact_individual_email")}
                             </p>
                         </Row>
                         <br />
@@ -82,37 +87,13 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
-                                +61 (04)13 168 533
+                                {t("contact_group_phone")}
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                Corp@roseneathholidaypark.au
-                            </p>
-                        </Row>
-                        <br />
-                        <Row>
-                            <p>
-                                <b>{t("contact_lawyer_title")}</b> &#128100;
-                            </p>
-                        </Row>
-                        <Row>
-                            <p>
-                                <i class="bi bi-pin-angle"></i> &nbsp;
-                                {t("contact_lawyer_location")}
-                            </p>
-                        </Row>
-                        <Row>
-                            <p>
-                                <i class="bi bi-person"></i> &nbsp;
-                                Tim Kelly
-                            </p>
-                        </Row>
-                        <Row>
-                            <p>
-                                <i class="bi bi-globe2"></i> &nbsp;
-                                https://www.rigbycooke.com.au/
+                                {t("contact_group_email")}
                             </p>
                         </Row>
                         <br />
@@ -142,6 +123,35 @@ const Contact = () => {
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
                                 richard@ctcre.com.au
+                            </p>
+                        </Row>
+                        <br />
+                        <Row>
+                            <p>
+                                <b>{t("contact_lawyer_title")}</b> &#128100;
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <b>{t("contact_lawyer_subject")}</b>
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-pin-angle"></i> &nbsp;
+                                {t("contact_lawyer_location")}
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-person"></i> &nbsp;
+                                Tim Kelly
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-globe2"></i> &nbsp;
+                                https://www.rigbycooke.com.au/
                             </p>
                         </Row>
                     </Col>
