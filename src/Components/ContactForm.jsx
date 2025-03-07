@@ -5,7 +5,7 @@ import "../Css/Components.css";
 
 const ContactForm = () => {
     const { t } = useTranslation();
-    const mail_API_endpoint = process.env.REACT_APP_EMAIL_ENQUIRY;
+    const mail_API_endpoint = import.meta.env.VITE_EMAIL_ENQUIRY;
 
     // State to hold form values
     const [formData, setFormData] = useState({

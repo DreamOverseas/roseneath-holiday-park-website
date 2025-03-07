@@ -8,8 +8,8 @@ const CheckIn = () => {
 
     const { t } = useTranslation();
 
-    const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
-    const CMS_token = process.env.REACT_APP_CMS_TOKEN;
+    const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
+    const CMS_token = import.meta.env.VITE_CMS_TOKEN;
 
     const [checkInImages, setCheckInImages] = useState([]);
 

@@ -1,29 +1,25 @@
 module.exports = {
-  // 支持的语言列表
   locales: ["en", "zh"],
 
-  // 指定输出目录及文件名称。$LOCALE 会被替换为具体语言代码
   output: "public/locales/$LOCALE.json",
 
-  // 是否使用键名作为默认值
   useKeysAsDefaultValue: true,
 
-  // 解析的输入文件路径，可以包含多个路径
+  // Paths of input files to be parsed, can include multiple paths
   input: [
-    "src/**/*.{js,jsx}", // 扫描 src 目录下所有 .js 和 .jsx 文件
+    "src/**/*.{js,jsx}", // Scan all .js and .jsx files under the src directory
   ],
 
-  // 解析的键的配置
-  keySeparator: false, // 如果使用 "." 作为键的一部分，而不是键分隔符
-  namespaceSeparator: false, // 如果不使用命名空间（不需要在键名里区分不同的模块）
+  keySeparator: false, // If "." is used as part of the key instead of a key separator
+  namespaceSeparator: false, // If namespaces are not used (no need to distinguish different modules in key names)
 
-  // 是否创建旧版本文件备份
-  createOldCatalogs: false, // 如果设置为 true，会生成 .old.json 文件作为备份
+  // Whether to create backups of old version files
+  createOldCatalogs: false, // If set to true, .old.json files will be generated as backups
 
-  // 默认命名空间
+  // Default namespace
   defaultNamespace: "translation",
 
-  // 插值设置（例如用于变量的格式）
+  // Interpolation settings (e.g., format for variables)
   interpolation: {
     prefix: "{{",
     suffix: "}}",

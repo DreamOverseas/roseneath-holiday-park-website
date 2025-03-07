@@ -19,9 +19,9 @@ const RoomDetail = () => {
   //     });
   // }, [id]);
 
-  const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
-  const CMS_token = process.env.REACT_APP_CMS_TOKEN;
-  const DBLink_LH = process.env.REACT_APP_LH_DIRECT_BOOKING;
+  const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
+  const CMS_token = import.meta.env.VITE_CMS_TOKEN;
+  const DBLink_LH = import.meta.env.VITE_LH_DIRECT_BOOKING;
 
   useEffect(() => {
     const fetchRooms = async () => {
