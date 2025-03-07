@@ -9,8 +9,8 @@ const RoomList = () => {
   const [rooms, setRooms] = useState([]);
   const { t, i18n } = useTranslation();
 
-  const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
-  const CMS_token = process.env.REACT_APP_CMS_TOKEN;
+  const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
+  const CMS_token = import.meta.env.VITE_CMS_TOKEN;
 
   useEffect(() => {
     const fetchRooms = async () => {

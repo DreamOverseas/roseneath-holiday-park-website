@@ -4,10 +4,9 @@ import { Helmet } from "react-helmet";
 import { Container, Image, Carousel, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PageTitle from "../Components/PageTitle";
+import '../Css/Tailwind.css';
 
 const Gallery = () => {
-
-    require('../Css/Tailwind.css')
 
     const { t } = useTranslation();
 
@@ -16,8 +15,8 @@ const Gallery = () => {
     const [sliderImages, setSliderImages] = useState([]);
     const [galleryImages, setGalleryImages] = useState([]);
 
-    const CMS_endpoint = process.env.REACT_APP_CMS_ENDPOINT;
-    const CMS_token = process.env.REACT_APP_CMS_TOKEN;
+    const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
+    const CMS_token = import.meta.env.VITE_CMS_TOKEN;
 
     useEffect(() => {
         const fetchGalleryPreview = async () => {

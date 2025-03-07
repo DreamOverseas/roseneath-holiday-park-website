@@ -3,7 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { I18nextProvider } from "react-i18next";
 import { Route, Routes } from "react-router-dom";
-import i18n from "./i18n"; // Ensure you have i18n setup correctly
+import i18n from "./i18n.js"; // Ensure you have i18n setup correctly
 
 // Style Imports
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -11,22 +11,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 // Pages/Components Imports
-import Footer from "./Components/Footer";
-import Navigation from "./Components/Navigation";
-import About from "./Pages/About";
-import Contact from "./Pages/Contact";
-import Gallery from "./Pages/Gallery";
-import Home from "./Pages/Home";
-import IndividualVisitors from "./Pages/IndividualVisitors.js";
-import GroupVisitors from "./Pages/GroupVisitors.js";
-import Investment from "./Pages/Investment.js";
-import Cooperation from "./Pages/Cooperation.js";
-import RoomDetail from "./Pages/RoomDetail";
-import RoomList from "./Pages/RoomList.js";
-import RegisterForm from "./Components/RegisterForm.js";
-import CheckIn from "./Pages/CheckIn.js";
-import CheckOut from "./Pages/CheckOut.js";
-import News from "./Pages/News.js";
+import Footer from "./Components/Footer.jsx";
+import Navigation from "./Components/Navigation.jsx";
+import About from "./Pages/About.jsx";
+import Contact from "./Pages/Contact.jsx";
+import Gallery from "./Pages/Gallery.jsx";
+import Home from "./Pages/Home.jsx";
+import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
+import GroupVisitors from "./Pages/GroupVisitors.jsx";
+import Investment from "./Pages/Investment.jsx";
+import Cooperation from "./Pages/Cooperation.jsx";
+import RoomDetail from "./Pages/RoomDetail.jsx";
+import RoomList from "./Pages/RoomList.jsx";
+import RegisterForm from "./Components/RegisterForm.jsx";
+import CheckIn from "./Pages/CheckIn.jsx";
+import CheckOut from "./Pages/CheckOut.jsx";
+import News from "./Pages/News.jsx";
 
 function App() {
   return (
