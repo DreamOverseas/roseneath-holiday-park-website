@@ -21,7 +21,7 @@ const RoomDetail = () => {
 
   const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
   const CMS_token = import.meta.env.VITE_CMS_TOKEN;
-  const DBLink_LH = import.meta.env.VITE_LH_DIRECT_BOOKING;
+  const DBLink_LH = 'https://book-directonline.com/properties/roseneathholidaypark-1'
 
   useEffect(() => {
     const fetchRooms = async () => {
