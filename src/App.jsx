@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { I18nextProvider } from "react-i18next";
 import { Route, Routes } from "react-router-dom";
 import i18n from "./i18n.js"; // Ensure you have i18n setup correctly
+import CuteChatbot from "@dreamoverseas/cute-chatbot";
 
 // Style Imports
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -29,6 +30,12 @@ import CheckOut from "./Pages/CheckOut.jsx";
 import News from "./Pages/News.jsx";
 
 function App() {
+
+  const vite_openai_api_url = import.meta.env.VITE_OPENAI_API_URL
+  const vite_openai_asst_id = import.meta.env.VITE_OPENAI_ASST_ID
+  const vite_openai_api_key = import.meta.env.VITE_OPENAI_API_KEY
+  const vite_google_api = import.meta.env.VITE_GOOGLE_API
+
   return (
     <I18nextProvider i18n={i18n}>
       <Helmet>
@@ -56,6 +63,13 @@ function App() {
           <Route path='/news' element={<News />} />
         </Routes>
         <Footer />
+        <CuteChatbot
+          nickname='Roseneath Holiday Park'
+          openai_api_url={`${vite_openai_api_url}`}
+          openai_asst_id={`${vite_openai_asst_id}`}
+          openai_api_key={`${vite_openai_api_key}`}
+          google_api_key={`${vite_google_api}`}
+        />
       </div>
     </I18nextProvider>
   );
