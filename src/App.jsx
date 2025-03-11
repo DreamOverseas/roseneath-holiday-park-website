@@ -31,10 +31,10 @@ import News from "./Pages/News.jsx";
 
 function App() {
 
-  const vite_openai_api_url = import.meta.env.VITE_OPENAI_API_URL
-  const vite_openai_asst_id = import.meta.env.VITE_OPENAI_ASST_ID
-  const vite_openai_api_key = import.meta.env.VITE_OPENAI_API_KEY
-  const vite_google_api = import.meta.env.VITE_GOOGLE_API
+  const vite_openai_api_url = import.meta.env.VITE_OPENAI_API_URL;
+  const vite_openai_asst_id = import.meta.env.VITE_OPENAI_ASST_ID;
+  const vite_openai_api_key = import.meta.env.VITE_OPENAI_API_KEY;
+  const vite_google_api = import.meta.env.VITE_GOOGLE_API;
 
   return (
     <I18nextProvider i18n={i18n}>
