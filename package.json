@@ -1,6 +1,6 @@
 {
   "name": "roseneath-holiday-park",
-  "version": "0.1.0",
+  "version": "1.2.79",
   "private": true,
   "dependencies": {
     "@dreamoverseas/cute-chatbot": "^1.1.4",
