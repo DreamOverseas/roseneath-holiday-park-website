@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Row, Button } from 'react-bootstrap';
+import { Row, Button, Modal } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import "../Css/RoomDetail.css";
@@ -9,6 +9,11 @@ const RoomDetail = () => {
   const { Name_en } = useParams();
   const [room, setRoom] = useState(null);
   const { t, i18n } = useTranslation();
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // useEffect(() => {
   //   fetch("/static_data/room.json")
@@ -45,15 +50,35 @@ const RoomDetail = () => {
 
   return (
     <div className='room-detail'>
-      <img
-        src={`${CMS_endpoint}${room.Cover.url}`}
-        alt={room.Name_en}
-        className='room-detail-image'
-      />
       <h1 className='room-detail-name'>{i18n.language === "zh"
         ? room.Name_zh
         : room.Name_en}
       </h1>
+      <button onClick={handleShow}>
+        <img
+          src={`${CMS_endpoint}${room.Cover.url}`}
+          alt={room.Name_en}
+          className='room-detail-image'
+        />
+      </button>
+
+      <Modal fullscreen={true} show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="ms-auto">
+            <h1 className='room-detail-name'>{i18n.language === "zh"
+              ? room.Name_zh
+              : room.Name_en}
+            </h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img
+            src={`${CMS_endpoint}${room.Cover.url}`}
+            alt={room.Name_en}
+            className='room-detail-image'
+          />
+        </Modal.Body>
+      </Modal>
       <p className='room-detail-subtitle'>{i18n.language === "zh"
         ? room.Title_zh
         : room.Title_en}
