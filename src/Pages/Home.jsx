@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import "../Css/Home.css";
 import { Container, Row, Col, Image, Button, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -115,12 +114,6 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Roseneath Holiday Park</title>
-        <meta name="description" content="Official website for the Roseneath Holiday Park near Lake Wellington, the place for Camping, Caravan and Accomadation in the nature." />
-        <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
-      </Helmet>
-
       <div>
         <section className="home-banner-title">
           <h1>{t("home_place_name")}</h1>

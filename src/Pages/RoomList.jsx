@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import "../Css/RoomList.css";
@@ -31,11 +30,6 @@ const RoomList = () => {
 
   return (
     <div className='room-list'>
-      <Helmet>
-        <title>Rooms - Roseneath Holiday Park</title>
-        <meta name="description" content="Showing different types of rooms for the Roseneath Holiday Park near Lake Wellington, the place for Camping, Caravan and Accomadation in the nature." />
-        <meta name="keywords" content="Rooms, Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
-      </Helmet>
 
       <h1>{t("roomlist_title")}</h1>
       <div className='room-grid'>

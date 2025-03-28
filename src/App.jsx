@@ -1,6 +1,5 @@
 // Utils Imports
 import React from "react";
-import { Helmet } from "react-helmet";
 import { I18nextProvider } from "react-i18next";
 import { Route, Routes } from "react-router-dom";
 import i18n from "./i18n.js"; // Ensure you have i18n setup correctly
@@ -38,11 +37,6 @@ function App() {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <Helmet>
-        <title>Roseneath Holiday Park</title>
-        <meta name="description" content="Official website for the Roseneath Holiday Park near Lake Wellington, the place for Camping, Caravan and Accomadation in the nature." />
-        <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadatiob, Food, Service, Course, Facility, Storage, Landscape" />
-      </Helmet>
 
       <div className='App'>
         <Navigation />
