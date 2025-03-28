@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import "../Css/Investment.css";
 import { Container, Image } from 'react-bootstrap'
 // import PageTitle from "../Components/PageTitle";
@@ -39,11 +38,6 @@ const Investment = () => {
 
     return (
         <Container>
-            <Helmet>
-            <title>Investing - Roseneath Holiday Park</title>
-            <meta name="description" content="Interest in investing the Roseneath Holiday Park near Lake Wellington? This is the right place for you to know more about our business!" />
-            <meta name="keywords" content="Investment, Business, Holiday, Roseneath, Camp, Caravan, Nature, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
-            </Helmet>
   
             {investmentImages.map((image) => (
                         <Image

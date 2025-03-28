@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import "../Css/Contact.css";
 import { useTranslation } from "react-i18next";
 import { Container, Col, Row } from 'react-bootstrap';
@@ -12,12 +11,6 @@ const Contact = () => {
 
     return (
         <div>
-            <Helmet>
-            <title>Contact Us - Roseneath Holiday Park</title>
-            <meta name="description" content="Contact Roseneath Holiday Park now and book your journey!" />
-            <meta name="keywords" content="Holiday, Roseneath, Camp, Caravan, Wild, Nature, Exploration, Wellington, Lake, Beach, Accomadation, Food, Service, Course, Facility, Storage, Landscape" />
-            </Helmet>
-  
             <PageTitle pageTitle={t("Contact_title")} /> <br />
             <Container>
                 <Row className="align-items-start">
