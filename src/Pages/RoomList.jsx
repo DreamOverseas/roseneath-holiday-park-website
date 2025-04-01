@@ -39,7 +39,7 @@ const RoomList = () => {
       <div className='room-grid'>
         {rooms.map(room => (
           <Link key={room.id} to={`/room/${room.Name_en}`} className='room-card'>
-            <img src={`${CMS_endpoint}${room.Cover.url}`} alt={room.Name_en} className='room-image' />
+            <img src={`${CMS_endpoint}${room.Cover?.url}`} alt={room.Name_en} className='room-image' />
             <h2 className='room-name'>{i18n.language === "zh"
               ? room.Name_zh
               : room.Name_en}

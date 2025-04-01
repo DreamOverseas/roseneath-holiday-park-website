@@ -28,7 +28,7 @@ const Home = () => {
           },
         });
         const roomData = response.data.data.sort((a, b) => {
-          return b.Availability - a.Availability; // Let available room types going to the front
+          return a.order - b.order; // Let available room types going to the front
         });
         setRooms(roomData);
       } catch (error) {
@@ -133,7 +133,7 @@ const Home = () => {
               {rooms.map((room) => (
                 <div key={room.id} className="room_slider-card">
                   <Card className="home-room-card">
-                    {room.Cover.url ? (
+                    {room.Cover?.url ? (
                       <Card.Img
                         variant="top"
                         src={`${CMS_endpoint}${room.Cover.url}`}
