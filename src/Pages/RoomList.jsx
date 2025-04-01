@@ -19,7 +19,11 @@ const RoomList = () => {
             Authorization: `Bearer ${CMS_token}`,
           },
         });
-        setRooms(response.data.data);
+
+        // Sort rooms by "order" property in ascending order
+        const sortedRooms = response.data.data.sort((a, b) => a.order - b.order);
+
+        setRooms(sortedRooms);
       } catch (error) {
         console.error("Error loading:", error);
       }
