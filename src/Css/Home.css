@@ -17,7 +17,7 @@
 }
 
 .home-banner-title {
-    background-image: url("/public/home/background_image.webp");
+    background-image: url("home/background_image.webp");
     background-repeat: no-repeat;
     background-position: 50% 20%;
     background-size: cover;
