@@ -89,6 +89,14 @@ const Navigation = () => {
                 {t("Contact")}
               </Nav.Link>
 
+              <Nav.Link
+                className={`NavWord ${location.pathname === "/policy" ? "NavActive" : ""
+                  }`}
+                href='/policy'
+              >
+                {t("Policy")}
+              </Nav.Link>
+
               <NavDropdown
                 className='NavNoHighlightWord'
                 title={t("Investment")}
