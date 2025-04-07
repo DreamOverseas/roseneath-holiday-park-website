@@ -32,7 +32,7 @@ const Navigation = () => {
     >
       <Container fluid>
         <Navbar.Brand href='/'>
-          <Figure.Image width={100} src='/logo192.png' />
+          <Figure.Image width={"100px"} src='/logo192.png' />
         </Navbar.Brand>
 
         {/* Toggle button for smaller screens */}
@@ -66,14 +66,6 @@ const Navigation = () => {
               </Nav.Link>
 
               <Nav.Link
-                className={`NavWord ${location.pathname === "/about-us" ? "NavActive" : ""
-                  }`}
-                href='/about-us'
-              >
-                {t("About")}
-              </Nav.Link>
-
-              <Nav.Link
                 className={`NavWord ${location.pathname === "/news" ? "NavActive" : ""
                   }`}
                 href='/news'
@@ -82,11 +74,27 @@ const Navigation = () => {
               </Nav.Link>
 
               <Nav.Link
+                className={`NavWord ${location.pathname === "/about-us" ? "NavActive" : ""
+                  }`}
+                href='/about-us'
+              >
+                {t("About")}
+              </Nav.Link>
+
+              <Nav.Link
                 className={`NavWord ${location.pathname === "/contact-us" ? "NavActive" : ""
                   }`}
                 href='/contact-us'
               >
                 {t("Contact")}
+              </Nav.Link>
+
+              <Nav.Link
+                className={`NavWord ${location.pathname === "/policy" ? "NavActive" : ""
+                  }`}
+                href='/policy'
+              >
+                {t("Policy")}
               </Nav.Link>
 
               <NavDropdown

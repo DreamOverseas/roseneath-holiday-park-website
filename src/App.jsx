@@ -27,6 +27,7 @@ import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
 import News from "./Pages/News.jsx";
+import Policy from "./Pages/Policy.jsx";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
+          <Route path='/policy' element={<Policy />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
           <Route path='/investment' element={<Investment />} />
