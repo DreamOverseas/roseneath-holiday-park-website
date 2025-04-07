@@ -50,7 +50,6 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap; /* allow wrapping on smaller screens */
-  gap: 10px; /* adds spacing between items */
   align-items: center;
 }
 
