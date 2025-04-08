@@ -13,7 +13,7 @@
 }
 
 .NavWord {
-  width: 120px;
+  width: 100px;
   text-align: center;
   font-family: Georgia, serif;
   font-size: 20px;
@@ -48,9 +48,10 @@
 .NavContainer {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; /* allow wrapping on smaller screens */
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
 }
 
 .PlaceholderDiv {
