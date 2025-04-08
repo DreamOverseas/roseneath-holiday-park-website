@@ -1,12 +1,14 @@
 import Cookies from "js-cookie";
-import React, { useEffect } from "react";
-import { Container, Figure, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Figure, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import LoginModal from './LoginModal.jsx';
 import "../Css/Navigation.css";
 
 const Navigation = () => {
   const { t, i18n } = useTranslation();
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const location = useLocation(); // Get the current URL path
 
   useEffect(() => {
@@ -24,12 +26,12 @@ const Navigation = () => {
   };
 
   return (
-    <Navbar
+      <Navbar
       bg='light'
       expand='lg'
       data-bs-theme='light'
       className='NavigationBar sticky-top'
-    >
+      >
       <Container fluid>
         <Navbar.Brand href='/'>
           <Figure.Image width={"100px"} src='/logo192.png' />
@@ -124,6 +126,13 @@ const Navigation = () => {
               </NavDropdown>
             </Nav>
           </Container>
+          <div className="d-flex align-items-center">
+            <Button 
+            onClick={() => setShowLoginModal(true)}
+            >
+              注册 / 登录
+            </Button>
+          </div>
           {/* <div className='NavContact ms-auto'>
             <Nav.Link className='NavNoHighlightWord' href='/contact-us'>
               +61 (03) 5157-8298
@@ -131,8 +140,13 @@ const Navigation = () => {
           </div> */} {/* Hide now comfirmed by John for text-warp problems */}
           <div className="PlaceholderDiv" />
         </Navbar.Collapse>
+        <LoginModal
+          show={showLoginModal}
+          handleClose={() => setShowLoginModal(false)}
+        />
       </Container>
     </Navbar>
+    
   );
 };
 
