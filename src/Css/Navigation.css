@@ -57,3 +57,14 @@
 .PlaceholderDiv {
   width: 116px; /* Keep same with the NavBrand width + margin */
 }
+
+
+@media (max-width: 768px) {
+  .NavWord {
+    width: 100px;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    border-radius: 50px;
+  }
+}
