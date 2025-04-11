@@ -54,18 +54,35 @@ const LoginModal = ({ show, handleClose }) => {
     setError(null);
 
     if (email && password && confirmedPassword && password === confirmedPassword) {
+      
       try {
         const response = await axios.post(
-          `${BACKEND_HOST}/api/auth/local/register`,
+          `${BACKEND_HOST}/api/rhp-memberships`,
           {
-            username,
-            email,
-            password
+            data: {
+              UserName:username,
+              AccountName:email,
+              Password:password
+            }
           }
         );
-
-        await login(email, password);
-        Cookies.set("token", response.data.jwt, { expires: 7 });
+        
+        // await login(email, password);
+        // Cookies.set("token", response.data.jwt, { expires: 7 });
+        if (response.status === 201) {
+          const userData = response.data;
+          Cookies.set('user', JSON.stringify({
+            "username": userData.Name,
+            "number": userData.MembershipNumber,
+            "email": userData.AccountName,
+            "exp": userData.ExpiryDate,
+            "point": userData.Point,
+            "loyalty": userData.DiscountPoint,
+          }), { expires: 7 });
+          // navigate('/member-center');
+          // window.location.reload();
+        }
+        console.log(response.data)
         navigate("/");
         handleClose();
       } catch (error) {
