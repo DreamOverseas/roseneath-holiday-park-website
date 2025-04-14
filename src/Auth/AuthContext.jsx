@@ -13,9 +13,9 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check if user is logged in
     const checkUserLoggedIn = async () => {
-      const token = Cookies.get("token");
-      console.log("Checking if user is logged in, token:", token);
-      if (token) {
+      const userInfo = Cookies.get("user");
+      console.log("Checking if user is logged in, userInfo:", userInfo);
+      if (userInfo) {
         try {
           const response = await axios.get(
             `${BACKEND_HOST}/api/users/me?populate=avatar`,

@@ -70,17 +70,19 @@ const LoginModal = ({ show, handleClose }) => {
         // await login(email, password);
         // Cookies.set("token", response.data.jwt, { expires: 7 });
         if (response.status === 201) {
-          const userData = response.data;
+          const userData = response.data.data;
           Cookies.set('user', JSON.stringify({
-            "username": userData.Name,
-            "number": userData.MembershipNumber,
+            "username": userData.UserName,
+            "membership": userData.MembershipNumber,
             "email": userData.AccountName,
             "exp": userData.ExpiryDate,
             "point": userData.Point,
-            "loyalty": userData.DiscountPoint,
+            "discount point": userData.DiscountPoint,
           }), { expires: 7 });
           // navigate('/member-center');
           // window.location.reload();
+          const userCookie = Cookies.get('user');
+          console.log("cookie:", userCookie)
         }
         console.log(response.data)
         navigate("/");
