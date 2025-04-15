@@ -28,6 +28,7 @@ import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
 import News from "./Pages/News.jsx";
 import Policy from "./Pages/Policy.jsx";
+import MemberCenter from "./Pages/MembershipCenter.jsx";
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
           <Route path='/check-in' element={<CheckIn />} />
           <Route path='/check-out' element={<CheckOut />} />
           <Route path='/news' element={<News />} />
+          <Route path='/membership' element={<MemberCenter />} />
         </Routes>
         <Footer />
         <CuteChatbot

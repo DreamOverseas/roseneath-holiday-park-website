@@ -48,8 +48,6 @@
 .NavContainer {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; /* allow wrapping on smaller screens */
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
@@ -58,4 +56,22 @@
 
 .PlaceholderDiv {
   width: 116px; /* Keep same with the NavBrand width + margin */
+}
+
+.nav-login-button {
+  background-color: darkblue !important;
+  border-color: darkblue !important;
+  box-shadow: 0 4px 6px skyblue;
+  border-radius: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .NavWord {
+    width: 100px;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    border-radius: 50px;
+  }
 }
