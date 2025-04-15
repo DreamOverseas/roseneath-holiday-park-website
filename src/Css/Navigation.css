@@ -58,6 +58,13 @@
   width: 116px; /* Keep same with the NavBrand width + margin */
 }
 
+.nav-login-button {
+  background-color: darkblue !important;
+  border-color: darkblue !important;
+  box-shadow: 0 4px 6px skyblue;
+  border-radius: 20px;
+}
+
 
 @media (max-width: 768px) {
   .NavWord {

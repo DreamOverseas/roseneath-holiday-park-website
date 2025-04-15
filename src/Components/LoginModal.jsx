@@ -1,282 +1,386 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
-import {
-  Button,
-  Col,
-  Form,
-  Modal,
-  Row,
-  Tab,
-  Nav,
-  Image,
-} from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../Auth/AuthContext.jsx";
-// import "../css/LoginModal.css";
+import React, { useState } from 'react';
+import { Modal, Tabs, Tab, Form, Button, InputGroup } from 'react-bootstrap';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
-const BACKEND_HOST = import.meta.env.VITE_CMS_ENDPOINT;
+// Environment variable assignments to be used in API calls.
+const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
+const CMS_token = import.meta.env.VITE_CMS_TOKEN;
+const email_service_endpoint = import.meta.env.VITE_EMAIL_API_ENDPOINT;
 
 const LoginModal = ({ show, handleClose }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmedPassword, setConfirmedPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [activeKey, setActiveKey] = useState("sign-in");
-  const [error, setError] = useState(null);
-  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
-  const handleSignin = async event => {
-    event.preventDefault();
-    setSubmitted(true);
-    setError(null);
+  // State to manage the active tab. Default is 'register'
+  const [activeTab, setActiveTab] = useState('register');
 
-    if (email && password) {
-      try {
-        await login(email, password);
-        navigate("/"); 
-        handleClose();
-      } catch (error) {
-        const errorMessage =
-          error.response?.data?.error?.message || t("error_occurred");
-        setError(errorMessage);
+  /* Registration form state variables */
+  const [regUserName, setRegUserName] = useState('');
+  const [regEmail, setRegEmail] = useState('');
+  const [regPassword, setRegPassword] = useState('');
+  const [regConfirmPassword, setRegConfirmPassword] = useState('');
+  const [regVerificationCode, setRegVerificationCode] = useState('');
+  // This state holds the generated verification code after "Send Code" is clicked.
+  const [generatedCode, setGeneratedCode] = useState(null);
+  // Holds error or status messages for registration actions.
+  const [regError, setRegError] = useState('');
+
+  /* Login form state variables */
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  // Holds error messages for login actions.
+  const [loginError, setLoginError] = useState('');
+
+  const [cooldown, setCooldown] = useState(0);
+
+  /**
+   * Helper function to validate email using a basic regex.
+   */
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+    /**
+   * Helper function to clear all form data in Modal
+   */
+    const clearModalData = () => {
+      setRegEmail('');
+      setLoginPassword('');
+      setRegPassword('');
+      setRegConfirmPassword('');
+      setRegVerificationCode('');
+      setRegError('');
+    };
+
+  /**
+   * Handle clicking the "Send Code" button in the Registration tab.
+   * Validates that required fields (User Name, Email, Password) are filled and that
+   * the email address appears valid. If valid, generates a random 6-digit code,
+   * stores it in state, and sends a POST request to the email service endpoint.
+   */
+  const handleSendCode = async () => {
+    if (cooldown > 0) return;
+    // Reset any existing error message.
+    setRegError('');
+
+    setCooldown(60);
+    const timer = setInterval(() => {
+      setCooldown(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    // Check that required fields are populated.
+    if (!regUserName || !regEmail || !regPassword) {
+      setRegError('Please fill out Name, Email, and Password fields before sending the code.');
+      return;
+    }
+    // Validate email format.
+    if (!validateEmail(regEmail)) {
+      setRegError('Invalid email address.');
+      return;
+    }
+    // Generate a 6-digit code.
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    setGeneratedCode(code);
+
+    try {
+      // Send code to the email service endpoint with the required details.
+      const res = await fetch(`${email_service_endpoint}/do-mail-code-verify`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          verify_code: code,
+          from: 'Roseneath Caravan Park',
+          email: regEmail
+        })
+      });
+      if (!res.ok) {
+        setRegError('Failed to send verification code. Please try again.');
+        setCooldown(0);
+      } else {
+        setRegError('Verification code sent successfully.');
       }
+    } catch (error) {
+      setRegError('Error sending verification code. Please try again.');
+      setCooldown(0);
     }
   };
 
-  const handleSignup = async event => {
-    event.preventDefault();
-    setSubmitted(true);
-    setError(null);
+  /**
+   * Handle registration form submission.
+   * Validates that all fields are filled, the passwords match,
+   * and that the entered verification code matches the one generated.
+   */
+  const handleRegister = async () => {
+    // Reset any error message.
+    setRegError('');
 
-    if (email && password && confirmedPassword && password === confirmedPassword) {
-      
-      try {
-        const response = await axios.post(
-          `${BACKEND_HOST}/api/rhp-memberships`,
+    // Validate that all fields are non-empty.
+    if (!regUserName || !regEmail || !regPassword || !regConfirmPassword || !regVerificationCode) {
+      setRegError('Please fill out all registration fields.');
+      return;
+    }
+    // Check that password is at least 8 characters.
+    if (regPassword.length < 8) {
+      setRegError('Password must be over 8 charactors.');
+      return;
+    }
+    // Validate that both password fields match.
+    if (regPassword !== regConfirmPassword) {
+      setRegError('Passwords do not match.');
+      return;
+    }
+    // Validate that the entered verification code matches the generated one.
+    if (regVerificationCode !== generatedCode) {
+      setRegError('Invalid verification code.');
+      return;
+    }
+
+    try {
+      // Create a new entry in the 'RHPMembership' collection type on Strapi.
+      const req_body = JSON.stringify({
+        data: {
+          UserName: regUserName,
+          Email: regEmail,
+          Password: regPassword,
+          IsMember: false
+        }
+      });
+      const res = await fetch(`${CMS_endpoint}/api/rhp-memberships`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${CMS_token}`
+        },
+        body: req_body
+      });
+      if (res.ok) {
+        const data = await res.json();
+        // Set cookies for the authentication token and basic user details.
+        Cookies.set('AuthToken', 'roseneath-holiday-park-website', { expires: 7 });
+        const userCookie = {
+          name: regUserName,
+          email: regEmail,
+          is_member: false
+        };
+        Cookies.set('user', JSON.stringify(userCookie));
+        handleClose();
+        clearModalData();
+        navigate('/membership');
+      } else {
+        setRegError('Registration failed. Please try again.');
+      }
+    } catch (error) {
+      console.error(error);
+      setRegError('Error during registration.');
+    }
+  };
+
+  /**
+   * Handle login form submission.
+   * Sends entered email and password to the CMS_endpoint.
+   * If a 400 response is returned, informs the user via an alert.
+   * On success (200), retrieves the user data from Strapi using the email,
+   * sets cookies accordingly, and navigates the user to the membership page.
+   * Displays an inline error if credentials are incorrect.
+   */
+  const handleLogin = async () => {
+    // Reset any existing login error message.
+    setLoginError('');
+
+    // Validate that both login fields are non-empty.
+    if (!loginEmail || !loginPassword) {
+      setLoginError('Please fill out both email and password.');
+      return;
+    }
+
+    try {
+      // Send a POST request with the login credentials.
+      const res = await fetch(`${CMS_endpoint}/api/rhp-memberships/verify-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${CMS_token}`
+        },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword
+        })
+      });
+
+      // If the response status is 400, alert the user.
+      if (res.status === 400) {
+        window.alert('Something is wrong, please contact us.');
+        return;
+      }
+      // On success, fetch the full user details using the provided email.
+      if (res.ok) {
+        const userRes = await fetch(
+          `${CMS_endpoint}/api/rhp-memberships?filters[Email][$eq]=${loginEmail}`,
           {
-            data: {
-              UserName:username,
-              AccountName:email,
-              Password:password
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${CMS_token}`
             }
           }
         );
-        
-        // await login(email, password);
-        // Cookies.set("token", response.data.jwt, { expires: 7 });
-        if (response.status === 201) {
-          const userData = response.data.data;
-          Cookies.set('user', JSON.stringify({
-            "username": userData.UserName,
-            "membership": userData.MembershipNumber,
-            "email": userData.AccountName,
-            "exp": userData.ExpiryDate,
-            "point": userData.Point,
-            "discount point": userData.DiscountPoint,
-          }), { expires: 7 });
-          // navigate('/member-center');
-          // window.location.reload();
-          const userCookie = Cookies.get('user');
-          console.log("cookie:", userCookie)
+        if (userRes.ok) {
+          const userData = await userRes.json();
+          const userAttributes = userData.data[0];
+          // Create a base user cookie.
+          let userCookie = {
+            name: userAttributes.UserName,
+            email: userAttributes.Email,
+            is_member: userAttributes.IsMember
+          };
+          // If the user is a member, add additional fields to the cookie.
+          if (userAttributes.IsMember) {
+            userCookie = {
+              ...userCookie,
+              number: userAttributes.MembershipNumber || 'N/A',
+              fname: userAttributes.FirstName || 'Not Specified',
+              lname: userAttributes.LastName || 'Not Specified',
+              contact: userAttributes.Contact || 'Not Specified',
+              exp: userAttributes.ExpiryDate || 'N/A',
+              point: userAttributes.Point || 'N/A',
+              discount_p: userAttributes.DiscountPoint || 'N/A'
+            };
+          }
+          Cookies.set('user', JSON.stringify(userCookie));
+          Cookies.set('AuthToken', 'roseneath-holiday-park-website', { expires: 7 });
+          handleClose();
+          clearModalData();
+          navigate('/membership');
+        } else {
+          setLoginError('Failed to retrieve user data.');
         }
-        console.log(response.data)
-        navigate("/");
-        handleClose();
-      } catch (error) {
-        const errorMessage =
-          error.response?.data?.error?.message || t("error_occurred");
-        setError(errorMessage);
+      } else {
+        setLoginError('Either email or password is wrong.');
       }
-    } else {
-      setError(t("password_mismatch"));
-      console.log(error);
+    } catch (error) {
+      console.error(error);
+      setLoginError('Error during login.');
     }
   };
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}
-      centered
-      dialogClassName="login-modal-custom-modal-dialog"
-      contentClassName="login-modal-custom-modal-content"
-    >
+    <Modal show={show} onHide={handleClose} centered>
+      {/* Modal Header with dynamic title based on active tab */}
       <Modal.Header closeButton>
-        <Modal.Title>{t(activeKey === "sign-in" ? "sign_in" : "sign_up")}</Modal.Title>
+        <Modal.Title><b>{activeTab === 'register' ? 'Register' : 'Login'}</b></Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Row>
-          {/* show image based on activeKey */}
-          <Col md={5} className="d-flex justify-content-center align-items-center">
-            <Image
-              className="login-modal-login-image-display"
-              src={activeKey === "sign-in" ? t("sign_in_image") : t("sign_up_image")}
-              fluid
-            />
-          </Col>
+        {/* Tabs to switch between Register and Login. Default tab is Register */}
+        <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} style={{ display: 'flex', flexDirection: 'row' }} >
+          <Tab eventKey="register" title="Register" tabClassName="d-inline-block me-3">
+            <Form className="mt-3">
+              {/* User Name Field */}
+              <Form.Group controlId="regUserName" className="mb-3">
+                <Form.Label>User Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={regUserName}
+                  onChange={(e) => setRegUserName(e.target.value)}
+                />
+              </Form.Group>
 
-          {/* form area */}
-          <Col md={7}>
-            <Tab.Container
-              activeKey={activeKey}
-              onSelect={(key) => setActiveKey(key)}
-            >
-              <Row className="justify-content-center">
-                <Tab.Content>
-                  
-                  {/* sign in form */}
-                  <Tab.Pane eventKey="sign-in">
-                    <h4 style={{textAlign: "center"}}>{t("sign_in_panel_title")}</h4>
-                    <Form onSubmit={handleSignin}>
-                      <Form.Group controlId="userEmail" className="login-modal-form-group">
-                        <Form.Label className="login-modal-form-label">{t("email")}</Form.Label>
-                        <Form.Control
-                          type="email"
-                          placeholder={t("enter_email")}
-                          value={email}
-                          onChange={e => setEmail(e.target.value)}
-                          isInvalid={submitted && !email}
-                          className="login-modal-form-control"
-                        />
-                        <Form.Control.Feedback type="invalid" className="login-modal-invalid-feedback">
-                          {t("email_invalid")}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+              <Form.Group controlId="regEmail" className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={regEmail}
+                  onChange={(e) => setRegEmail(e.target.value)}
+                />
+              </Form.Group>
 
-                      <Form.Group controlId="userPassword" className="login-modal-form-group">
-                        <Form.Label className="login-modal-form-label">{t("password")}</Form.Label>
-                        <Form.Control
-                          type="password"
-                          placeholder={t("enter_password")}
-                          value={password}
-                          onChange={e => setPassword(e.target.value)}
-                          isInvalid={submitted && !password}
-                          className="login-modal-form-control"
-                        />
-                        <Form.Control.Feedback type="invalid" className="login-modal-invalid-feedback">
-                          {t("password_required")}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+              <Form.Group controlId="regPassword" className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={regPassword}
+                  onChange={(e) => setRegPassword(e.target.value)}
+                />
+                <Form.Text muted>Password should be over 8 charactors.</Form.Text>
+              </Form.Group>
 
-                      <div className="login-modal-form-button-container">
-                        <Button variant="primary" type="submit" className="login-modal-submit-btn">
-                          {t("sign_in")}
-                        </Button>
-                      </div>
-                    </Form>
+              <Form.Group controlId="regConfirmPassword" className="mb-3">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={regConfirmPassword}
+                  onChange={(e) => setRegConfirmPassword(e.target.value)}
+                />
+              </Form.Group>
 
-                    {/* "Do not have an account?" */}
-                    <div className="text-center mt-3">
-                      <p>
-                        {t("noAccount")}
-                        <Nav.Link 
-                          eventKey="sign-up" 
-                          onClick={() => setActiveKey("sign-up")} 
-                          className="d-inline-block login-modal-nav-link-Login"
-                        >
-                          {t("sign_up")}
-                        </Nav.Link>
-                      </p>
-                    </div>
-                  </Tab.Pane>
+              <Form.Group controlId="regVerificationCode" className="mb-3">
+                <Form.Label>Verification Code</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    value={regVerificationCode}
+                    onChange={(e) => setRegVerificationCode(e.target.value)}
+                  />
+                  <Button
+  variant="outline-secondary"
+  onClick={handleSendCode}
+  disabled={cooldown > 0}
+>
+  {cooldown > 0 ? `Sent(${cooldown})` : 'Send Code'}
+</Button>
+                </InputGroup>
+              </Form.Group>
 
-                  {/* sign up form */}
-                  <Tab.Pane eventKey="sign-up">
-                    <h4 style={{textAlign: "center"}}>{t("sign_up_panel_title")}</h4>
-                    <Form onSubmit={handleSignup}>
-                      <Form.Group controlId="userUsername" className="login-modal-form-group">
-                        <Form.Label className="login-modal-form-label">{t("username")}</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder={t("enter_username")}
-                          value={username}
-                          onChange={e => setUsername(e.target.value)}
-                          isInvalid={submitted && !username}
-                          className="login-modal-form-control"
-                        />
-                        <Form.Control.Feedback type="invalid" className="login-modal-invalid-feedback">
-                          {t("username_invalid")}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+              {regError && <p className="text-danger">{regError}</p>}
 
-                      <Form.Group controlId="userEmail" className="login-modal-form-group">
-                        <Form.Label className="login-modal-form-label">{t("email")}</Form.Label>
-                        <Form.Control
-                          type="email"
-                          placeholder={t("enter_email")}
-                          value={email}
-                          onChange={e => setEmail(e.target.value)}
-                          isInvalid={submitted && !email}
-                          className="login-modal-form-control"
-                        />
-                        <Form.Control.Feedback type="invalid" className="login-modal-invalid-feedback">
-                          {t("email_invalid")}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+              <div className="text-end d-grid gap-2">
+                <Button variant="primary" onClick={handleRegister} className="mt-2" >
+                  Submit
+                </Button>
+              </div>
+            </Form>
+          </Tab>
 
-                      <Form.Group controlId="userPassword" className="login-modal-form-group">
-                        <Form.Label className="login-modal-form-label">{t("password")}</Form.Label>
-                        <Form.Control
-                          type="password"
-                          placeholder={t("enter_password")}
-                          value={password}
-                          onChange={e => setPassword(e.target.value)}
-                          isInvalid={submitted && !password}
-                          className="login-modal-form-control"
-                        />
-                        <Form.Control.Feedback type="invalid" className="login-modal-invalid-feedback">
-                          {t("password_required")}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+          <Tab eventKey="login" title="Login" tabClassName="d-inline-block me-3">
+            <Form className="mt-3">
+              <Form.Group controlId="loginEmail" className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                />
+              </Form.Group>
 
-                      <Form.Group controlId="confirmedPassword" className="login-modal-form-group">
-                        <Form.Label className="login-modal-form-label">{t("confirm_password")}</Form.Label>
-                        <Form.Control
-                          type="password"
-                          placeholder={t("confirm_password")}
-                          value={confirmedPassword}
-                          onChange={e => setConfirmedPassword(e.target.value)}
-                          isInvalid={submitted && password !== confirmedPassword}
-                          className="login-modal-form-control"
-                        />
-                        <Form.Control.Feedback type="invalid" className="login-modal-invalid-feedback">
-                          {t("password_mismatch")}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+              <Form.Group controlId="loginPassword" className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                />
+              </Form.Group>
 
-                      <div className="login-modal-form-button-container">
-                        <Button variant="primary" type="submit" className="login-modal-submit-btn">
-                          {t("sign_up")}
-                        </Button>
-                      </div>
-                    </Form>
+              {loginError && <p className="text-danger">{loginError}</p>}
 
-                    {/* "Already have an account?"*/}
-                    <div className="text-center mt-3">
-                      <p>
-                        {t("hasAccount")}
-                        <Nav.Link 
-                          eventKey="sign-in" 
-                          onClick={() => setActiveKey("sign-in")} 
-                          className="d-inline-block login-modal-nav-link-Login"
-                        >
-                          {t("sign_in")}
-                        </Nav.Link>
-                      </p>
-                    </div>
-                  </Tab.Pane>
-                </Tab.Content>
-              </Row>
-            </Tab.Container>
-          </Col>
-        </Row>
+              <div className="text-end d-grid gap-2">
+                <Button variant="primary" onClick={handleLogin}>
+                  Login
+                </Button>
+              </div>
+            </Form>
+          </Tab>
+        </Tabs>
       </Modal.Body>
-    </Modal>
+    </Modal >
   );
 };
 

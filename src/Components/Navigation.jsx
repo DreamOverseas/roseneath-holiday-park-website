@@ -2,14 +2,15 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Container, Figure, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import LoginModal from './LoginModal.jsx';
 import "../Css/Navigation.css";
 
 const Navigation = () => {
   const { t, i18n } = useTranslation();
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const location = useLocation(); // Get the current URL path
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedLanguage = Cookies.get("i18nextLng") || "en";
@@ -25,13 +26,31 @@ const Navigation = () => {
     }
   };
 
+  const userCookie = Cookies.get("user");
+
+  const handleAuthButtonClick = () => {
+    if (userCookie) {
+      if (location.pathname === "/membership") {
+        Cookies.remove("user");
+        Cookies.remove("AuthToken");
+        navigate("/");
+      } else {
+        navigate("/membership");
+      }
+    } else {
+      setShowLoginModal(true);
+    }
+  };
+
+
+
   return (
-      <Navbar
+    <Navbar
       bg='light'
       expand='lg'
       data-bs-theme='light'
       className='NavigationBar sticky-top'
-      >
+    >
       <Container fluid>
         <Navbar.Brand href='/'>
           <Figure.Image width={"100px"} src='/logo192.png' />
@@ -105,10 +124,10 @@ const Navigation = () => {
                 id='investment-dropdown'
               >
                 <NavDropdown.Item href='/investment'>
-                    {t("Investment")}
+                  {t("Investment")}
                 </NavDropdown.Item>
                 <NavDropdown.Item href='/cooperation'>
-                    {t("Cooperation")}
+                  {t("Cooperation")}
                 </NavDropdown.Item>
               </NavDropdown>
 
@@ -126,13 +145,15 @@ const Navigation = () => {
               </NavDropdown>
             </Nav>
           </Container>
-          <div className="d-flex align-items-center">
-            <Button 
-            onClick={() => setShowLoginModal(true)}
+          <div className="d-flex align-items-center nav-login-button">
+            <Button
+              onClick={handleAuthButtonClick}
+              variant={userCookie ? (location.pathname === "/membership" ? "danger" : "primary") : undefined}
             >
-              注册 / 登录
+              {userCookie ? (location.pathname === "/membership" ? "登出" : "会员中心") : "注册/登录"}
             </Button>
           </div>
+
           {/* <div className='NavContact ms-auto'>
             <Nav.Link className='NavNoHighlightWord' href='/contact-us'>
               +61 (03) 5157-8298
@@ -146,7 +167,7 @@ const Navigation = () => {
         />
       </Container>
     </Navbar>
-    
+
   );
 };
 
