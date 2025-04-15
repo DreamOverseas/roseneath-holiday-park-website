@@ -88,11 +88,11 @@ const Gallery = () => {
                 </Container>
                 <br />
                 <Container fluid className="flex justify-center items-center">
-                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113491574784715&bvid=BV1hSUaYzEz1&cid=26787776662&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="50%" height="500px"></iframe>
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113491574784715&bvid=BV1hSUaYzEz1&cid=26787776662&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="400px"></iframe>
                 </Container>
                 <br />
                 <Container fluid className="flex justify-center items-center">
-                <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114294599584292&bvid=BV1anR1YbErX&cid=29277030051&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="50%" height="500px"></iframe>
+                <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114294599584292&bvid=BV1anR1YbErX&cid=29277030051&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="400px"></iframe>
                 </Container>
                 <br />
                 <Container fluid>
