@@ -125,6 +125,7 @@
   "cooperation":"Cooperation",
 
   "login": "Login",
+  "register": "Register",
   "login_username": "User Name",
   "login_pwd": "Password",
   "login_pwd_info": "Password should be over 8 charactors.",
