@@ -69,9 +69,7 @@
   box-shadow: 0 4px 6px skyblue;
 }
 
-.nav-login-button .btn-primary:hover,
-.nav-login-button .btn-primary:focus,
-.nav-login-button .btn-primary:active {
+.nav-login-button .btn-primary:hover {
   background-color: skyblue;
   border-color: skyblue;
   border-radius: 50px !important;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Cookies from 'js-cookie';
+import { useTranslation } from "react-i18next";
 import { Container, Row, Col, Card, Button, Modal, Form, InputGroup } from 'react-bootstrap';
 import '../Css/MemberCenter.css';
 import AlternatingText from './AlternatingText';
@@ -20,6 +21,8 @@ const MemberPointMarket = () => {
     }, [redeemProduct]); // Update based on existance of object redeemProduct
 
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -267,8 +270,8 @@ const MemberPointMarket = () => {
                                     )}
                                     <Row className="text-center d-flex">
                                         <AlternatingText
-                                            text1={`${Price} 会员点`}
-                                            text2={`折扣分最高抵扣${Math.min(Price, MaxDeduction)}!`}
+                                            text1={`${Price} ${t("membership_point")}`}
+                                            text2={`${t("membership_max_dis")}${Math.min(Price, MaxDeduction)}!`}
                                             judge={MaxDeduction}
                                         />
                                     </Row>
@@ -279,7 +282,7 @@ const MemberPointMarket = () => {
                                         className="w-100"
                                         onClick={(e) => handleRedeemClick(product, e)}
                                     >
-                                        现在兑换
+                                        {t("membership_redeem")}
                                     </Button>
                                 </Card.Footer>
                             </Card>
@@ -305,7 +308,7 @@ const MemberPointMarket = () => {
                             )}
                         <p>{selectedProduct.Description}</p>
                         <Row className="text-center">
-                            {selectedProduct.Price} 会员点
+                            {selectedProduct.Price} {t("membership_point")}
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
@@ -314,7 +317,7 @@ const MemberPointMarket = () => {
                             className="w-100"
                             onClick={(e) => handleRedeemClick(selectedProduct, e)}
                         >
-                            现在兑换
+                            {t("membership_redeem")}
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -330,10 +333,10 @@ const MemberPointMarket = () => {
                     }}
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title>确认兑换</Modal.Title>
+                        <Modal.Title>{t("membership_redm_comf")}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>商品：{redeemProduct.Name}</p>
+                        <p>{t("membership_product")}{redeemProduct.Name}</p>
                         {(() => {
                             const userData = JSON.parse(Cookies.get('user'));
                             const cookiePoints = userData.point || 0;
@@ -341,17 +344,17 @@ const MemberPointMarket = () => {
                             return (
                                 <>
                                     <p>
-                                        会员点数：{cookiePoints} → <b>{cookiePoints - redeemProduct.Price + currDeduction}</b>
+                                    {t("membership_point")}：{cookiePoints} → <b>{cookiePoints - redeemProduct.Price + currDeduction}</b>
                                     </p>
                                     <p>
-                                        折扣分：{cookieDiscountPoints} → <b>{cookieDiscountPoints - currDeduction}</b>
+                                    {t("membership_discount")}：{cookieDiscountPoints} → <b>{cookieDiscountPoints - currDeduction}</b>
                                     </p>
                                     <hr />
                                     {maxDeduction > 0 ?
                                         (<Form.Group>
                                             <Row className='d-flex'>
                                                 <Col md={7}>
-                                                    <Form.Label>抵扣点数 ({currDeduction}/{maxDeduction})</Form.Label>
+                                                    <Form.Label>{t("membership_dis_p")} ({currDeduction}/{maxDeduction})</Form.Label>
                                                 </Col>
                                                 <Col md={5}>
                                                     <Row>
@@ -400,9 +403,9 @@ const MemberPointMarket = () => {
                                     onClick={comfirmRedeemNow}
                                 >
                                     {(sufficientPoints && sufficientDiscountPoint) ?
-                                        (loadingRedeem ? "正在为您兑换.." : "兑换")
+                                        (loadingRedeem ? `${t("membership_redeeming")}` : `${t("membership_redeem")}`)
                                         :
-                                        (sufficientPoints ? "折扣分不足" : "会员点不足")}
+                                        (sufficientPoints ? `${t("membership_insuff_p")}` : `${t("membership_insuff_d")}`)}
                                 </Button>
                             );
                         })()}
@@ -421,7 +424,7 @@ const MemberPointMarket = () => {
                     </Modal.Header>
                     <Modal.Body className="text-center">
                         <i className="bi bi-check-circle" style={{ fontSize: '3rem', color: 'green' }}></i>
-                        <p className="mt-3">兑换成功，我们已将优惠券发送至您的邮箱。</p>
+                        <p className="mt-3">{t("membership_redm_succ")}</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
@@ -429,7 +432,7 @@ const MemberPointMarket = () => {
                             className="w-100"
                             onClick={() => closeSuccessModal()}
                         >
-                            确定
+                            {t("membership_comfirm")}
                         </Button>
                     </Modal.Footer>
                 </Modal>

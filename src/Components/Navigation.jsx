@@ -150,7 +150,7 @@ const Navigation = () => {
               onClick={handleAuthButtonClick}
               variant={userCookie ? (location.pathname === "/membership" ? "danger" : "primary") : "primary"}
             >
-              {userCookie ? (location.pathname === "/membership" ? "登出" : "会员中心") : "注册/登录"}
+              {userCookie ? (location.pathname === "/membership" ? `${t("membership_logout")}` : `${t("membership_center")}`) : `${t("membership_reglog")}`}
             </Button>
           </div>
 
