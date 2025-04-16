@@ -92,7 +92,7 @@ const MemberPointMarket = () => {
 
         const currUser = JSON.parse(Cookies.get('user'));
 
-        const userQueryUrl = `${endpoint}/api/one-club-memberships?filters[MembershipNumber][$eq]=${currUser.number}&filters[Email][$eq]=${currUser.email}`;
+        const userQueryUrl = `${endpoint}/api/rhp-memberships?filters[MembershipNumber][$eq]=${currUser.number}&filters[Email][$eq]=${currUser.email}`;
 
         try {
             const userResponse = await fetch(userQueryUrl, {
@@ -119,7 +119,7 @@ const MemberPointMarket = () => {
                     }
                 };
 
-                const updateResponse = await fetch(`${endpoint}/api/one-club-memberships/${documentId}`, {
+                const updateResponse = await fetch(`${endpoint}/api/rhp-memberships/${documentId}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
