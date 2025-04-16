@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Tabs, Tab, Form, Button, InputGroup } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 // Environment variable assignments to be used in API calls.
 const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
@@ -10,6 +11,7 @@ const email_service_endpoint = import.meta.env.VITE_EMAIL_API_ENDPOINT;
 
 const LoginModal = ({ show, handleClose }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // State to manage the active tab. Default is 'register'
   const [activeTab, setActiveTab] = useState('register');
@@ -41,17 +43,17 @@ const LoginModal = ({ show, handleClose }) => {
     return re.test(email);
   };
 
-    /**
-   * Helper function to clear all form data in Modal
-   */
-    const clearModalData = () => {
-      setRegEmail('');
-      setLoginPassword('');
-      setRegPassword('');
-      setRegConfirmPassword('');
-      setRegVerificationCode('');
-      setRegError('');
-    };
+  /**
+ * Helper function to clear all form data in Modal
+ */
+  const clearModalData = () => {
+    setRegEmail('');
+    setLoginPassword('');
+    setRegPassword('');
+    setRegConfirmPassword('');
+    setRegVerificationCode('');
+    setRegError('');
+  };
 
   /**
    * Handle clicking the "Send Code" button in the Registration tab.
@@ -78,11 +80,13 @@ const LoginModal = ({ show, handleClose }) => {
     // Check that required fields are populated.
     if (!regUserName || !regEmail || !regPassword) {
       setRegError('Please fill out Name, Email, and Password fields before sending the code.');
+      setCooldown(3);
       return;
     }
     // Validate email format.
     if (!validateEmail(regEmail)) {
       setRegError('Invalid email address.');
+      setCooldown(3);
       return;
     }
     // Generate a 6-digit code.
@@ -131,11 +135,13 @@ const LoginModal = ({ show, handleClose }) => {
     // Check that password is at least 8 characters.
     if (regPassword.length < 8) {
       setRegError('Password must be over 8 charactors.');
+      setCooldown(3);
       return;
     }
     // Validate that both password fields match.
     if (regPassword !== regConfirmPassword) {
       setRegError('Passwords do not match.');
+      setCooldown(3);
       return;
     }
     // Validate that the entered verification code matches the generated one.
@@ -276,16 +282,16 @@ const LoginModal = ({ show, handleClose }) => {
     <Modal show={show} onHide={handleClose} centered>
       {/* Modal Header with dynamic title based on active tab */}
       <Modal.Header closeButton>
-        <Modal.Title><b>{activeTab === 'register' ? 'Register' : 'Login'}</b></Modal.Title>
+        <Modal.Title><b>{activeTab === 'register' ? `${t("register")}` : `${t("login")}`}</b></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* Tabs to switch between Register and Login. Default tab is Register */}
         <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} style={{ display: 'flex', flexDirection: 'row' }} >
-          <Tab eventKey="register" title="Register" tabClassName="d-inline-block me-3">
+          <Tab eventKey="register" title={t("register")} tabClassName="d-inline-block me-3">
             <Form className="mt-3">
               {/* User Name Field */}
               <Form.Group controlId="regUserName" className="mb-3">
-                <Form.Label>User Name</Form.Label>
+                <Form.Label>{t("login_username")}</Form.Label>
                 <Form.Control
                   type="text"
                   value={regUserName}
@@ -294,7 +300,7 @@ const LoginModal = ({ show, handleClose }) => {
               </Form.Group>
 
               <Form.Group controlId="regEmail" className="mb-3">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>{t("email")}</Form.Label>
                 <Form.Control
                   type="email"
                   value={regEmail}
@@ -303,7 +309,7 @@ const LoginModal = ({ show, handleClose }) => {
               </Form.Group>
 
               <Form.Group controlId="regPassword" className="mb-3">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>{t("login_pwd")}</Form.Label>
                 <Form.Control
                   type="password"
                   value={regPassword}
@@ -313,7 +319,7 @@ const LoginModal = ({ show, handleClose }) => {
               </Form.Group>
 
               <Form.Group controlId="regConfirmPassword" className="mb-3">
-                <Form.Label>Confirm Password</Form.Label>
+                <Form.Label>{t("login_comf_pwd")}</Form.Label>
                 <Form.Control
                   type="password"
                   value={regConfirmPassword}
@@ -322,7 +328,7 @@ const LoginModal = ({ show, handleClose }) => {
               </Form.Group>
 
               <Form.Group controlId="regVerificationCode" className="mb-3">
-                <Form.Label>Verification Code</Form.Label>
+                <Form.Label>{t("login_vrf_code")}</Form.Label>
                 <InputGroup>
                   <Form.Control
                     type="text"
@@ -330,12 +336,12 @@ const LoginModal = ({ show, handleClose }) => {
                     onChange={(e) => setRegVerificationCode(e.target.value)}
                   />
                   <Button
-  variant="outline-secondary"
-  onClick={handleSendCode}
-  disabled={cooldown > 0}
->
-  {cooldown > 0 ? `Sent(${cooldown})` : 'Send Code'}
-</Button>
+                    variant="outline-secondary"
+                    onClick={handleSendCode}
+                    disabled={cooldown > 0}
+                  >
+                    {cooldown > 0 ? `${t("login_sent")}(${cooldown})` : `${t("login_send_code")}`}
+                  </Button>
                 </InputGroup>
               </Form.Group>
 
@@ -343,16 +349,16 @@ const LoginModal = ({ show, handleClose }) => {
 
               <div className="text-end d-grid gap-2">
                 <Button variant="primary" onClick={handleRegister} className="mt-2" >
-                  Submit
+                  {t("contactForm_submit")}
                 </Button>
               </div>
             </Form>
           </Tab>
 
-          <Tab eventKey="login" title="Login" tabClassName="d-inline-block me-3">
+          <Tab eventKey="login" title={t("login")} tabClassName="d-inline-block me-3">
             <Form className="mt-3">
               <Form.Group controlId="loginEmail" className="mb-3">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>{t("email")}</Form.Label>
                 <Form.Control
                   type="email"
                   value={loginEmail}
@@ -361,7 +367,7 @@ const LoginModal = ({ show, handleClose }) => {
               </Form.Group>
 
               <Form.Group controlId="loginPassword" className="mb-3">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>{t("login_pwd")}</Form.Label>
                 <Form.Control
                   type="password"
                   value={loginPassword}
@@ -373,7 +379,7 @@ const LoginModal = ({ show, handleClose }) => {
 
               <div className="text-end d-grid gap-2">
                 <Button variant="primary" onClick={handleLogin}>
-                  Login
+                  {t("login")}
                 </Button>
               </div>
             </Form>
