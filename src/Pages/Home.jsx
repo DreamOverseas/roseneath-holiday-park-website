@@ -122,7 +122,39 @@ const Home = () => {
 
         <section className="home-banner-subtitle">
           <Container>
-            <h4>{t("home_cheerup")}</h4>
+            <h1>{t("home_cheerup")}</h1>
+            {/* 缩略图示例 */}
+            <div className="d-flex justify-content-center align-items-center gap-40">
+              <div className="d-flex flex-column align-items-center">
+                <Image
+                  src="/Icons/free-parking.png"
+                  alt="Cheer up"
+                  width={90}
+                  height="auto"
+                />
+                <p>{t("park_free")}</p>
+              </div>
+
+              <div className="d-flex flex-column align-items-center">
+                <Image
+                  src="/Icons/dog.png"
+                  alt="Cheer up"
+                  width={90}
+                  height="auto"
+                />
+                <p>{t("pet_friendly")}</p>
+              </div>
+
+              <div className="d-flex flex-column align-items-center">
+                <Image
+                  src="/Icons/horse.png"
+                  alt="Cheer up"
+                  width={90}
+                  height="auto"
+                />
+                <p>{t("horse_by_your_side")}</p>
+              </div>
+            </div>
           </Container>
         </section>
 
@@ -181,7 +213,7 @@ const Home = () => {
           </Container>
         </section>
 
-        <Container >
+        <Container className="other-service" >
           <h1>{t("our_service_title")}</h1>
           <Col className="our-service-button-group">
             <Button variant="outline-light" href="/individual-visitors">
