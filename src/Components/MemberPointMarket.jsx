@@ -275,7 +275,7 @@ const MemberPointMarket = () => {
                                 </Card.Body>
                                 <Card.Footer>
                                     <Button
-                                        variant="dark"
+                                        variant="primary"
                                         className="w-100"
                                         onClick={(e) => handleRedeemClick(product, e)}
                                     >
@@ -310,7 +310,7 @@ const MemberPointMarket = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
-                            variant="dark"
+                            variant="primary"
                             className="w-100"
                             onClick={(e) => handleRedeemClick(selectedProduct, e)}
                         >
@@ -394,7 +394,7 @@ const MemberPointMarket = () => {
                             const sufficientDiscountPoint = (cookieDiscountPoint - currDeduction) >= 0;
                             return (
                                 <Button
-                                    variant={(sufficientPoints && sufficientDiscountPoint) ? "dark" : "secondary"}
+                                    variant={(sufficientPoints && sufficientDiscountPoint) ? "primary" : "secondary"}
                                     className="w-100"
                                     disabled={!(sufficientPoints && sufficientDiscountPoint)}
                                     onClick={comfirmRedeemNow}
@@ -425,7 +425,7 @@ const MemberPointMarket = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
-                            variant="dark"
+                            variant="primary"
                             className="w-100"
                             onClick={() => closeSuccessModal()}
                         >
