@@ -19,6 +19,24 @@ const Home = () => {
   const [rooms, setRooms] = useState([]);
   const [gallery, setGallery] = useState([]);
 
+  const features = [
+    {
+      src: "/Icons/free-parking.png",
+      alt: "Free Parking",
+      textKey: "park_free",
+    },
+    {
+      src: "/Icons/dog.png",
+      alt: "Pet Friendly",
+      textKey: "pet_friendly",
+    },
+    {
+      src: "/Icons/horse.png",
+      alt: "Horse Nearby",
+      textKey: "horse_by_your_side",
+    },
+  ];
+
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -124,37 +142,27 @@ const Home = () => {
           <Container>
             <h1>{t("home_cheerup")}</h1>
             {/* 缩略图示例 */}
-            <div className="d-flex justify-content-center align-items-center gap-40">
-              <div className="d-flex flex-column align-items-center">
-                <Image
-                  src="/Icons/free-parking.png"
-                  alt="Cheer up"
-                  width={90}
-                  height="auto"
-                />
-                <p>{t("park_free")}</p>
-              </div>
+            <Row >
+              {features.map((feature, index) => (
+                <Col
+                  key={index}
+                  xs={6}
+                  sm={4}
+                  md={4}
+                >
+                  <div className="d-flex flex-column align-items-center">
+                    <Image
+                      src={feature.src}
+                      alt={feature.alt}
+                      width={90}
+                      height="auto"
+                    />
+                    <p style={{ fontSize: '16px' }}>{t(feature.textKey)}</p>
+                  </div>
 
-              <div className="d-flex flex-column align-items-center">
-                <Image
-                  src="/Icons/dog.png"
-                  alt="Cheer up"
-                  width={90}
-                  height="auto"
-                />
-                <p>{t("pet_friendly")}</p>
-              </div>
-
-              <div className="d-flex flex-column align-items-center">
-                <Image
-                  src="/Icons/horse.png"
-                  alt="Cheer up"
-                  width={90}
-                  height="auto"
-                />
-                <p>{t("horse_by_your_side")}</p>
-              </div>
-            </div>
+                </Col>
+              ))}
+            </Row>
           </Container>
         </section>
 
