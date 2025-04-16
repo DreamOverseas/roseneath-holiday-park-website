@@ -71,7 +71,21 @@
 .deduction-range::-ms-thumb {
     height: 20px;
     width: 20px;
-    background: black;
+    background: rgb(0, 100, 228);
     border: none;
     border-radius: 50%;
+}
+
+.btn-primary {
+    background-color: darkblue;
+    border-color: darkblue;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px skyblue;
+}
+  
+.btn-primary:hover {
+    background-color: skyblue;
+    border-color: skyblue;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px skyblue;
 }
