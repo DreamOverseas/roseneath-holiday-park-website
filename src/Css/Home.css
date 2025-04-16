@@ -16,6 +16,11 @@
     padding-bottom: 2%;
 }
 
+.home-banner-subtitle h1 {
+    text-align: center;
+    margin-bottom: 4%;
+}
+
 .home-banner-title {
     background-image: url("home/background_image.webp");
     background-repeat: no-repeat;
@@ -27,17 +32,23 @@
     margin-bottom: 2%;
 }
 
+.home-banner-subtitle,
 .room-presentation,
+.other-service,
 .home-attraction,
+.home-price-list,
 .home-gallery {
     margin-bottom: 2%;
 }
 
 .room-presentation h1,
 .home-attraction h1,
+.home-price-list h1,
+.other-service h1,
 .home-gallery h1,
 .home-contact-us h1 {
-    padding-bottom: 2%;
+    margin-bottom: 4%;
+    text-align: center;
 }
 
 .home-room-card {
