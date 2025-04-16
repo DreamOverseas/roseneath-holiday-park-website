@@ -145,10 +145,10 @@ const Navigation = () => {
               </NavDropdown>
             </Nav>
           </Container>
-          <div className="d-flex align-items-center nav-login-button">
+          <div className="text-center nav-login-button">
             <Button
               onClick={handleAuthButtonClick}
-              variant={userCookie ? (location.pathname === "/membership" ? "danger" : "primary") : undefined}
+              variant={userCookie ? (location.pathname === "/membership" ? "danger" : "primary") : "primary"}
             >
               {userCookie ? (location.pathname === "/membership" ? "登出" : "会员中心") : "注册/登录"}
             </Button>

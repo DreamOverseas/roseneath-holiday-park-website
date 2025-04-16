@@ -23,8 +23,8 @@ const MemberPointMarket = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const endpoint = process.env.VITE_CMS_ENDPOINT;
-            const apiKey = process.env.VITE_CMS_TOKEN;
+            const endpoint = import.meta.env.VITE_CMS_ENDPOINT;
+            const apiKey = import.meta.env.VITE_CMS_TOKEN;
             const url = `${endpoint}/api/one-club-products?populate=Icon`;
 
             try {
@@ -80,15 +80,15 @@ const MemberPointMarket = () => {
         setCurrDeduction(newValue);
     };
 
-    const closeSuccessModal = () => { //TODO:
+    const closeSuccessModal = () => {
         setShowSuccessModal(false);
         window.location.reload();
     };
 
     // Used for update user points (function break-up)
     const updateUserPoints = async () => {
-        const endpoint = process.env.VITE_CMS_ENDPOINT;
-        const apiKey = process.env.VITE_CMS_TOKEN;
+        const endpoint = import.meta.env.VITE_CMS_ENDPOINT;
+        const apiKey = import.meta.env.VITE_CMS_TOKEN;
 
         const currUser = JSON.parse(Cookies.get('user'));
 
@@ -106,16 +106,16 @@ const MemberPointMarket = () => {
             if (userResponse.ok && userData.data && userData.data.length > 0) {
                 const userRecord = userData.data[0];
                 const documentId = userRecord.documentId;
-                const oldPoints = userRecord.Points;
-                const oldLoyalty = userRecord.Loyalty;
+                const oldPoints = userRecord.Point;
+                const oldDiscountPoint = userRecord.DiscountPoint;
 
                 const newPoints = oldPoints - (redeemProduct.Price - currDeduction);
-                const newLoyalty = oldLoyalty - currDeduction + redeemProduct.LoyaltyGain;
+                const newDiscountPoints = oldDiscountPoint - currDeduction;
 
                 const updatePayload = {
                     data: {
-                        Points: newPoints,
-                        Loyalty: newLoyalty
+                        Point: newPoints,
+                        DiscountPoint: newDiscountPoints
                     }
                 };
 
@@ -140,10 +140,13 @@ const MemberPointMarket = () => {
                     "name": currUser.name,
                     "number": currUser.number,
                     "email": currUser.email,
-                    "class": currUser.class,
+                    "is_member": currUser.is_member,
+                    "fname": currUser.fname,
+                    "lname": currUser.lname,
+                    "contact": currUser.contact,
                     "exp": currUser.exp,
-                    "points": newPoints,
-                    "loyalty": newLoyalty,
+                    "point": newPoints,
+                    "discount_p": newDiscountPoints,
                 }), { expires: 7 });
             } else {
                 console.log("User not found or error fetching user data");
@@ -156,7 +159,7 @@ const MemberPointMarket = () => {
     const comfirmRedeemNow = async () => {
         setLoadingRedeem(true);
         const currUser = JSON.parse(Cookies.get('user'));
-        const couponSysEndpoint = process.env.VITE_COUPON_SYS_ENDPOINT;
+        const couponSysEndpoint = import.meta.env.VITE_COUPON_SYS_ENDPOINT;
         const expiryDate = new Date();
         expiryDate.setFullYear(expiryDate.getFullYear() + 1);
 
@@ -180,7 +183,7 @@ const MemberPointMarket = () => {
 
             if (couponResponse.ok && couponData.couponStatus === "active") {
                 const QRdata = couponData.QRdata;
-                const emailApiEndpoint = process.env.VITE_EMAIL_API_ENDPOINT;
+                const emailApiEndpoint = import.meta.env.VITE_EMAIL_API_ENDPOINT;
                 const emailPayload = {
                     name: currUser.name,
                     email: currUser.email,
@@ -188,7 +191,7 @@ const MemberPointMarket = () => {
                     title: redeemProduct.Name
                 };
 
-                const emailResponse = await fetch(`${emailApiEndpoint}/1club/coupon_distribute`, {
+                const emailResponse = await fetch(`${emailApiEndpoint}/roseneathpark/coupon_distribute`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(emailPayload),
@@ -226,7 +229,7 @@ const MemberPointMarket = () => {
         <Container className="my-4">
             <Row>
                 <Col>
-                    <h2>会员点商城 / Member's Point Redeem</h2>
+                    <h2>会员点商城 / Member's Point Market</h2>
                 </Col>
                 <Col>
                     <Form className="mb-3">
@@ -242,10 +245,10 @@ const MemberPointMarket = () => {
 
             <Row>
                 {filteredProducts.map((product) => {
-                    const { Name, Icon, Price, LoyaltyGain, MaxDeduction } = product;
+                    const { Name, Icon, Price, MaxDeduction } = product;
                     const iconUrl =
                         Icon?.url
-                            ? `${process.env.VITE_CMS_ENDPOINT}${Icon.url}`
+                            ? `${import.meta.env.VITE_CMS_ENDPOINT}${Icon.url}`
                             : '';
 
                     return (
@@ -263,21 +266,11 @@ const MemberPointMarket = () => {
                                         />
                                     )}
                                     <Row className="text-center d-flex">
-                                        <Col md={5}>
-                                            <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-flower2" viewBox="0 0 16 16">
-                                                <path d="M8 16a4 4 0 0 0 4-4 4 4 0 0 0 0-8 4 4 0 0 0-8 0 4 4 0 1 0 0 8 4 4 0 0 0 4 4m3-12q0 .11-.03.247c-.544.241-1.091.638-1.598 1.084A3 3 0 0 0 8 5c-.494 0-.96.12-1.372.331-.507-.446-1.054-.843-1.597-1.084A1 1 0 0 1 5 4a3 3 0 0 1 6 0m-.812 6.052A3 3 0 0 0 11 8a3 3 0 0 0-.812-2.052c.215-.18.432-.346.647-.487C11.34 5.131 11.732 5 12 5a3 3 0 1 1 0 6c-.268 0-.66-.13-1.165-.461a7 7 0 0 1-.647-.487m-3.56.617a3 3 0 0 0 2.744 0c.507.446 1.054.842 1.598 1.084q.03.137.03.247a3 3 0 1 1-6 0q0-.11.03-.247c.544-.242 1.091-.638 1.598-1.084m-.816-4.721A3 3 0 0 0 5 8c0 .794.308 1.516.812 2.052a7 7 0 0 1-.647.487C4.66 10.869 4.268 11 4 11a3 3 0 0 1 0-6c.268 0 .66.13 1.165.461.215.141.432.306.647.487M8 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                                            </svg>+{LoyaltyGain}</div>
-                                        </Col>
-                                        <Col md={1}>
-                                            <div>|</div>
-                                        </Col>
-                                        <Col md={6}>
-                                            <AlternatingText
-                                                text1={`${Price} 会员点`}
-                                                text2={`积分最高抵扣${Math.min(Price, MaxDeduction)}！`}
-                                                judge={MaxDeduction}
-                                            />
-                                        </Col>
+                                        <AlternatingText
+                                            text1={`${Price} 会员点`}
+                                            text2={`折扣分最高抵扣${Math.min(Price, MaxDeduction)}!`}
+                                            judge={MaxDeduction}
+                                        />
                                     </Row>
                                 </Card.Body>
                                 <Card.Footer>
@@ -305,26 +298,14 @@ const MemberPointMarket = () => {
                             selectedProduct.Icon &&
                             selectedProduct.Icon && (
                                 <img
-                                    src={`${process.env.VITE_CMS_ENDPOINT}${selectedProduct.Icon.url}`}
+                                    src={`${import.meta.env.VITE_CMS_ENDPOINT}${selectedProduct.Icon.url}`}
                                     alt={selectedProduct.Name}
                                     className="img-fluid mb-3"
                                 />
                             )}
                         <p>{selectedProduct.Description}</p>
                         <Row className="text-center">
-                            <Col>
-                                <div>积分<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-flower2" viewBox="0 0 16 16">
-                                    <path d="M8 16a4 4 0 0 0 4-4 4 4 0 0 0 0-8 4 4 0 0 0-8 0 4 4 0 1 0 0 8 4 4 0 0 0 4 4m3-12q0 .11-.03.247c-.544.241-1.091.638-1.598 1.084A3 3 0 0 0 8 5c-.494 0-.96.12-1.372.331-.507-.446-1.054-.843-1.597-1.084A1 1 0 0 1 5 4a3 3 0 0 1 6 0m-.812 6.052A3 3 0 0 0 11 8a3 3 0 0 0-.812-2.052c.215-.18.432-.346.647-.487C11.34 5.131 11.732 5 12 5a3 3 0 1 1 0 6c-.268 0-.66-.13-1.165-.461a7 7 0 0 1-.647-.487m-3.56.617a3 3 0 0 0 2.744 0c.507.446 1.054.842 1.598 1.084q.03.137.03.247a3 3 0 1 1-6 0q0-.11.03-.247c.544-.242 1.091-.638 1.598-1.084m-.816-4.721A3 3 0 0 0 5 8c0 .794.308 1.516.812 2.052a7 7 0 0 1-.647.487C4.66 10.869 4.268 11 4 11a3 3 0 0 1 0-6c.268 0 .66.13 1.165.461.215.141.432.306.647.487M8 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                                </svg>+{selectedProduct.LoyaltyGain}</div>
-                            </Col>
-                            <Col>
-                                <div>|</div>
-                            </Col>
-                            <Col>
-                                <div>
-                                    {selectedProduct.Price} 会员点
-                                </div>
-                            </Col>
+                            {selectedProduct.Price} 会员点
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
@@ -355,15 +336,15 @@ const MemberPointMarket = () => {
                         <p>商品：{redeemProduct.Name}</p>
                         {(() => {
                             const userData = JSON.parse(Cookies.get('user'));
-                            const cookiePoints = userData.points || 0;
-                            const cookieLoyalty = userData.loyalty || 0;
+                            const cookiePoints = userData.point || 0;
+                            const cookieDiscountPoints = userData.discount_p || 0;
                             return (
                                 <>
                                     <p>
                                         会员点数：{cookiePoints} → <b>{cookiePoints - redeemProduct.Price + currDeduction}</b>
                                     </p>
                                     <p>
-                                        积分：{cookieLoyalty} → <b>{cookieLoyalty - currDeduction}</b> <b style={{ color: 'SlateBlue' }}> + {redeemProduct.LoyaltyGain} </b>
+                                        折扣分：{cookieDiscountPoints} → <b>{cookieDiscountPoints - currDeduction}</b>
                                     </p>
                                     <hr />
                                     {maxDeduction > 0 ?
@@ -382,7 +363,7 @@ const MemberPointMarket = () => {
                                                             />
                                                             <Button
                                                                 variant="dark"
-                                                                onClick={() => handleDeductionChange(Math.min(maxDeduction, cookieLoyalty))}
+                                                                onClick={() => handleDeductionChange(Math.min(maxDeduction, cookieDiscountPoints))}
                                                             >
                                                                 Max
                                                             </Button>
@@ -407,21 +388,21 @@ const MemberPointMarket = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         {(() => {
-                            const cookiePoints = JSON.parse(Cookies.get('user')).points || 0;
-                            const cookieLoyalty = JSON.parse(Cookies.get('user')).loyalty || 0;
+                            const cookiePoints = JSON.parse(Cookies.get('user')).point || 0;
+                            const cookieDiscountPoint = JSON.parse(Cookies.get('user')).discount_p || 0;
                             const sufficientPoints = cookiePoints >= (redeemProduct.Price - currDeduction);
-                            const sufficientLoyalty = (cookieLoyalty - currDeduction) >= 0;
+                            const sufficientDiscountPoint = (cookieDiscountPoint - currDeduction) >= 0;
                             return (
                                 <Button
-                                    variant={(sufficientPoints && sufficientLoyalty) ? "dark" : "secondary"}
+                                    variant={(sufficientPoints && sufficientDiscountPoint) ? "dark" : "secondary"}
                                     className="w-100"
-                                    disabled={!(sufficientPoints && sufficientLoyalty)}
+                                    disabled={!(sufficientPoints && sufficientDiscountPoint)}
                                     onClick={comfirmRedeemNow}
                                 >
-                                    {(sufficientPoints && sufficientLoyalty) ?
+                                    {(sufficientPoints && sufficientDiscountPoint) ?
                                         (loadingRedeem ? "正在为您兑换.." : "兑换")
                                         :
-                                        (sufficientPoints ? "积分不足" : "会员点不足")}
+                                        (sufficientPoints ? "折扣分不足" : "会员点不足")}
                                 </Button>
                             );
                         })()}
