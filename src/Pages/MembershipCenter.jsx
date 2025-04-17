@@ -104,7 +104,7 @@ const MemberCenter = () => {
                         <Col sm={3} className="text-muted">{t("email")}</Col>
                         <Col sm={3}>{user.email}</Col>
                         <Col sm={3} className="text-muted">{t("membership_contact")}</Col>
-                        <Col sm={3}>{user.contact}</Col>
+                        <Col sm={3}>{user.contact || '<Not Specified>'}</Col>
                     </Row>
                     {user.is_member ?
                         <>
@@ -112,16 +112,16 @@ const MemberCenter = () => {
                                 {i18n.language == 'zh' ?
                                     <>
                                         <Col sm={3} className="text-muted">{t("lname")}</Col>
-                                        <Col sm={3}>{user.lname}</Col>
+                                        <Col sm={3}>{user.lname || '<Not Specified>'}</Col>
                                         <Col sm={3} className="text-muted">{t("fname")}</Col>
-                                        <Col sm={3}>{user.fname}</Col>
+                                        <Col sm={3}>{user.fname || '<Not Specified>'}</Col>
                                     </>
-                                    : // For chinese people, revert first and last name
+                                    : // For chinese people, revert first and last name, otherwise in normal
                                     <>
                                         <Col sm={3} className="text-muted">{t("fname")}</Col>
-                                        <Col sm={3}>{user.fname}</Col>
+                                        <Col sm={3}>{user.fname || '<Not Specified>'}</Col>
                                         <Col sm={3} className="text-muted">{t("lname")}</Col>
-                                        <Col sm={3}>{user.lname}</Col>
+                                        <Col sm={3}>{user.lname || '<Not Specified>'}</Col>
                                     </>
                                 }
                             </Row>
