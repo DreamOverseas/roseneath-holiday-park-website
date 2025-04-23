@@ -37,7 +37,8 @@
 .other-service,
 .home-attraction,
 .home-price-list,
-.home-gallery {
+.home-gallery,
+.attraction-nearby {
     margin-bottom: 2%;
 }
 
@@ -46,7 +47,8 @@
 .home-price-list h1,
 .other-service h1,
 .home-gallery h1,
-.home-contact-us h1 {
+.home-contact-us h1,
+.attraction-nearby h1 {
     margin-bottom: 4%;
     text-align: center;
 }
