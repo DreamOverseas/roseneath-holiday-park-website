@@ -1,0 +1,10 @@
+.responsive-iframe {
+    height: 630px;
+    border: none;
+}
+  
+@media (max-width: 768px) {
+    .responsive-iframe {
+        height: 250px;
+    }
+}
