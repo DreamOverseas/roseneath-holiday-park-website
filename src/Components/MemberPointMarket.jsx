@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Cookies from 'js-cookie';
 import { useTranslation } from "react-i18next";
-import { Container, Row, Col, Card, Button, Modal, Form, InputGroup } from 'react-bootstrap';
+import { Container, Row, Col, Button, Modal, Form, InputGroup } from 'react-bootstrap';
 import '../Css/MemberCenter.css';
-import AlternatingText from './AlternatingText';
+import ProductList from './ProductList';
 
 const MemberPointMarket = () => {
     const [products, setProducts] = useState([]);
@@ -28,7 +28,7 @@ const MemberPointMarket = () => {
         const fetchProducts = async () => {
             const endpoint = import.meta.env.VITE_CMS_ENDPOINT;
             const apiKey = import.meta.env.VITE_CMS_TOKEN;
-            const url = `${endpoint}/api/one-club-products?populate=Icon`;
+            const url = `${endpoint}/api/one-club-products?filters[ForRoseneath][$eq]=True&populate=Icon`;
 
             try {
                 const response = await fetch(url, {
@@ -247,48 +247,11 @@ const MemberPointMarket = () => {
             </Row>
 
             <Row>
-                {filteredProducts.map((product) => {
-                    const { Name, Icon, Price, MaxDeduction } = product;
-                    const iconUrl =
-                        Icon?.url
-                            ? `${import.meta.env.VITE_CMS_ENDPOINT}${Icon.url}`
-                            : '';
-
-                    return (
-                        <Col md={4} key={product.id} className="mb-4">
-                            <Card>
-                                <Card.Body onClick={() => handleCardClick(product)} style={{ cursor: 'pointer' }}>
-                                    <Card.Title>{Name}</Card.Title>
-                                    {iconUrl && (
-                                        <Card.Img
-                                            variant="top"
-                                            src={iconUrl}
-                                            alt={Name}
-                                            className="mb-3"
-                                            style={{ objectFit: 'cover', height: '200px' }}
-                                        />
-                                    )}
-                                    <Row className="text-center d-flex">
-                                        <AlternatingText
-                                            text1={`${Price} ${t("membership_point")}`}
-                                            text2={`${t("membership_max_dis")}${Math.min(Price, MaxDeduction)}!`}
-                                            judge={MaxDeduction}
-                                        />
-                                    </Row>
-                                </Card.Body>
-                                <Card.Footer>
-                                    <Button
-                                        variant="primary"
-                                        className="w-100"
-                                        onClick={(e) => handleRedeemClick(product, e)}
-                                    >
-                                        {t("membership_redeem")}
-                                    </Button>
-                                </Card.Footer>
-                            </Card>
-                        </Col>
-                    );
-                })}
+                <ProductList 
+                    filteredProducts={filteredProducts}
+                    handleCardClick={handleCardClick}
+                    handleRedeemClick={handleRedeemClick}
+                />
             </Row>
 
             {selectedProduct && (

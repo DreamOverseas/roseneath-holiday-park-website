@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import '../Css/MemberCenter.css';
 import MemberPointMarket from '../Components/MemberPointMarket';
+import DetailUpdateBtn from '../Components/DetailUpdateBtn';
 
 const MemberCenter = () => {
     const [user, setUser] = useState(null);
@@ -138,6 +139,9 @@ const MemberCenter = () => {
                                 <Col sm={3}>{user.discount_p}</Col>
                             </Row> </>
                         : <></>}
+                        <div className='flex justify-end'>
+                            <DetailUpdateBtn />
+                        </div>
                 </Card.Body>
             </Card>
 
