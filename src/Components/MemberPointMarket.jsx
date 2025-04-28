@@ -28,7 +28,7 @@ const MemberPointMarket = () => {
         const fetchProducts = async () => {
             const endpoint = import.meta.env.VITE_CMS_ENDPOINT;
             const apiKey = import.meta.env.VITE_CMS_TOKEN;
-            const url = `${endpoint}/api/one-club-products?populate=Icon`;
+            const url = `${endpoint}/api/one-club-products?filters[ForRoseneath][$eq]=True&populate=Icon`;
 
             try {
                 const response = await fetch(url, {
