@@ -1,4 +1,5 @@
 import React from "react";
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import { useTranslation } from "react-i18next";
 import PageTitle from "../Components/PageTitle";
 import "../Css/About.css";
@@ -51,6 +52,32 @@ function AboutUs() {
             />
           </div>
         </div>
+      </section>
+
+      <section className="about-attraction">
+        <Container>
+          <h1>{t("home_attraction")}</h1>
+          <Row className="about-attraction-row">
+            <Col><Image className="home-animal" src="/about/Lakes_Entrance.webp" /></Col>
+            <Col><div dangerouslySetInnerHTML={{ __html: t('lakes_entrance') }}/></Col>
+          </Row>
+          <Row className="about-attraction-row">
+            <Col><div dangerouslySetInnerHTML={{ __html: t('peninsula_hot_springs') }}/></Col>
+            <Col><Image className="home-food" src="/about/Peninsula_Hot_Springs.webp" /></Col>
+          </Row>
+          <Row className="about-attraction-row">
+            <Col><Image className="home-landscape" src="/about/Mount_Hotham.webp" /></Col>
+            <Col><div dangerouslySetInnerHTML={{ __html: t('mount_hotham') }}/></Col>
+          </Row>
+          <Row className="about-attraction-row">
+            <Col><div dangerouslySetInnerHTML={{ __html: t('phillip_island_penguin_parade') }}/></Col>
+            <Col><Image className="home-food" src="/about/Phillip_Island_Penguin_Parade.webp" /></Col>
+          </Row>
+          <Row className="about-attraction-row">
+            <Col><Image className="home-landscape" src="/about/Metung.webp" /></Col>
+            <Col><div dangerouslySetInnerHTML={{ __html: t('metung') }}/></Col>
+          </Row>
+        </Container>
       </section>
     </main>
   );

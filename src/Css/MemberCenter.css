@@ -76,20 +76,6 @@
     border-radius: 50%;
 }
 
-.btn-primary {
-    background-color: darkblue;
-    border-color: darkblue;
-    border-radius: 50px;
-    box-shadow: 0 4px 6px skyblue;
-}
-
-.btn-primary:hover {
-    background-color: skyblue;
-    border-color: skyblue;
-    border-radius: 50px;
-    box-shadow: 0 4px 6px skyblue;
-}
-
 .pagination .page-link {
     position: static !important;
     left: auto !important;

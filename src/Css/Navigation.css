@@ -37,6 +37,10 @@
   font-size: 20px;
 }
 
+.dropdown-menu {
+  text-align: center;
+}
+
 .NavContact {
   display: flex;
 }
@@ -50,37 +54,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 5px;
 }
 
-.PlaceholderDiv {
-  width: 116px; /* Keep same with the NavBrand width + margin */
-}
-
 .nav-login-button {
-  min-width: 2.5rem;
+  min-width: 10rem;
 }
-
-.nav-login-button .btn-primary {
-  background-color: darkblue;
-  border-color: darkblue;
-  border-radius: 50px !important;
-  box-shadow: 0 4px 6px skyblue;
-}
-
-.nav-login-button .btn-primary:hover {
-  background-color: skyblue;
-  border-color: skyblue;
-  border-radius: 50px !important;
-  box-shadow: 0 4px 6px skyblue;
-}
-
-.nav-login-button .btn-danger {
-  border-radius: 50px !important;
-  box-shadow: 0 4px 6px rgb(235, 135, 205);
-}
-
 
 @media (max-width: 768px) {
   .NavWord {
