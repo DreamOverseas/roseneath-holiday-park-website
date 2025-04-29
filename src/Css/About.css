@@ -61,6 +61,22 @@ main {
   line-height: 1.6;
 }
 
+.about-attraction h1{
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.about-attraction {
+  margin-bottom: 60px;
+}
+
+.about-attraction-row {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .about-section h1 {

@@ -94,29 +94,20 @@ const Navigation = () => {
                 {t("News")}
               </Nav.Link>
 
-              <Nav.Link
-                className={`NavWord ${location.pathname === "/about-us" ? "NavActive" : ""
-                  }`}
-                href='/about-us'
+              <NavDropdown
+                className='NavNoHighlightWord'
+                title={t("About")}
               >
-                {t("About")}
-              </Nav.Link>
-
-              <Nav.Link
-                className={`NavWord ${location.pathname === "/contact-us" ? "NavActive" : ""
-                  }`}
-                href='/contact-us'
-              >
-                {t("Contact")}
-              </Nav.Link>
-
-              <Nav.Link
-                className={`NavWord ${location.pathname === "/policy" ? "NavActive" : ""
-                  }`}
-                href='/policy'
-              >
-                {t("Policy")}
-              </Nav.Link>
+                <NavDropdown.Item href='/about-us'>
+                  {t("About-us")}
+                </NavDropdown.Item>
+                <NavDropdown.Item href='/contact-us'>
+                  {t("Contact")}
+                </NavDropdown.Item>
+                <NavDropdown.Item href='/policy'>
+                  {t("Policy")}
+                </NavDropdown.Item>
+              </NavDropdown>
 
               <NavDropdown
                 className='NavNoHighlightWord'
@@ -159,7 +150,6 @@ const Navigation = () => {
               +61 (03) 5157-8298
             </Nav.Link>
           </div> */} {/* Hide now comfirmed by John for text-warp problems */}
-          <div className="PlaceholderDiv" />
         </Navbar.Collapse>
         <LoginModal
           show={showLoginModal}

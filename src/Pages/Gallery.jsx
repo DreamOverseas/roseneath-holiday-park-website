@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Image, Carousel, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PageTitle from "../Components/PageTitle";
+import '../Css/Gallery.css';
 import '../Css/Tailwind.css';
 
 const Gallery = () => {
@@ -88,11 +89,7 @@ const Gallery = () => {
                 </Container>
                 <br />
                 <Container fluid className="flex justify-center items-center">
-                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113491574784715&bvid=BV1hSUaYzEz1&cid=26787776662&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="400px"></iframe>
-                </Container>
-                <br />
-                <Container fluid className="flex justify-center items-center">
-                <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114294599584292&bvid=BV1anR1YbErX&cid=29277030051&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="400px"></iframe>
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114384575665912&bvid=BV1mCLWzNEtN&cid=29562765662&p=1" framespacing="0" allowfullscreen="true" width="98%" class="responsive-iframe"></iframe>
                 </Container>
                 <br />
                 <Container fluid>

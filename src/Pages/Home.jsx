@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PriceList from "../Components/PriceListSection";
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   // Read Env from file
@@ -224,38 +225,38 @@ const Home = () => {
         <Container className="other-service" >
           <h1>{t("our_service_title")}</h1>
           <Col className="our-service-button-group">
-            <Button variant="outline-light" href="/individual-visitors">
+            <Link to="/individual-visitors" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Card className="text-center home-clickable-card">
                   <Card.Body>
                       <Image className="our-service-button" src="/Icons/individual_visitor.png" />
                       <Card.Title>{t("our_service_individual")}</Card.Title>
                   </Card.Body>
               </Card>
-            </Button>
-            <Button variant="outline-light" href="/group-visitors">
+            </Link>
+            <Link to="/group-visitors" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Card className="text-center home-clickable-card">
                   <Card.Body>
                       <Image className="our-service-button" src="/Icons/group_visitor.png" />
                       <Card.Title>{t("our_service_group")}</Card.Title>
                   </Card.Body>
               </Card>
-            </Button>
-            <Button variant="outline-light" href="/investment">
+            </Link>
+            <Link to="/investment" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Card className="text-center home-clickable-card">
                   <Card.Body>
                       <Image className="our-service-button" src="/Icons/investment.png" />
                       <Card.Title>{t("investment")}</Card.Title>
                   </Card.Body>
               </Card>
-            </Button>
-            <Button variant="outline-light" href="/cooperation">
+            </Link>
+            <Link to="/cooperation" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Card className="text-center home-clickable-card">
                   <Card.Body>
                       <Image className="our-service-button" src="/Icons/cooperate.png" />
                       <Card.Title>{t("cooperation")}</Card.Title>
                   </Card.Body>
               </Card>
-            </Button>
+            </Link>
           </Col>
         </Container>
 
