@@ -54,7 +54,7 @@ const MembershipSale = () => {
     setPaymentError('');
     setIsUpdating(true);
     try {
-      // 5.1) Find membership by email
+      // Find membership by email
       const searchRes = await axios.get(
         `${endpoint}/api/rhp-memberships?filters[email][$eq]=${encodeURIComponent(email)}`,
         { headers: { Authorization: `Bearer ${apiKey}` } }
@@ -92,7 +92,6 @@ const MembershipSale = () => {
         { headers: { Authorization: `Bearer ${apiKey}` } }
       );
 
-      // Success!
       setIsSuccess(true);
       setIsUpdating(false);
 
@@ -116,7 +115,7 @@ const MembershipSale = () => {
           {t("membership_promotion")}
         </p>
         <div className="md:w-1/2 h-auto bg-gray-100 flex items-center justify-center">
-          <img src='/memberships/prom_f.jpg'
+          <img src='/memberships/prom.jpg'
             alt='This image have departed to go to the RHP.'
             className="h-60 w-auto justify-center"
           />
@@ -248,14 +247,6 @@ const MembershipSale = () => {
                         }}
                       />
                     </PayPalScriptProvider>
-
-                    <div className='h-10'></div>
-                    <button
-                      onClick={handleConfirmDetails}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded"
-                    >
-                      I assuming payment is successful.
-                    </button>
                   </>
                 )}
               </>
