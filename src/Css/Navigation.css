@@ -50,16 +50,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 5px;
 }
 
-.PlaceholderDiv {
-  width: 116px; /* Keep same with the NavBrand width + margin */
-}
-
 .nav-login-button {
-  min-width: 2.5rem;
+  min-width: 7rem;
 }
 
 .nav-login-button .btn-primary {
