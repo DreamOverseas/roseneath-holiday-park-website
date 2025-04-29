@@ -37,6 +37,10 @@
   font-size: 20px;
 }
 
+.dropdown-menu {
+  text-align: center;
+}
+
 .NavContact {
   display: flex;
 }

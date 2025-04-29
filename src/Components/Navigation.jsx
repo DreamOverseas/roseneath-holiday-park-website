@@ -99,7 +99,7 @@ const Navigation = () => {
                 title={t("About")}
               >
                 <NavDropdown.Item href='/about-us'>
-                  {t("About")}
+                  {t("About-us")}
                 </NavDropdown.Item>
                 <NavDropdown.Item href='/contact-us'>
                   {t("Contact")}
