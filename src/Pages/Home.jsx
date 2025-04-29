@@ -304,25 +304,6 @@ const Home = () => {
           </Container>
         </section>
 
-        <section className="attraction-nearby">
-          <Container>
-            <h1>{t("attraction_nearby")}</h1>
-            <Row>
-              <Col><div dangerouslySetInnerHTML={{ __html: t('lakes_entrance') }}/></Col>
-              <br/>
-              <Col><div dangerouslySetInnerHTML={{ __html: t('peninsula_hot_springs') }}/></Col>
-              <br/>
-              <Col><div dangerouslySetInnerHTML={{ __html: t('mount_hotham') }}/></Col>
-              <br/>
-            </Row>
-            <Row>
-              <Col><div dangerouslySetInnerHTML={{ __html: t('phillip_island_penguin_parade') }}/></Col>
-              <br/>
-              <Col><div dangerouslySetInnerHTML={{ __html: t('metung') }}/></Col>
-            </Row>
-          </Container>
-        </section>
-
         <section className="home-gallery">
           <Container>
             <h1>{t("Gallery")}</h1>
