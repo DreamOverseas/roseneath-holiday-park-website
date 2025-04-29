@@ -8,6 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const MembershipSale = () => {
+  const MEMBERSHIP_PRICE = 500;
   const { t } = useTranslation();
   const endpoint = import.meta.env.VITE_CMS_ENDPOINT;
   const apiKey = import.meta.env.VITE_CMS_TOKEN;
@@ -54,9 +55,9 @@ const MembershipSale = () => {
     setPaymentError('');
     setIsUpdating(true);
     try {
-      // 5.1) Find membership by email
+      // Find membership by email
       const searchRes = await axios.get(
-        `${endpoint}/api/rhp-memberships?filters[email][$eq]=${encodeURIComponent(email)}`,
+        `${endpoint}/api/rhp-memberships?filters[Email][$eq]=${email}`,
         { headers: { Authorization: `Bearer ${apiKey}` } }
       );
       const items = searchRes.data.data;
@@ -66,7 +67,7 @@ const MembershipSale = () => {
         setIsUpdating(false);
         return;
       }
-      const documentId = items[0].id;
+      const documentId = items[0].documentId;
 
       // Compute expiry date = today + 2 years, format YYYY-MM-DD
       const now = new Date();
@@ -84,15 +85,14 @@ const MembershipSale = () => {
             LastName: lastName.trim(),
             Contact: contact.trim(),
             ExpiryDate: expiryDate,
-            Point: 500,
-            DiscountPoint: 500,
+            Point: MEMBERSHIP_PRICE,
+            DiscountPoint: MEMBERSHIP_PRICE,
             IsMember: true
           }
         },
         { headers: { Authorization: `Bearer ${apiKey}` } }
       );
 
-      // Success!
       setIsSuccess(true);
       setIsUpdating(false);
 
@@ -116,7 +116,7 @@ const MembershipSale = () => {
           {t("membership_promotion")}
         </p>
         <div className="md:w-1/2 h-auto bg-gray-100 flex items-center justify-center">
-          <img src='/memberships/prom_f.jpg'
+          <img src='/memberships/prom.jpg'
             alt='This image have departed to go to the RHP.'
             className="h-60 w-auto justify-center"
           />
@@ -128,7 +128,7 @@ const MembershipSale = () => {
           onClick={handleJoinClick}
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded w-1/2"
         >
-          {t("membership_join_btn")}
+          {`${t("membership_join_btn")}`}
         </button>
       </div>
 
@@ -199,6 +199,7 @@ const MembershipSale = () => {
                       disabled={detailsConfirmed}
                     />
                   </div>
+                  <label className="block font-medium">{t("membership_price")}:<b> AUD {MEMBERSHIP_PRICE} </b></label>
 
                   <p className="text-sm text-gray-500">
                     * These details can be changed later. / 个人信息随时可以调整
@@ -233,7 +234,7 @@ const MembershipSale = () => {
                         createOrder={(data, actions) =>
                           actions.order.create({
                             purchase_units: [{
-                              amount: { value: '500.00' }
+                              amount: { value: `${MEMBERSHIP_PRICE}.00` }
                             }]
                           })
                         }
@@ -248,14 +249,6 @@ const MembershipSale = () => {
                         }}
                       />
                     </PayPalScriptProvider>
-
-                    <div className='h-10'></div>
-                    <button
-                      onClick={handleConfirmDetails}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded"
-                    >
-                      I assuming payment is successful.
-                    </button>
                   </>
                 )}
               </>

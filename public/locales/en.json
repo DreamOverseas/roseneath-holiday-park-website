@@ -136,6 +136,7 @@
   "login_send_code": "Send Code",
 
   "membership": "Membership",
+  "membership_price": "Membership Price (Gets into your Balance)",
   "membership_center": "Member Centre",
   "membership_contact": "Contact Number",
   "membership_activ": "Active",
@@ -159,7 +160,7 @@
   "membership_insuff_d": "Insufficient Discount Points",
   "membership_redm_succ": "Redemption successful. We've sent the coupon to your email.",
   "membership_comfirm": "Confirm",
-  "membership_join_btn" : "Join Now",
+  "membership_join_btn" : "Become A Member",
   "membership_promotion_title" : "Fellin' Interested? Why not join our Membership program with special offers and discounts!",
   "membership_promotion" : "Roseneath Holiday Park is excited to launch its brand-new Membership Program! By becoming a member, you'll gain access to our exclusive Member Points Store and enjoy a range of additional perks and benefits. Your full membership fee will be converted into equivalent recharge points, with bonus discount points included—offering you even greater value! More members-only activities and surprises are also coming soon. Join our Membership Program today and start your personalized holiday experience with us!",
   "membership_join_success" : "Thank you for your choice! We warmly welcome you as our member. Your digital membership card and membership number will be issued soon. Now you can browse our special offerings in the Member's Point Market.",
