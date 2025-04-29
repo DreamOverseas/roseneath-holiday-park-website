@@ -136,6 +136,7 @@
   "login_send_code": "发送验证码",
 
   "membership": "会员",
+  "membership_price": "入会费用（将会充值为等价余额）",
   "membership_center": "会员中心",
   "membership_contact": "联系电话",
   "membership_activ": "已激活",
