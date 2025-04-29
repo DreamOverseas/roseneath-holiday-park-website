@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import '../Css/MemberCenter.css';
 import MemberPointMarket from '../Components/MemberPointMarket';
 import DetailUpdateBtn from '../Components/DetailUpdateBtn';
+import MembershipSale from '../Components/MemberSale';
 
 const MemberCenter = () => {
     const [user, setUser] = useState(null);
@@ -137,16 +138,28 @@ const MemberCenter = () => {
                                 <Col sm={3}>{user.point}</Col>
                                 <Col sm={3} className="text-muted">{t("membership_discount")}</Col>
                                 <Col sm={3}>{user.discount_p}</Col>
-                            </Row> </>
+                            </Row> 
+                            <Row className="mb-3">
+                                <Col sm={3} className="text-muted">{t("membership_total_point")}</Col>
+                                <Col sm={3}> <b> {user.point + user.discount_p} </b> </Col>
+                                <Col sm={6} className='flex justify-end'>
+                                    <DetailUpdateBtn />
+                                </Col>
+                            </Row> 
+                        </>
                         : <></>}
-                        <div className='flex justify-end'>
+                        {/* <div className='flex justify-end'>
                             <DetailUpdateBtn />
-                        </div>
+                        </div> */}
                 </Card.Body>
             </Card>
 
             <br />
+            {user.is_member ?
             <MemberPointMarket />
+            :
+            <MembershipSale />
+            }
 
         </Container>
     );
