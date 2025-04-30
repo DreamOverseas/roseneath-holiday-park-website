@@ -119,12 +119,12 @@ const Gallery = () => {
             </Container>
 
             {/* Modal for full-screen image view */}
-            <Modal fullscreen={true} show={showModal} onHide={handleClose} centered size="xl">
+            <Modal show={showModal} onHide={handleClose} centered dialogClassName="my-modal">
                 <Modal.Header closeButton>
                     <Modal.Title className="ms-auto GalleryImageTextTitle">{t('Shot in Roseneath Caravan Park')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Image src={selectedImage} fluid className="w-100" />
+                    <Image src={selectedImage} fluid/>
                 </Modal.Body>
             </Modal>
         </>
