@@ -286,7 +286,7 @@ const LoginModal = ({ show, handleClose }) => {
       </Modal.Header>
       <Modal.Body>
         {/* Tabs to switch between Register and Login. Default tab is Register */}
-        <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} style={{ display: 'flex', flexDirection: 'row' }} >
+        <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} style={{ display: 'flex', flexDirection: 'row' }} fill >
           <Tab eventKey="register" title={t("register")} tabClassName="d-inline-block me-3">
             <Form className="mt-3">
               {/* User Name Field */}
