@@ -6,10 +6,12 @@ import { useTranslation } from "react-i18next";
 import '../Css/MemberCenter.css';
 import MemberPointMarket from '../Components/MemberPointMarket';
 import DetailUpdateBtn from '../Components/DetailUpdateBtn';
+import MembershipSale from '../Components/MemberSale';
 
 const MemberCenter = () => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
     const { t, i18n } = useTranslation();
 
     const CMSEndpoint = import.meta.env.VITE_CMS_ENDPOINT;
@@ -53,6 +55,8 @@ const MemberCenter = () => {
                 // Cookies.remove("user");
                 // Cookies.remove("AuthToken");
                 // navigate("/");
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -91,62 +95,80 @@ const MemberCenter = () => {
         <Container className="my-5 member-center">
             <h1 className="text-center mb-4">{t("membership_center")}</h1>
             <Card className="shadow">
-                <Card.Body>
-                    <Row className="mb-3">
-                        <Col sm={3} className="text-muted">{t("login_username")}</Col>
-                        <Col sm={3}>{user.name}</Col>
-                        <Col sm={3} className="text-muted">{t("membership")}</Col>
-                        <Col sm={3}>
-                            {user.is_member ?
-                                `${t("membership_activ")}` : `${t("membership_inactiv")}`}
-                        </Col>
-                    </Row>
-                    <Row className="mb-3">
-                        <Col sm={3} className="text-muted">{t("email")}</Col>
-                        <Col sm={3}>{user.email}</Col>
-                        <Col sm={3} className="text-muted">{t("membership_contact")}</Col>
-                        <Col sm={3}>{user.contact || '<Not Specified>'}</Col>
-                    </Row>
-                    {user.is_member ?
-                        <>
-                            <Row className="mb-3">
-                                {i18n.language == 'zh' ?
-                                    <>
-                                        <Col sm={3} className="text-muted">{t("lname")}</Col>
-                                        <Col sm={3}>{user.lname || '<Not Specified>'}</Col>
-                                        <Col sm={3} className="text-muted">{t("fname")}</Col>
-                                        <Col sm={3}>{user.fname || '<Not Specified>'}</Col>
-                                    </>
-                                    : // For chinese people, revert first and last name, otherwise in normal
-                                    <>
-                                        <Col sm={3} className="text-muted">{t("fname")}</Col>
-                                        <Col sm={3}>{user.fname || '<Not Specified>'}</Col>
-                                        <Col sm={3} className="text-muted">{t("lname")}</Col>
-                                        <Col sm={3}>{user.lname || '<Not Specified>'}</Col>
-                                    </>
-                                }
-                            </Row>
-                            <Row className="mb-3">
-                                <Col sm={3} className="text-muted">{t("membership_num")}</Col>
-                                <Col sm={3}>{user.number}</Col>
-                                <Col sm={3} className="text-muted">{t("membership_exp")}</Col>
-                                <Col sm={3}>{user.exp}</Col>
-                            </Row>
-                            <Row className="mb-3">
-                                <Col sm={3} className="text-muted">{t("membership_point")}</Col>
-                                <Col sm={3}>{user.point}</Col>
-                                <Col sm={3} className="text-muted">{t("membership_discount")}</Col>
-                                <Col sm={3}>{user.discount_p}</Col>
-                            </Row> </>
-                        : <></>}
-                        <div className='flex justify-end'>
+                {loading ?
+                    <Card.Body>
+                        Updating with your details...
+                    </Card.Body>
+                    :
+                    <Card.Body>
+                        <Row className="mb-3">
+                            <Col sm={3} className="text-muted">{t("login_username")}</Col>
+                            <Col sm={3}>{user.name}</Col>
+                            <Col sm={3} className="text-muted">{t("membership")}</Col>
+                            <Col sm={3}>
+                                {user.is_member ?
+                                    `${t("membership_activ")}` : `${t("membership_inactiv")}`}
+                            </Col>
+                        </Row>
+                        <Row className="mb-3">
+                            <Col sm={3} className="text-muted">{t("email")}</Col>
+                            <Col sm={3}>{user.email}</Col>
+                            <Col sm={3} className="text-muted">{t("membership_contact")}</Col>
+                            <Col sm={3}>{user.contact || '<Not Specified>'}</Col>
+                        </Row>
+                        {user.is_member ?
+                            <>
+                                <Row className="mb-3">
+                                    {i18n.language == 'zh' ?
+                                        <>
+                                            <Col sm={3} className="text-muted">{t("lname")}</Col>
+                                            <Col sm={3}>{user.lname || '<Not Specified>'}</Col>
+                                            <Col sm={3} className="text-muted">{t("fname")}</Col>
+                                            <Col sm={3}>{user.fname || '<Not Specified>'}</Col>
+                                        </>
+                                        : // For chinese people, revert first and last name, otherwise in normal
+                                        <>
+                                            <Col sm={3} className="text-muted">{t("fname")}</Col>
+                                            <Col sm={3}>{user.fname || '<Not Specified>'}</Col>
+                                            <Col sm={3} className="text-muted">{t("lname")}</Col>
+                                            <Col sm={3}>{user.lname || '<Not Specified>'}</Col>
+                                        </>
+                                    }
+                                </Row>
+                                <Row className="mb-3">
+                                    <Col sm={3} className="text-muted">{t("membership_num")}</Col>
+                                    <Col sm={3}>{user.number}</Col>
+                                    <Col sm={3} className="text-muted">{t("membership_exp")}</Col>
+                                    <Col sm={3}>{user.exp}</Col>
+                                </Row>
+                                <Row className="mb-3">
+                                    <Col sm={3} className="text-muted">{t("membership_point")}</Col>
+                                    <Col sm={3}>{user.point}</Col>
+                                    <Col sm={3} className="text-muted">{t("membership_discount")}</Col>
+                                    <Col sm={3}>{user.discount_p}</Col>
+                                </Row>
+                                <Row className="mb-3">
+                                    <Col sm={3} className="text-muted">{t("membership_total_point")}</Col>
+                                    <Col sm={3}> <b> {user.point + user.discount_p} </b> </Col>
+                                    <Col sm={6} className='flex justify-end'>
+                                        <DetailUpdateBtn />
+                                    </Col>
+                                </Row>
+                            </>
+                            : <></>}
+                        {/* <div className='flex justify-end'>
                             <DetailUpdateBtn />
-                        </div>
-                </Card.Body>
+                        </div> */}
+                    </Card.Body>
+                }
             </Card>
 
             <br />
-            <MemberPointMarket />
+            {user.is_member ?
+                <MemberPointMarket />
+                :
+                <MembershipSale />
+            }
 
         </Container>
     );
