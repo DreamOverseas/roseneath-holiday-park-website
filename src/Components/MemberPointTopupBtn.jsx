@@ -6,6 +6,7 @@ import {
     PayPalButtons,
 } from "@paypal/react-paypal-js";
 import { Fireworks } from '@fireworks-js/react'
+import { useTranslation } from "react-i18next";
 
 const MemberPointTopupBtn = () => {
     const paypalId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
@@ -20,6 +21,7 @@ const MemberPointTopupBtn = () => {
     const [isUpdating, setIsUpdating] = useState(false);
     const [error, setError] = useState('');
     const fireworksRef = useRef(null);
+    const { t } = useTranslation();
 
     const handleTopUpClick = () => {
         setShowModal(true);
@@ -113,13 +115,13 @@ const MemberPointTopupBtn = () => {
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
                 onClick={handleTopUpClick}
             >
-                Top Up &gt;&gt;
+                Top Up / 充值 &gt;&gt;
             </button>
 
             {isUpdating && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white rounded-lg p-6 w-full max-w-lg relative">
-                        <p className='text-center'>处理中... / Processing...</p>
+                        <p className='text-center'> Processing... / 处理中... </p>
                     </div>
                 </div>
             )}
@@ -179,7 +181,7 @@ const MemberPointTopupBtn = () => {
 
                         <p className="text-center mb-4">
                             Current Selected Value:
-                            <span className="font-semibold"> {selectedAmount}</span> AUD <b className='text-green-800'>+ {selectedBonus} Discount Points</b>
+                            <span className="font-semibold"> {selectedAmount}</span> {t("membership_point")} <b className='text-green-800'>+ {selectedBonus} {t("membership_discount")}</b>
                         </p>
 
                         {/* Error messages */}
@@ -216,7 +218,7 @@ const MemberPointTopupBtn = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white rounded-lg p-6 w-full max-w-sm text-center">
                         <h3 className='!text-amber-600'> <i class="bi bi-stars"></i> Yay! <i class="bi bi-stars"></i> </h3>
-                        <p className="mb-4">Your top-up is successful! Thank you.</p>
+                        <p className="mb-4">{t("membership_tp_success")}</p>
                     </div>
                     <Fireworks
                         className='!z-10'
