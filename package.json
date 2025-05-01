@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@dreamoverseas/cute-chatbot": "^1.1.5",
+    "@fireworks-js/react": "^2.10.8",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@paypal/react-paypal-js": "^8.8.3",

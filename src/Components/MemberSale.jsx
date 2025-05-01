@@ -149,9 +149,12 @@ const MembershipSale = () => {
                 <p>处理中... / Processing...</p>
               </div>
             ) : isSuccess ? (
-              <p className="text-green-600 text-center">
-                {t("membership_join_success")}
-              </p>
+              <div>
+                <i class="bi bi-check-circle" className='text-8xl text-green-600'></i>
+                <p className="text-emerald-700 text-center">
+                  {t("membership_join_success")}
+                </p>
+              </div>
             ) : (
               <>
                 {/* Form */}
