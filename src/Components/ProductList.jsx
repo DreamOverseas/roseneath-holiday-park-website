@@ -55,7 +55,7 @@ const ProductList = ({ filteredProducts, handleCardClick, handleRedeemClick }) =
 
                   <Row className="text-center d-flex">
                     <AlternatingText
-                      text1={`${Price} ${t("membership_point")}`}
+                      text1={`${Price} ${t("membership_total_point")}`}
                       text2={`${t("membership_max_dis")}${Math.min(Price, MaxDeduction)}!`}
                       judge={MaxDeduction}
                     />

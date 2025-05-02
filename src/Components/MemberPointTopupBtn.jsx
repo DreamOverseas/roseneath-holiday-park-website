@@ -180,7 +180,7 @@ const MemberPointTopupBtn = () => {
                         </div>
 
                         <p className="text-center mb-4">
-                            Current Selected Value:
+                            {t("membership_tp_value")}:
                             <span className="font-semibold"> {selectedAmount}</span> {t("membership_point")} <b className='text-green-800'>+ {selectedBonus} {t("membership_discount")}</b>
                         </p>
 
