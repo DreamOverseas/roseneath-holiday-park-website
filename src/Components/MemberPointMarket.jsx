@@ -271,7 +271,7 @@ const MemberPointMarket = () => {
                             )}
                         <p>{selectedProduct.Description}</p>
                         <Row className="text-center">
-                            {selectedProduct.Price} {t("membership_point")}
+                            {selectedProduct.Price} {t("membership_total_point")}
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
