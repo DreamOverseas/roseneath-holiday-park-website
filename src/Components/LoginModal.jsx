@@ -182,11 +182,11 @@ const LoginModal = ({ show, handleClose }) => {
         clearModalData();
         navigate('/membership');
       } else {
-        setRegError('Registration failed. Please try again.');
+        setRegError('Registration failed. Please try again. Your Email may have linked to an account.');
       }
     } catch (error) {
       console.error(error);
-      setRegError('Error during registration.');
+      setRegError('Error during registration. Please contact us and we are here for help!');
     }
   };
 

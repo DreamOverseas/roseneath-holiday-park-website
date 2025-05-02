@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,7 @@ import '../Css/MemberCenter.css';
 import MemberPointMarket from '../Components/MemberPointMarket';
 import DetailUpdateBtn from '../Components/DetailUpdateBtn';
 import MembershipSale from '../Components/MemberSale';
+import MemberPointTopupBtn from '../Components/MemberPointTopupBtn';
 
 const MemberCenter = () => {
     const [user, setUser] = useState(null);
@@ -151,14 +152,14 @@ const MemberCenter = () => {
                                     <Col sm={3} className="text-muted">{t("membership_total_point")}</Col>
                                     <Col sm={3}> <b> {user.point + user.discount_p} </b> </Col>
                                     <Col sm={6} className='flex justify-end'>
-                                        <DetailUpdateBtn />
+                                        <MemberPointTopupBtn />
                                     </Col>
                                 </Row>
                             </>
                             : <></>}
-                        {/* <div className='flex justify-end'>
+                        <div className='flex justify-end'>
                             <DetailUpdateBtn />
-                        </div> */}
+                        </div>
                     </Card.Body>
                 }
             </Card>
