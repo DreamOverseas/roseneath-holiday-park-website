@@ -80,7 +80,6 @@ const MembershipSale = () => {
         `${endpoint}/api/rhp-memberships/${documentId}`,
         {
           data: {
-            MembershipNumber: "Issuing...",
             FirstName: firstName.trim(),
             LastName: lastName.trim(),
             Contact: contact.trim(),

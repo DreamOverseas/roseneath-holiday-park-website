@@ -70,6 +70,7 @@ const MemberCenter = () => {
         let userCookie = {
             name: userdata.UserName,
             email: userdata.Email,
+            contact: userdata.Contact || 'Not Specified',
             is_member: userdata.IsMember
         };
         // If the user is a member, add additional fields to the cookie.
@@ -79,7 +80,6 @@ const MemberCenter = () => {
                 number: userdata.MembershipNumber || 'N/A',
                 fname: userdata.FirstName || 'Not Specified',
                 lname: userdata.LastName || 'Not Specified',
-                contact: userdata.Contact || 'Not Specified',
                 exp: userdata.ExpiryDate || 'N/A',
                 point: userdata.Point || 'N/A',
                 discount_p: userdata.DiscountPoint || 'N/A'
@@ -138,7 +138,7 @@ const MemberCenter = () => {
                                 </Row>
                                 <Row className="mb-3">
                                     <Col sm={3} className="text-muted">{t("membership_num")}</Col>
-                                    <Col sm={3}>{user.number}</Col>
+                                    <Col sm={3}>{ user.number=='N/A' ? t("membership_issuing") : user.number }</Col>
                                     <Col sm={3} className="text-muted">{t("membership_exp")}</Col>
                                     <Col sm={3}>{user.exp}</Col>
                                 </Row>
