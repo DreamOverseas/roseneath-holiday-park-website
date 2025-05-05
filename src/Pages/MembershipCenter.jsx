@@ -138,7 +138,7 @@ const MemberCenter = () => {
                                 </Row>
                                 <Row className="mb-3">
                                     <Col sm={3} className="text-muted">{t("membership_num")}</Col>
-                                    <Col sm={3}>{user.number}</Col>
+                                    <Col sm={3}>{ user.number=='N/A' ? t("membership_issuing") : user.number }</Col>
                                     <Col sm={3} className="text-muted">{t("membership_exp")}</Col>
                                     <Col sm={3}>{user.exp}</Col>
                                 </Row>
