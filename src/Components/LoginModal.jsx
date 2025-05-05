@@ -246,7 +246,8 @@ const LoginModal = ({ show, handleClose }) => {
           let userCookie = {
             name: userAttributes.UserName,
             email: userAttributes.Email,
-            is_member: userAttributes.IsMember
+            is_member: userAttributes.IsMember,
+            contact: userAttributes.Contact || 'Not Specified'
           };
           // If the user is a member, add additional fields to the cookie.
           if (userAttributes.IsMember) {
@@ -255,7 +256,6 @@ const LoginModal = ({ show, handleClose }) => {
               number: userAttributes.MembershipNumber || 'N/A',
               fname: userAttributes.FirstName || 'Not Specified',
               lname: userAttributes.LastName || 'Not Specified',
-              contact: userAttributes.Contact || 'Not Specified',
               exp: userAttributes.ExpiryDate || 'N/A',
               point: userAttributes.Point || 'N/A',
               discount_p: userAttributes.DiscountPoint || 'N/A'

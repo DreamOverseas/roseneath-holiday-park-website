@@ -53,7 +53,7 @@ const DetailUpdateBtn = () => {
         setIsMember(record.IsMember);
         setDocumentID(record.documentId);
         setShowModal(true);
-      }else{
+      } else {
         console.error(`Such user ${email} is not found or missing in backend.`);
       }
     } catch (err) {
@@ -110,10 +110,10 @@ const DetailUpdateBtn = () => {
 
         const updatedData = { // Update the updated fields only
           ...userData,
-          ...(userName    ? { name:      userName    } : {}),
-          ...(firstName   ? { fname:     firstName   } : {}),
-          ...(lastName    ? { lname:     lastName    } : {}),
-          ...(contact     ? { contact:   contact     } : {}),
+          ...(userName ? { name: userName } : {}),
+          ...(firstName ? { fname: firstName } : {}),
+          ...(lastName ? { lname: lastName } : {}),
+          ...(contact ? { contact: contact } : {}),
         };
 
         Cookies.set('user', JSON.stringify(updatedData), { expires: 7, path: '/' });
@@ -164,6 +164,17 @@ const DetailUpdateBtn = () => {
                 />
               </div>
 
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">Contact Number</label>
+                <input
+                  type="text"
+                  placeholder="Not Changing..."
+                  value={contact}
+                  onChange={e => setContact(e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+
               {/* If the user is a member, show additional fields */}
               {isMember && (
                 <>
@@ -185,17 +196,6 @@ const DetailUpdateBtn = () => {
                       placeholder="Not Changing..."
                       value={lastName}
                       onChange={e => setLastName(e.target.value)}
-                      className="w-full border border-gray-300 rounded px-3 py-2"
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Contact Number</label>
-                    <input
-                      type="text"
-                      placeholder="Not Changing..."
-                      value={contact}
-                      onChange={e => setContact(e.target.value)}
                       className="w-full border border-gray-300 rounded px-3 py-2"
                     />
                   </div>
