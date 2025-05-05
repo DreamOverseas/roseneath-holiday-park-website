@@ -25,11 +25,6 @@ const Footer = () => {
             <Row>
               <Image src='logo192.png' className='footer-logo'/>
             </Row>
-            <Row>
-              <span className='footer-slogan-text'>
-                {t("footer_slogan")}
-              </span>
-            </Row>
             <Row
               className='footer-button-section d-flex justify-content-center justify-content-md-end align-items-center'
             >
