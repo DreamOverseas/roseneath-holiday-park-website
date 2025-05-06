@@ -1,3 +1,11 @@
+.navWholeBar {
+  display: flex;
+  flex-direction: row;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
 .NavigationBar {
   margin-top: 2%;
   margin-left: 2%;
@@ -10,6 +18,7 @@
   border-color: lightblue;
   border-radius: 50px;
   box-shadow: 7px 7px 5px lightblue;
+  height: 70px;
 }
 
 .NavWord {
