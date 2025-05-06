@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { Container, Figure, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { Container, Figure, Nav, Navbar, NavDropdown, Button, Image } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import LoginModal from './LoginModal.jsx';
@@ -122,8 +122,13 @@ const Navigation = () => {
                 </NavDropdown>
 
                 <NavDropdown
-                  className='NavNoHighlightWord'
-                  title={"语言(Language)"}
+                  className='NavNoHighlightWord nav-language'
+                  title={<Image
+                    src={'/home/languages.png'}
+                    width={40}
+                    height={40}
+                    alt="Language icon"
+                  />}
                   id='language-dropdown'
                 >
                   <NavDropdown.Item onClick={() => changeLanguage("zh")}>
