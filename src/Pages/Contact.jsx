@@ -50,6 +50,18 @@ const Contact = () => {
                         </Row>
                         <Row>
                             <p>
+                                <i class="bi bi-person"></i> &nbsp;
+                                {t("contact_group_name")}
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
+                                <i class="bi bi-telephone-inbound"></i> &nbsp;
+                                {t("contact_group_phone")}
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
                                 {t("contact_individual_email")}
                             </p>
@@ -103,19 +115,19 @@ const Contact = () => {
                         <Row>
                             <p>
                                 <i class="bi bi-person"></i> &nbsp;
-                                Richard Ivey
+                                Toni
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-telephone-inbound"></i> &nbsp;
-                                +61 (04) 0111-3310
+                                +61 (04) 1361 6660
                             </p>
                         </Row>
                         <Row>
                             <p>
                                 <i class="bi bi-mailbox"></i> &nbsp;
-                                richard@ctcre.com.au
+                                orbostpm@ctcre.com.au
                             </p>
                         </Row>
                         <br />
@@ -133,12 +145,6 @@ const Contact = () => {
                             <p>
                                 <i class="bi bi-pin-angle"></i> &nbsp;
                                 {t("contact_lawyer_location")}
-                            </p>
-                        </Row>
-                        <Row>
-                            <p>
-                                <i class="bi bi-person"></i> &nbsp;
-                                Tim Kelly
                             </p>
                         </Row>
                         <Row>

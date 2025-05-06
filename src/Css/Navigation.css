@@ -1,3 +1,16 @@
+.navWholeBar {
+  display: flex;
+  flex-direction: row;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.navWholeBar > .figure-img {
+  width: 120px !important;
+  height: 120px !important;
+}
+
 .NavigationBar {
   margin-top: 2%;
   margin-left: 2%;
@@ -10,6 +23,7 @@
   border-color: lightblue;
   border-radius: 50px;
   box-shadow: 7px 7px 5px lightblue;
+  min-width: 250px;
 }
 
 .NavWord {
