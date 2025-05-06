@@ -132,7 +132,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <main>
       <div>
         <section className="home-banner-title">
           <h1>{t("home_place_name")}</h1>
@@ -142,7 +142,6 @@ const Home = () => {
         <section className="home-banner-subtitle">
           <Container>
             <h1>{t("home_cheerup")}</h1>
-            {/* 缩略图示例 */}
             <Row >
               {features.map((feature, index) => (
                 <Col
@@ -167,7 +166,7 @@ const Home = () => {
           </Container>
         </section>
 
-        <section className="room-presentation">
+        <section className="room-presentation activities-section">
           <Container>
             <h1>{t("Room")}</h1>
             <Slider {...room_sliderSettings}>
@@ -265,7 +264,7 @@ const Home = () => {
           <PriceList />
         </Container>
 
-        <section className="home-attraction">
+        <section className="home-attraction activities-section">
           <Container>
             <h1>{t("home_attraction")}</h1>
             <Row className="food">
@@ -434,7 +433,7 @@ const Home = () => {
           </Container>
         </section>
       </div>
-    </>
+    </main>
   );
 };
 

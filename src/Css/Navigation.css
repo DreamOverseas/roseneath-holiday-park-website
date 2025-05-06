@@ -11,6 +11,11 @@
   height: 120px !important;
 }
 
+.nav-language .dropdown-toggle {
+  display: flex;
+  align-items: center;
+}
+
 .NavigationBar {
   margin-top: 2%;
   margin-left: 2%;
