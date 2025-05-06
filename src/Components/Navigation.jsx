@@ -46,7 +46,7 @@ const Navigation = () => {
 
   return (
     <div className="navWholeBar">
-      <Figure.Image width={"150px"} src='/logo192.png' />
+      <Figure.Image width={"120px"} height={"120px"} src='/logo192.png' />
       <Navbar
         bg='light'
         expand='lg'
