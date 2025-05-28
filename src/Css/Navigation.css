@@ -28,7 +28,7 @@
   border-color: lightblue;
   border-radius: 50px;
   box-shadow: 7px 7px 5px lightblue;
-  min-width: 250px;
+  min-width: 85%;
 }
 
 .NavWord {
@@ -81,12 +81,121 @@
   min-width: 10rem;
 }
 
+/* Add these new mobile-specific styles and update existing ones */
+
+@media (max-width: 991px) {
+  .navWholeBar {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .navWholeBar > .figure-img {
+    width: 80px !important;
+    height: 80px !important;
+    margin-bottom: 10px;
+  }
+  
+  .NavigationBar {
+    margin: 1%;
+    min-width: 95%;
+    border-radius: 25px;
+  }
+}
+
 @media (max-width: 768px) {
+  .navWholeBar {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .navWholeBar > .figure-img {
+    width: 70px !important;
+    height: 70px !important;
+    margin-bottom: 5px;
+  }
+  
+  .NavigationBar {
+    margin: 0.5%;
+    min-width: 98%;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px lightblue;
+  }
+  
+  .NavContainer {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 0;
+  }
+  
   .NavWord {
-    width: 100px;
+    width: 200px;
+    font-size: 18px;
+    padding: 8px 16px;
+    margin: 2px 0;
+  }
+  
+  .NavNoHighlightWord {
+    margin-left: 0;
+    font-size: 18px;
+    width: 200px;
     text-align: center;
-    font-family: Georgia, serif;
-    font-size: 20px;
-    border-radius: 50px;
+  }
+  
+  .nav-language .dropdown-toggle {
+    width: 200px;
+    justify-content: center;
+  }
+  
+  .nav-login-button {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .nav-login-button .btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  .dropdown-menu {
+    width: 200px;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .navWholeBar > .figure-img {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .NavigationBar {
+    margin: 0.25%;
+    min-width: 99%;
+    border-radius: 15px;
+  }
+  
+  .NavWord {
+    width: 180px;
+    font-size: 16px;
+  }
+  
+  .NavNoHighlightWord {
+    font-size: 16px;
+    width: 180px;
+  }
+  
+  .nav-language .dropdown-toggle {
+    width: 180px;
+  }
+  
+  .nav-login-button {
+    max-width: 180px;
+  }
+  
+  .dropdown-menu {
+    width: 180px;
   }
 }
