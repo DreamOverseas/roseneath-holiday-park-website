@@ -95,7 +95,7 @@ const MemberPointMarket = () => {
 
         const currUser = JSON.parse(Cookies.get('user'));
 
-        const userQueryUrl = `${endpoint}/api/rhp-memberships?filters[MembershipNumber][$eq]=${currUser.number}&filters[Email][$eq]=${currUser.email}`;
+        const userQueryUrl = `${endpoint}/api/rhp-memberships?filters[Email][$eq]=${currUser.email}`;
 
         try {
             const userResponse = await fetch(userQueryUrl, {
@@ -105,6 +105,8 @@ const MemberPointMarket = () => {
                 }
             });
             const userData = await userResponse.json();
+
+            console.log(userData);
 
             if (userResponse.ok && userData.data && userData.data.length > 0) {
                 const userRecord = userData.data[0];
@@ -152,10 +154,10 @@ const MemberPointMarket = () => {
                     "discount_p": newDiscountPoints,
                 }), { expires: 7 });
             } else {
-                console.log("User not found or error fetching user data");
+                console.error("User not found or error fetching user data");
             }
         } catch (error) {
-            console.log("Error updating user info:", error);
+            console.error("Error updating user info:", error);
         }
     }
 
