@@ -66,10 +66,6 @@
   transition: left 0.5s;
 }
 
-.NavigationBar:hover::before {
-  left: 100%;
-}
-
 .NavigationBar:hover {
   transform: translateY(-2px);
   box-shadow: 
