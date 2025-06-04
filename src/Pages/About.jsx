@@ -8,7 +8,7 @@ function AboutUs() {
   const { t } = useTranslation();
 
   return (
-    <main>
+    <main className="about-page">
 
       <PageTitle
         pageTitle={t("aboutUs.pageTitle")}

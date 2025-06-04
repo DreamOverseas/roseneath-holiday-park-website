@@ -132,7 +132,7 @@ const Home = () => {
   };
 
   return (
-    <main>
+    <main className="home-page">
       <div>
         <section className="home-banner-title">
           <h1>{t("home_place_name")}</h1>
