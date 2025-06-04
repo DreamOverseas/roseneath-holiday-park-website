@@ -4,16 +4,35 @@
   position: sticky;
   top: 0;
   z-index: 9999;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.95));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(173, 216, 230, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .navWholeBar > .figure-img {
   width: 120px !important;
   height: 120px !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.navWholeBar > .figure-img:hover {
+  transform: scale(1.05);
 }
 
 .nav-language .dropdown-toggle {
   display: flex;
   align-items: center;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nav-language .dropdown-toggle:focus {
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25) !important;
 }
 
 .NavigationBar {
@@ -21,43 +40,187 @@
   margin-left: 2%;
   margin-right: 2%;
   margin-bottom: 2%;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: lightblue;
-  border-radius: 50px;
-  box-shadow: 7px 7px 5px lightblue;
+  padding: 15px 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 25px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(173, 216, 230, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   min-width: 85%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible;
+}
+
+.NavigationBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.NavigationBar:hover::before {
+  left: 100%;
+}
+
+.NavigationBar:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(173, 216, 230, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .NavWord {
   width: 110px;
   text-align: center;
-  font-family: Georgia, serif;
-  font-size: 20px;
-  border-radius: 50px;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 12px 16px;
+  margin: 0 4px;
+  color: #334155;
+  text-decoration: none !important;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  border: 2px solid transparent;
+  overflow: hidden;
+}
+
+.NavWord::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(173, 216, 230, 0.3), transparent);
+  transition: left 0.3s ease;
+}
+
+.NavWord:hover::before {
+  left: 100%;
 }
 
 .NavWord:hover {
-  background-color: lightblue;
+  color: #1e40af !important;
+  background: linear-gradient(135deg, rgba(173, 216, 230, 0.2), rgba(219, 234, 254, 0.3));
+  border-color: rgba(173, 216, 230, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(173, 216, 230, 0.3);
 }
 
 .NavActive {
-  color: white;
-  background-color: darkblue;
-  box-shadow: 3px 5px 5px lightblue;
+  color: white !important;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+  border-color: #1d4ed8;
+  box-shadow: 
+    0 8px 20px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.NavActive:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 25px rgba(37, 99, 235, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .NavNoHighlightWord {
-  margin-left: 20px;
+  margin-left: 15px;
   white-space: nowrap;
-  font-family: Georgia, serif;
-  font-size: 20px;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.NavNoHighlightWord .dropdown-toggle {
+  border: 2px solid transparent !important;
+  border-radius: 20px !important;
+  padding: 12px 16px !important;
+  background: transparent !important;
+  color: #334155 !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.NavNoHighlightWord .dropdown-toggle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(173, 216, 230, 0.3), transparent);
+  transition: left 0.3s ease;
+}
+
+.NavNoHighlightWord .dropdown-toggle:hover::before {
+  left: 100%;
+}
+
+.NavNoHighlightWord .dropdown-toggle:hover {
+  color: #1e40af !important;
+  background: linear-gradient(135deg, rgba(173, 216, 230, 0.2), rgba(219, 234, 254, 0.3)) !important;
+  border-color: rgba(173, 216, 230, 0.5) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(173, 216, 230, 0.3) !important;
 }
 
 .dropdown-menu {
   text-align: center;
+  border: none !important;
+  border-radius: 15px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(173, 216, 230, 0.3) !important;
+  padding: 8px !important;
+  margin-top: 8px !important;
+  animation: dropdownFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dropdown-item {
+  border-radius: 10px !important;
+  margin: 2px 0 !important;
+  padding: 10px 16px !important;
+  color: #334155 !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 197, 253, 0.2)) !important;
+  color: #1e40af !important;
+  transform: translateX(4px);
 }
 
 .NavContact {
@@ -66,6 +229,23 @@
 
 .NavToggle {
   margin-right: 20px;
+  border: 2px solid rgba(173, 216, 230, 0.5) !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  padding: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.NavToggle:hover {
+  border-color: #3b82f6 !important;
+  background: rgba(59, 130, 246, 0.1) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+}
+
+.NavToggle:focus {
+  border-color: #1d4ed8 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
 }
 
 .NavContainer {
@@ -74,31 +254,99 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .nav-login-button {
   min-width: 10rem;
+  margin-left: 20px;
 }
 
-/* Add these new mobile-specific styles and update existing ones */
+.nav-login-button .btn {
+  border-radius: 20px !important;
+  padding: 12px 24px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  border: 2px solid transparent !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-login-button .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.nav-login-button .btn:hover::before {
+  left: 100%;
+}
+
+.nav-login-button .btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+  border-color: #1d4ed8 !important;
+  color: white !important;
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+.nav-login-button .btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+  border-color: #1e40af !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
+.nav-login-button .btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  border-color: #dc2626 !important;
+  color: white !important;
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+}
+
+.nav-login-button .btn-danger:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  border-color: #b91c1c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+}
+
+/* Enhanced Mobile Responsive Styles */
 
 @media (max-width: 991px) {
   .navWholeBar {
     flex-direction: column;
     align-items: center;
+    padding: 10px;
   }
   
   .navWholeBar > .figure-img {
-    width: 80px !important;
-    height: 80px !important;
-    margin-bottom: 10px;
+    width: 90px !important;
+    height: 90px !important;
+    margin-bottom: 15px;
   }
   
   .NavigationBar {
     margin: 1%;
     min-width: 95%;
-    border-radius: 25px;
+    border-radius: 20px;
+    padding: 20px 15px;
+  }
+  
+  .NavContainer {
+    gap: 10px;
+  }
+  
+  .nav-login-button {
+    margin-left: 0;
+    margin-top: 10px;
   }
 }
 
@@ -106,96 +354,148 @@
   .navWholeBar {
     flex-direction: column;
     align-items: center;
+    padding: 8px;
   }
   
   .navWholeBar > .figure-img {
-    width: 70px !important;
-    height: 70px !important;
-    margin-bottom: 5px;
+    width: 75px !important;
+    height: 75px !important;
+    margin-bottom: 10px;
   }
   
   .NavigationBar {
     margin: 0.5%;
     min-width: 98%;
-    border-radius: 20px;
-    box-shadow: 3px 3px 3px lightblue;
+    border-radius: 18px;
+    padding: 15px 10px;
+    box-shadow: 
+      0 8px 20px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(173, 216, 230, 0.4);
   }
   
   .NavContainer {
     flex-direction: column;
-    gap: 8px;
-    padding: 10px 0;
+    gap: 12px;
+    padding: 15px 0;
   }
   
   .NavWord {
-    width: 200px;
-    font-size: 18px;
-    padding: 8px 16px;
-    margin: 2px 0;
+    width: 220px;
+    font-size: 17px;
+    padding: 14px 20px;
+    margin: 3px 0;
   }
   
   .NavNoHighlightWord {
     margin-left: 0;
-    font-size: 18px;
-    width: 200px;
+    font-size: 17px;
+    width: 220px;
     text-align: center;
   }
   
+  .NavNoHighlightWord .dropdown-toggle {
+    width: 220px !important;
+    justify-content: center;
+    font-size: 17px !important;
+    padding: 14px 20px !important;
+  }
+  
   .nav-language .dropdown-toggle {
-    width: 200px;
+    width: 220px;
     justify-content: center;
   }
   
   .nav-login-button {
-    margin-top: 10px;
+    margin-top: 15px;
     width: 100%;
-    max-width: 200px;
+    max-width: 220px;
   }
   
   .nav-login-button .btn {
     width: 100%;
-    font-size: 16px;
-    padding: 10px;
+    font-size: 17px !important;
+    padding: 14px 20px !important;
   }
   
   .dropdown-menu {
-    width: 200px;
+    width: 220px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
 }
 
 @media (max-width: 480px) {
+  .navWholeBar {
+    padding: 5px;
+  }
+  
   .navWholeBar > .figure-img {
-    width: 60px !important;
-    height: 60px !important;
+    width: 65px !important;
+    height: 65px !important;
+    margin-bottom: 8px;
   }
   
   .NavigationBar {
     margin: 0.25%;
     min-width: 99%;
     border-radius: 15px;
+    padding: 12px 8px;
   }
   
   .NavWord {
-    width: 180px;
+    width: 200px;
     font-size: 16px;
+    padding: 12px 18px;
   }
   
   .NavNoHighlightWord {
     font-size: 16px;
-    width: 180px;
+    width: 200px;
+  }
+  
+  .NavNoHighlightWord .dropdown-toggle {
+    width: 200px !important;
+    font-size: 16px !important;
+    padding: 12px 18px !important;
   }
   
   .nav-language .dropdown-toggle {
-    width: 180px;
+    width: 200px;
   }
   
   .nav-login-button {
-    max-width: 180px;
+    max-width: 200px;
+  }
+  
+  .nav-login-button .btn {
+    font-size: 16px !important;
+    padding: 12px 18px !important;
   }
   
   .dropdown-menu {
-    width: 180px;
+    width: 200px !important;
   }
+}
+
+/* Loading animation for smooth transitions */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Focus states for accessibility */
+.NavWord:focus,
+.NavNoHighlightWord .dropdown-toggle:focus,
+.nav-login-button .btn:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
 }
