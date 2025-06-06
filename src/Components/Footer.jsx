@@ -72,7 +72,6 @@ const Footer = () => {
           <Col xs={12}
             md={3}
             className='footer-aboutus-info text-center text-md-left mb-3 mb-md-0'>
-            <br />
             <Row className="contact-info-row">
                 <p>
                     <b>{t("contact_group_title")}</b> &#128188;
