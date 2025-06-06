@@ -44,6 +44,8 @@ const RoomList = () => {
               ? room.Name_zh
               : room.Name_en}
             </h2>
+            <br/>
+            <p className='room-subtitle'>{t("Room_max_guest") + room.Max_guest} </p>
             <p className='room-subtitle'>{i18n.language === "zh"
               ? room.Title_zh
               : room.Title_en}
