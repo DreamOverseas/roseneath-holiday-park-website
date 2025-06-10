@@ -23,18 +23,6 @@
   transform: scale(1.05);
 }
 
-.nav-language .dropdown-toggle {
-  display: flex;
-  align-items: center;
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.nav-language .dropdown-toggle:focus {
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25) !important;
-}
-
 .NavigationBar {
   margin-top: 2%;
   margin-left: 2%;
@@ -396,11 +384,6 @@
     padding: 14px 20px !important;
   }
   
-  .nav-language .dropdown-toggle {
-    width: 220px;
-    justify-content: center;
-  }
-  
   .nav-login-button {
     margin-top: 15px;
     width: 100%;
@@ -455,10 +438,6 @@
     padding: 12px 18px !important;
   }
   
-  .nav-language .dropdown-toggle {
-    width: 200px;
-  }
-  
   .nav-login-button {
     max-width: 200px;
   }
@@ -494,4 +473,43 @@
 /* Smooth scrolling behavior */
 html {
   scroll-behavior: smooth;
+}
+
+.nav-language .dropdown-toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: row !important; /* Ensure horizontal layout */
+  gap: 8px !important; /* Add some space between icon and arrow */
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nav-language .dropdown-toggle:focus {
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25) !important;
+}
+
+/* Ensure the dropdown arrow stays inline */
+.nav-language .dropdown-toggle::after {
+  margin-left: 8px !important; /* Space between icon and arrow */
+  vertical-align: middle !important;
+  align-self: center !important;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  .nav-language .dropdown-toggle {
+    width: 220px;
+    justify-content: center !important;
+    flex-direction: row !important; /* Keep horizontal even on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-language .dropdown-toggle {
+    width: 200px;
+    justify-content: center !important;
+    flex-direction: row !important; /* Keep horizontal even on small mobile */
+  }
 }
