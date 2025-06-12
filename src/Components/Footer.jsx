@@ -3,6 +3,7 @@ import {Button, Col, Container, Image, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import "../Css/Footer.css";
+import DoTermsAndConditions from "./DoTermsAndConditions";
 
 const Footer = () => {
 
@@ -28,7 +29,7 @@ const Footer = () => {
             <Row
               className='footer-button-section d-flex justify-content-center justify-content-md-end align-items-center'
             >
-              <div><b>A member of 1club,</b> <a href="https://1club.world/">https://1club.world/</a></div>
+              <span><b>A member of <a className="text-white" href="https://1club.world/">1# Club</a></b></span>
             </Row>
             <Row>
               <Button className='footer-button' onClick={jumpToContact}>

@@ -3,6 +3,7 @@ import { Modal, Tabs, Tab, Form, Button, InputGroup } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import DoTermsAndConditions from './DoTermsAndConditions';
 
 // Environment variable assignments to be used in API calls.
 const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
@@ -11,7 +12,7 @@ const email_service_endpoint = import.meta.env.VITE_EMAIL_API_ENDPOINT;
 
 const LoginModal = ({ show, handleClose }) => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   // State to manage the active tab. Default is 'register'
   const [activeTab, setActiveTab] = useState('register');
@@ -346,6 +347,10 @@ const LoginModal = ({ show, handleClose }) => {
               </Form.Group>
 
               {regError && <p className="text-danger">{regError}</p>}
+
+              <div className='text-sm text-right text-gray-600'>
+                {t("readTnC")} <DoTermsAndConditions defaultLang={i18n.language ? i18n.language : 'en'}/>
+              </div>
 
               <div className="text-end d-grid gap-2">
                 <Button variant="primary" onClick={handleRegister} className="mt-2" >
