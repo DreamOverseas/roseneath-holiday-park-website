@@ -38,6 +38,12 @@ const Contact = () => {
                         </Row>
                         <Row>
                             <p>
+                                <i class="bi bi-telephone-inbound"></i> &nbsp;
+                                {t("contact_individual_land")}
+                            </p>
+                        </Row>
+                        <Row>
+                            <p>
                                 <i class="bi bi-person"></i> &nbsp;
                                 {t("contact_individual_name")}
                             </p>

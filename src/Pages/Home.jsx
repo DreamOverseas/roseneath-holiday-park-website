@@ -136,7 +136,7 @@ const Home = () => {
       <div>
         <section className="home-banner-title">
           <h1>{t("home_place_name")}</h1>
-          <strong><h3>{t("home_place_short_description")}</h3></strong>
+          <strong><h3><div dangerouslySetInnerHTML={{ __html: t('home_place_short_description') }}/></h3></strong>
         </section>
 
         <section className="home-banner-subtitle">

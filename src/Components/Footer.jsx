@@ -26,11 +26,6 @@ const Footer = () => {
             <Row>
               <Image src='logo192.png' className='footer-logo'/>
             </Row>
-            <Row
-              className='footer-button-section d-flex justify-content-center justify-content-md-end align-items-center'
-            >
-              <span><b>A member of <a className="text-white" href="https://1club.world/">1# Club</a></b></span>
-            </Row>
             <Row>
               <Button className='footer-button' onClick={jumpToContact}>
                 {t("get_in_touch")}
@@ -49,6 +44,12 @@ const Footer = () => {
                 <p>
                     <i class="bi bi-pin-angle"></i> &nbsp;
                     {t("contact_individual_location")}
+                </p>
+            </Row>
+            <Row className="contact-info-row">
+                <p>
+                    <i class="bi bi-telephone-inbound"></i> &nbsp;
+                    {t("contact_individual_land")}
                 </p>
             </Row>
             <Row className="contact-info-row">
