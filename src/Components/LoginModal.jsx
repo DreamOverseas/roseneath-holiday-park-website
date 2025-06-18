@@ -23,6 +23,7 @@ const LoginModal = ({ show, handleClose }) => {
   const [regPassword, setRegPassword] = useState('');
   const [regConfirmPassword, setRegConfirmPassword] = useState('');
   const [regVerificationCode, setRegVerificationCode] = useState('');
+  const [agreed, setAgreed] = useState(false);
   // This state holds the generated verification code after "Send Code" is clicked.
   const [generatedCode, setGeneratedCode] = useState(null);
   // Holds error or status messages for registration actions.
@@ -143,6 +144,11 @@ const LoginModal = ({ show, handleClose }) => {
     if (regPassword !== regConfirmPassword) {
       setRegError('Passwords do not match.');
       setCooldown(3);
+      return;
+    }
+    // Must agree with our user aggreement
+    if (!agreed) {
+      setRegError('Please tick agree with our T&C.');
       return;
     }
     // Validate that the entered verification code matches the generated one.
@@ -348,9 +354,25 @@ const LoginModal = ({ show, handleClose }) => {
 
               {regError && <p className="text-danger">{regError}</p>}
 
-              <div className='text-sm text-right text-gray-600'>
-                {t("readTnC")} <DoTermsAndConditions defaultLang={i18n.language ? i18n.language : 'en'}/>
-              </div>
+              
+
+              <Form.Group controlId="formAgreement" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <Form.Check
+                    required
+                    type="checkbox"
+                    id="formAgreementCheckbox"
+                    className="me-2 mb-0"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                    label="" 
+                    isInvalid={!agreed}
+                  />
+                  <div className='text-sm text-right text-gray-600'>
+                    {t("readTnC")} <DoTermsAndConditions defaultLang={i18n.language ? i18n.language : 'en'}/>
+                  </div>
+                </div>
+              </Form.Group>
 
               <div className="text-end d-grid gap-2">
                 <Button variant="primary" onClick={handleRegister} className="mt-2" >
