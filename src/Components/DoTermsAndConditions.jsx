@@ -17,100 +17,119 @@ const DoTermsAndConditions = ({ defaultLang = 'zh' }) => {
     const toggleLang = () => setLang(lang === 'zh' ? 'en' : 'zh');
     const toggleModal = () => setIsOpen(!isOpen);
 
-        const zhContent = `任何使用出国梦集团（Dream Overseas Group Pty Ltd - ABN: 531 191 108 60）网站的用户均应仔细阅读本条例：
-- 服务协议
-第1条：服务条款的接受
-1、本服务条款所称的服务商、合作方是指完全同意所有条款并使用出国梦集团各项软件服务（以下称为“本服务”）的出国服务商、合作方及其他使用出国梦集团网络运营、操作平台的人员（以下称为“服务商、合作方”）。通过开通服务应用软件，服务商、合作方便表明其接受并同意受本服务条款及其他声明的约束；同时，服务商、合作方保证其提交的信息真实、合法、有效、准确、及时和完整。
-2、本服务条款以《出国梦集团用户服务协议》为基础，服务商、合作方接受本服务条款，默认表示接受《出国梦集团用户服务协议》及其他全部声明等的相关条款。
+        const zhContent = `任何使用罗塞尼斯半岛度假村（Roseneath Holiday Park，隶属于出国梦集团 Dream Overseas Group Pty Ltd - ABN: 531 191 108 60）网站的用户均应仔细阅读本条例：
 
-第2条：服务条款的变更和修改
-1、出国梦集团提供的软件服务包括但不限于服务商、合作方委托、合作开单、项目分享、运营管理、操作等服务功能，服务商、合作方在开通这些服务功能时，表明其已经了解相关产品的功能以及使用规则，并愿意接受。
-2、出国梦集团有权利根据软件的使用情况，进行功能的新增、修改和删减。
+- 服务协议  
+第1条：服务条款的接受  
+1、本服务条款所称的服务商、合作方是指完全同意所有条款并使用本网站及出国梦集团各项软件服务（以下称为“本服务”）的用户、商家及合作方等（以下统称为“用户”）。通过开通服务应用功能或注册、登录、使用本平台，即表示用户接受并同意受本服务条款及相关声明的约束，同时保证其提交的信息真实、合法、有效、准确、及时和完整。  
+2、本服务条款以《出国梦集团用户服务协议》为基础，用户接受本服务条款，默认表示接受《出国梦集团用户服务协议》及其他全部声明的相关条款。
 
-第3条：服务说明
-1、出国梦集团通过自己的计算机系统经由国际互联网向服务商、合作方提供营销软件服务。除非另有明确规定，增强或改变目前服务的任何新功能，包括新产品，均无条件地适用本服务条款。除非本条款中另有规定，否则出国梦集团对网络服务不承担任何责任，即服务商、合作方对网络服务的使用承担风险。出国梦集团不保证服务一定会满足服务商、合作方的使用要求，也不保证服务不会受中断，对服务的及时性、安全性、准确性也不作担保。
-2、出国梦集团不对服务商、合作方在使用过程中，与第三方产生的纠纷负责。
-3、在以下情况下，出国梦集团有权删除在使用本服务过程中产生相关信息内容，乃至终止为服务商、合作方提供本服务：
-    3.1 服务商、合作方违反了《出国梦集团用户服务协议》中的相关条款。
-    3.2 应服务商、合作方要求。
-    3.3服务商、合作方违反了软件服务的相关规则。
+第2条：服务条款的变更和修改  
+1、本网站提供的服务包括但不限于住宿预订、设施使用、客户信息提交、运营管理及数据查询等功能。用户在启用相关服务功能时，表明其已经了解并愿意接受该服务的功能和使用规则。  
+2、罗塞尼斯半岛度假村及出国梦集团有权利根据运营情况，进行服务功能的新增、修改和删减，并保留不另行通知的权利。
 
-第4条：有偿服务说明
-服务商、合作方在支付软件的服务费用时，必仔细确认自己的账号并仔细选择相关操作选项。若因为服务商、合作方自身输入账号错误、操作不当或不了解充值计费方式等因素造成充错帐号、错选充值种类等情形而损害自身权益的，出国梦集团将不会作任何补偿或赔偿。若服务商、合作方以非法的方式，或使用非出国梦集团所指定的充值方式进行充值，出国梦集团不保证该充值顺利或者正确完成。若因此造成咨询师权益受损时，出国梦集团不会作任何补偿或赔偿，出国梦集团同时保留随时终止该服务商、合作方使用本服务的权利。在使用过程中，若因服务商、合作方自身原因需要终止本服务，则不退还之前为使用本服务而支付的费用。若因出国梦集团的原因，则根据服务商、合作方的使用情况，扣除已消费的部分费用，退还剩余费用。
+第3条：服务说明  
+1、本网站通过国际互联网平台向用户提供各类运营与预订服务，除非另有明确规定，任何增强或改变当前服务的新功能或产品仍适用本服务条款。  
+2、罗塞尼斯半岛度假村不保证服务完全满足用户的需求，也不保证不中断、安全、及时或无误。因使用本平台产生的风险由用户自行承担。  
+3、如出现以下情况，罗塞尼斯半岛度假村有权删除信息并终止服务：  
+  3.1 用户违反了本服务协议或集团其他条款；  
+  3.2 应用户自身申请；  
+  3.3 用户违反了本网站的相关规则。
 
-第5条：法律的适用和管辖
-本服务条款的生效、履行、解释及争议的解决均适用中华人民共和国法律。如果本服务条款中某项条款因与中华人民共和国现行法律相抵触而导致无效，将不影响其他部分的效力。本服务协议和出国梦集团的其他服务条款构成完整的协议。同时服务商、合作方也同意遵守以下两项服务管理规定和办法：《互联网电子公告服务管理规定》和《互联网信息服务管理办法》。 
+第4条：有偿服务说明  
+用户在支付本网站服务费用时，须确认账户信息和操作选项。如因用户自身操作失误导致资金损失，本网站不承担任何责任。通过非法或非官方指定方式付款将不予保障，网站有权终止服务且不予退款。若服务因用户原因终止，已支付费用不予退还；若因平台方原因，则根据使用情况扣除费用后退款。
 
-第6条：冲突选择
-本服务条款是出国梦集团与服务商、合作方之间的法律关系的重要文件，出国梦集团或者服务商、合作方的任何书面或者口头意思表示与本服务条款不一致的，均应当以本服务条款为准，除非本服务条款被出国梦集团声明作废或者被新版本代替。
+第5条：数据上传与使用说明  
+1、用户提交的个人信息、入住信息、照片或其他内容仅用于本网站的服务提供、客户支持或合法用途。  
+2、用户上传的数据应确保拥有完整使用权，且不侵犯第三方权利。用户同意授权本平台合理使用其上传的数据内容，用于本网站推广、服务优化等范围内，平台不承担因用户非法上传内容产生的责任。  
+3、平台将依法保护用户隐私及数据安全，除法律规定或用户授权外，不会将数据提供给无关方。
 
-第7条：条款的生效
-除非另行通知，本服务条款自2013年6月8日起生效。
+第6条：用户注册与登录规定  
+1、用户需提供真实有效的信息进行注册，如发现虚假信息，有权暂停或终止账号。  
+2、注册用户为本平台会员，享有相应功能使用权利；但同时也需遵守本平台所有管理规范。  
+3、会员信息如发生变更，用户应及时更新，因信息不实导致的责任由用户承担。  
+4、用户不得将账号出租、转借他人使用，平台有权对异常行为作出冻结处理。
 
-- 免责声明
-1.在出国梦集团网站发布、转载的资料、图片均由网站用户提供，其真实性、准确性和合法性由信息发布人负责,发布人兹此确认并同意承担全部责任。
-2.出国梦集团网站仅仅是互联网网络运营平台，不为发布人提供任何保证，并不承担任何法律责任。
-3.出国梦集团网站上所发表的文章及图片等资料，如果侵犯了第三方的知识产权或其他权利，责任由作者或转载者本人承担，本网站对此不承担责任。
-4.因黑客攻击、通讯线路等任何技术原因导致用户不能正常使用出国梦集团网站，本网站不承担任何法律责任。
-5.凡以任何方式登陆本网站或直接、间接使用本网站资料者，视为已经阅读并理解、知悉全部要求和规则，自愿接受本网站声明等的约束。
-6.本声明未涉及的问题参见国家有关法律法规，当本声明与国家法律法规冲突时，以国家法律法规为准。
-7.本网站之声明以及其修改权、更新权及最终解释权均属出国梦集团网站所有。
+第7条：法律适用与管辖  
+本服务条款适用中华人民共和国法律，如部分条款因违反现行法规而无效，不影响其他条款效力。用户同时应遵守《互联网电子公告服务管理规定》《互联网信息服务管理办法》等相关法规。
 
-- 版权声明 
-本网站由出国梦集团集团（Dream Overseas Group Pty Ltd - ABN: 531 191 108 60）提供技术和内容支持。为了保护权利人的合法权益，依法发表如下版权声明：
-出国梦集团网站之网页内容，包括但不限于文字、商标、图表图片、设计、网页上的照片、产生网页的程式码及其他构成这些网页内容的载体、文件及设计等均由出国梦集团集团完成，以上作品的著作权利的属于该公司。
-未经权利人许可，任何个人或组织不得对出国梦集团网站内容进行复制、转载、修改、抄袭、剽窃、贩卖、展示、公开、散播等或是将其用于任何商业或非商业目的。
-出国梦集团网站用户发表、转载的所有文章及其它资料（如示例代码、图片等）的版权中署名权归原作者所有，已经上传出国梦集团网站，即视为同意出国梦集团无偿使用并同意出国梦集团做适合网站需要的修改、删减。出国梦集团用户同时保证上传、转载、发表的内容不侵犯他人版权，本网站保有使用权。其他任何单位或个人转载出国梦集团网站发表的文章的，需经原作者同意，并注明转载自出国梦集团网站。本网站保留追究非法转载者法律责任的权利。
+第8条：冲突处理  
+本条款是罗塞尼斯半岛度假村与用户之间的正式法律文件，如用户的其他口头或书面声明与本条款不一致，以本条款为准，除非本条款已被废止或更新。
+
+第9条：生效时间  
+除另有说明，本条款自2013年6月8日起生效。
+
+- 免责声明  
+1、本网站上由用户发布、转载的资料、图片等信息内容，其真实性、合法性由发布者本人负责。  
+2、本网站为信息发布平台，不对内容提供任何明示或暗示的担保。  
+3、如内容侵犯他人知识产权，由发布者承担全部责任。  
+4、因技术原因如系统故障、通信中断造成的使用问题，本网站不承担法律责任。  
+5、使用本网站者视为已阅读并同意本声明。  
+6、本声明未尽事项依照国家相关法律执行，若与国家法律冲突，以国家法律为准。  
+7、网站拥有对本声明的解释、更新及最终修改权。
+
+- 版权声明  
+罗塞尼斯半岛度假村（Roseneath Holiday Park）由出国梦集团技术与内容支持。  
+本网站所有内容（包括但不限于文字、图片、代码、设计等）版权归出国梦集团所有，未经许可，不得复制、传播、抄袭、篡改、销售等。  
+用户上传内容保留署名权，视为同意授权本平台使用。若需转载本站文章，需注明出处并获得原作者许可。未经授权转载者将承担法律责任。
 `;
 
-    const enContent = `All users of the Dream Overseas Group Pty Ltd (ABN: 531 191 108 60) websites are advised to read these terms and conditions carefully:
+    const enContent = `All users of Roseneath Holiday Park (a service operated under Dream Overseas Group Pty Ltd - ABN: 531 191 108 60) are advised to read these terms and conditions carefully:
 
 I. Service Agreement
 
-Article 1: Acceptance of Terms of Service
-“Service Providers” and “Partners” as referred to in these Terms of Service are individuals or entities who fully accept all terms herein and utilize various software services provided by Dream Overseas Group (hereinafter referred to as “Services”). By activating service-related applications, service providers and partners explicitly indicate their acceptance of and agreement to be bound by these Terms of Service and all related declarations. They also guarantee that all information submitted is truthful, lawful, valid, accurate, timely, and complete.
-These Terms of Service are based on the “Dream Overseas Group User Service Agreement.” Acceptance of these Terms implies simultaneous acceptance of the aforementioned User Agreement and all related declarations.
+Article 1: Acceptance of Terms of Service  
+These Terms apply to all users, partners, and service providers using the Roseneath Holiday Park platform. By registering, logging in, or accessing services, users agree to be bound by these Terms and related declarations. All information submitted must be truthful, legal, and complete.  
+These Terms are based on the “Dream Overseas Group User Service Agreement,” and accepting these Terms constitutes agreement to all policies stated therein.
 
-Article 2: Modification of Terms
-The software services provided by Dream Overseas Group Group include, but are not limited to: commission-based cooperation, project sharing, operational management, and platform-based functionalities. By enabling any of these features, service providers and partners acknowledge their understanding and acceptance of the related product functions and usage guidelines.
-Dream Overseas Group reserves the right to add, modify, or remove features based on software usage requirements.
+Article 2: Modification of Terms  
+Roseneath Holiday Park reserves the right to change, add, or remove service functions including but not limited to accommodation booking, customer information, operations, and other features.
 
-Article 3: Service Description
-Dream Overseas Group provides its services via the Internet through its own computer systems, offering marketing software tools to service providers and partners. Unless explicitly stated otherwise, any enhancements or modifications to existing features—including new products—shall be subject to these Terms. Except where otherwise specified, Dream Overseas Group is not responsible for the availability of network services, and the use of such services is at the user's own risk. Dream Overseas Group does not guarantee that services will meet user expectations or remain uninterrupted, timely, secure, or error-free.
-Dream Overseas Group is not responsible for any disputes arising between users and third parties during service use.
-Dream Overseas Group reserves the right to delete relevant content or terminate services under the following circumstances:
-- 3.1 Violation of the “Dream Overseas Group User Service Agreement” by the service provider or partner;
-- 3.2 Upon request from the service provider or partner;
-- 3.3 Violation of related software service rules by the service provider or partner.
+Article 3: Description of Services  
+Services are provided via the Internet through Dream Overseas Group’s systems. All new or modified services are subject to these Terms.  
+No guarantees are made regarding service continuity or satisfaction. Users bear all risks related to using the services.  
+Roseneath reserves the right to remove content or suspend access if:  
+- Violation of these Terms or Dream Overseas Group’s agreement  
+- By user request  
+- Violation of service rules
 
-Article 4: Paid Services
-Before paying for software services, service providers and partners must carefully verify their account details and confirm their selected options. Dream Overseas Group shall not be held responsible for losses caused by incorrect account entry, misuse of the platform, or misunderstandings of the billing system. If a service provider or partner makes a payment using unauthorized or illegal means, Dream Overseas Group does not guarantee that the transaction will be successful or accurate. Dream Overseas Group will not offer compensation for any losses incurred by consultants due to such actions and reserves the right to terminate service access at any time.
-If a user terminates services for personal reasons, any fees paid will not be refunded. In cases where termination is due to Dream Overseas Group, fees will be refunded proportionally, deducting any portion already used.
+Article 4: Paid Services  
+Users must verify payment details before proceeding. The platform is not liable for errors due to incorrect input or unauthorized methods. Payments made via unofficial means are not guaranteed. If terminated by the user, no refund is issued. If terminated by the platform, unused amounts may be refunded after deduction.
 
-Article 5: Governing Law and Jurisdiction
-These Terms of Service shall be governed by and interpreted in accordance with the laws. If any provision of these Terms is deemed invalid due to conflict with applicable laws, the remaining provisions shall remain in full effect. These Terms, along with other service agreements of Dream Overseas Group, constitute a complete and binding legal agreement. Users also agree to comply with the “Administrative Regulations on Internet Electronic Bulletin Services” and the “Administrative Measures for Internet Information Services.”
+Article 5: Data Submission and Use  
+1. Any data submitted (e.g., booking info, user photos, forms) will only be used for legitimate purposes such as service delivery and platform improvement.  
+2. Users must own all rights to uploaded content and authorize the platform to use such content as needed. Dream Overseas Group disclaims liability for illegal content submitted by users.  
+3. User data will be protected under applicable privacy laws. The platform will not share data with third parties without legal basis or user consent.
 
-Article 6: Conflict Resolution
-These Terms serve as a crucial legal agreement between Dream Overseas Group and its service providers and partners. In the event of any conflict between these Terms and any other written or oral statements, these Terms shall prevail unless explicitly invalidated or replaced by a newer version issued by Dream Overseas Group.
+Article 6: Registration and Account Use  
+1. Users must provide accurate information during registration; false data may result in suspension.  
+2. Registered users are granted access to member-only features and must comply with all platform rules.  
+3. Users are responsible for updating their information.  
+4. Account sharing or rental is prohibited. Suspicious activity may lead to temporary or permanent suspension.
 
-Article 7: Effective Date
-Unless otherwise stated, these Terms of Service shall take effect as of June 8, 2013.
+Article 7: Governing Law and Jurisdiction  
+These Terms shall be governed by the laws of the People’s Republic of China. If any clause is found invalid, the remaining parts remain effective. Users agree to comply with the “Administrative Regulations on Internet Electronic Bulletin Services” and “Administrative Measures for Internet Information Services.”
 
-II. Disclaimer
-All materials and images published or reposted on the Dream Overseas Group website are provided by users. The authenticity, accuracy, and legality of such content are the sole responsibility of the contributor, who acknowledges full liability.
-Dream Overseas Group serves solely as an online platform and does not provide any guarantees or assume any legal responsibility for published content.
-Dream Overseas Group shall not be held liable for any infringement of intellectual property or other rights caused by articles or images posted by users; such responsibility lies solely with the original author or distributor.
-Dream Overseas Group is not responsible for service interruptions caused by hacking, communication failures, or other technical issues.
-Anyone accessing or using the website’s materials—directly or indirectly—is deemed to have read, understood, and agreed to be bound by the website’s declarations and rules.
-For matters not covered in this disclaimer, relevant national laws and regulations shall apply. In case of conflict, the applicable laws and regulations shall prevail.
-Dream Overseas Group reserves the right to interpret, update, and amend this disclaimer.
+Article 8: Conflict Resolution  
+These Terms override any conflicting verbal or written statements unless officially amended or replaced by Dream Overseas Group.
 
-III. Copyright Notice
-This website is technically and content-wise supported by Dream Overseas Group Pty Ltd (ABN: 531 191 108 60) To protect the legitimate rights of copyright holders, the following statement is made:
-All content on the Dream Overseas Group website—including but not limited to text, trademarks, charts, images, designs, photos, source code, files, and design elements—is produced by Dream Overseas Group Pty. Ltd., which owns the corresponding intellectual property rights.
-No individual or organization may copy, reproduce, modify, plagiarize, sell, display, or publicly disseminate any content without prior written consent from the rights holder.
-All user-submitted content—including articles, sample code, and images—remains attributed to the original author. Upon uploading to Dream Overseas Group, users agree to grant Dream Overseas Group a royalty-free license to use, edit, or modify such content for platform purposes. Users also guarantee that their content does not infringe upon any third-party copyrights.
-Any third party wishing to reprint content from Dream Overseas Group must obtain permission from the original author and clearly cite Dream Overseas Group as the source. Unauthorized reproduction may result in legal liability.
+Article 9: Effective Date  
+These Terms are effective from June 8, 2013, unless otherwise stated.
+
+II. Disclaimer  
+All content submitted or reposted is the sole responsibility of the user.  
+Roseneath Holiday Park operates as a hosting platform and provides no guarantees.  
+Roseneath is not liable for service disruptions due to hacking or technical failures.  
+Use of this site implies agreement with these Terms.  
+In the event of a conflict with applicable laws, national legislation shall prevail.  
+The platform reserves all rights to interpret and amend this disclaimer.
+
+III. Copyright Notice  
+Roseneath Holiday Park is supported by Dream Overseas Group Pty Ltd.  
+All website content—including text, graphics, code, and images—is the intellectual property of Dream Overseas Group.  
+No unauthorized copying, modification, or dissemination is permitted.  
+Uploaded content retains author attribution but grants the platform a royalty-free license to use, edit, or adjust content.  
+Any republication must cite the source and obtain permission from the original author. Unauthorized republication may lead to legal action.
 `;
 
     return (
