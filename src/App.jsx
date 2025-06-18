@@ -23,6 +23,7 @@ import Investment from "./Pages/Investment.jsx";
 import Cooperation from "./Pages/Cooperation.jsx";
 import RoomDetail from "./Pages/RoomDetail.jsx";
 import RoomList from "./Pages/RoomList.jsx";
+import BookMembership from "./Pages/BookMembership.jsx";
 import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
@@ -53,6 +54,7 @@ function App() {
           <Route path='/investment' element={<Investment />} />
           <Route path='/cooperation' element={<Cooperation />} />
           <Route path='/roomlist' element={<RoomList />} />
+          <Route path='/book-membership' element={<BookMembership />} />
           <Route path='/room/:Name_en' element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />

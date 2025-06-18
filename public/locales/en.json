@@ -181,8 +181,9 @@
   "Room_max_guest":"Maximum guest: ",
   "Member's Point Market": "Member's Point Market",
   "search": "Search",
-  "topup": "Top Up"
+  "topup": "Top Up",
 
-
+  "BookMembership":"Membership",
+  "book.membership":"<h5>RHP Membership Card</h5><br/><p><strong>Gift + Privilege Membership:</strong> $800 or $1,500 | Valid for 24 months</p><p>This card serves as both a gift card and a privilege membership pass for Roseneath Holiday Park.</p><p><strong>Membership Benefits:</strong><br/>- First 20 members: enjoy 50% discount on campsite fees (powered & non-powered)<br/>- From the 21st member onward: enjoy 30% discount on campsite fees<br/>- Priority access to bookings during peak periods<br/>- Exclusive seasonal offers and private events</p><p><strong>Membership Options:</strong><br/>- Standard Tier: $800<br/>- Deluxe Tier: $1,500 (includes bonus credits & premium privileges)</p><p><strong>Validity & Use:</strong><br/>- Valid for 24 months from activation<br/>- Non-refundable once activated<br/>- Usable as a Digital Membership Card<br/>- Can be stored in your mobile wallet (Apple/Google Wallet compatible)<br/>- Simply scan to redeem and enjoy automatic deduction of credits</p>"
 
 }

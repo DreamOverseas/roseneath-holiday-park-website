@@ -112,7 +112,7 @@ const MembershipSale = () => {
 
       <div className="flex flex-col md:flex-row items-center mb-6 gap-4">
         <p className="md:w-1/2 text-gray-700">
-          {t("membership_promotion")}
+          <div dangerouslySetInnerHTML={{ __html: t('book.membership') }}/>
         </p>
         <div className="md:w-1/2 h-auto bg-gray-100 flex items-center justify-center">
           <img src='/memberships/prom.jpg'

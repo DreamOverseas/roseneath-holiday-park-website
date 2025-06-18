@@ -70,12 +70,17 @@ const Navigation = () => {
                   {t("Home")}
                 </Nav.Link>
 
-                <Nav.Link
-                  className={`NavWord ${location.pathname === "/roomlist" ? "NavActive" : ""}`}
-                  href='/roomlist'
+                <NavDropdown
+                  className='NavNoHighlightWord'
+                  title={t("Booking")}
                 >
-                  {t("Room")}
-                </Nav.Link>
+                  <NavDropdown.Item href='/roomlist'>
+                    {t("Room")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/book-membership'>
+                    {t("BookMembership")}
+                  </NavDropdown.Item>
+                </NavDropdown>
 
                 <Nav.Link
                   className={`NavWord ${location.pathname === "/gallery" ? "NavActive" : ""}`}
