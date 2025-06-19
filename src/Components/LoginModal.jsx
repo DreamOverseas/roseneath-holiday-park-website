@@ -322,7 +322,7 @@ const LoginModal = ({ show, handleClose }) => {
                   value={regPassword}
                   onChange={(e) => setRegPassword(e.target.value)}
                 />
-                <Form.Text muted>Password should be over 8 charactors.</Form.Text>
+                <Form.Text muted>{t("login_pwd_info")}</Form.Text>
               </Form.Group>
 
               <Form.Group controlId="regConfirmPassword" className="mb-3">
