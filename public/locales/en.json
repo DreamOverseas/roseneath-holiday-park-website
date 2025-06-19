@@ -11,7 +11,7 @@
   "home_section3_title": "Beautiful Landscape",
   "home_section3_txt": "Come now to a world of breathtaking landscapes where nature's beauty unfolds before your eyes. From serene mountain peaks to tranquil seaside sunsets, immerse yourself in the stunning vistas that refresh your soul and inspire your spirit. Experience the allure of nature like never before with Beautiful Scenery, where every view is a masterpiece.",
   "home_place_name": "Roseneath Holiday Park",
-  "home_place_short_description": "By Lake Wellington",
+  "home_place_short_description": "By Lake Wellington<br /><br />Where Natrual Meets Comfort",
   "home_place_description_l1": "Landed in between seaside & lake reserve",
   "home_place_description_l2": "Customize Your own Journey",
   "roomlist_title" : "Our Accommodations",
@@ -24,6 +24,7 @@
   "contactForm_submit": "Submit",
   "get_in_touch": "Get in Touch",
   "Home": "Home",
+  "Booking": "Booking",
   "Find us": "Find us",
   "Gallery": "Gallery",
   "About": "About",
@@ -41,7 +42,7 @@
   "aboutUs.section1.paragraph1": "35 years ago, Grant and Karin Heeley transformed a quiet farm into a two-site caravan park, marking the beginning of an exciting journey.",
   "aboutUs.section1.paragraph2": "In the 1980s, the Lewis family expanded the campsite to 50 sites, welcoming more travelers to settle in and enjoy the beauty of nature. Subsequently, Grant and Karin Heeley took over the management of the campsite. Under their dedicated stewardship, the campsite was further expanded to 100 sites, with improved facilities that attracted even more outdoor enthusiasts to explore this beautiful land.",
   "aboutUs.section1.paragraph3": "In 2020, outdoor enthusiasts Danni and Kin Zhuo arrived with their family for a short stay. However, due to the pandemic lockdown, they found themselves unexpectedly 'stuck' at the campsite. Over time, they fell in love with this land, chose to stay, welcomed two beautiful children, and introduced the spirit of off-road touring across Australia. This led to the creation of the brand 'Little White Touring Australia', giving new life to the campsite.",
-  "aboutUs.section1.paragraph4": "Now, the site has been taken over by John Du and Jerry Zhu's Association, who bring with them bold and diverse dreams. With their vision, the campsite has been rebranded as Roseneath Holiday Park! ",
+  "aboutUs.section1.paragraph4": "Today, the Dream Overseas Group, driven by its global vision, together with the World Cooperation Organization (WCO), represented by Mr. John Du and President Jerry Zhu, along with the Green Ess Wealth Family Fund team, have taken over this storied land. They are breathing new wonder and possibility into it — and officially renaming it Roseneath Holiday Park!",
   "aboutUs.activities.paragraph1": "The Roseneath Caravan Park is located in the beautiful, scenic Gippsland area, on the sandy, South East shore of Lake Wellington. This family and pet friendly caravan park offers a real bush experience, being located in the tranquil bushlands of Meerileu.",
   "aboutUs.activities.paragraph2": "Experience fabulous fishing, boating and swimming. Fishing is a lot of fun and good catches of Bream, Mullet, Flathead, and Carp can be had. Fishing on the lake is great from the shore or a boat. Hollands Landing boat ramp is only a short drive from the park.",
   "aboutUs.activities.paragraph3": "You can relax with 2km of sandy, child friendly swimming beach on beautiful Lake Wellington. Enjoy the lake's clean, safe swimming conditions, which are ideal for yachting, canoeing, kayaking, jet skiing, and boating. Or take a long, lazy stroll along one of our many walking tracks or along the water's edge. You can also bring your pushbikes and enjoy one of the many bike tracks. The park is pet friendly and ponies and horses have a large paddock with clean water if you wish to bring them along and saddle up for some excellent trail riding.",
@@ -55,13 +56,14 @@
   "contact_individual_title":"Roseneath Holiday Park",
   "contact_individual_subject":"For Booking & General Operation:",
   "contact_individual_location":"422 Woodpile Rd, Meerlieu VIC 3862",
-  "contact_individual_name":"Katrina Crossthwaite",
-  "contact_individual_phone":"+61 (03)41 015 333",
+  "contact_individual_land":"+61 (03)41 015 333",
+  "contact_individual_name":"Katrina Crossthwaite (Site Manager)",
+  "contact_individual_phone":"+61 (04)90 518 609",
   "contact_individual_email":"info@roseneathholidaypark.au",
   "contact_group_title":"Melbourne Office",
   "contact_group_subject":"For Group Booking, Cooperation & Investment:",
   "contact_group_location":"Level 2, 171 La Trobe Street, Melbourne VIC 3000",
-  "contact_group_name":"John Du",
+  "contact_group_name":"John Du (Director)",
   "contact_group_phone":"+61 (04)13 168 533",
   "contact_group_email":"corp@roseneathholidaypark.au",
   "contact_lawyer_title":"Rigby Cooke Lawyers",
@@ -69,6 +71,7 @@
   "contact_lawyer_location":"Level 11, 360 Elizabeth Street, Melbourne, Victoria 3000",
   "contact_real_estate_agent_title":"Real Estate Agent",
   "contact_real_estate_agent_subject":"Legal representative",
+  "contact_member_trust":"Member of Trust for Natural",
 
   "time": "Time",
   "Image Gallery": "Image Gallery",
@@ -110,7 +113,7 @@
   "educationDetails": "<ul><li>Off-Road Training: 290 AUD/vehicle/session</li><li>Off-Road Training with Accommodation and Meals: 500 AUD/day</li><li>Off-Road Rescue Training: 290 AUD/session</li><li>Off-Road Rescue Training with Accommodation and Meals: 500 AUD/day</li><li>Wilderness Survival Training: From 200 AUD/day</li></ul>",
   "facilitiesDetails": "<ul><li>Shower: 10 AUD/visit</li><li>Laundry: 10 AUD/visit</li><li>Dryer: 10 AUD/visit</li></ul>",
   "storageDetails": "<ul><li>RV Parking: 500 AUD/year</li><li>Boat Parking: 500 AUD/year</li><li>Container Storage Rental: 500 AUD/year</li></ul>",
-  "otherDetails": "<ul><li>Firewood: 20 AUD</li><li>Stove Rental: 25 AUD</li><li>Quad Bike: 60 AUD/hour</li><li>Fishing Rod Rental: 10 AUD/session</li><li>Canoe: 35 AUD/hour</li></ul>",
+  "otherDetails": "<ul><li>Firewood: 23 AUD</li><li>Leaf per Bag : 15 AUD</li><li>Stove Rental: 25 AUD</li><li>Quad Bike: 60 AUD/hour</li><li>Fishing Rod Rental: 10 AUD/session</li><li>Canoe: 35 AUD/hour</li></ul>",
   "pet_friendly":"Pet Friendly",
   "park_free":"Free parking",
   "horse_by_your_side":"Horse By Your Side",
@@ -180,8 +183,9 @@
   "Room_max_guest":"Maximum guest: ",
   "Member's Point Market": "Member's Point Market",
   "search": "Search",
-  "topup": "Top Up"
+  "topup": "Top Up",
 
-
-
+  "BookMembership":"Membership",
+  "book.membership":"<h5>RHP Membership Card</h5><br/><p><strong>Gift + Privilege Membership:</strong> $800 or $1,500 | Valid for 24 months</p><p>This card serves as both a gift card and a privilege membership pass for Roseneath Holiday Park.</p><p><strong>Membership Benefits:</strong><br/>- First 20 members: enjoy 50% discount on campsite fees (powered & non-powered)<br/>- From the 21st member onward: enjoy 30% discount on campsite fees<br/>- Priority access to bookings during peak periods<br/>- Exclusive seasonal offers and private events</p><p><strong>Membership Options:</strong><br/>- Standard Tier: $800<br/>- Deluxe Tier: $1,500 (includes bonus credits & premium privileges)</p><p><strong>Validity & Use:</strong><br/>- Valid for 24 months from activation<br/>- Non-refundable once activated<br/>- Usable as a Digital Membership Card<br/>- Can be stored in your mobile wallet (Apple/Google Wallet compatible)<br/>- Simply scan to redeem and enjoy automatic deduction of credits</p>",
+  "EcoAndCultureTours":"Eco & Culture Tours"
 }

@@ -70,12 +70,20 @@ const Navigation = () => {
                   {t("Home")}
                 </Nav.Link>
 
-                <Nav.Link
-                  className={`NavWord ${location.pathname === "/roomlist" ? "NavActive" : ""}`}
-                  href='/roomlist'
+                <NavDropdown
+                  className='NavNoHighlightWord'
+                  title={t("Booking")}
                 >
-                  {t("Room")}
-                </Nav.Link>
+                  <NavDropdown.Item href='/roomlist'>
+                    {t("Room")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/book-membership'>
+                    {t("BookMembership")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/eco-and-culture-tours'>
+                    {t("EcoAndCultureTours")}
+                  </NavDropdown.Item>
+                </NavDropdown>
 
                 <Nav.Link
                   className={`NavWord ${location.pathname === "/gallery" ? "NavActive" : ""}`}
@@ -84,12 +92,20 @@ const Navigation = () => {
                   {t("Gallery")}
                 </Nav.Link>
 
-                <Nav.Link
-                  className={`NavWord ${location.pathname === "/news" ? "NavActive" : ""}`}
-                  href='/news'
+                <NavDropdown
+                  className='NavNoHighlightWord'
+                  title={t("News")}
                 >
-                  {t("News")}
-                </Nav.Link>
+                  <NavDropdown.Item href='/news'>
+                    {t("HolidayGuests")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/annual-news'>
+                    {t("AnnualNews")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/permanent-news'>
+                    {t("permanentNews")}
+                  </NavDropdown.Item>
+                </NavDropdown>
 
                 <NavDropdown
                   className='NavNoHighlightWord'
