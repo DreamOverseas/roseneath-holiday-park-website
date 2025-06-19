@@ -24,6 +24,7 @@ import Cooperation from "./Pages/Cooperation.jsx";
 import RoomDetail from "./Pages/RoomDetail.jsx";
 import RoomList from "./Pages/RoomList.jsx";
 import BookMembership from "./Pages/BookMembership.jsx";
+import EcoAndCultureTours from "./Pages/EcoAndCultureTours.jsx";
 import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
@@ -55,6 +56,7 @@ function App() {
           <Route path='/cooperation' element={<Cooperation />} />
           <Route path='/roomlist' element={<RoomList />} />
           <Route path='/book-membership' element={<BookMembership />} />
+          <Route path='/eco-and-culture-tours' element={<EcoAndCultureTours />} />
           <Route path='/room/:Name_en' element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />
