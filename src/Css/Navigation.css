@@ -514,8 +514,6 @@ html {
   }
 }
 
-/* Replace the existing mobile dropdown styles with these updated ones */
-
 @media (max-width: 768px) {
   /* Force dropdown to be positioned relative to the viewport center */
   .NavNoHighlightWord .dropdown-menu {

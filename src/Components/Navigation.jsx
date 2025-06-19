@@ -92,12 +92,20 @@ const Navigation = () => {
                   {t("Gallery")}
                 </Nav.Link>
 
-                <Nav.Link
-                  className={`NavWord ${location.pathname === "/news" ? "NavActive" : ""}`}
-                  href='/news'
+                <NavDropdown
+                  className='NavNoHighlightWord'
+                  title={t("News")}
                 >
-                  {t("News")}
-                </Nav.Link>
+                  <NavDropdown.Item href='/news'>
+                    {t("HolidayGuests")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/annual-news'>
+                    {t("AnnualNews")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/permanent-news'>
+                    {t("permanentNews")}
+                  </NavDropdown.Item>
+                </NavDropdown>
 
                 <NavDropdown
                   className='NavNoHighlightWord'

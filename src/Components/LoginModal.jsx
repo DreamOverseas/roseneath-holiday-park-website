@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Tabs, Tab, Form, Button, InputGroup } from 'react-bootstrap';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import DoTermsAndConditions from './DoTermsAndConditions';
 
@@ -14,8 +14,17 @@ const LoginModal = ({ show, handleClose }) => {
   const navigate = useNavigate();
   const { i18n, t } = useTranslation();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+
   // State to manage the active tab. Default is 'register'
-  const [activeTab, setActiveTab] = useState('register');
+  const [activeTab, setActiveTab] = useState(() => {
+    const urlTab = searchParams.get('tab');
+    if (urlTab === 'login' || urlTab === 'register') {
+      return urlTab;
+    }
+    return 'register'; // default
+  });
 
   /* Registration form state variables */
   const [regUserName, setRegUserName] = useState('');
@@ -36,6 +45,13 @@ const LoginModal = ({ show, handleClose }) => {
   const [loginError, setLoginError] = useState('');
 
   const [cooldown, setCooldown] = useState(0);
+
+  useEffect(() => {
+    const urlTab = searchParams.get('tab');
+    if (urlTab === 'login' || urlTab === 'register') {
+      setActiveTab(urlTab);
+    }
+  }, [searchParams]);
 
   /**
    * Helper function to validate email using a basic regex.
@@ -293,7 +309,15 @@ const LoginModal = ({ show, handleClose }) => {
       </Modal.Header>
       <Modal.Body>
         {/* Tabs to switch between Register and Login. Default tab is Register */}
-        <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} style={{ display: 'flex', flexDirection: 'row' }} fill >
+        <Tabs 
+          activeKey={activeTab} 
+          onSelect={(k) => {
+            setActiveTab(k);
+            setSearchParams({ tab: k });
+          }} 
+          style={{ display: 'flex', flexDirection: 'row' }} 
+          fill 
+        >
           <Tab eventKey="register" title={t("register")} tabClassName="d-inline-block me-3">
             <Form className="mt-3">
               {/* User Name Field */}
