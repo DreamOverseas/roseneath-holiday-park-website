@@ -513,3 +513,65 @@ html {
     flex-direction: row !important; /* Keep horizontal even on small mobile */
   }
 }
+
+/* Replace the existing mobile dropdown styles with these updated ones */
+
+@media (max-width: 768px) {
+  /* Force dropdown to be positioned relative to the viewport center */
+  .NavNoHighlightWord .dropdown-menu {
+    width: 220px !important;
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Ensure dropdown items are centered */
+  .NavNoHighlightWord .dropdown-item {
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 2px 0 !important;
+    padding: 10px 16px !important;
+    justify-content: center !important;
+  }
+  
+  /* Override Bootstrap's default dropdown positioning */
+  .NavNoHighlightWord.show .dropdown-menu {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Force dropdown to be positioned relative to the viewport center */
+  .NavNoHighlightWord .dropdown-menu {
+    width: 200px !important;
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Ensure dropdown items are centered */
+  .NavNoHighlightWord .dropdown-item {
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 2px 0 !important;
+    padding: 10px 16px !important;
+    justify-content: center !important;
+  }
+  
+  /* Override Bootstrap's default dropdown positioning */
+  .NavNoHighlightWord.show .dropdown-menu {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+}
