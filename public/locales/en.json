@@ -130,8 +130,8 @@
   "investment":"Investment",
   "cooperation":"Cooperation",
 
-  "login": "Login",
-  "register": "Register",
+  "login": "<h5>Login</h5><small style='display: inline-block; height: 2.6em;'>For Annual Site Tenants, Permanant Residents, Membership</small>",
+  "register": "<h5>Register</h5><small style='display: inline-block; height: 2.6em;'></small>",
   "login_username": "User Name",
   "login_pwd": "Password",
   "login_pwd_info": "Password should be over 8 charactors.",
@@ -139,6 +139,8 @@
   "login_vrf_code": "Verification Code",
   "login_sent": "Sent",
   "login_send_code": "Send Code",
+  "login_button": "Login",
+  "register_button":"Register",
 
   "membership": "Membership",
   "membership_price": "Membership Price (Gets into your Balance)",
@@ -167,7 +169,6 @@
   "membership_comfirm": "Confirm",
   "membership_join_btn" : "Become A Member",
   "membership_promotion_title" : "Fellin' Interested? Why not join our Membership program with special offers and discounts!",
-  "membership_promotion" : "Roseneath Holiday Park is excited to launch its brand-new Membership Program! By becoming a member, you'll gain access to our exclusive Member Points Store and enjoy a range of additional perks and benefits. Your full membership fee will be converted into equivalent recharge points, with bonus discount points included—offering you even greater value! More members-only activities and surprises are also coming soon. Join our Membership Program today and start your personalized holiday experience with us!",
   "membership_join_success" : "Thank you for your choice! We warmly welcome you as our member. Your digital membership card and membership number will be issued soon. Now you can browse our special offerings in the Member's Point Market.",
   "membership_tp_success": "Your top-up is successful! Thank you.",
   "membership_tp_value": "Current Selected Value",

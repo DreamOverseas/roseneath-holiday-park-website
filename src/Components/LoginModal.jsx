@@ -305,7 +305,7 @@ const LoginModal = ({ show, handleClose }) => {
     <Modal show={show} onHide={handleClose} centered>
       {/* Modal Header with dynamic title based on active tab */}
       <Modal.Header closeButton>
-        <Modal.Title><b>{activeTab === 'register' ? `${t("register")}` : `${t("login")}`}</b></Modal.Title>
+        <Modal.Title><b>{activeTab === 'register' ? `${t("register_button")}` : `${t("login_button")}`}</b></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* Tabs to switch between Register and Login. Default tab is Register */}
@@ -317,8 +317,9 @@ const LoginModal = ({ show, handleClose }) => {
           }} 
           style={{ display: 'flex', flexDirection: 'row' }} 
           fill 
+          justify
         >
-          <Tab eventKey="register" title={t("register")} tabClassName="d-inline-block me-3">
+          <Tab eventKey="register" title={<span dangerouslySetInnerHTML={{__html: t("register")}} />}>
             <Form className="mt-3">
               {/* User Name Field */}
               <Form.Group controlId="regUserName" className="mb-3">
@@ -406,7 +407,7 @@ const LoginModal = ({ show, handleClose }) => {
             </Form>
           </Tab>
 
-          <Tab eventKey="login" title={t("login")} tabClassName="d-inline-block me-3">
+          <Tab eventKey="login" title={<span dangerouslySetInnerHTML={{__html: t("login")}} />}>
             <Form className="mt-3">
               <Form.Group controlId="loginEmail" className="mb-3">
                 <Form.Label>{t("email")}</Form.Label>
@@ -430,7 +431,7 @@ const LoginModal = ({ show, handleClose }) => {
 
               <div className="text-end d-grid gap-2">
                 <Button variant="primary" onClick={handleLogin}>
-                  {t("login")}
+                  {t("login_button")}
                 </Button>
               </div>
             </Form>
