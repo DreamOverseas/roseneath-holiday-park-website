@@ -8,6 +8,7 @@ import MemberPointMarket from '../Components/MemberPointMarket';
 import DetailUpdateBtn from '../Components/DetailUpdateBtn';
 import MembershipSale from '../Components/MemberSale';
 import MemberPointTopupBtn from '../Components/MemberPointTopupBtn';
+import AnnualNews from '../Components/AnnualNews.jsx';
 
 const MemberCenter = () => {
     const [user, setUser] = useState(null);
@@ -170,6 +171,9 @@ const MemberCenter = () => {
                 :
                 <MembershipSale />
             }
+
+            <br />
+            <AnnualNews />
 
         </Container>
     );

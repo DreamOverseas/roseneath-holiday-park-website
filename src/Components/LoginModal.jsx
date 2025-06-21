@@ -47,11 +47,21 @@ const LoginModal = ({ show, handleClose }) => {
   const [cooldown, setCooldown] = useState(0);
 
   useEffect(() => {
-    const urlTab = searchParams.get('tab');
-    if (urlTab === 'login' || urlTab === 'register') {
-      setActiveTab(urlTab);
+    if (show) {
+      const urlTab = searchParams.get('tab');
+      if (urlTab === 'login' || urlTab === 'register') {
+        setActiveTab(urlTab);
+      }
     }
-  }, [searchParams]);
+  }, [show, searchParams]);
+
+  const handleCloseModal = () => {
+    // Clear the tab parameter from URL when closing
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete('tab');
+    setSearchParams(newSearchParams);
+    handleClose();
+  };
 
   /**
    * Helper function to validate email using a basic regex.
@@ -302,7 +312,7 @@ const LoginModal = ({ show, handleClose }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal show={show} onHide={handleCloseModal} centered>
       {/* Modal Header with dynamic title based on active tab */}
       <Modal.Header closeButton>
         <Modal.Title><b>{activeTab === 'register' ? `${t("register_button")}` : `${t("login_button")}`}</b></Modal.Title>

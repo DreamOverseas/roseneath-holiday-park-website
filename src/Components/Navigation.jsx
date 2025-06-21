@@ -20,6 +20,14 @@ const Navigation = () => {
     }
   }, [i18n]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tab = urlParams.get('tab');
+    if (tab === 'login' || tab === 'register') {
+      setShowLoginModal(true);
+    }
+  }, [location.search]);
+
   const changeLanguage = lng => {
     if (i18n && i18n.changeLanguage) {
       i18n.changeLanguage(lng);
@@ -100,11 +108,12 @@ const Navigation = () => {
                   <NavDropdown.Item href='/news'>
                     {t("HolidayGuests")}
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='/news'>
-                  {/* <NavDropdown.Item href='/annual-news'> */}
+                  {/* <NavDropdown.Item href='/news'> */}
+                  <NavDropdown.Item href='/annual-news'>
                     {t("AnnualNews")}
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='/news'>
+                  {/* <NavDropdown.Item href='/news'> */}
+                  <NavDropdown.Item href='/annual-news'>
                   {/* <NavDropdown.Item href='/permanent-news'> */}
                     {t("PermanentNews")}
                   </NavDropdown.Item>

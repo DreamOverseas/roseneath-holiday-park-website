@@ -29,7 +29,7 @@ import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
 import News from "./Pages/News.jsx";
-import AnnualNews from "./Pages/AnnualNews.jsx";
+import AnnualNews from "./Components/AnnualNews.jsx";
 import PermanentNews from "./Pages/PermanentNews.jsx";
 import Policy from "./Pages/Policy.jsx";
 import MemberCenter from "./Pages/MembershipCenter.jsx";
