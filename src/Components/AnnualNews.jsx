@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import News from './News'
 
 function AnnualNews() {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ function AnnualNews() {
     <Container>
         {userCookie ? 
           <>
-            <div dangerouslySetInnerHTML={{ __html: t('policy_content') }}/>
+            <News userType="forAnnual"/>
             <br />
           </> : 
           <div className="text-center my-40">

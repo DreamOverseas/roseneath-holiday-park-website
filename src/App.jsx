@@ -28,9 +28,8 @@ import EcoAndCultureTours from "./Pages/EcoAndCultureTours.jsx";
 import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
-import News from "./Pages/News.jsx";
+import News from "./Components/News.jsx";
 import AnnualNews from "./Components/AnnualNews.jsx";
-import PermanentNews from "./Pages/PermanentNews.jsx";
 import Policy from "./Pages/Policy.jsx";
 import MemberCenter from "./Pages/MembershipCenter.jsx";
 
@@ -63,9 +62,9 @@ function App() {
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />
           <Route path='/check-out' element={<CheckOut />} />
-          <Route path='/news' element={<News />} />
-          <Route path='/annual-news' element={<AnnualNews />} />
-          <Route path='/permanent-news' element={<PermanentNews />} />
+          <Route path='/news' element={<News userType="forGuest"/>} />
+          <Route path='/annual-news' element={<AnnualNews/>} />
+          <Route path='/permanent-news' element={<AnnualNews/>} />
           <Route path='/membership' element={<MemberCenter />} />
         </Routes>
         <Footer />
