@@ -398,6 +398,7 @@ const MemberPointMarket = () => {
                 </>
               );
             })()}
+            <p className="text-gray-500 text-sm pt-1 mb-0">{t("member_redeem_notice")}</p>
           </Modal.Body>
           <Modal.Footer>
             {(() => {
