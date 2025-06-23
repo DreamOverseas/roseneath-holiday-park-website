@@ -130,8 +130,8 @@
   "investment":"投资",
   "cooperation":"合作",
 
-  "login": "<h5>登录</h5><small style='display: inline-block; height: 2.6em;'>度假屋租客/长租客/会员点击此处登录</small>",
-  "register": "<h5>注册</h5><small style='display: inline-block; height: 2.6em;'></small>",
+  "login": "<h5>登录</h5><small style='display: inline-block; height: 2.6em; color: #6c757d;'>度假屋租客/长租客/会员点击此处登录</small>",
+  "register": "<h5>注册</h5><small style='display: inline-block; height: 2.6em; color: #6c757d;'>新用户/访客请点击这里注册</small>",
   "login_username": "用户名",
   "login_pwd": "密码",
   "login_pwd_info": "密码为至少8位任意数字/字母/字符组合",
@@ -201,5 +201,13 @@
   "pleaseLogin": "请登录以查看更多内容。",
   "News.SelectDate": "请选择新闻日期：",
   "News.AllDate": "所有日期",
-  "News.NoNews": "暂无新闻。"
+  "News.NoNews": "暂无新闻。",
+
+  "manual.fallback": "当前手册无内容，请稍后来看。",
+  "manual.point_market": "会员点商城介绍",
+  "manual.search": "搜索功能",
+  "manual.member_center.content": "<p>在这个页面，您可以查看并更新您的个人资料，了解会员专属优惠，充值账户余额，以及随时掌握我们平台的最新动态与通知。</p><p>您的会员积分由两个部分组成：<strong>余额</strong>（您购买或充值所得）与<strong>优惠积分</strong>（由平台赠送的积分）。</p>",
+  "manual.point_market.content": "<p>在这个分区，您可以浏览我们平台提供的多种商品，并使用您的积分进行兑换。</p><p>兑换成功后，商品将以优惠券形式通过电子邮件发送给您，邮件中将附带二维码以及关于使用方式的详细说明。</p>",
+  "manual.search.content": "<p>此功能可帮助您高效地查找所需信息。您只需输入相关的关键词，系统将自动筛选并为您呈现匹配的结果。</p>",
+  "manual": "用户手册"
 }
