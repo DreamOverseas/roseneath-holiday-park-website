@@ -44,11 +44,11 @@ const MembershipManual = ({ manual }) => {
         onClick={() => setOpen(false)}
     >
         <div
-            className="bg-white w-11/12 max-w-lg rounded-xl shadow-lg border border-gray-200 animate-fade-in max-h-[75vh] overflow-y-auto"
+            className="bg-white w-11/12 max-w-lg rounded-xl shadow-lg animate-fade-in max-h-[75vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
         >
             {/* Header */}
-            <div className="flex justify-between items-center px-4 py-2 border-b bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl">
+            <div className="flex justify-between items-center px-4 py-2 border-b bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-xl">
                 <h3 className="text-lg my-0 text-white font-semibold">{t("manual")}</h3>
                 <button
                     onClick={() => setOpen(false)}
