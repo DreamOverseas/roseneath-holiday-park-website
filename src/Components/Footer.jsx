@@ -27,6 +27,26 @@ const Footer = () => {
               <Image src='logo192.png' className='footer-logo'/>
             </Row>
             <Row>
+              <div className="flex justify-center items-center gap-2 mb-3">
+                <a
+                    href="https://space.bilibili.com/3546823025232653"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-1 text-gray-300"
+                  >
+                    <img src="/Icons/bilibili.png" alt="B站" className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://www.youtube.com/channel/UC3GSuPpt3tClvoFp0l_nkCg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-1 text-gray-300"
+                  >
+                    <img src="/Icons/youtube.png" alt="Youtube" className="w-6 h-6" />
+                  </a>
+                </div>
+            </Row>
+            <Row>
               <Button className='footer-button' onClick={jumpToContact}>
                 {t("get_in_touch")}
               </Button>

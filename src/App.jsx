@@ -67,14 +67,14 @@ function App() {
           <Route path='/membership' element={<MemberCenter />} />
         </Routes>
         <Footer />
-        <CuteChatbot
-          nickname='Roseneath Holiday Park'
-          openai_api_url={`${vite_openai_api_url}`}
-          openai_asst_id={`${vite_openai_asst_id}`}
-          openai_api_key={`${vite_openai_api_key}`}
-          google_api_key={`${vite_google_api}`}
-        />
       </div>
+      <CuteChatbot
+        nickname='Roseneath Holiday Park'
+        openai_api_url={`${vite_openai_api_url}`}
+        openai_asst_id={`${vite_openai_asst_id}`}
+        openai_api_key={`${vite_openai_api_key}`}
+        google_api_key={`${vite_google_api}`}
+      />
     </I18nextProvider>
   );
 }

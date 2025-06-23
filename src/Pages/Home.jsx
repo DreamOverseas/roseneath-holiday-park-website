@@ -343,86 +343,45 @@ const Home = () => {
             <strong><h4>{t("home_place_description_l1")}</h4></strong>
             <strong><h4>{t("home_place_description_l2")}</h4></strong>
             <Row className="home-contact-us-board">
-
               <Col>
                 <Row className="contact-info-row">
-                    <p>
-                        <b>{t("contact_individual_title")}</b> &#9978;
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-pin-angle"></i> &nbsp;
-                        {t("contact_individual_location")}
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-person"></i> &nbsp;
-                        {t("contact_individual_name")}
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-telephone-inbound"></i> &nbsp;
-                        {t("contact_individual_phone")}
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-mailbox"></i> &nbsp;
-                        {t("contact_individual_email")}
-                    </p>
+                    <div>
+                        <p><b>{t("contact_individual_title")}</b> &#9978;</p>
+                        <p><b>{t("contact_individual_subject")}</b></p>
+                        
+                        <p><i className="bi bi-pin-angle"></i> &nbsp; {t("contact_individual_location")}</p>
+                        <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_individual_land")}</p>
+                        <p><i className="bi bi-person"></i> &nbsp; {t("contact_individual_name")}</p>
+                        <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_individual_phone")}</p>
+                        <p><i className="bi bi-person"></i> &nbsp; {t("contact_group_name")}</p>
+                        <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_group_phone")}</p>
+                        <p><i className="bi bi-mailbox"></i> &nbsp; {t("contact_individual_email")}</p>
+                    </div>
                 </Row>
                 <br />
                 <Row className="contact-info-row">
-                    <p>
-                        <b>{t("contact_group_title")}</b> &#128188;
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <b>{t("contact_group_subject")}</b>
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-pin-angle"></i> &nbsp;
-                        {t("contact_group_location")}
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-person"></i> &nbsp;
-                        {t("contact_group_name")}
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-telephone-inbound"></i> &nbsp;
-                        {t("contact_group_phone")}
-                    </p>
-                </Row>
-                <Row className="contact-info-row">
-                    <p>
-                        <i class="bi bi-mailbox"></i> &nbsp;
-                        {t("contact_group_email")}
-                    </p>
+                    <div>
+                        <p><b>{t("contact_group_title")}</b> &#128188;</p>
+                        <p><b>{t("contact_group_subject")}</b></p>
+                        
+                        <p><i className="bi bi-pin-angle"></i> &nbsp; {t("contact_group_location")}</p>
+                        <p><i className="bi bi-person"></i> &nbsp; {t("contact_group_name")}</p>
+                        <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_group_phone")}</p>
+                        <p><i className="bi bi-mailbox"></i> &nbsp; {t("contact_group_email")}</p>
+                    </div>
                 </Row>
               </Col>
               <Col className="home-map" md={7}>
-                <>
-                  <iframe
-                    title="Roseneath Holiday Park Location Map"
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d474013.57073654904!2d150.801209!3d-37.457687!3m2!1i1024!2i768!4f13.5!3m3!1m2!1s0x6b2f12fa55ba106b%3A0x97796bb5b7b2aa37!2sRoseneath%20Holiday%20Park!5e1!3m2!1sen!2sus!4v1730163420007!5m2!1sen!2sus"
-                    width="100%"
-                    height="400px"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                </>
+                <iframe
+                  title="Roseneath Holiday Park Location Map"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d474013.57073654904!2d150.801209!3d-37.457687!3m2!1i1024!2i768!4f13.5!3m3!1m2!1s0x6b2f12fa55ba106b%3A0x97796bb5b7b2aa37!2sRoseneath%20Holiday%20Park!5e1!3m2!1sen!2sus!4v1730163420007!5m2!1sen!2sus"
+                  width="100%"
+                  height="400px"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowfullscreen
+                />
               </Col>
             </Row>
             <Row className="home-contact-us-btn-container">
