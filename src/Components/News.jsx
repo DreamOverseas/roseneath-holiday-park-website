@@ -106,7 +106,7 @@ const News = ({ userType }) => {
             <Container className="max-w-6xl mx-auto">
                 {/* Header Section */}
                 <div className="text-center mb-8 sm:mb-12">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                         {t("News")}
                     </h1>
                     <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
@@ -237,7 +237,7 @@ const News = ({ userType }) => {
                                 <Image
                                     src={selectedImage.url}
                                     alt={selectedImage.alt}
-                                    className="w-full h-auto max-h-[80vh] object-contain"
+                                    className="w-full h-auto object-contain"
                                     fluid
                                 />
                             </div>
