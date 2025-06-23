@@ -17,6 +17,12 @@ const EcoAndCultureTours = () => {
 
     useEffect(() => {
         const fetchEcoAndCultureToursImgs = async () => {
+
+            // Wait for i18n to be initialized
+            if (!i18n.isInitialized) {
+                return;
+            }
+
             try {
                 let url;
                 i18n.language === "zh" ? url = `${CMS_endpoint}/api/media-images?filters[PageLocation][$eq]=eco-and-culture-tours-chinese&populate=Image`: url = `${CMS_endpoint}/api/media-images?filters[PageLocation][$eq]=eco-and-culture-tours-english&populate=Image`;
@@ -39,13 +45,14 @@ const EcoAndCultureTours = () => {
         };
 
         fetchEcoAndCultureToursImgs();
-    }, [i18n.language]);
+    }, [i18n.language, i18n.isInitialized, CMS_endpoint, CMS_token]);
 
     return (
         <Container>
   
             {ecoAndCultureToursImages.map((image) => (
                         <Image
+                            key={image.id || index}
                             src={`${CMS_endpoint}${image.url}`}
                             alt={`${image.url}`}
                             className="investment-instruction-img"
