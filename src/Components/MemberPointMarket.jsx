@@ -12,6 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import "../Css/MemberCenter.css";
 import ProductList from "./ProductList";
+import MembershipManual from "./MembershipManual";
 
 const MemberPointMarket = () => {
   const [products, setProducts] = useState([]);
@@ -257,16 +258,20 @@ const MemberPointMarket = () => {
     <Container className='my-4'>
       <Row>
         <Col>
-          <h2>{t("Member's Point Market")}</h2>
+          <h2>{t("Member's Point Market")} <MembershipManual manual="member_point_market" /></h2>
         </Col>
         <Col>
-          <Form className='mb-3'>
+          <Form className="mb-3 relative">
             <Form.Control
-              type='text'
+              type="text"
               placeholder={t("search")}
               value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pr-10"
             />
+            <div className="absolute top-1/2 right-3 -translate-y-1/2 z-30">
+              <MembershipManual manual="search" />
+            </div>
           </Form>
         </Col>
       </Row>
