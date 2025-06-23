@@ -3,7 +3,7 @@
   flex-direction: row;
   position: sticky;
   top: 0;
-  z-index: 9;
+  z-index: 2;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.95));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -13,14 +13,12 @@
 }
 
 .navWholeBar > .figure-img {
+  margin-top: 1%;
+  margin-left: 1%;
   width: 120px !important;
   height: 120px !important;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
   transition: transform 0.3s ease;
-}
-
-.navWholeBar > .figure-img:hover {
-  transform: scale(1.05);
 }
 
 .NavigationBar {
