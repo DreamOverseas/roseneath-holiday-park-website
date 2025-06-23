@@ -10,7 +10,6 @@ import { Container } from 'react-bootstrap';
 const PageTitle = ({ pageTitle = 'Title', titleColor = '#f0f8ff', background }) => {
     return (
         <div
-            fluid
             className="py-4"
             style={{
                 backgroundColor: background ? 'transparent' : '#303941',

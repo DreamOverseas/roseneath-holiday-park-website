@@ -9,6 +9,7 @@ import "../Css/Navigation.css";
 const Navigation = () => {
   const { t, i18n } = useTranslation();
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [logoPath, setLogoPath] = useState('/logo192.png');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -19,10 +20,19 @@ const Navigation = () => {
     }
   }, [i18n]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tab = urlParams.get('tab');
+    if (tab === 'login' || tab === 'register') {
+      setShowLoginModal(true);
+    }
+  }, [location.search]);
+
   const changeLanguage = lng => {
     if (i18n && i18n.changeLanguage) {
       i18n.changeLanguage(lng);
       Cookies.set("i18nextLng", lng, { expires: 365 });
+      setLogoPath(lng === "zh" ? '/logo192_chinese.png' : '/logo192.png');
     }
   };
 
@@ -43,12 +53,11 @@ const Navigation = () => {
   };
 
 
-
   // Replace the return statement with this updated version:
 
   return (
     <div className="navWholeBar">
-      <Figure.Image width={"120px"} height={"120px"} src='/logo192.png' />
+      <Figure.Image width={"120px"} height={"120px"} src={logoPath} />
       <Navbar
         bg='light'
         expand='lg'
@@ -99,12 +108,10 @@ const Navigation = () => {
                   <NavDropdown.Item href='/news'>
                     {t("HolidayGuests")}
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='/news'>
-                  {/* <NavDropdown.Item href='/annual-news'> */}
+                  <NavDropdown.Item href='/annual-news'>
                     {t("AnnualNews")}
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='/news'>
-                  {/* <NavDropdown.Item href='/permanent-news'> */}
+                  <NavDropdown.Item href='/permanent-news'>
                     {t("PermanentNews")}
                   </NavDropdown.Item>
                 </NavDropdown>

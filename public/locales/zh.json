@@ -130,8 +130,8 @@
   "investment":"投资",
   "cooperation":"合作",
 
-  "login": "登录",
-  "register": "注册",
+  "login": "<h5>登录</h5><small style='display: inline-block; height: 2.6em;'>度假屋租客/长租客/会员点击此处登录</small>",
+  "register": "<h5>注册</h5><small style='display: inline-block; height: 2.6em;'></small>",
   "login_username": "用户名",
   "login_pwd": "密码",
   "login_pwd_info": "密码为至少8位任意数字/字母/字符组合",
@@ -139,6 +139,8 @@
   "login_vrf_code": "验证码",
   "login_sent": "已发送",
   "login_send_code": "发送验证码",
+  "login_button": "登录",
+  "register_button":"注册",
 
   "membership": "会员",
   "membership_price": "入会费用（将会充值为等价余额）",
@@ -167,7 +169,6 @@
   "membership_comfirm": "确定",
   "membership_join_btn" : "现在加入",
   "membership_promotion_title" : "感兴趣么？不如加入我们的会员计划，专享优惠与折扣！",
-  "membership_promotion" : "罗塞尼斯营地半岛度假村现已推出全新会员服务！成为我们的会员，不仅可以解锁专属的会员点数商城，还可享受更多专属优惠与福利。您的入会费用将全额折算为等值充值点数，且额外赠送折扣分数，使您的体验更加超值！还有即将上线更多会员专属活动与惊喜等，来加入我们的会员计划，开启您的专属度假之旅吧！",
   "membership_join_success" : "感谢您的加入！您的电子会员卡与会员编号即将发放。现在就去探索会员点数商城，发现专属于您的精彩优惠吧！",
   "membership_tp_success": "充值成功！谢谢您对罗塞尼斯半岛度假村的支持。",
   "membership_tp_value": "当前选择为",
@@ -195,5 +196,10 @@
 
   "BookMembership":"会员",
   "book.membership":"<h5>RHP 会员卡</h5><br/><p><strong>礼品 + 特权会员：</strong>$800 或 $1,500 | 有效期为 24 个月</p><p>此卡既可作为礼品卡，也可作为 罗塞尼斯营地半岛度假村 的特权会员通行证。</p><p><strong>会员权益：</strong><br/>- 前 20 位会员：营地费用（有电/无电）享受 5 折优惠<br/>- 第 21 位起：营地费用享受 7 折优惠<br/>- 高峰时段优先预订权<br/>- 独家季节优惠及私人活动</p><p><strong>会员选项：</strong><br/>- 标准级别：$800<br/>- 豪华级别：$1,500（含额外积分与尊享特权）</p><p><strong>有效期与使用：</strong><br/>- 自激活之日起有效期为 24 个月<br/>- 激活后不可退款<br/>- 可作为电子会员卡使用<br/>- 可添加至您的手机钱包（支持 Apple/Google Wallet）<br/>- 扫码即享积分自动抵扣</p>",
-  "EcoAndCultureTours":"生态与文化之旅"
+  "EcoAndCultureTours":"生态与文化之旅",
+
+  "pleaseLogin": "请登录以查看更多内容。",
+  "News.SelectDate": "请选择新闻日期：",
+  "News.AllDate": "所有日期",
+  "News.NoNews": "暂无新闻。"
 }
