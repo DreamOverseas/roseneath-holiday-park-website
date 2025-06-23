@@ -9,6 +9,7 @@ import DetailUpdateBtn from '../Components/DetailUpdateBtn';
 import MembershipSale from '../Components/MemberSale';
 import MemberPointTopupBtn from '../Components/MemberPointTopupBtn';
 import News from '../Components/News.jsx';
+import MembershipManual from '../Components/MembershipManual.jsx';
 
 const MemberCenter = () => {
     const [user, setUser] = useState(null);
@@ -95,7 +96,7 @@ const MemberCenter = () => {
 
     return (
         <Container className="my-5 member-center">
-            <h1 className="text-center mb-4">{t("membership_center")}</h1>
+            <h1 className="text-center mb-4">{t("membership_center")} <MembershipManual className='!text-left' manual="membership_center" /></h1> 
             <Card className="shadow">
                 {loading ?
                     <Card.Body>
