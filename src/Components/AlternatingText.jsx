@@ -16,10 +16,10 @@ const AlternatingText = ({ text1, text2, judge = 1 }) => {
   
     const message =
         judge <= 0.01
-        ? <text>{text1}</text>
+        ? <p>{text1}</p>
         : showFirst
-        ? <text>{text1}</text>
-        : <text style={{ color: 'RoyalBlue' }}>{text2}</text>;
+        ? <p>{text1}</p>
+        : <p style={{ color: 'RoyalBlue' }}>{text2}</p>;
   
     return <span style={{ whiteSpace: 'nowrap' }}>{message}</span>;
 };
