@@ -1,14 +1,6 @@
 import Cookies from "js-cookie";
 import { useEffect, useMemo, useState } from "react";
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  InputGroup,
-  Modal,
-  Row,
-} from "react-bootstrap";
+import { Button, Col, Container, Form, InputGroup, Modal, Row} from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import "../Css/MemberCenter.css";
 import ProductList from "./ProductList";
@@ -52,6 +44,7 @@ const MemberPointMarket = () => {
         let items = data.data || [];
 
         items.sort((a, b) => a.Order - b.Order);
+        console.log(items);
 
         setProducts(items);
       } catch (error) {
@@ -287,7 +280,7 @@ const MemberPointMarket = () => {
       {selectedProduct && (
         <Modal show={showModal} onHide={handleModalClose}>
           <Modal.Header closeButton>
-            <Modal.Title>{selectedProduct.Name}</Modal.Title>
+            <Modal.Title>{i18n.language === "zh" ? selectedProduct.Name : selectedProduct.Name_en}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {selectedProduct.Icon &&
@@ -301,10 +294,10 @@ const MemberPointMarket = () => {
                   className='img-fluid mb-3'
                 />
               )}
-            <p>{selectedProduct.Description}</p>
-            <Row className='text-center'>
+            <p>{i18n.language === "zh" ? selectedProduct.Description : selectedProduct.Description_en}</p>
+            <div className='text-center'>
               {selectedProduct.Price} {t("membership_total_point")}
-            </Row>
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button

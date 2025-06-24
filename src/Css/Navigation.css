@@ -3,7 +3,7 @@
   flex-direction: row;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 9;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.95));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
