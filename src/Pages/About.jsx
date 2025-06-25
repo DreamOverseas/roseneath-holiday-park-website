@@ -3,6 +3,7 @@ import { Container, Row, Col, Image } from 'react-bootstrap';
 import { useTranslation } from "react-i18next";
 import PageTitle from "../Components/PageTitle";
 import "../Css/About.css";
+import "../Css/HtmlBeautify.css";
 
 function AboutUs() {
   const { t } = useTranslation();
@@ -54,9 +55,9 @@ function AboutUs() {
         </div>
       </section>
 
-      <section className="facility-section">
+      <section className="html-section">
         <div className="container">
-          <div className="facility-content">
+          <div className="html-content">
             <div dangerouslySetInnerHTML={{ __html: t('facility') }}/>
           </div>
         </div>
