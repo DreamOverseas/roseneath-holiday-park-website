@@ -19,12 +19,11 @@ import Gallery from "./Pages/Gallery.jsx";
 import Home from "./Pages/Home.jsx";
 import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
 import GroupVisitors from "./Pages/GroupVisitors.jsx";
-import Investment from "./Pages/Investment.jsx";
 import Cooperation from "./Pages/Cooperation.jsx";
 import RoomDetail from "./Pages/RoomDetail.jsx";
 import RoomList from "./Pages/RoomList.jsx";
 import BookMembership from "./Pages/BookMembership.jsx";
-import EcoAndCultureTours from "./Pages/EcoAndCultureTours.jsx";
+import MediaImageDisplay from "./Components/MediaImageDisplay.jsx";
 import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
@@ -52,11 +51,22 @@ function App() {
           <Route path='/policy' element={<Policy />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
-          <Route path='/investment' element={<Investment />} />
-          <Route path='/cooperation' element={<Cooperation />} />
+          <Route path='/investment' element={            
+            <MediaImageDisplay 
+              chineseUrl="investment"
+            />} />
+          <Route path='/cooperation' element={
+            <MediaImageDisplay 
+              englishUrl="cooperation-english"
+              chineseUrl="cooperation-chinese"
+            />} />
           <Route path='/roomlist' element={<RoomList />} />
           <Route path='/book-membership' element={<BookMembership />} />
-          <Route path='/eco-and-culture-tours' element={<EcoAndCultureTours />} />
+          <Route path='/eco-and-culture-tours' element={        
+            <MediaImageDisplay 
+              englishUrl="eco-and-culture-tours-english"
+              chineseUrl="eco-and-culture-tours-chinese"
+            />} />
           <Route path='/room/:Name_en' element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />
