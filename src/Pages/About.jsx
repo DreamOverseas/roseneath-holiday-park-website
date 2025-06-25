@@ -54,6 +54,14 @@ function AboutUs() {
         </div>
       </section>
 
+      <section className="facility-section">
+        <div className="container">
+          <div className="facility-content">
+            <div dangerouslySetInnerHTML={{ __html: t('facility') }}/>
+          </div>
+        </div>
+      </section>
+
       <section className="about-attraction">
         <Container>
           <h1>{t("home_attraction")}</h1>
