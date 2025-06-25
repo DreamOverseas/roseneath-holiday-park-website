@@ -19,7 +19,6 @@ import Gallery from "./Pages/Gallery.jsx";
 import Home from "./Pages/Home.jsx";
 import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
 import GroupVisitors from "./Pages/GroupVisitors.jsx";
-import Cooperation from "./Pages/Cooperation.jsx";
 import RoomDetail from "./Pages/RoomDetail.jsx";
 import RoomList from "./Pages/RoomList.jsx";
 import BookMembership from "./Pages/BookMembership.jsx";
