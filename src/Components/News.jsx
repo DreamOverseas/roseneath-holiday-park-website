@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Container, Image, Form, Modal } from 'react-bootstrap';
-import "../Css/Investment.css";
 
 const News = ({ userType }) => {
     const { t } = useTranslation();
