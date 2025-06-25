@@ -62,8 +62,8 @@ function AboutUs() {
             <Col><div dangerouslySetInnerHTML={{ __html: t('lakes_entrance') }}/></Col>
           </Row>
           <Row className="about-attraction-row">
-            <Col><div dangerouslySetInnerHTML={{ __html: t('peninsula_hot_springs') }}/></Col>
-            <Col><Image className="home-food" src="/about/Peninsula_Hot_Springs.webp" /></Col>
+            <Col><div dangerouslySetInnerHTML={{ __html: t('metung') }}/></Col>
+            <Col><Image className="home-landscape" src="/about/Metung.webp" /></Col>
           </Row>
           <Row className="about-attraction-row">
             <Col><Image className="home-landscape" src="/about/Mount_Hotham.webp" /></Col>
@@ -73,9 +73,9 @@ function AboutUs() {
             <Col><div dangerouslySetInnerHTML={{ __html: t('phillip_island_penguin_parade') }}/></Col>
             <Col><Image className="home-food" src="/about/Phillip_Island_Penguin_Parade.webp" /></Col>
           </Row>
-          <Row className="about-attraction-row">
-            <Col><Image className="home-landscape" src="/about/Metung.webp" /></Col>
-            <Col><div dangerouslySetInnerHTML={{ __html: t('metung') }}/></Col>
+          <Row className="about-attraction-row">         
+            <Col><Image className="home-food" src="/about/Peninsula_Hot_Springs.webp" /></Col>
+            <Col><div dangerouslySetInnerHTML={{ __html: t('peninsula_hot_springs') }}/></Col>
           </Row>
         </Container>
       </section>

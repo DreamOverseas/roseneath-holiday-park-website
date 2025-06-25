@@ -8,7 +8,10 @@ import {
 import { useTranslation } from "react-i18next";
 
 const MembershipSale = () => {
-  const MEMBERSHIP_PRICE = 500;
+  const MEMBERSHIP_OPTIONS = {
+    STANDARD: { price: 800, name: 'Standard Tier' },
+    DELUXE: { price: 1500, name: 'Deluxe Tier' }
+  };
   const { t } = useTranslation();
   const endpoint = import.meta.env.VITE_CMS_ENDPOINT;
   const apiKey = import.meta.env.VITE_CMS_TOKEN;
@@ -26,6 +29,8 @@ const MembershipSale = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  const [selectedTier, setSelectedTier] = useState('STANDARD');
+
   // Open the modal
   const handleJoinClick = () => {
     setShowModal(true);
@@ -38,6 +43,7 @@ const MembershipSale = () => {
     setDetailsConfirmed(false);
     setIsUpdating(false);
     setIsSuccess(false);
+    setSelectedTier('STANDARD'); // Reset to default tier
   };
 
   // Validate & lock form fields
@@ -84,8 +90,8 @@ const MembershipSale = () => {
             LastName: lastName.trim(),
             Contact: contact.trim(),
             ExpiryDate: expiryDate,
-            Point: MEMBERSHIP_PRICE,
-            DiscountPoint: MEMBERSHIP_PRICE,
+            Point: MEMBERSHIP_OPTIONS[selectedTier].price,
+            DiscountPoint: MEMBERSHIP_OPTIONS[selectedTier].price,
             IsMember: true
           }
         },
@@ -201,7 +207,26 @@ const MembershipSale = () => {
                       disabled={detailsConfirmed}
                     />
                   </div>
-                  <label className="block font-medium">{t("membership_price")}:<b> AUD {MEMBERSHIP_PRICE} </b></label>
+
+                  <div>
+                    <label className="block font-medium">{t("membership_tier")}*</label>
+                    <select
+                      className={`w-full border rounded px-3 py-2 ${detailsConfirmed ? 'bg-gray-100' : ''}`}
+                      value={selectedTier}
+                      onChange={e => setSelectedTier(e.target.value)}
+                      disabled={detailsConfirmed}
+                    >
+                      <option value="STANDARD">
+                        {t("membership_standard")} - AUD {MEMBERSHIP_OPTIONS.STANDARD.price}
+                      </option>
+                      <option value="DELUXE">
+                        {t("membership_deluxe")} - AUD {MEMBERSHIP_OPTIONS.DELUXE.price}
+                      </option>
+                    </select>
+                  </div>
+                  <label className="block font-medium">
+                    {t("membership_price")}: <b>AUD {MEMBERSHIP_OPTIONS[selectedTier].price}</b>
+                  </label>
 
                   <p className="text-sm text-gray-500">
                     * These details can be changed later. / 个人信息随时可以调整
@@ -236,7 +261,7 @@ const MembershipSale = () => {
                         createOrder={(data, actions) =>
                           actions.order.create({
                             purchase_units: [{
-                              amount: { value: `${MEMBERSHIP_PRICE}.00` }
+                              amount: { value: `${MEMBERSHIP_OPTIONS[selectedTier].price}.00` }
                             }]
                           })
                         }
