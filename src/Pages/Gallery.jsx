@@ -78,12 +78,14 @@ const Gallery = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-            <PageTitle pageTitle={t('Image Gallery')} />
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pb-8">
+            <div style={{ marginBottom: '3rem' }}>
+                <PageTitle pageTitle={t('Image Gallery')} />
+            </div>
             
-            <div className="container mx-auto px-4 py-8 max-w-7xl">
+            <div className="container mx-auto px-4 max-w-7xl" style={{ paddingBottom: '3rem' }}>
                 {/* Hero Carousel Section */}
-                <div className="mb-12">
+                <div style={{ marginBottom: '3rem' }}>
                     <div className="relative w-full max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
                         {sliderImages.length > 0 && (
                             <>
@@ -134,7 +136,7 @@ const Gallery = () => {
                 </div>
 
                 {/* Video Section */}
-                <div className="mb-12">
+                <div style={{ marginBottom: '3rem' }}>
                     <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
                         <div className="p-6">
                             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -149,12 +151,15 @@ const Gallery = () => {
                 </div>
 
                 {/* Gallery Grid Section */}
-                <div className="mb-8">
-                    <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4">
+                <div style={{ marginBottom: '3rem' }}>
+                    <div 
+                        className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4"
+                        style={{ columnGap: '1rem' }}
+                    >
                         {galleryImages.map((image, index) => (
                             <div
                                 key={index}
-                                className="break-inside-avoid relative group cursor-pointer"
+                                className="break-inside-avoid relative group cursor-pointer mb-4"
                                 onClick={() => handleImageClick(`${CMS_endpoint}${image.url}`)}
                             >
                                 <div className="relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
