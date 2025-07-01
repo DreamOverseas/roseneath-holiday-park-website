@@ -212,5 +212,7 @@
   "manual.member_center.content": "<p>Within this section, you may view and update your personal profile, explore exclusive membership privileges, recharge your account balance, and stay informed with the latest announcements and updates from our team.</p><p>Your membership points consist of two components: <strong>Balance</strong> (purchased and top-up credits) and <strong>Discount Points</strong> (complimentary points gifted by the platform).</p>",
   "manual.point_market.content": "<p>Here in this section, you can browse a variety of products offered through our platform and redeem your points to obtain them.</p><p>Once a redemption is successful, the product will be issued to you in the form of a coupon delivered via email. The coupon will include a QR code, and further instructions regarding its usage will be provided within the email.</p>",
   "manual.search.content": "<p>This feature allows you to efficiently locate the information you need. Simply enter relevant keywords, and the system will automatically filter and display the most appropriate results for you.</p>",
-  "manual": "User Manual"
+  "manual": "User Manual",
+
+  "Download_PDF": "Download this PDF document"
 }
