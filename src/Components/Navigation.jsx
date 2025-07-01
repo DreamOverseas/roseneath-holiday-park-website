@@ -146,6 +146,9 @@ const Navigation = () => {
                   <NavDropdown.Item href='/cooperation'>
                     {t("Cooperation")}
                   </NavDropdown.Item>
+                  <NavDropdown.Item href='/tiny-house'>
+                    {t("TinyHouse")}
+                  </NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown
