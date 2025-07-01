@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Container, Image, Form, Modal } from 'react-bootstrap';
+import DownloadPdf from "./DownloadPdf";
 
 const News = ({ userType }) => {
     const { t } = useTranslation();
@@ -11,6 +12,7 @@ const News = ({ userType }) => {
     const [availableDates, setAvailableDates] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [newsPdfData, setNewsPdfData] = useState({}); // Store PDF data for each news item
 
     const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
     const CMS_token = import.meta.env.VITE_CMS_TOKEN;
@@ -37,6 +39,11 @@ const News = ({ userType }) => {
                         .sort((a, b) => new Date(b) - new Date(a)); // Sort by newest first
                     
                     setAvailableDates(dates);
+                    
+                    // Auto-select the newest date (first in sorted array)
+                    if (dates.length > 0) {
+                        setSelectedDate(dates[0]);
+                    }
                 } else {
                     // If no userType is provided, show no dates
                     setAvailableDates([]);
@@ -48,6 +55,66 @@ const News = ({ userType }) => {
 
         fetchNewsData();
     }, [CMS_endpoint, CMS_token, userType]); // Added userType to dependencies
+
+    // Fetch PDF data for each news date
+    useEffect(() => {
+        const fetchPdfData = async () => {
+            if (!userType || availableDates.length === 0) return;
+
+            const pdfPromises = availableDates.map(async (date) => {
+                try {
+                    // Fetch all news items with PDFs and filter by date
+                    const pdf_url = `${CMS_endpoint}/api/rhp-news-lists?populate=Pdf&filters[newsDate][$eq]=${date}`;
+
+                    const pdfResult = await axios.get(pdf_url, {
+                        headers: { Authorization: `Bearer ${CMS_token}` },
+                    }).catch((error) => ({ error, source: 'pdf' }));
+
+                    if (pdfResult?.error) {
+                        console.error(`Failed to fetch PDF for date ${date}:`, pdfResult.error);
+                        return { date, pdfUrl: null, pdfName: null };
+                    } else {
+                        // Find the news item for this specific date that has userType authorization
+                        const newsItemsForDate = pdfResult.data?.data?.filter(item => 
+                            item.newsDate === date && item[userType] === true
+                        );
+                        
+                        if (newsItemsForDate && newsItemsForDate.length > 0) {
+                            const newsItem = newsItemsForDate[0]; // Take the first matching item
+                            const pdfData = newsItem.Pdf;
+                            
+                            if (pdfData?.url) {
+                                const fullPdfUrl = `${CMS_endpoint}${pdfData.url}`;
+                                return { 
+                                    date, 
+                                    pdfUrl: fullPdfUrl, 
+                                    pdfName: pdfData.name 
+                                };
+                            }
+                        }
+                        
+                        return { date, pdfUrl: null, pdfName: null };
+                    }
+                } catch (error) {
+                    console.error(`Unexpected error fetching PDF for date ${date}:`, error);
+                    return { date, pdfUrl: null, pdfName: null };
+                }
+            });
+
+            try {
+                const pdfResults = await Promise.all(pdfPromises);
+                const pdfDataMap = {};
+                pdfResults.forEach(({ date, pdfUrl, pdfName }) => {
+                    pdfDataMap[date] = { pdfUrl, pdfName };
+                });
+                setNewsPdfData(pdfDataMap);
+            } catch (error) {
+                console.error('Error fetching PDF data:', error);
+            }
+        };
+
+        fetchPdfData();
+    }, [availableDates, userType, CMS_endpoint, CMS_token]);
 
     // Filter news based on userType and selectedDate
     useEffect(() => {
@@ -124,9 +191,6 @@ const News = ({ userType }) => {
                                 className="border-2 border-gray-200 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 hover:border-gray-300 w-full"
                                 disabled={availableDates.length === 0}
                             >
-                                <option value="" className="text-gray-500">
-                                    {t("News.AllDate")}
-                                </option>
                                 {availableDates.map((date) => (
                                     <option key={date} value={date} className="text-gray-700">
                                         {formatDate(date)}
@@ -211,6 +275,25 @@ const News = ({ userType }) => {
                                             </details>
                                         </div>
                                     )}
+
+                                    {/* PDF Download Section */}
+                                    <div className="flex justify-center mt-6 sm:mt-8">
+                                        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 sm:p-6 shadow-inner border border-gray-100">
+                                            {newsPdfData[newsItem.newsDate]?.pdfUrl ? (
+                                                <DownloadPdf 
+                                                    pdfUrl={newsPdfData[newsItem.newsDate].pdfUrl} 
+                                                    pdfName={newsPdfData[newsItem.newsDate].pdfName} 
+                                                />
+                                            ) : (
+                                                <div className="text-center text-gray-500 text-sm">
+                                                    <svg className="w-8 h-8 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                    No PDF available for this date
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         ))}

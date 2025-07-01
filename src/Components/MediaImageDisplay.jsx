@@ -129,7 +129,9 @@ const MediaImageDisplay = ({ englishUrl, chineseUrl }) => {
                 ))
             )}
             <br/>
-            <DownloadPdf pdfUrl={pdfUrl} pdfName={pdfName} />
+            <div className="flex justify-center my-10">
+                <DownloadPdf pdfUrl={pdfUrl} pdfName={pdfName} />
+            </div>
         </Container>
     );
 };
