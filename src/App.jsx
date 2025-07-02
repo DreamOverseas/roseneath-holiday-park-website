@@ -54,6 +54,10 @@ function App() {
             <MediaImageDisplay 
               chineseUrl="investment"
             />} />
+          <Route path='/tiny-house' element={            
+            <MediaImageDisplay 
+              chineseUrl="tiny-house-chinese"
+            />} />
           <Route path='/cooperation' element={
             <MediaImageDisplay 
               englishUrl="cooperation-english"
