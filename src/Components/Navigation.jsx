@@ -140,8 +140,8 @@ const Navigation = () => {
                   title={t("Investment")}
                   id='investment-dropdown'
                 >
-                  <NavDropdown.Item href='/investment'>
-                    {t("Investment")}
+                  <NavDropdown.Item href='/smarthouse'>
+                    {t("Smarthouse")}
                   </NavDropdown.Item>
                   <NavDropdown.Item href='/cooperation'>
                     {t("Cooperation")}
