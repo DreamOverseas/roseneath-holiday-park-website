@@ -50,7 +50,7 @@ function App() {
           <Route path='/policy' element={<Policy />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
-          <Route path='/investment' element={            
+          <Route path='/smarthouse' element={            
             <MediaImageDisplay 
               chineseUrl="investment"
             />} />
