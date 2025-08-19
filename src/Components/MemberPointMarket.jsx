@@ -30,7 +30,7 @@ const MemberPointMarket = () => {
     const fetchProducts = async () => {
       const endpoint = import.meta.env.VITE_CMS_ENDPOINT;
       const apiKey = import.meta.env.VITE_CMS_TOKEN;
-      const url = `${endpoint}/api/one-club-products?filters[ForRoseneath][$eq]=True&populate=Icon`;
+      const url = `${endpoint}/api/one-club-products?filters[ForRoseneath][$eq]=True&populate=*`;
 
       try {
         const response = await fetch(url, {
@@ -184,7 +184,7 @@ const MemberPointMarket = () => {
       title: redeemProductDisplayName,
       description: redeemProduct.Description,
       expiry: expiryDate.toISOString(),
-      assigned_from: redeemProduct.Provider,
+      assigned_from: redeemProduct.Provider.Name,
       assigned_to: currUser.name,
     };
 
