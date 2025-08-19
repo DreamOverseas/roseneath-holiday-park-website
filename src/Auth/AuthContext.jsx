@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
               },
             }
           );
-          console.log("User data from token:", response.data);
+          //console.log("User data from token:", response.data);
           if (response.data) {
             setUser(response.data);
           }
@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
           },
         }
       );
-      console.log("Login response:", response.data);
+      //console.log("Login response:", response.data);
       setUser(response.data.user);
       Cookies.set("token", response.data.jwt, { expires: 7 });
     } catch (error) {

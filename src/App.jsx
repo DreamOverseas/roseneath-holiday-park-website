@@ -36,6 +36,7 @@ function App() {
   const vite_openai_asst_id = import.meta.env.VITE_OPENAI_ASST_ID;
   const vite_openai_api_key = import.meta.env.VITE_OPENAI_API_KEY;
   const vite_google_api = import.meta.env.VITE_GOOGLE_API;
+  const CHAT_API = import.meta.env.VITE_CHAT_URL;
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -81,13 +82,21 @@ function App() {
         </Routes>
         <Footer />
       </div>
-      <CuteChatbot
-        nickname='Roseneath Holiday Park'
-        openai_api_url={`${vite_openai_api_url}`}
-        openai_asst_id={`${vite_openai_asst_id}`}
-        openai_api_key={`${vite_openai_api_key}`}
-        google_api_key={`${vite_google_api}`}
-      />
+      {CHAT_API ?
+            <CuteChatbot
+              nickname='Roseneath Holiday Park'
+              backend_url={CHAT_API}
+              google_api_key={`${vite_google_api}`}
+            />
+            :
+            <CuteChatbot
+              nickname='Roseneath Holiday Park'
+              openai_api_url={`${vite_openai_api_url}`}
+              openai_asst_id={`${vite_openai_asst_id}`}
+              openai_api_key={`${vite_openai_api_key}`}
+              google_api_key={`${vite_google_api}`}
+            />
+          }
     </I18nextProvider>
   );
 }
