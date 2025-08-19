@@ -44,7 +44,7 @@ const MemberPointMarket = () => {
         let items = data.data || [];
 
         items.sort((a, b) => a.Order - b.Order);
-        console.log(items);
+        //console.log(items);
 
         setProducts(items);
       } catch (error) {
@@ -109,7 +109,7 @@ const MemberPointMarket = () => {
       });
       const userData = await userResponse.json();
 
-      console.log(userData);
+      //console.log(userData);
 
       if (userResponse.ok && userData.data && userData.data.length > 0) {
         const userRecord = userData.data[0];
@@ -143,7 +143,7 @@ const MemberPointMarket = () => {
           console.log("Updated successfully");
         } else {
           const updateError = await updateResponse.json();
-          console.log("Error updating user info:", updateError.message);
+          console.error("Error updating user info:", updateError.message);
         }
 
         // Update Cookie
@@ -231,17 +231,17 @@ const MemberPointMarket = () => {
           setShowSuccessModal(true);
         } else {
           const emailError = await emailResponse.json();
-          console.log("Email API error:", emailError.message);
+          console.error("Email API error:", emailError.message);
           setLoadingRedeem(false);
           setCurrDeduction(0);
         }
       } else {
-        console.log("Coupon system error:", couponData.message);
+        console.error("Coupon system error:", couponData.message);
         setLoadingRedeem(false);
         setCurrDeduction(0);
       }
     } catch (error) {
-      console.log("Error in comfirmRedeemNow():", error);
+      console.error("Error in comfirmRedeemNow():", error);
       setLoadingRedeem(false);
       setCurrDeduction(0);
     }
