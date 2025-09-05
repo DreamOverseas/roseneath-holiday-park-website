@@ -38,17 +38,22 @@ const RoomList = () => {
       <h1>{t("roomlist_title")}</h1>
       <div className='room-grid'>
         {rooms.map(room => (
-          <Link key={room.id} to={`/room/${room.Name_en}`} className='room-card'>
-            <img src={`${CMS_endpoint}${room.Cover?.url}`} alt={room.Name_en} className='room-image' />
-            <h2 className='room-name'>{i18n.language === "zh"
-              ? room.Name_zh
-              : room.Name_en}
+          <Link 
+            key={room.id} 
+            to={`/room/${room.documentId}`} 
+            className='room-card'
+          >
+            <img 
+              src={`${CMS_endpoint}${room.Cover?.url}`} 
+              alt={room.Name_en} 
+              className='room-image' 
+            />
+            <h2 className='room-name'>
+              {i18n.language === "zh" ? room.Name_zh : room.Name_en}
             </h2>
-            <br/>
-            <p className='room-subtitle'>{t("Room_max_guest") + room.Max_guest} </p>
-            <p className='room-subtitle'>{i18n.language === "zh"
-              ? room.Title_zh
-              : room.Title_en}
+            <p className='room-subtitle'>{t("Room_max_guest") + room.Max_guest}</p>
+            <p className='room-subtitle'>
+              {i18n.language === "zh" ? room.Title_zh : room.Title_en}
             </p>
           </Link>
         ))}

@@ -11,6 +11,7 @@ const RoomDetail = () => {
   const { t, i18n } = useTranslation();
 
   const [show, setShow] = useState(false);
+  const { documentId } = useParams();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -28,23 +29,27 @@ const RoomDetail = () => {
   const CMS_token = import.meta.env.VITE_CMS_TOKEN;
   const DBLink_LH = 'https://book-directonline.com/properties/roseneathholidaypark-1'
 
+
+
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await axios.get(`${CMS_endpoint}/api/room-types?populate=Cover`, {
-          headers: {
-            Authorization: `Bearer ${CMS_token}`,
-          },
-        });
+        const response = await axios.get(
+          `${CMS_endpoint}/api/room-types?populate=Cover`, 
+          {
+            headers: { Authorization: `Bearer ${CMS_token}` },
+          }
+        );
 
-        setRoom(response.data.data.find(r => r.Name_en === Name_en));
+        // 用 documentId 匹配
+        setRoom(response.data.data.find(r => r.documentId === documentId));
       } catch (error) {
         console.error("Error loading:", error);
       }
     };
 
     fetchRooms();
-  }, [CMS_endpoint, CMS_token, Name_en]);
+  }, [CMS_endpoint, CMS_token, documentId]);
 
   if (!room) return <div>Loading...</div>;
 
