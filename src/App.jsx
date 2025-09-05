@@ -71,7 +71,7 @@ function App() {
               englishUrl="eco-and-culture-tours-english"
               chineseUrl="eco-and-culture-tours-chinese"
             />} />
-          <Route path='/room/:Name_en' element={<RoomDetail />} />
+          <Route path="/room/:documentId" element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />
           <Route path='/check-out' element={<CheckOut />} />
