@@ -52,6 +52,19 @@ const Navigation = () => {
     }
   };
 
+  // Find what news shall the current tenant see
+  const whatsMyNews = () => {
+    if (!userCookie) return '/news';
+    const parsed = JSON.parse(userCookie);
+    switch (parsed.tenant_type) {
+      case 'Annual':
+        return '/annual-news';
+      case 'Permanent':
+        return '/permanent-news';
+      default:
+        return '/news';
+    }
+  }
 
   // Replace the return statement with this updated version:
 
@@ -105,7 +118,14 @@ const Navigation = () => {
                   {t("Gallery")}
                 </Nav.Link>
 
-                <NavDropdown
+                <Nav.Link
+                  className={`NavWord ${ ['/news', '/annual-news', '/permanent-news'].includes(location.pathname) ? "NavActive" : ""}`}
+                  href={whatsMyNews()}
+                >
+                  {t("News")}
+                </Nav.Link>
+
+                {/* <NavDropdown
                   className='NavNoHighlightWord'
                   title={t("News")}
                 >
@@ -118,7 +138,7 @@ const Navigation = () => {
                   <NavDropdown.Item href='/permanent-news'>
                     {t("PermanentNews")}
                   </NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
 
                 <NavDropdown
                   className='NavNoHighlightWord'

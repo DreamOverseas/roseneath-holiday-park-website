@@ -73,7 +73,8 @@ const MemberCenter = () => {
             name: userdata.UserName,
             email: userdata.Email,
             contact: userdata.Contact || 'Not Specified',
-            is_member: userdata.IsMember
+            is_member: userdata.IsMember,
+            tenant_type: userdata.TenantType
         };
         // If the user is a member, add additional fields to the cookie.
         if (userdata.IsMember) {

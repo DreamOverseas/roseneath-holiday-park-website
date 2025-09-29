@@ -153,6 +153,7 @@ const MemberPointMarket = () => {
             name: currUser.name,
             number: currUser.number,
             email: currUser.email,
+            tenant_type: currUser.tenant_type,
             is_member: currUser.is_member,
             fname: currUser.fname,
             lname: currUser.lname,

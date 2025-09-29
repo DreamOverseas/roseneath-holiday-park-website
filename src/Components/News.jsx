@@ -119,7 +119,7 @@ const News = ({ userType }) => {
     // Filter news based on userType and selectedDate
     useEffect(() => {
         if (!userType) {
-            console.warn("userType prop is required. Expected 'forGuest', 'forAnnual', or 'forPermanent'");
+            // console.warn("userType prop is required. Expected 'forGuest', 'forAnnual', or 'forPermanent'");
             setFilteredNewsData([]);
             return;
         }
