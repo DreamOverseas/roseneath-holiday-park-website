@@ -208,7 +208,8 @@ const LoginModal = ({ show, handleClose }) => {
         const userCookie = {
           name: regUserName,
           email: regEmail,
-          is_member: false
+          is_member: false,
+          type: 'Guest'     // Default after registration, remember to change when defalt changes
         };
         Cookies.set('user', JSON.stringify(userCookie));
         handleClose();
@@ -280,7 +281,8 @@ const LoginModal = ({ show, handleClose }) => {
             name: userAttributes.UserName,
             email: userAttributes.Email,
             is_member: userAttributes.IsMember,
-            contact: userAttributes.Contact || 'Not Specified'
+            contact: userAttributes.Contact || 'Not Specified',
+            type: userAttributes.TenantType || 'Guest'
           };
           // If the user is a member, add additional fields to the cookie.
           if (userAttributes.IsMember) {
