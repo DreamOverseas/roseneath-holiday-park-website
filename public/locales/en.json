@@ -216,5 +216,14 @@
   "manual.search.content": "<p>This feature allows you to efficiently locate the information you need. Simply enter relevant keywords, and the system will automatically filter and display the most appropriate results for you.</p>",
   "manual": "User Manual",
 
-  "Download_PDF": "Download this PDF document"
+  "Download_PDF": "Download this PDF document",
+
+  "update_detail": "Update my details",
+  "update_detail.userName": "User Name",
+  "update_detail.contact": "Contact Number",
+  "update_detail.fistName": "First Name",
+  "update_detail.lastName": "Last Name",
+  "update_detail.placeholder": "Not Changing...",
+  "update_detail.cancel": "Cancel",
+  "update_detail.submit": "Submit"
 }
