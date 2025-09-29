@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 import '../Css/Tailwind.css';
 
 // Environment variables for Strapi CMS
@@ -15,6 +16,8 @@ const DetailUpdateBtn = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [contact, setContact] = useState('');
+
+  const { t, i18n } = useTranslation();
 
   const [error, setError] = useState('');
 
@@ -137,7 +140,7 @@ const DetailUpdateBtn = () => {
         onClick={handleOpen}
         className="text-sm text-blue-600 hover:underline"
       >
-        Update my details &gt;
+        {t("update_detail")} &gt;
       </button>
 
       {/* Modal overlay and content */}
@@ -146,7 +149,7 @@ const DetailUpdateBtn = () => {
           <div className="!bg-white !rounded-lg shadow-lg !w-full max-w-md !mx-4">
             {/* Title */}
             <div className="px-6 py-4 border-b">
-              <h2 className="text-lg font-semibold">Update Personal Details</h2>
+              <h2 className="text-lg font-semibold">{t("update_detail")}</h2>
             </div>
             {/* Body */}
             <div className="px-6 py-4">
@@ -154,10 +157,10 @@ const DetailUpdateBtn = () => {
 
               {/* Always show User Name field */}
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">User Name</label>
+                <label className="block text-sm font-medium mb-1">{t("update_detail.userName")}</label>
                 <input
                   type="text"
-                  placeholder="Not Changing..."
+                  placeholder={t("update_detail.placeholder")}
                   value={userName}
                   onChange={e => setUserName(e.target.value)}
                   className="w-full border border-gray-300 rounded px-3 py-2"
@@ -165,10 +168,10 @@ const DetailUpdateBtn = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Contact Number</label>
+                <label className="block text-sm font-medium mb-1">{t("update_detail.contact")}</label>
                 <input
                   type="text"
-                  placeholder="Not Changing..."
+                  placeholder={t("update_detail.placeholder")}
                   value={contact}
                   onChange={e => setContact(e.target.value)}
                   className="w-full border border-gray-300 rounded px-3 py-2"
@@ -179,10 +182,10 @@ const DetailUpdateBtn = () => {
               {isMember && (
                 <>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">First Name</label>
+                    <label className="block text-sm font-medium mb-1">{t("update_detail.fistName")}</label>
                     <input
                       type="text"
-                      placeholder="Not Changing..."
+                      placeholder={t("update_detail.placeholder")}
                       value={firstName}
                       onChange={e => setFirstName(e.target.value)}
                       className="w-full border border-gray-300 rounded px-3 py-2"
@@ -190,10 +193,10 @@ const DetailUpdateBtn = () => {
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Last Name</label>
+                    <label className="block text-sm font-medium mb-1">{t("update_detail.lastName")}</label>
                     <input
                       type="text"
-                      placeholder="Not Changing..."
+                      placeholder={t("update_detail.placeholder")}
                       value={lastName}
                       onChange={e => setLastName(e.target.value)}
                       className="w-full border border-gray-300 rounded px-3 py-2"
@@ -203,18 +206,18 @@ const DetailUpdateBtn = () => {
               )}
             </div>
             {/* Footer */}
-            <div className="px-6 py-4 border-t flex justify-end">
+            <div className="px-6 py-4 border-t flex justify-end gap-2">
               <button
                 onClick={handleClose}
                 className="mr-2 px-4 py-2 border border-gray-300 rounded text-gray-700"
               >
-                Cancel
+                {t("update_detail.cancel")}
               </button>
               <button
                 onClick={handleSubmit}
                 className="px-4 py-2 bg-blue-600 text-white rounded"
               >
-                Submit
+                {t("update_detail.submit")}
               </button>
             </div>
           </div>
