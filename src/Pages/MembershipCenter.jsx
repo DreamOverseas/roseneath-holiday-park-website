@@ -9,6 +9,7 @@ import DetailUpdateBtn from '../Components/DetailUpdateBtn';
 import MembershipSale from '../Components/MemberSale';
 import MemberPointTopupBtn from '../Components/MemberPointTopupBtn';
 import News from '../Components/News.jsx';
+import AnnualBooking from '../Components/AnnualBooking.jsx';
 import MembershipManual from '../Components/MembershipManual.jsx';
 
 const MemberCenter = () => {
@@ -73,7 +74,8 @@ const MemberCenter = () => {
             name: userdata.UserName,
             email: userdata.Email,
             contact: userdata.Contact || 'Not Specified',
-            is_member: userdata.IsMember
+            is_member: userdata.IsMember,
+            tenantType: userdata.TenantType
         };
         // If the user is a member, add additional fields to the cookie.
         if (userdata.IsMember) {
@@ -84,6 +86,7 @@ const MemberCenter = () => {
                 lname: userdata.LastName || 'Not Specified',
                 exp: userdata.ExpiryDate || 'N/A',
                 point: userdata.Point || 'N/A',
+                tenantType: userdata.TenantType,
                 discount_p: userdata.DiscountPoint || 'N/A'
             };
         }
@@ -96,7 +99,7 @@ const MemberCenter = () => {
 
     return (
         <Container className="my-5 member-center">
-            <h1 className="text-center mb-4">{t("membership_center")} <MembershipManual className='!text-left' manual="membership_center" /></h1> 
+            <h1 className="text-center mb-4">{t("membership_center")} <MembershipManual className='!text-left' manual="membership_center" /></h1>    
             <Card className="shadow">
                 {loading ?
                     <Card.Body>
@@ -165,6 +168,13 @@ const MemberCenter = () => {
                     </Card.Body>
                 }
             </Card>
+            
+            <br />
+            {user.tenantType == "Annual" ?
+                <AnnualBooking/>
+                :
+                <></>
+            }
 
             <br />
             {user.is_member ?

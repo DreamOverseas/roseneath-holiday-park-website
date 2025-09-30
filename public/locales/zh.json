@@ -228,5 +228,25 @@
   "update_detail.lastName": "姓",
   "update_detail.placeholder": "无更改...",
   "update_detail.cancel": "取消",
-  "update_detail.submit": "上传"
+  "update_detail.submit": "上传",
+
+  "annual_booking_title": "年度预订",
+  "annual_booking_checkin": "入住日期",
+  "annual_booking_checkout": "退房日期",
+  "annual_booking_site_number": "场地号码",
+  "annual_booking_site_placeholder": "例如：87A",
+  "annual_booking_view_bank_details": "查看银行详情",
+  "annual_booking_bank_details_title": "付款银行详情",
+  "annual_booking_account_name": "账户名称",
+  "annual_booking_bank_name": "银行名称",
+  "annual_booking_account_number": "账号",
+  "annual_booking_back": "返回",
+  "annual_booking_confirm": "确认预订",
+  "annual_booking_submitting": "提交中...",
+  "annual_booking_fill_all_fields": "请填写所有字段",
+  "annual_booking_checkout_after_checkin": "退房日期必须晚于入住日期",
+  "annual_booking_success": "预订提交成功！请使用上述银行详情完成付款。",
+  "annual_booking_failed": "提交预订失败",
+  "annual_booking_unknown_error": "未知错误",
+  "annual_booking_error_submitting": "提交预订时出错，请重试。"
 }
