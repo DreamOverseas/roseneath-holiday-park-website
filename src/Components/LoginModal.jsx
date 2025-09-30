@@ -208,7 +208,8 @@ const LoginModal = ({ show, handleClose }) => {
         const userCookie = {
           name: regUserName,
           email: regEmail,
-          is_member: false
+          is_member: false,
+          tenant_type: 'Guest'     // Default after registration
         };
         Cookies.set('user', JSON.stringify(userCookie));
         handleClose();
@@ -280,7 +281,8 @@ const LoginModal = ({ show, handleClose }) => {
             name: userAttributes.UserName,
             email: userAttributes.Email,
             is_member: userAttributes.IsMember,
-            contact: userAttributes.Contact || 'Not Specified'
+            contact: userAttributes.Contact || 'Not Specified',
+            tenant_type: userAttributes.TenantType
           };
           // If the user is a member, add additional fields to the cookie.
           if (userAttributes.IsMember) {
@@ -296,6 +298,7 @@ const LoginModal = ({ show, handleClose }) => {
           }
           Cookies.set('user', JSON.stringify(userCookie));
           Cookies.set('AuthToken', 'roseneath-holiday-park-website', { expires: 7 });
+          console.log(`Logged ${userAttributes.TenantType} user ${userAttributes.FirstName} in.`);
           handleClose();
           clearModalData();
           navigate('/membership');

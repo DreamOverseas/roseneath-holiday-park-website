@@ -221,7 +221,10 @@
 
   "Download_PDF": "下载此PDF文件",
 
+  "loading": "加载中...",
+
   "update_detail": "更新信息",
+  "update_pwd": "更新密码",
   "update_detail.userName": "用户名",
   "update_detail.contact": "联系方式",
   "update_detail.fistName": "名",
@@ -229,7 +232,10 @@
   "update_detail.placeholder": "无更改...",
   "update_detail.cancel": "取消",
   "update_detail.submit": "上传",
-
+  "update_pwd.old": "请输入旧密码",
+  "update_pwd.new": "新密码",
+  "update_pwd.confirm": "确认新密码",
+  
   "annual_booking_title": "年度预订",
   "annual_booking_checkin": "入住日期",
   "annual_booking_checkout": "退房日期",

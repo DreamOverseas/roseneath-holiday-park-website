@@ -75,7 +75,7 @@ const MemberCenter = () => {
             email: userdata.Email,
             contact: userdata.Contact || 'Not Specified',
             is_member: userdata.IsMember,
-            tenantType: userdata.TenantType
+            tenant_type: userdata.TenantType
         };
         // If the user is a member, add additional fields to the cookie.
         if (userdata.IsMember) {
@@ -157,14 +157,12 @@ const MemberCenter = () => {
                                     <Col sm={3} className="text-muted">{t("membership_total_point")}</Col>
                                     <Col sm={3}> <b> {user.point + user.discount_p} </b> </Col>
                                     <Col sm={6} className='flex justify-end'>
-                                        <MemberPointTopupBtn />
+                                        {/* <MemberPointTopupBtn /> */}
+                                        <DetailUpdateBtn />
                                     </Col>
                                 </Row>
                             </>
                             : <></>}
-                        <div className='flex justify-end'>
-                            <DetailUpdateBtn />
-                        </div>
                     </Card.Body>
                 }
             </Card>

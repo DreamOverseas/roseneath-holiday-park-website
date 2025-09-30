@@ -217,8 +217,11 @@
   "manual": "User Manual",
 
   "Download_PDF": "Download this PDF document",
+  
+  "loading": "Loading...",
 
-  "update_detail": "Update my details",
+  "update_detail": "Update Details",
+  "update_pwd": "Update Password",
   "update_detail.userName": "User Name",
   "update_detail.contact": "Contact Number",
   "update_detail.fistName": "First Name",
@@ -226,6 +229,9 @@
   "update_detail.placeholder": "Not Changing...",
   "update_detail.cancel": "Cancel",
   "update_detail.submit": "Submit",
+  "update_pwd.old": "Current password",
+  "update_pwd.new": "New Password",
+  "update_pwd.confirm": "Confirm Password",
 
   "annual_booking_title": "Annual Booking",
   "annual_booking_checkin": "Check-in Date",
