@@ -263,7 +263,7 @@ const MemberPointMarket = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pr-10"
             />
-            <div className="absolute top-1/2 right-3 -translate-y-1/2 z-30">
+            <div className="absolute top-1/2 right-3 -translate-y-1/2 z-10">
               <MembershipManual manual="search" />
             </div>
           </Form>
