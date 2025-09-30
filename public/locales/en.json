@@ -231,5 +231,27 @@
   "update_detail.submit": "Submit",
   "update_pwd.old": "Current password",
   "update_pwd.new": "New Password",
-  "update_pwd.confirm": "Confirm Password"
+  "update_pwd.confirm": "Confirm Password",
+
+  "annual_booking_title": "Annual Booking",
+  "annual_booking_checkin": "Check-in Date",
+  "annual_booking_checkout": "Check-out Date",
+  "annual_booking_site_number": "Site Number",
+  "annual_booking_site_placeholder": "e.g., 87A",
+  "annual_booking_view_bank_details": "View Bank Details",
+  "annual_booking_bank_details_title": "Bank Details for Payment",
+  "annual_booking_account_name": "Account Name",
+  "annual_booking_bank_name": "Bank Name",
+  "annual_booking_account_number": "Account Number",
+  "annual_booking_back": "Back",
+  "annual_booking_confirm": "Confirm Booking",
+  "annual_booking_submitting": "Submitting...",
+  "annual_booking_fill_all_fields": "Please fill in all fields",
+  "annual_booking_checkout_after_checkin": "Check-out date must be after check-in date",
+  "annual_booking_success": "Booking submitted successfully! Please complete payment using the bank details above.",
+  "annual_booking_failed": "Failed to submit booking",
+  "annual_booking_unknown_error": "Unknown error",
+  "annual_booking_error_submitting": "Error submitting booking. Please try again.",
+  "annual_booking_important_notice": "Important Notice",
+  "annual_booking_payment_reminder": "Please include your site number in the payment reference: Site"
 }
