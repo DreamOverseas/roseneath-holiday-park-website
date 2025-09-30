@@ -245,5 +245,7 @@
   "annual_booking_success": "Booking submitted successfully! Please complete payment using the bank details above.",
   "annual_booking_failed": "Failed to submit booking",
   "annual_booking_unknown_error": "Unknown error",
-  "annual_booking_error_submitting": "Error submitting booking. Please try again."
+  "annual_booking_error_submitting": "Error submitting booking. Please try again.",
+  "annual_booking_important_notice": "Important Notice",
+  "annual_booking_payment_reminder": "Please include your site number in the payment reference: Site"
 }

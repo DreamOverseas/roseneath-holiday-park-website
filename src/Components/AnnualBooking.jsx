@@ -129,6 +129,13 @@ const AnnualBooking = ({ cookies }) => {
 
                 {showBankDetails && (
                     <div className="mt-4">
+                        <Alert variant="warning" className="mb-3">
+                            <Alert.Heading>{t('annual_booking_important_notice')}</Alert.Heading>
+                            <p className="mb-0">
+                                {t('annual_booking_payment_reminder')} <strong>{siteNumber}</strong>
+                            </p>
+                        </Alert>
+
                         <Card className="bg-light">
                             <Card.Body>
                                 <h5 className="mb-3">{t('annual_booking_bank_details_title')}</h5>

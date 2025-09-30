@@ -248,5 +248,7 @@
   "annual_booking_success": "预订提交成功！请使用上述银行详情完成付款。",
   "annual_booking_failed": "提交预订失败",
   "annual_booking_unknown_error": "未知错误",
-  "annual_booking_error_submitting": "提交预订时出错，请重试。"
+  "annual_booking_error_submitting": "提交预订时出错，请重试。",
+  "annual_booking_important_notice": "重要提醒",
+  "annual_booking_payment_reminder": "请在付款备注中填写您的场地号码： Site"
 }
