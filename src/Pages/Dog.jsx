@@ -7,8 +7,10 @@ export default function Dog() {
   const [memberships, setMemberships] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dataError, setDataError] = useState('');
+  const [filterType, setFilterType] = useState('All User');
 
   const CORRECT_PASSWORD = 'Dreamoverseas171!';
+  const ADMIN_EMAILS = ['john.du@do360.com', 'hannyanhai@gmail.com', 'xing142857@gmail.com'];
 
   const handlePasswordSubmit = () => {
     if (password === CORRECT_PASSWORD) {
@@ -48,14 +50,45 @@ export default function Dog() {
     }
   };
 
+  const getDisplayTenantType = (member) => {
+    if (ADMIN_EMAILS.includes(member.Email?.toLowerCase())) {
+      return 'Admin';
+    }
+    return member.TenantType || 'Guest';
+  };
+
   const getTenantTypeLabel = (type) => {
     const labels = {
       'Guest': 'Guest',
       'Annual': 'Annual',
-      'Permanent': 'Permanent'
+      'Permanent': 'Permanent',
+      'Admin': 'Admin'
     };
     return labels[type] || type;
   };
+
+  const getFilteredMemberships = () => {
+    if (filterType === 'All User') {
+      return memberships;
+    }
+    
+    if (filterType === 'Tenant') {
+      return memberships.filter(member => {
+        const displayType = getDisplayTenantType(member);
+        return displayType === 'Annual' || displayType === 'Permanent';
+      });
+    }
+    
+    if (filterType === 'Admin') {
+      return memberships.filter(member => 
+        ADMIN_EMAILS.includes(member.Email?.toLowerCase())
+      );
+    }
+    
+    return memberships.filter(member => getDisplayTenantType(member) === filterType);
+  };
+
+  const filteredMemberships = getFilteredMemberships();
 
   if (!isAuthenticated) {
     return (
@@ -115,6 +148,25 @@ export default function Dog() {
           </div>
         </div>
 
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-3">Filter by Member Type</label>
+          <div className="flex flex-wrap gap-2">
+            {['All User', 'Tenant', 'Annual', 'Permanent', 'Admin'].map((type) => (
+              <button
+                key={type}
+                onClick={() => setFilterType(type)}
+                className={`px-4 py-2 rounded-lg font-medium transition duration-200 ${
+                  filterType === type
+                    ? 'bg-indigo-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {loading && (
           <div className="bg-white rounded-lg shadow p-8 text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
@@ -128,49 +180,55 @@ export default function Dog() {
           </div>
         )}
 
-        {!loading && !dataError && memberships.length === 0 && (
+        {!loading && !dataError && filteredMemberships.length === 0 && (
           <div className="bg-white rounded-lg shadow p-8 text-center text-gray-600">
-            No memberships found.
+            No memberships found for the selected filter.
           </div>
         )}
 
-        {!loading && !dataError && memberships.length > 0 && (
+        {!loading && !dataError && filteredMemberships.length > 0 && (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-indigo-600 text-white">
                   <tr>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Site Number</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">First Name</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Last Name</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Email</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Phone Number</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Tenant Type</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Member Type</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {memberships.map((member, index) => (
-                    <tr key={member.MembershipNumber || index} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm text-gray-900">{member.FirstName || '-'}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{member.LastName || '-'}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{member.Email || '-'}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{member.Contact || '-'}</td>
-                      <td className="px-6 py-4 text-sm">
-                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                          member.TenantType === 'Permanent' ? 'bg-green-100 text-green-800' :
-                          member.TenantType === 'Annual' ? 'bg-blue-100 text-blue-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
-                          {getTenantTypeLabel(member.TenantType) || 'Guest'}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {filteredMemberships.map((member, index) => {
+                    const displayType = getDisplayTenantType(member);
+                    return (
+                      <tr key={member.documentID || member.MembershipNumber || index} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 text-sm text-gray-900">{member.SiteNumber || '-'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{member.FirstName || '-'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{member.LastName || '-'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{member.Email || '-'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{member.Contact || '-'}</td>
+                        <td className="px-6 py-4 text-sm">
+                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                            displayType === 'Admin' ? 'bg-purple-100 text-purple-800' :
+                            displayType === 'Permanent' ? 'bg-green-100 text-green-800' :
+                            displayType === 'Annual' ? 'bg-blue-100 text-blue-800' :
+                            'bg-gray-100 text-gray-800'
+                          }`}>
+                            {getTenantTypeLabel(displayType)}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
             <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
               <p className="text-sm text-gray-600">
-                Total Memberships: <span className="font-semibold">{memberships.length}</span>
+                Showing <span className="font-semibold">{filteredMemberships.length}</span> of <span className="font-semibold">{memberships.length}</span> memberships
               </p>
             </div>
           </div>
@@ -179,4 +237,3 @@ export default function Dog() {
     </div>
   );
 }
-
