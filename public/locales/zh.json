@@ -251,7 +251,7 @@
   "annual_booking_submitting": "提交中...",
   "annual_booking_fill_all_fields": "请填写所有字段",
   "annual_booking_checkout_after_checkin": "退房日期必须晚于入住日期",
-  "annual_booking_success": "预订提交成功！请使用上述银行详情完成付款。",
+  "annual_booking_success": "预订提交成功！",
   "annual_booking_failed": "提交预订失败",
   "annual_booking_unknown_error": "未知错误",
   "annual_booking_error_submitting": "提交预订时出错，请重试。",
@@ -294,9 +294,12 @@
   "extra_laundry": "洗衣",
   "extra_dryer": "烘干",
   "extra_shower": "淋浴",
-  "extra_peking_duck": "北京烤鸭套餐",
+  "extra_peking_duck": "烤鸭套餐",
   "extra_roast_pig": "烤乳猪",
   "extra_roast_pig_package": "烤乳猪套餐",
   "extra_roast_lamb": "烤全羊",
-  "extra_roast_lamb_package": "烤全羊套餐"
+  "extra_roast_lamb_package": "烤全羊套餐",
+  "annual_booking_success_title": "预订已确认！",
+  "annual_booking_success_message": "您的预订已记录。我们将验证您的付款。",
+  "annual_booking_close": "关闭"
 }

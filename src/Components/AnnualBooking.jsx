@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Row, Col, Form, Button, Alert, Table } from 'react-bootstrap';
+import { Card, Row, Col, Form, Button, Alert, Table, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 const AnnualBooking = ({ cookies }) => {
@@ -11,6 +11,7 @@ const AnnualBooking = ({ cookies }) => {
     const [childNumber, setChildNumber] = useState(0);
     const [selectedExtras, setSelectedExtras] = useState([]);
     const [showBankDetails, setShowBankDetails] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -167,13 +168,14 @@ const AnnualBooking = ({ cookies }) => {
 
             if (response.ok) {
                 setSuccess(t('annual_booking_success'));
+                setShowBankDetails(false);
+                setShowSuccessModal(true);
                 setCheckin('');
                 setCheckout('');
                 setSiteNumber('');
                 setAdultNumber(0);
                 setChildNumber(0);
                 setSelectedExtras([]);
-                setShowBankDetails(false);
             } else {
                 const errorData = await response.json();
                 setError(`${t('annual_booking_failed')}: ${errorData.error?.message || t('annual_booking_unknown_error')}`);
@@ -194,7 +196,6 @@ const AnnualBooking = ({ cookies }) => {
                 <h3 className="mb-4">{t('annual_booking_title')}</h3>
                 
                 {error && <Alert variant="danger" onClose={() => setError('')} dismissible>{error}</Alert>}
-                {success && <Alert variant="success" onClose={() => setSuccess('')} dismissible>{success}</Alert>}
 
                 <Form onSubmit={handleViewBankDetails}>
                     <Row className="mb-3">
@@ -337,8 +338,12 @@ const AnnualBooking = ({ cookies }) => {
                     )}
                 </Form>
 
-                {showBankDetails && (
-                    <div className="mt-4">
+                {/* Bank Details Modal */}
+                <Modal show={showBankDetails} onHide={() => setShowBankDetails(false)} size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title>{t('annual_booking_bank_details_title')}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
                         <Alert variant="info" className="mb-3">
                             <Alert.Heading>{t('annual_booking_booking_recorded')}</Alert.Heading>
                             <p className="mb-2">{t('annual_booking_record_message')}</p>
@@ -354,7 +359,7 @@ const AnnualBooking = ({ cookies }) => {
                             </p>
                         </Alert>
 
-                        <Card className="bg-light">
+                        <Card className="bg-light mb-3">
                             <Card.Body>
                                 <h5 className="mb-3">{t('annual_booking_bank_details_title')}</h5>
                                 <Row>
@@ -378,25 +383,47 @@ const AnnualBooking = ({ cookies }) => {
                                 </Row>
                             </Card.Body>
                         </Card>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button 
+                            variant="secondary" 
+                            onClick={() => setShowBankDetails(false)}
+                        >
+                            {t('annual_booking_back')}
+                        </Button>
+                        <Button 
+                            variant="success" 
+                            onClick={handleSubmit}
+                            disabled={loading}
+                        >
+                            {loading ? t('annual_booking_submitting') : t('annual_booking_confirm')}
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
-                        <div className="d-flex justify-content-end mt-3 gap-2">
-                            <Button 
-                                variant="secondary" 
-                                onClick={() => setShowBankDetails(false)}
-                                className="me-2"
-                            >
-                                {t('annual_booking_back')}
-                            </Button>
-                            <Button 
-                                variant="success" 
-                                onClick={handleSubmit}
-                                disabled={loading}
-                            >
-                                {loading ? t('annual_booking_submitting') : t('annual_booking_confirm')}
-                            </Button>
+                {/* Success Modal */}
+                <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)} centered>
+                    <Modal.Header closeButton className="bg-success text-white">
+                        <Modal.Title>{t('annual_booking_success_title')}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="text-center py-3">
+                            <div className="mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-check-circle text-success" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                                </svg>
+                            </div>
+                            <h5 className="mb-3">{t('annual_booking_success')}</h5>
+                            <p className="text-muted">{t('annual_booking_success_message')}</p>
                         </div>
-                    </div>
-                )}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={() => setShowSuccessModal(false)}>
+                            {t('annual_booking_close')}
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Card.Body>
         </Card>
     );
