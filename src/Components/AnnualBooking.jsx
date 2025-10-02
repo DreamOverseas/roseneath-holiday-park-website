@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import { Card, Row, Col, Form, Button, Alert, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 const AnnualBooking = ({ cookies }) => {
@@ -7,6 +7,9 @@ const AnnualBooking = ({ cookies }) => {
     const [checkin, setCheckin] = useState('');
     const [checkout, setCheckout] = useState('');
     const [siteNumber, setSiteNumber] = useState('');
+    const [adultNumber, setAdultNumber] = useState(0);
+    const [childNumber, setChildNumber] = useState(0);
+    const [selectedExtras, setSelectedExtras] = useState([]);
     const [showBankDetails, setShowBankDetails] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -14,6 +17,82 @@ const AnnualBooking = ({ cookies }) => {
 
     const CMSEndpoint = import.meta.env.VITE_CMS_ENDPOINT;
     const CMSApiKey = import.meta.env.VITE_CMS_TOKEN;
+
+    const extraItems = [
+        { name: 'Horse', price: 20, basis: 'Per night' },
+        { name: 'Motorbike', price: 20, basis: 'Per night' },
+        { name: 'Pet fee (not for camp)', price: 50, basis: 'Per book' },
+        { name: 'Leaf per Bag', price: 15, basis: 'Per book' },
+        { name: 'Firewood', price: 23, basis: 'Per book' },
+        { name: 'Stove Rental', price: 25, basis: 'Per book' },
+        { name: 'Laundry', price: 10, basis: 'Per person' },
+        { name: 'Dryer', price: 10, basis: 'Per person' },
+        { name: 'Shower', price: 10, basis: 'Per person' },
+        { name: 'Peking Duck Package', price: 300, basis: 'Per book' },
+        { name: 'Roast Sunkling Pig', price: 1200, basis: 'Per book' },
+        { name: 'Roast Sunkling Pig Package', price: 1600, basis: 'Per book' },
+        { name: 'Whole Roast Lamb', price: 1000, basis: 'Per book' },
+        { name: 'Whole Roast Lamb Package', price: 1600, basis: 'Per book' }
+    ];
+
+    const calculateNights = () => {
+        if (!checkin || !checkout) return 0;
+        const start = new Date(checkin);
+        const end = new Date(checkout);
+        const diffTime = Math.abs(end - start);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    };
+
+    const calculateExtraPrice = (item, quantity) => {
+        const nights = calculateNights();
+        const totalPeople = parseInt(adultNumber) + parseInt(childNumber);
+        
+        if (item.basis === 'Per night') {
+            return item.price * quantity * nights;
+        } else if (item.basis === 'Per person') {
+            return item.price * quantity * totalPeople;
+        } else {
+            return item.price * quantity;
+        }
+    };
+
+    const calculateTotalExtrasPrice = () => {
+        return selectedExtras.reduce((total, extra) => {
+            return total + calculateExtraPrice(
+                extraItems.find(item => item.name === extra.name),
+                extra.quantity
+            );
+        }, 0);
+    };
+
+    const calculateTotalPrice = () => {
+        return calculateTotalExtrasPrice();
+    };
+
+    const handleExtraQuantityChange = (itemName, quantity) => {
+        const qty = parseInt(quantity) || 0;
+        
+        setSelectedExtras(prev => {
+            const existing = prev.find(e => e.name === itemName);
+            if (existing) {
+                if (qty === 0) {
+                    return prev.filter(e => e.name !== itemName);
+                }
+                return prev.map(e => 
+                    e.name === itemName ? { ...e, quantity: qty } : e
+                );
+            } else if (qty > 0) {
+                return [...prev, { name: itemName, quantity: qty }];
+            }
+            return prev;
+        });
+    };
+
+    const getExtraQuantity = (itemName) => {
+        const extra = selectedExtras.find(e => e.name === itemName);
+        return extra ? extra.quantity : 0;
+    };
 
     const handleViewBankDetails = (e) => {
         e.preventDefault();
@@ -28,6 +107,11 @@ const AnnualBooking = ({ cookies }) => {
             return;
         }
 
+        if (adultNumber < 0 || childNumber < 0) {
+            setError('Please enter valid numbers for adults and children');
+            return;
+        }
+
         setError('');
         setShowBankDetails(true);
     };
@@ -39,6 +123,15 @@ const AnnualBooking = ({ cookies }) => {
         setSuccess('');
 
         try {
+            const extrasWithPrice = selectedExtras.map(extra => {
+                const item = extraItems.find(i => i.name === extra.name);
+                return {
+                    Name: extra.name,
+                    Number: extra.quantity,
+                    Price: calculateExtraPrice(item, extra.quantity)
+                };
+            });
+
             const response = await fetch(`${CMSEndpoint}/api/annual-bookings`, {
                 method: 'POST',
                 headers: {
@@ -49,7 +142,11 @@ const AnnualBooking = ({ cookies }) => {
                     data: {
                         checkin: checkin,
                         checkout: checkout,
-                        siteNumber: siteNumber
+                        siteNumber: siteNumber,
+                        adultNumber: parseInt(adultNumber) || 0,
+                        childNumber: parseInt(childNumber) || 0,
+                        totalPrice: calculateTotalPrice(),
+                        extra: extrasWithPrice
                     }
                 })
             });
@@ -59,6 +156,9 @@ const AnnualBooking = ({ cookies }) => {
                 setCheckin('');
                 setCheckout('');
                 setSiteNumber('');
+                setAdultNumber(0);
+                setChildNumber(0);
+                setSelectedExtras([]);
                 setShowBankDetails(false);
             } else {
                 const errorData = await response.json();
@@ -118,8 +218,78 @@ const AnnualBooking = ({ cookies }) => {
                         </Col>
                     </Row>
 
+                    <Row className="mb-3">
+                        <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>Number of Adults</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    min="0"
+                                    value={adultNumber}
+                                    onChange={(e) => setAdultNumber(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>Number of Children</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    min="0"
+                                    value={childNumber}
+                                    onChange={(e) => setChildNumber(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
+                    <div className="mb-4">
+                        <h5 className="mb-3">Extra Items (Optional)</h5>
+                        <Table striped bordered hover responsive>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Pricing Basis</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {extraItems.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{item.name}</td>
+                                        <td>${item.price}</td>
+                                        <td>{item.basis}</td>
+                                        <td style={{ width: '120px' }}>
+                                            <Form.Control
+                                                type="number"
+                                                min="0"
+                                                value={getExtraQuantity(item.name)}
+                                                onChange={(e) => handleExtraQuantityChange(item.name, e.target.value)}
+                                                size="sm"
+                                            />
+                                        </td>
+                                        <td>
+                                            ${getExtraQuantity(item.name) > 0 
+                                                ? calculateExtraPrice(item, getExtraQuantity(item.name)).toFixed(2)
+                                                : '0.00'}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                        
+                        <div className="text-end">
+                            <h5>Total Extras: ${calculateTotalExtrasPrice().toFixed(2)}</h5>
+                            <h4>Total Price: ${calculateTotalPrice().toFixed(2)}</h4>
+                        </div>
+                    </div>
+
                     {!showBankDetails && (
-                        <div className="flex justify-end">
+                        <div className="d-flex justify-content-end">
                             <Button variant="primary" type="submit">
                                 {t('annual_booking_view_bank_details')}
                             </Button>
@@ -154,10 +324,11 @@ const AnnualBooking = ({ cookies }) => {
                             </Card.Body>
                         </Card>
 
-                        <div className="flex justify-end mt-3 gap-2">
+                        <div className="d-flex justify-content-end mt-3 gap-2">
                             <Button 
                                 variant="secondary" 
                                 onClick={() => setShowBankDetails(false)}
+                                className="me-2"
                             >
                                 {t('annual_booking_back')}
                             </Button>
