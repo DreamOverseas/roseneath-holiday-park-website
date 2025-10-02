@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Row, Col, Form, Button, Alert, Table, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-const AnnualBooking = ({ cookies }) => {
+const AnnualBooking = ({ userType }) => {
     const { t } = useTranslation();
     const [checkin, setCheckin] = useState('');
     const [checkout, setCheckout] = useState('');
@@ -19,18 +19,14 @@ const AnnualBooking = ({ cookies }) => {
     const CMSEndpoint = import.meta.env.VITE_CMS_ENDPOINT;
     const CMSApiKey = import.meta.env.VITE_CMS_TOKEN;
 
-    const ADULT_PRICE_PER_NIGHT = 14;
-    const CHILD_PRICE_PER_NIGHT = 7;
+    const ADULT_PRICE_PER_NIGHT = userType == "Permanent" ? 0 : 14;
+    const CHILD_PRICE_PER_NIGHT = userType == "Permanent" ? 0 : 7;
 
     const extraItems = [
         { name: 'extra_horse', price: 20, basis: 'Per night' },
         { name: 'extra_motorbike', price: 20, basis: 'Per night' },
         { name: 'extra_leaf_bag', price: 15, basis: 'Per book' },
         { name: 'extra_firewood', price: 23, basis: 'Per book' },
-        { name: 'extra_stove_rental', price: 25, basis: 'Per book' },
-        { name: 'extra_laundry', price: 10, basis: 'Per person' },
-        { name: 'extra_dryer', price: 10, basis: 'Per person' },
-        { name: 'extra_shower', price: 10, basis: 'Per person' },
         { name: 'extra_peking_duck', price: 300, basis: 'Per book' },
         { name: 'extra_roast_pig', price: 1200, basis: 'Per book' },
         { name: 'extra_roast_pig_package', price: 1600, basis: 'Per book' },
