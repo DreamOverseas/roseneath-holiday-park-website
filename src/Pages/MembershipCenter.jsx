@@ -91,6 +91,7 @@ const MemberCenter = () => {
             };
         }
         Cookies.set('user', JSON.stringify(userCookie));
+        setUser(userCookie);
     }
 
     if (!user) {
