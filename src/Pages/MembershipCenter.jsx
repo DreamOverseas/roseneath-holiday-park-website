@@ -169,8 +169,8 @@ const MemberCenter = () => {
             </Card>
             
             <br />
-            {user.tenantType == "Annual" ?
-                <AnnualBooking/>
+            {user.tenantType == "Annual" || "Permanent" ?
+                <AnnualBooking userType={user.tenantType}/>
                 :
                 <></>
             }
