@@ -18,21 +18,23 @@ const AnnualBooking = ({ cookies }) => {
     const CMSEndpoint = import.meta.env.VITE_CMS_ENDPOINT;
     const CMSApiKey = import.meta.env.VITE_CMS_TOKEN;
 
+    const ADULT_PRICE_PER_NIGHT = 14;
+    const CHILD_PRICE_PER_NIGHT = 7;
+
     const extraItems = [
-        { name: 'Horse', price: 20, basis: 'Per night' },
-        { name: 'Motorbike', price: 20, basis: 'Per night' },
-        { name: 'Pet fee (not for camp)', price: 50, basis: 'Per book' },
-        { name: 'Leaf per Bag', price: 15, basis: 'Per book' },
-        { name: 'Firewood', price: 23, basis: 'Per book' },
-        { name: 'Stove Rental', price: 25, basis: 'Per book' },
-        { name: 'Laundry', price: 10, basis: 'Per person' },
-        { name: 'Dryer', price: 10, basis: 'Per person' },
-        { name: 'Shower', price: 10, basis: 'Per person' },
-        { name: 'Peking Duck Package', price: 300, basis: 'Per book' },
-        { name: 'Roast Sunkling Pig', price: 1200, basis: 'Per book' },
-        { name: 'Roast Sunkling Pig Package', price: 1600, basis: 'Per book' },
-        { name: 'Whole Roast Lamb', price: 1000, basis: 'Per book' },
-        { name: 'Whole Roast Lamb Package', price: 1600, basis: 'Per book' }
+        { name: 'extra_horse', price: 20, basis: 'Per night' },
+        { name: 'extra_motorbike', price: 20, basis: 'Per night' },
+        { name: 'extra_leaf_bag', price: 15, basis: 'Per book' },
+        { name: 'extra_firewood', price: 23, basis: 'Per book' },
+        { name: 'extra_stove_rental', price: 25, basis: 'Per book' },
+        { name: 'extra_laundry', price: 10, basis: 'Per person' },
+        { name: 'extra_dryer', price: 10, basis: 'Per person' },
+        { name: 'extra_shower', price: 10, basis: 'Per person' },
+        { name: 'extra_peking_duck', price: 300, basis: 'Per book' },
+        { name: 'extra_roast_pig', price: 1200, basis: 'Per book' },
+        { name: 'extra_roast_pig_package', price: 1600, basis: 'Per book' },
+        { name: 'extra_roast_lamb', price: 1000, basis: 'Per book' },
+        { name: 'extra_roast_lamb_package', price: 1600, basis: 'Per book' }
     ];
 
     const calculateNights = () => {
@@ -42,6 +44,13 @@ const AnnualBooking = ({ cookies }) => {
         const diffTime = Math.abs(end - start);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         return diffDays;
+    };
+
+    const calculateAccommodationPrice = () => {
+        const nights = calculateNights();
+        const adults = parseInt(adultNumber) || 0;
+        const children = parseInt(childNumber) || 0;
+        return (adults * ADULT_PRICE_PER_NIGHT + children * CHILD_PRICE_PER_NIGHT) * nights;
     };
 
     const calculateExtraPrice = (item, quantity) => {
@@ -67,7 +76,7 @@ const AnnualBooking = ({ cookies }) => {
     };
 
     const calculateTotalPrice = () => {
-        return calculateTotalExtrasPrice();
+        return calculateAccommodationPrice() + calculateTotalExtrasPrice();
     };
 
     const handleExtraQuantityChange = (itemName, quantity) => {
@@ -108,7 +117,12 @@ const AnnualBooking = ({ cookies }) => {
         }
 
         if (adultNumber < 0 || childNumber < 0) {
-            setError('Please enter valid numbers for adults and children');
+            setError(t('annual_booking_invalid_numbers'));
+            return;
+        }
+
+        if (parseInt(adultNumber) === 0 && parseInt(childNumber) === 0) {
+            setError(t('annual_booking_need_guests'));
             return;
         }
 
@@ -126,7 +140,7 @@ const AnnualBooking = ({ cookies }) => {
             const extrasWithPrice = selectedExtras.map(extra => {
                 const item = extraItems.find(i => i.name === extra.name);
                 return {
-                    Name: extra.name,
+                    Name: t(extra.name),
                     Number: extra.quantity,
                     Price: calculateExtraPrice(item, extra.quantity)
                 };
@@ -171,6 +185,8 @@ const AnnualBooking = ({ cookies }) => {
             setLoading(false);
         }
     };
+
+    const nights = calculateNights();
 
     return (
         <Card className="shadow mb-4">
@@ -218,10 +234,18 @@ const AnnualBooking = ({ cookies }) => {
                         </Col>
                     </Row>
 
+                    {nights > 0 && (
+                        <Alert variant="info" className="mb-3">
+                            <strong>{t('annual_booking_duration')}:</strong> {nights} {nights === 1 ? t('annual_booking_night') : t('annual_booking_nights')}
+                        </Alert>
+                    )}
+
                     <Row className="mb-3">
                         <Col md={6}>
                             <Form.Group>
-                                <Form.Label>Number of Adults</Form.Label>
+                                <Form.Label>
+                                    {t('annual_booking_adult_number')} (${ADULT_PRICE_PER_NIGHT} {t('annual_booking_per_night')})
+                                </Form.Label>
                                 <Form.Control
                                     type="number"
                                     min="0"
@@ -233,7 +257,9 @@ const AnnualBooking = ({ cookies }) => {
                         </Col>
                         <Col md={6}>
                             <Form.Group>
-                                <Form.Label>Number of Children</Form.Label>
+                                <Form.Label>
+                                    {t('annual_booking_child_number')} (${CHILD_PRICE_PER_NIGHT} {t('annual_booking_per_night')})
+                                </Form.Label>
                                 <Form.Control
                                     type="number"
                                     min="0"
@@ -245,24 +271,38 @@ const AnnualBooking = ({ cookies }) => {
                         </Col>
                     </Row>
 
+                    {(parseInt(adultNumber) > 0 || parseInt(childNumber) > 0) && nights > 0 && (
+                        <Alert variant="success" className="mb-3">
+                            <strong>{t('annual_booking_accommodation_cost')}:</strong> ${calculateAccommodationPrice().toFixed(2)}
+                            <div className="mt-1 small">
+                                {parseInt(adultNumber) > 0 && (
+                                    <div>{adultNumber} {parseInt(adultNumber) === 1 ? t('annual_booking_adult') : t('annual_booking_adults')} × ${ADULT_PRICE_PER_NIGHT} × {nights} {nights === 1 ? t('annual_booking_night') : t('annual_booking_nights')} = ${(parseInt(adultNumber) * ADULT_PRICE_PER_NIGHT * nights).toFixed(2)}</div>
+                                )}
+                                {parseInt(childNumber) > 0 && (
+                                    <div>{childNumber} {parseInt(childNumber) === 1 ? t('annual_booking_child') : t('annual_booking_children')} × ${CHILD_PRICE_PER_NIGHT} × {nights} {nights === 1 ? t('annual_booking_night') : t('annual_booking_nights')} = ${(parseInt(childNumber) * CHILD_PRICE_PER_NIGHT * nights).toFixed(2)}</div>
+                                )}
+                            </div>
+                        </Alert>
+                    )}
+
                     <div className="mb-4">
-                        <h5 className="mb-3">Extra Items (Optional)</h5>
+                        <h5 className="mb-3">{t('annual_booking_extra_items')}</h5>
                         <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
-                                    <th>Item</th>
-                                    <th>Price</th>
-                                    <th>Pricing Basis</th>
-                                    <th>Quantity</th>
-                                    <th>Subtotal</th>
+                                    <th>{t('annual_booking_item')}</th>
+                                    <th>{t('annual_booking_price')}</th>
+                                    <th>{t('annual_booking_pricing_basis')}</th>
+                                    <th>{t('annual_booking_quantity')}</th>
+                                    <th>{t('annual_booking_subtotal')}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {extraItems.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.name}</td>
+                                        <td>{t(item.name)}</td>
                                         <td>${item.price}</td>
-                                        <td>{item.basis}</td>
+                                        <td>{t(`annual_booking_basis_${item.basis.toLowerCase().replace(/ /g, '_')}`)}</td>
                                         <td style={{ width: '120px' }}>
                                             <Form.Control
                                                 type="number"
@@ -283,8 +323,8 @@ const AnnualBooking = ({ cookies }) => {
                         </Table>
                         
                         <div className="text-end">
-                            <h5>Total Extras: ${calculateTotalExtrasPrice().toFixed(2)}</h5>
-                            <h4>Total Price: ${calculateTotalPrice().toFixed(2)}</h4>
+                            <h5>{t('annual_booking_total_extras')}: ${calculateTotalExtrasPrice().toFixed(2)}</h5>
+                            <h4 className="text-primary">{t('annual_booking_total_price')}: ${calculateTotalPrice().toFixed(2)}</h4>
                         </div>
                     </div>
 
@@ -299,6 +339,14 @@ const AnnualBooking = ({ cookies }) => {
 
                 {showBankDetails && (
                     <div className="mt-4">
+                        <Alert variant="info" className="mb-3">
+                            <Alert.Heading>{t('annual_booking_booking_recorded')}</Alert.Heading>
+                            <p className="mb-2">{t('annual_booking_record_message')}</p>
+                            <p className="mb-0">
+                                <strong>{t('annual_booking_payment_verification')}:</strong> {t('annual_booking_verification_message')}
+                            </p>
+                        </Alert>
+
                         <Alert variant="warning" className="mb-3">
                             <Alert.Heading>{t('annual_booking_important_notice')}</Alert.Heading>
                             <p className="mb-0">
@@ -319,6 +367,13 @@ const AnnualBooking = ({ cookies }) => {
                                         <p className="mb-2"><strong>{t('annual_booking_bank_name')}:</strong> CBA</p>
                                         <p className="mb-2"><strong>BSB:</strong> 063 182</p>
                                         <p className="mb-2"><strong>{t('annual_booking_account_number')}:</strong> 1177 8453</p>
+                                    </Col>
+                                </Row>
+                                <Row className="mt-3">
+                                    <Col>
+                                        <Alert variant="warning" className="mb-0">
+                                            <strong>{t('annual_booking_total_amount_due')}:</strong> ${calculateTotalPrice().toFixed(2)}
+                                        </Alert>
                                     </Col>
                                 </Row>
                             </Card.Body>
