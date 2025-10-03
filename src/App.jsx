@@ -17,6 +17,7 @@ import About from "./Pages/About.jsx";
 import Contact from "./Pages/Contact.jsx";
 import Gallery from "./Pages/Gallery.jsx";
 import Home from "./Pages/Home.jsx";
+import Dog from "./Pages/Dog.jsx";
 import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
 import GroupVisitors from "./Pages/GroupVisitors.jsx";
 import RoomDetail from "./Pages/RoomDetail.jsx";
@@ -79,6 +80,7 @@ function App() {
           <Route path='/annual-news' element={<News userType="forAnnual"/>} />
           <Route path='/permanent-news' element={<News userType="forPermanent"/>} />
           <Route path='/membership' element={<MemberCenter />} />
+          <Route path='/dog' element={<Dog />} />
         </Routes>
         <Footer />
       </div>
