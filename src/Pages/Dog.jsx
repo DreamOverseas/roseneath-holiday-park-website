@@ -42,12 +42,34 @@ export default function Dog() {
     setLoading(true);
     setDataError('');
     try {
-      const response = await fetch('https://api.do360.com/api/rhp-memberships');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setMemberships(Array.isArray(data) ? data : data.data || []);
+      let allMemberships = [];
+      let page = 1;
+      let totalPages = 1;
+      
+      do {
+        const response = await fetch(`https://api.do360.com/api/rhp-memberships?pagination[page]=${page}&pagination[pageSize]=100`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        // Add current page data
+        if (data.data && Array.isArray(data.data)) {
+          allMemberships = [...allMemberships, ...data.data];
+        }
+        
+        // Get pagination info
+        if (data.meta && data.meta.pagination) {
+          totalPages = data.meta.pagination.pageCount || data.meta.pagination.totalPages || 1;
+          console.log(`Loaded page ${page} of ${totalPages} (${data.data.length} records)`);
+        }
+        
+        page++;
+      } while (page <= totalPages);
+      
+      setMemberships(allMemberships);
+      console.log(`Total loaded: ${allMemberships.length} memberships`);
+      
     } catch (err) {
       setDataError(`Failed to load memberships: ${err.message}`);
     } finally {
