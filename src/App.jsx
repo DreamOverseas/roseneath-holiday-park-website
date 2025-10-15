@@ -80,7 +80,7 @@ function App() {
           <Route path='/annual-news' element={<News userType="forAnnual"/>} />
           <Route path='/permanent-news' element={<News userType="forPermanent"/>} />
           <Route path='/membership' element={<MemberCenter />} />
-          <Route path='/dog' element={<Dog />} />
+          <Route path='/admin' element={<Dog />} />
         </Routes>
         <Footer />
       </div>

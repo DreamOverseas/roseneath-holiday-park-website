@@ -13,6 +13,7 @@ export default function Dog() {
   const [parsedData, setParsedData] = useState([]);
   const [uploadError, setUploadError] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
   const CORRECT_PASSWORD = 'Dreamoverseas171!';
   const ADMIN_EMAILS = ['john.du@do360.com', 'hannyanhai@gmail.com', 'xing142857@gmail.com'];
@@ -42,12 +43,34 @@ export default function Dog() {
     setLoading(true);
     setDataError('');
     try {
-      const response = await fetch('https://api.do360.com/api/rhp-memberships');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setMemberships(Array.isArray(data) ? data : data.data || []);
+      let allMemberships = [];
+      let page = 1;
+      let totalPages = 1;
+      
+      do {
+        const response = await fetch(`https://api.do360.com/api/rhp-memberships?pagination[page]=${page}&pagination[pageSize]=100`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        // Add current page data
+        if (data.data && Array.isArray(data.data)) {
+          allMemberships = [...allMemberships, ...data.data];
+        }
+        
+        // Get pagination info
+        if (data.meta && data.meta.pagination) {
+          totalPages = data.meta.pagination.pageCount || data.meta.pagination.totalPages || 1;
+          console.log(`Loaded page ${page} of ${totalPages} (${data.data.length} records)`);
+        }
+        
+        page++;
+      } while (page <= totalPages);
+      
+      setMemberships(allMemberships);
+      console.log(`Total loaded: ${allMemberships.length} memberships`);
+      
     } catch (err) {
       setDataError(`Failed to load memberships: ${err.message}`);
     } finally {
@@ -91,6 +114,102 @@ export default function Dog() {
     }
     
     return memberships.filter(member => getDisplayTenantType(member) === filterType);
+  };
+
+  // Sorting function
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getSortedMemberships = (memberships) => {
+    if (!sortConfig.key) return memberships;
+
+    return [...memberships].sort((a, b) => {
+      let aValue = a[sortConfig.key] || '';
+      let bValue = b[sortConfig.key] || '';
+
+      // Special handling for SiteNumber - natural sort
+      if (sortConfig.key === 'SiteNumber') {
+        const aStr = String(aValue);
+        const bStr = String(bValue);
+        
+        // Extract numeric and non-numeric parts
+        const aMatch = aStr.match(/^(\d+)(.*)$/);
+        const bMatch = bStr.match(/^(\d+)(.*)$/);
+        
+        if (aMatch && bMatch) {
+          const aNum = parseInt(aMatch[1]);
+          const bNum = parseInt(bMatch[1]);
+          
+          // Compare numbers first
+          if (aNum !== bNum) {
+            return sortConfig.direction === 'asc' ? aNum - bNum : bNum - aNum;
+          }
+          
+          // If numbers are equal, compare the suffix (A, B, etc.)
+          const aSuffix = aMatch[2].toLowerCase();
+          const bSuffix = bMatch[2].toLowerCase();
+          
+          if (aSuffix < bSuffix) {
+            return sortConfig.direction === 'asc' ? -1 : 1;
+          }
+          if (aSuffix > bSuffix) {
+            return sortConfig.direction === 'asc' ? 1 : -1;
+          }
+          return 0;
+        }
+        
+        // Fallback to string comparison if pattern doesn't match
+        if (aStr < bStr) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aStr > bStr) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      }
+
+      // For other columns, use string comparison
+      aValue = String(aValue).toLowerCase();
+      bValue = String(bValue).toLowerCase();
+
+      if (aValue < bValue) {
+        return sortConfig.direction === 'asc' ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sortConfig.direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
+  // Sort icon component
+  const SortIcon = ({ columnKey }) => {
+    if (sortConfig.key !== columnKey) {
+      return (
+        <svg className="w-4 h-4 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+        </svg>
+      );
+    }
+    
+    if (sortConfig.direction === 'asc') {
+      return (
+        <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+        </svg>
+      );
+    }
+    
+    return (
+      <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    );
   };
 
   // Generate random 8-digit password
@@ -269,7 +388,7 @@ export default function Dog() {
     }
   };
 
-  const filteredMemberships = getFilteredMemberships();
+  const filteredMemberships = getSortedMemberships(getFilteredMemberships());
 
   if (!isAuthenticated) {
     return (
@@ -381,9 +500,33 @@ export default function Dog() {
               <table className="w-full">
                 <thead className="bg-indigo-600 text-white">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Site Number</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">First Name</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Last Name</th>
+                    <th 
+                      className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                      onClick={() => handleSort('SiteNumber')}
+                    >
+                      <div className="flex items-center">
+                        Site Number
+                        <SortIcon columnKey="SiteNumber" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                      onClick={() => handleSort('FirstName')}
+                    >
+                      <div className="flex items-center">
+                        First Name
+                        <SortIcon columnKey="FirstName" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                      onClick={() => handleSort('LastName')}
+                    >
+                      <div className="flex items-center">
+                        Last Name
+                        <SortIcon columnKey="LastName" />
+                      </div>
+                    </th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Email</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Phone Number</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Member Type</th>

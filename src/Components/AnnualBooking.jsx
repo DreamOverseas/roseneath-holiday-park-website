@@ -25,13 +25,13 @@ const AnnualBooking = ({ userType }) => {
     const extraItems = [
         { name: 'extra_horse', price: 20, basis: 'Per night' },
         { name: 'extra_motorbike', price: 20, basis: 'Per night' },
-        { name: 'extra_leaf_bag', price: 15, basis: 'Per book' },
-        { name: 'extra_firewood', price: 23, basis: 'Per book' },
-        { name: 'extra_peking_duck', price: 300, basis: 'Per book' },
-        { name: 'extra_roast_pig', price: 1200, basis: 'Per book' },
-        { name: 'extra_roast_pig_package', price: 1600, basis: 'Per book' },
-        { name: 'extra_roast_lamb', price: 1000, basis: 'Per book' },
-        { name: 'extra_roast_lamb_package', price: 1600, basis: 'Per book' }
+        // { name: 'extra_leaf_bag', price: 15, basis: 'Per book' },
+        { name: 'extra_firewood', price: 25, basis: 'Per book' },
+        // { name: 'extra_peking_duck', price: 300, basis: 'Per book' },
+        // { name: 'extra_roast_pig', price: 1200, basis: 'Per book' },
+        // { name: 'extra_roast_pig_package', price: 1600, basis: 'Per book' },
+        // { name: 'extra_roast_lamb', price: 1000, basis: 'Per book' },
+        // { name: 'extra_roast_lamb_package', price: 1600, basis: 'Per book' }
     ];
 
     const calculateNights = () => {
