@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ImportExcelModal from './ImportExcelModal';
+import ImportExcelModal from '../Components/Admin/ImportExcelModal';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
