@@ -83,8 +83,8 @@ function AboutUs() {
             <Col><Image className="home-food" src="/about/Phillip_Island_Penguin_Parade.webp" /></Col>
           </Row>
           <Row className="about-attraction-row">         
-            <Col><Image className="home-food" src="/about/Peninsula_Hot_Springs.webp" /></Col>
-            <Col><div dangerouslySetInnerHTML={{ __html: t('peninsula_hot_springs') }}/></Col>
+            <Col><Image className="home-food" src="/about/Wilsons_Promontory_National_Park.jpg" /></Col>
+            <Col><div dangerouslySetInnerHTML={{ __html: t('wp_national_park') }}/></Col>
           </Row>
         </Container>
       </section>
