@@ -35,6 +35,27 @@ export default function ImportExcelModal({
     }
   };
 
+  // Parse date in various formats
+  const parseDate = (dateString) => {
+    if (!dateString || dateString.trim() === '') return null;
+    
+    const date = new Date(dateString.trim());
+    if (!isNaN(date.getTime())) {
+      return date.toISOString().split('T')[0];
+    }
+    return null;
+  };
+
+  // Parse Power field
+  const parsePower = (powerString) => {
+    if (!powerString || powerString.trim() === '') return null;
+    
+    const normalized = powerString.trim().toLowerCase();
+    if (normalized === 'powered') return 'Powered';
+    if (normalized === 'unpowered') return 'Unpowered';
+    return null;
+  };
+
   // Parse CSV content
   const parseCSV = (text) => {
     const lines = text.split('\n').map(line => line.trim()).filter(line => line);
@@ -46,6 +67,8 @@ export default function ImportExcelModal({
     
     // Check for required headers
     const requiredHeaders = ['Site Number', 'Name 1', 'Name 2', 'Address', 'Phone 1', 'Phone 2', 'Email 1', 'Email 2'];
+    const optionalHeaders = ['Start date', 'CR', 'End date', 'Note', 'Powered or not'];
+    
     const headerMap = {};
     
     requiredHeaders.forEach(reqHeader => {
@@ -54,6 +77,14 @@ export default function ImportExcelModal({
         throw new Error(`Missing required column: ${reqHeader}`);
       }
       headerMap[reqHeader] = index;
+    });
+
+    // Map optional headers
+    optionalHeaders.forEach(optHeader => {
+      const index = headers.findIndex(h => h.toLowerCase() === optHeader.toLowerCase());
+      if (index !== -1) {
+        headerMap[optHeader] = index;
+      }
     });
 
     const records = [];
@@ -72,7 +103,7 @@ export default function ImportExcelModal({
         const phone1 = values[headerMap['Phone 1']] || '';
         const phone2 = values[headerMap['Phone 2']] || '';
 
-        records.push({
+        const record = {
           SiteNumber: values[headerMap['Site Number']] || '',
           FirstName: name1.firstName,
           LastName: name1.lastName,
@@ -90,7 +121,40 @@ export default function ImportExcelModal({
           TenantType: 'Guest',
           Point: 0,
           DiscountPoint: 0
-        });
+        };
+
+        // Add optional fields if present
+        if (headerMap['Start date'] !== undefined) {
+          const startDate = parseDate(values[headerMap['Start date']]);
+          if (startDate) record.StartDate = startDate;
+        }
+
+        if (headerMap['End date'] !== undefined) {
+          const endDate = parseDate(values[headerMap['End date']]);
+          if (endDate) record.EndDate = endDate;
+        }
+
+        if (headerMap['CR'] !== undefined) {
+          const cr = values[headerMap['CR']] || '';
+          if (cr && cr.trim() !== '') {
+            const crNumber = parseFloat(cr.trim());
+            if (!isNaN(crNumber)) record.CR = crNumber;
+          }
+        }
+
+        if (headerMap['Note'] !== undefined) {
+          const note = values[headerMap['Note']] || '';
+          if (note && note.trim() !== '') {
+            record.Note = note.trim();
+          }
+        }
+
+        if (headerMap['Powered or not'] !== undefined) {
+          const power = parsePower(values[headerMap['Powered or not']]);
+          if (power) record.Power = power;
+        }
+
+        records.push(record);
       }
     }
 
@@ -130,6 +194,21 @@ export default function ImportExcelModal({
     e.target.value = ''; // Reset input
   };
 
+  // Check if user exists by email
+  const checkUserExists = async (email) => {
+    try {
+      const response = await fetch(`https://api.do360.com/api/rhp-memberships?filters[Email][$eq]=${encodeURIComponent(email)}`);
+      if (response.ok) {
+        const data = await response.json();
+        return data.data && data.data.length > 0 ? data.data[0] : null;
+      }
+      return null;
+    } catch (err) {
+      console.error('Error checking user existence:', err);
+      return null;
+    }
+  };
+
   // Upload data to database
   const handleConfirmUpload = async () => {
     setUploading(true);
@@ -138,26 +217,85 @@ export default function ImportExcelModal({
     try {
       const results = {
         success: 0,
+        updated: 0,
         failed: 0,
         errors: []
       };
 
       for (const record of parsedData) {
         try {
-          const response = await fetch('https://api.do360.com/api/rhp-memberships', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ data: record })
-          });
+          // Check if user exists
+          const existingUser = await checkUserExists(record.Email);
+          
+          if (existingUser) {
+            // User exists - update only changed fields
+            const updateData = {};
+            let hasChanges = false;
 
-          if (!response.ok) {
-            const errorData = await response.json();
-            results.failed++;
-            results.errors.push(`${record.Email}: ${errorData.error?.message || 'Upload failed'}`);
+            // Get existing data - Strapi returns data directly in the object
+            const existingData = existingUser;
+
+            // Compare each field and only include if different
+            Object.keys(record).forEach(key => {
+              // Skip Password and UserName for existing users
+              if (key === 'Password' || key === 'UserName') return;
+              
+              if (record[key] !== undefined && record[key] !== null && record[key] !== '') {
+                // Handle null/undefined in existing data
+                const existingValue = existingData[key];
+                
+                if (existingValue !== record[key]) {
+                  updateData[key] = record[key];
+                  hasChanges = true;
+                }
+              }
+            });
+
+            if (hasChanges) {
+              // Use documentId for Strapi updates
+              const documentId = existingUser.documentId;
+              
+              if (!documentId) {
+                results.failed++;
+                results.errors.push(`${record.Email}: No documentId found for existing user`);
+                continue;
+              }
+
+              const response = await fetch(`https://api.do360.com/api/rhp-memberships/${documentId}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: updateData })
+              });
+
+              if (!response.ok) {
+                const errorData = await response.json();
+                results.failed++;
+                results.errors.push(`${record.Email}: ${errorData.error?.message || 'Update failed'}`);
+              } else {
+                results.updated++;
+              }
+            } else {
+              results.success++; // No changes needed
+            }
           } else {
-            results.success++;
+            // User doesn't exist - create new
+            const response = await fetch('https://api.do360.com/api/rhp-memberships', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ data: record })
+            });
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              results.failed++;
+              results.errors.push(`${record.Email}: ${errorData.error?.message || 'Upload failed'}`);
+            } else {
+              results.success++;
+            }
           }
         } catch (err) {
           results.failed++;
@@ -167,13 +305,16 @@ export default function ImportExcelModal({
 
       // Show results
       if (results.failed === 0) {
-        alert(`Successfully uploaded ${results.success} records!`);
+        let message = `Successfully processed ${parsedData.length} records!\n`;
+        if (results.success > 0) message += `✓ ${results.success} created\n`;
+        if (results.updated > 0) message += `✓ ${results.updated} updated`;
+        alert(message);
         handleCloseAll();
         onImportSuccess();
       } else {
-        const message = `Upload completed:\n✓ ${results.success} successful\n✗ ${results.failed} failed\n\nErrors:\n${results.errors.join('\n')}`;
+        const message = `Upload completed:\n✓ ${results.success} created\n✓ ${results.updated} updated\n✗ ${results.failed} failed\n\nErrors:\n${results.errors.join('\n')}`;
         alert(message);
-        if (results.success > 0) {
+        if (results.success > 0 || results.updated > 0) {
           onImportSuccess();
         }
       }
@@ -221,17 +362,24 @@ export default function ImportExcelModal({
                 Please upload a CSV file (Excel saved as CSV) with the following columns:
               </p>
               <ul className="text-sm text-gray-700 space-y-1 mb-4 bg-gray-50 p-3 rounded">
-                <li>• <strong>Site Number</strong></li>
-                <li>• <strong>Name 1</strong></li>
-                <li>• <strong>Name 2</strong></li>
-                <li>• <strong>Address</strong></li>
-                <li>• <strong>Phone 1</strong></li>
-                <li>• <strong>Phone 2</strong></li>
-                <li>• <strong>Email 1</strong> (required - records without email will be skipped)</li>
-                <li>• <strong>Email 2</strong></li>
+                <li>• <strong>Required columns:</strong></li>
+                <li className="ml-4">• <strong>Site Number</strong></li>
+                <li className="ml-4">• <strong>Name 1</strong></li>
+                <li className="ml-4">• <strong>Name 2</strong></li>
+                <li className="ml-4">• <strong>Address</strong></li>
+                <li className="ml-4">• <strong>Phone 1</strong></li>
+                <li className="ml-4">• <strong>Phone 2</strong></li>
+                <li className="ml-4">• <strong>Email 1</strong> (required - used to check for existing users)</li>
+                <li className="ml-4">• <strong>Email 2</strong></li>
+                <li className="mt-2">• <strong>Optional columns:</strong></li>
+                <li className="ml-4">• <strong>Start date</strong> (date format)</li>
+                <li className="ml-4">• <strong>End date</strong> (date format)</li>
+                <li className="ml-4">• <strong>CR</strong> (number)</li>
+                <li className="ml-4">• <strong>Note</strong> (text)</li>
+                <li className="ml-4">• <strong>Powered or not</strong> (Powered/Unpowered)</li>
               </ul>
               <p className="text-xs text-gray-500 italic">
-                Note: Save your Excel file as CSV format before uploading.
+                Note: If Email 1 already exists, the record will be updated with any changed information. New users will have a password generated automatically.
               </p>
             </div>
 
@@ -289,6 +437,7 @@ export default function ImportExcelModal({
 
             <p className="text-sm text-gray-600 mb-4">
               Review the data below before uploading to the database. <strong>{parsedData.length}</strong> records will be imported.
+              Existing users (matched by Email 1) will be updated, new users will be created.
             </p>
 
             {uploadError && (
@@ -312,6 +461,11 @@ export default function ImportExcelModal({
                     <th className="px-3 py-2 text-left text-xs font-semibold">Email 2</th>
                     <th className="px-3 py-2 text-left text-xs font-semibold">Phone 2</th>
                     <th className="px-3 py-2 text-left text-xs font-semibold">Address</th>
+                    <th className="px-3 py-2 text-left text-xs font-semibold">Start Date</th>
+                    <th className="px-3 py-2 text-left text-xs font-semibold">End Date</th>
+                    <th className="px-3 py-2 text-left text-xs font-semibold">CR</th>
+                    <th className="px-3 py-2 text-left text-xs font-semibold">Power</th>
+                    <th className="px-3 py-2 text-left text-xs font-semibold">Note</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -328,6 +482,11 @@ export default function ImportExcelModal({
                       <td className="px-3 py-2 text-xs">{record.Email2 || '-'}</td>
                       <td className="px-3 py-2 text-xs">{record.Contact2 || '-'}</td>
                       <td className="px-3 py-2 text-xs">{record.Address || '-'}</td>
+                      <td className="px-3 py-2 text-xs">{record.StartDate || '-'}</td>
+                      <td className="px-3 py-2 text-xs">{record.EndDate || '-'}</td>
+                      <td className="px-3 py-2 text-xs">{record.CR || '-'}</td>
+                      <td className="px-3 py-2 text-xs">{record.Power || '-'}</td>
+                      <td className="px-3 py-2 text-xs max-w-xs truncate" title={record.Note}>{record.Note || '-'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -350,7 +509,7 @@ export default function ImportExcelModal({
                 {uploading && (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                 )}
-                {uploading ? 'Uploading...' : 'Confirm & Upload'}
+                {uploading ? 'Processing...' : 'Confirm & Upload'}
               </button>
             </div>
           </div>
