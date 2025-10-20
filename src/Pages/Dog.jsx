@@ -11,6 +11,31 @@ export default function Dog() {
   const [filterType, setFilterType] = useState('All User');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const [showColumnSelector, setShowColumnSelector] = useState(false);
+
+  // Column visibility state - all available columns with their display names
+  const [visibleColumns, setVisibleColumns] = useState({
+    SiteNumber: { label: 'Site Number', visible: true },
+    FirstName: { label: 'First Name', visible: true },
+    LastName: { label: 'Last Name', visible: true },
+    Email: { label: 'Email', visible: true },
+    Contact: { label: 'Phone Number', visible: true },
+    TenantType: { label: 'Member Type', visible: true },
+    // Additional columns that can be toggled
+    FirstName2: { label: 'First Name 2', visible: false },
+    LastName2: { label: 'Last Name 2', visible: false },
+    Email2: { label: 'Email 2', visible: false },
+    Contact2: { label: 'Phone 2', visible: false },
+    Address: { label: 'Address', visible: false },
+    UserName: { label: 'Username', visible: false },
+    StartDate: { label: 'Start Date', visible: false },
+    EndDate: { label: 'End Date', visible: false },
+    CR: { label: 'CR', visible: false },
+    Power: { label: 'Power', visible: false },
+    Note: { label: 'Note', visible: false },
+    Point: { label: 'Points', visible: false },
+    DiscountPoint: { label: 'Discount Points', visible: false },
+  });
 
   const CORRECT_PASSWORD = 'Dreamoverseas171!';
   const ADMIN_EMAILS = ['john.du@do360.com', 'hannyanhai@gmail.com', 'xing142857@gmail.com'];
@@ -175,6 +200,53 @@ export default function Dog() {
     });
   };
 
+  const toggleColumnVisibility = (columnKey) => {
+    setVisibleColumns(prev => ({
+      ...prev,
+      [columnKey]: {
+        ...prev[columnKey],
+        visible: !prev[columnKey].visible
+      }
+    }));
+  };
+
+  const getVisibleColumnsArray = () => {
+    return Object.entries(visibleColumns)
+      .filter(([_, config]) => config.visible)
+      .map(([key, config]) => ({ key, label: config.label }));
+  };
+
+  const renderCellContent = (member, columnKey) => {
+    const displayType = getDisplayTenantType(member);
+    
+    switch(columnKey) {
+      case 'TenantType':
+        return (
+          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+            displayType === 'Admin' ? 'bg-purple-100 text-purple-800' :
+            displayType === 'Permanent' ? 'bg-green-100 text-green-800' :
+            displayType === 'Annual' ? 'bg-blue-100 text-blue-800' :
+            'bg-gray-100 text-gray-800'
+          }`}>
+            {getTenantTypeLabel(displayType)}
+          </span>
+        );
+      case 'StartDate':
+      case 'EndDate':
+        return member[columnKey] ? new Date(member[columnKey]).toLocaleDateString() : '-';
+      case 'Power':
+        return member[columnKey] || '-';
+      case 'Note':
+        return (
+          <span className="max-w-xs truncate inline-block" title={member[columnKey]}>
+            {member[columnKey] || '-'}
+          </span>
+        );
+      default:
+        return member[columnKey] || '-';
+    }
+  };
+
   const SortIcon = ({ columnKey }) => {
     if (sortConfig.key !== columnKey) {
       return (
@@ -252,6 +324,15 @@ export default function Dog() {
             <h1 className="text-3xl font-bold text-gray-800">RHP Memberships</h1>
             <div className="flex gap-3">
               <button
+                onClick={() => setShowColumnSelector(!showColumnSelector)}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 font-medium flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                </svg>
+                Columns
+              </button>
+              <button
                 onClick={() => setShowUploadModal(true)}
                 className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200 font-medium"
               >
@@ -266,6 +347,26 @@ export default function Dog() {
             </div>
           </div>
         </div>
+
+        {/* Column Selector */}
+        {showColumnSelector && (
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Select Columns to Display</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {Object.entries(visibleColumns).map(([key, config]) => (
+                <label key={key} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                  <input
+                    type="checkbox"
+                    checked={config.visible}
+                    onChange={() => toggleColumnVisibility(key)}
+                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                  />
+                  <span className="text-sm text-gray-700">{config.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-3">Filter by Member Type</label>
@@ -311,62 +412,30 @@ export default function Dog() {
               <table className="w-full">
                 <thead className="bg-indigo-600 text-white">
                   <tr>
-                    <th 
-                      className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
-                      onClick={() => handleSort('SiteNumber')}
-                    >
-                      <div className="flex items-center">
-                        Site Number
-                        <SortIcon columnKey="SiteNumber" />
-                      </div>
-                    </th>
-                    <th 
-                      className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
-                      onClick={() => handleSort('FirstName')}
-                    >
-                      <div className="flex items-center">
-                        First Name
-                        <SortIcon columnKey="FirstName" />
-                      </div>
-                    </th>
-                    <th 
-                      className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
-                      onClick={() => handleSort('LastName')}
-                    >
-                      <div className="flex items-center">
-                        Last Name
-                        <SortIcon columnKey="LastName" />
-                      </div>
-                    </th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Email</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Phone Number</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Member Type</th>
+                    {getVisibleColumnsArray().map(({ key, label }) => (
+                      <th 
+                        key={key}
+                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                        onClick={() => handleSort(key)}
+                      >
+                        <div className="flex items-center">
+                          {label}
+                          <SortIcon columnKey={key} />
+                        </div>
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {filteredMemberships.map((member, index) => {
-                    const displayType = getDisplayTenantType(member);
-                    return (
-                      <tr key={member.documentID || member.MembershipNumber || index} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 text-sm text-gray-900">{member.SiteNumber || '-'}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{
-                          member.FirstName || '-'}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{member.LastName || '-'}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{member.Email || '-'}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{member.Contact || '-'}</td>
-                        <td className="px-6 py-4 text-sm">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                            displayType === 'Admin' ? 'bg-purple-100 text-purple-800' :
-                            displayType === 'Permanent' ? 'bg-green-100 text-green-800' :
-                            displayType === 'Annual' ? 'bg-blue-100 text-blue-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {getTenantTypeLabel(displayType)}
-                          </span>
+                  {filteredMemberships.map((member, index) => (
+                    <tr key={member.documentID || member.MembershipNumber || index} className="hover:bg-gray-50">
+                      {getVisibleColumnsArray().map(({ key }) => (
+                        <td key={key} className="px-6 py-4 text-sm text-gray-900">
+                          {renderCellContent(member, key)}
                         </td>
-                      </tr>
-                    );
-                  })}
+                      ))}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
