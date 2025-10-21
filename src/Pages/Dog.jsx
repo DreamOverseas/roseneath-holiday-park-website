@@ -347,10 +347,10 @@ export default function Dog() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+        <div className="bg-white rounded-lg shadow-xl p-6 sm:p-8 w-full max-w-md">
           <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">RHP Admin Portal</h1>
-            <p className="text-gray-600">Enter password to access membership data</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">RHP Admin Portal</h1>
+            <p className="text-sm sm:text-base text-gray-600">Enter password to access membership data</p>
           </div>
           
           <div>
@@ -388,30 +388,32 @@ export default function Dog() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold text-gray-800">RHP Memberships</h1>
-            <div className="flex gap-3">
+        {/* Header Section */}
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">RHP Memberships</h1>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <button
                 onClick={() => setShowColumnSelector(!showColumnSelector)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 font-medium flex items-center gap-2"
+                className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                 </svg>
-                Columns
+                <span className="hidden sm:inline">Columns</span>
               </button>
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200 font-medium"
+                className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200 font-medium text-sm sm:text-base"
               >
-                Import Excel
+                <span className="hidden sm:inline">Import Excel</span>
+                <span className="sm:hidden">Import</span>
               </button>
               <button
                 onClick={() => setIsAuthenticated(false)}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition duration-200"
+                className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition duration-200 text-sm sm:text-base"
               >
                 Logout
               </button>
@@ -421,9 +423,9 @@ export default function Dog() {
 
         {/* Column Selector */}
         {showColumnSelector && (
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Select Columns to Display</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Select Columns to Display</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
               {Object.entries(visibleColumns).map(([key, config]) => (
                 <label key={key} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                   <input
@@ -439,14 +441,15 @@ export default function Dog() {
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+        {/* Filter Section */}
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-3">Filter by Member Type</label>
           <div className="flex flex-wrap gap-2">
             {['All User', 'Tenant', 'Annual', 'Permanent', 'Admin'].map((type) => (
               <button
                 key={type}
                 onClick={() => setFilterType(type)}
-                className={`px-4 py-2 rounded-lg font-medium transition duration-200 ${
+                className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition duration-200 text-sm sm:text-base ${
                   filterType === type
                     ? 'bg-indigo-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -458,25 +461,29 @@ export default function Dog() {
           </div>
         </div>
 
+        {/* Loading State */}
         {loading && (
           <div className="bg-white rounded-lg shadow p-8 text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-            <p className="mt-4 text-gray-600">Loading memberships...</p>
+            <p className="mt-4 text-gray-600 text-sm sm:text-base">Loading memberships...</p>
           </div>
         )}
 
+        {/* Error State */}
         {dataError && (
-          <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 mb-6">
+          <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 mb-4 sm:mb-6 text-sm sm:text-base">
             {dataError}
           </div>
         )}
 
+        {/* Empty State */}
         {!loading && !dataError && filteredMemberships.length === 0 && (
-          <div className="bg-white rounded-lg shadow p-8 text-center text-gray-600">
+          <div className="bg-white rounded-lg shadow p-8 text-center text-gray-600 text-sm sm:text-base">
             No memberships found for the selected filter.
           </div>
         )}
 
+        {/* Table */}
         {!loading && !dataError && filteredMemberships.length > 0 && (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div 
@@ -520,8 +527,8 @@ export default function Dog() {
                 </tbody>
               </table>
             </div>
-            <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
-              <p className="text-sm text-gray-600">
+            <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-200">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Showing <span className="font-semibold">{filteredMemberships.length}</span> of <span className="font-semibold">{memberships.length}</span> memberships
               </p>
             </div>
