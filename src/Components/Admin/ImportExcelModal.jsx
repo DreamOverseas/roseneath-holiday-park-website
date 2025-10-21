@@ -95,10 +95,11 @@ export default function ImportExcelModal({
       const values = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.trim().replace(/^"|"$/g, ''));
       
       const email1 = values[headerMap['Email 1']] || '';
+      const name1Raw = values[headerMap['Name 1']] || '';
       
-      // Only import if Email 1 is not empty
-      if (email1 && email1.trim() !== '') {
-        const name1 = parseName(values[headerMap['Name 1']] || '');
+      // Import if either Email 1 OR Name 1 is not empty
+      if ((email1 && email1.trim() !== '') || (name1Raw && name1Raw.trim() !== '')) {
+        const name1 = parseName(name1Raw);
         const name2 = parseName(values[headerMap['Name 2']] || '');
         const phone1 = values[headerMap['Phone 1']] || '';
         const phone2 = values[headerMap['Phone 2']] || '';
@@ -107,7 +108,6 @@ export default function ImportExcelModal({
           SiteNumber: values[headerMap['Site Number']] || '',
           FirstName: name1.firstName,
           LastName: name1.lastName,
-          Email: email1.trim(),
           Contact: phone1 ? parseInt(phone1.replace(/\D/g, '')) : null,
           FirstName2: name2.firstName,
           LastName2: name2.lastName,
@@ -117,11 +117,16 @@ export default function ImportExcelModal({
           IsMember: true,
           ExpiryDate: expiryDate.toISOString().split('T')[0],
           Password: generatePassword(),
-          UserName: email1.trim(),
           TenantType: 'Guest',
           Point: 0,
           DiscountPoint: 0
         };
+
+        // Only add Email and UserName if Email1 is provided
+        if (email1.trim()) {
+          record.Email = email1.trim();
+          record.UserName = email1.trim();
+        }
 
         // Add optional fields if present
         if (headerMap['Start date'] !== undefined) {
@@ -196,6 +201,8 @@ export default function ImportExcelModal({
 
   // Check if user exists by email
   const checkUserExists = async (email) => {
+    if (!email) return null; // Return null if no email provided
+    
     try {
       const response = await fetch(`https://api.do360.com/api/rhp-memberships?filters[Email][$eq]=${encodeURIComponent(email)}`);
       if (response.ok) {
@@ -224,8 +231,8 @@ export default function ImportExcelModal({
 
       for (const record of parsedData) {
         try {
-          // Check if user exists
-          const existingUser = await checkUserExists(record.Email);
+          // Check if user exists (only if email is provided)
+          const existingUser = record.Email ? await checkUserExists(record.Email) : null;
           
           if (existingUser) {
             // User exists - update only changed fields
@@ -257,7 +264,7 @@ export default function ImportExcelModal({
               
               if (!documentId) {
                 results.failed++;
-                results.errors.push(`${record.Email}: No documentId found for existing user`);
+                results.errors.push(`${record.Email || record.FirstName}: No documentId found for existing user`);
                 continue;
               }
 
@@ -272,7 +279,7 @@ export default function ImportExcelModal({
               if (!response.ok) {
                 const errorData = await response.json();
                 results.failed++;
-                results.errors.push(`${record.Email}: ${errorData.error?.message || 'Update failed'}`);
+                results.errors.push(`${record.Email || record.FirstName}: ${errorData.error?.message || 'Update failed'}`);
               } else {
                 results.updated++;
               }
@@ -292,14 +299,14 @@ export default function ImportExcelModal({
             if (!response.ok) {
               const errorData = await response.json();
               results.failed++;
-              results.errors.push(`${record.Email}: ${errorData.error?.message || 'Upload failed'}`);
+              results.errors.push(`${record.Email || record.FirstName}: ${errorData.error?.message || 'Upload failed'}`);
             } else {
               results.success++;
             }
           }
         } catch (err) {
           results.failed++;
-          results.errors.push(`${record.Email}: ${err.message}`);
+          results.errors.push(`${record.Email || record.FirstName}: ${err.message}`);
         }
       }
 
