@@ -22,10 +22,10 @@
 }
 
 .NavigationBar {
-  margin-top: 2%;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-bottom: 2%;
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 1%;
   padding: 15px 20px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
   border: 2px solid transparent;
