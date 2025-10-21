@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ImportExcelModal from '../Components/Admin/ImportExcelModal';
+import MemberDetailModal from '../Components/Admin/MemberDetailModal';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -300,6 +301,11 @@ export default function Dog() {
     }
   };
 
+  const handleMemberUpdate = (updatedMember) => {
+    // Refresh the memberships list after update
+    fetchMemberships();
+  };
+
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
@@ -333,149 +339,6 @@ export default function Dog() {
       <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
       </svg>
-    );
-  };
-
-  const MemberDetailModal = () => {
-    if (!selectedMember) return null;
-
-    const displayType = getDisplayTenantType(selectedMember);
-    
-    const detailSections = [
-      {
-        title: 'Basic Information',
-        fields: [
-          { label: 'Site Number', value: selectedMember.SiteNumber },
-          { label: 'Member Type', value: getTenantTypeLabel(displayType), badge: true },
-          { label: 'Username', value: selectedMember.UserName },
-        ]
-      },
-      {
-        title: 'Primary Contact',
-        fields: [
-          { label: 'First Name', value: selectedMember.FirstName },
-          { label: 'Last Name', value: selectedMember.LastName },
-          { label: 'Email', value: selectedMember.Email },
-          { label: 'Phone', value: selectedMember.Contact },
-        ]
-      },
-      {
-        title: 'Secondary Contact',
-        fields: [
-          { label: 'First Name 2', value: selectedMember.FirstName2 },
-          { label: 'Last Name 2', value: selectedMember.LastName2 },
-          { label: 'Email 2', value: selectedMember.Email2 },
-          { label: 'Phone 2', value: selectedMember.Contact2 },
-        ]
-      },
-      {
-        title: 'Address & Location',
-        fields: [
-          { label: 'Address', value: selectedMember.Address, fullWidth: true },
-        ]
-      },
-      {
-        title: 'Membership Details',
-        fields: [
-          { label: 'Start Date', value: selectedMember.StartDate ? new Date(selectedMember.StartDate).toLocaleDateString() : '-' },
-          { label: 'End Date', value: selectedMember.EndDate ? new Date(selectedMember.EndDate).toLocaleDateString() : '-' },
-          { label: 'CR', value: selectedMember.CR },
-          { label: 'Power', value: selectedMember.Power },
-        ]
-      },
-      {
-        title: 'Points & Rewards',
-        fields: [
-          { label: 'Points', value: selectedMember.Point },
-          { label: 'Discount Points', value: selectedMember.DiscountPoint },
-        ]
-      },
-      {
-        title: 'Notes',
-        fields: [
-          { label: 'Note', value: selectedMember.Note, fullWidth: true, textarea: true },
-        ]
-      }
-    ];
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10">
-        <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-          {/* Header */}
-          <div className="bg-indigo-600 text-white p-6 flex justify-between items-center">
-            <div>
-              <h2 className="text-2xl font-bold">Member Details</h2>
-              <p className="text-indigo-100 mt-1">
-                {selectedMember.FirstName} {selectedMember.LastName}
-              </p>
-            </div>
-            <button
-              onClick={() => setShowDetailModal(false)}
-              className="text-white hover:bg-indigo-700 rounded-full p-2 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Content */}
-          <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-            {detailSections.map((section, sectionIdx) => (
-              <div key={sectionIdx} className="mb-6 last:mb-0">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">
-                  {section.title}
-                </h3>
-                <div className={`grid ${section.fields.some(f => f.fullWidth) ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'} gap-4`}>
-                  {section.fields.map((field, fieldIdx) => {
-                    const value = field.value || '-';
-                    const hasValue = field.value && field.value !== '-';
-                    
-                    return (
-                      <div 
-                        key={fieldIdx} 
-                        className={`${field.fullWidth ? 'md:col-span-2' : ''} ${!hasValue ? 'opacity-50' : ''}`}
-                      >
-                        <label className="block text-sm font-medium text-gray-600 mb-1">
-                          {field.label}
-                        </label>
-                        {field.badge ? (
-                          <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                            displayType === 'Admin' ? 'bg-purple-100 text-purple-800' :
-                            displayType === 'Permanent' ? 'bg-green-100 text-green-800' :
-                            displayType === 'Annual' ? 'bg-blue-100 text-blue-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {value}
-                          </span>
-                        ) : field.textarea ? (
-                          <div className="text-sm text-gray-900 bg-gray-50 p-3 rounded border border-gray-200 whitespace-pre-wrap">
-                            {value}
-                          </div>
-                        ) : (
-                          <div className="text-sm text-gray-900 bg-gray-50 p-2 rounded border border-gray-200">
-                            {value}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="bg-gray-50 px-6 py-4 border-t flex justify-end">
-            <button
-              onClick={() => setShowDetailModal(false)}
-              className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition duration-200 font-medium"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
     );
   };
 
@@ -674,7 +537,16 @@ export default function Dog() {
       />
 
       {/* Member Detail Modal */}
-      {showDetailModal && <MemberDetailModal />}
+      <MemberDetailModal
+        member={selectedMember}
+        isOpen={showDetailModal}
+        onClose={() => {
+          setShowDetailModal(false);
+          setSelectedMember(null);
+        }}
+        onUpdateSuccess={handleMemberUpdate}
+        adminEmails={ADMIN_EMAILS}
+      />
     </div>
   );
 }
