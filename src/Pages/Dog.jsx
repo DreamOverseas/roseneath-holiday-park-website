@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ImportExcelModal from '../Components/Admin/ImportExcelModal';
 
 export default function Dog() {
@@ -12,6 +12,12 @@ export default function Dog() {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [showColumnSelector, setShowColumnSelector] = useState(false);
+
+  // Drag state
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [scrollStart, setScrollStart] = useState({ x: 0, y: 0 });
+  const tableContainerRef = useRef(null);
 
   // Column visibility state - all available columns with their display names
   const [visibleColumns, setVisibleColumns] = useState({
@@ -247,6 +253,51 @@ export default function Dog() {
     }
   };
 
+  // Drag handlers
+  const handleMouseDown = (e) => {
+    if (!tableContainerRef.current) return;
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX,
+      y: e.clientY
+    });
+    setScrollStart({
+      x: tableContainerRef.current.scrollLeft,
+      y: tableContainerRef.current.scrollTop
+    });
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !tableContainerRef.current) return;
+    
+    const deltaX = e.clientX - dragStart.x;
+    const deltaY = e.clientY - dragStart.y;
+    
+    tableContainerRef.current.scrollLeft = scrollStart.x - deltaX;
+    tableContainerRef.current.scrollTop = scrollStart.y - deltaY;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, dragStart, scrollStart]);
+
   const SortIcon = ({ columnKey }) => {
     if (sortConfig.key !== columnKey) {
       return (
@@ -408,9 +459,15 @@ export default function Dog() {
 
         {!loading && !dataError && filteredMemberships.length > 0 && (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-indigo-600 text-white">
+            <div 
+              ref={tableContainerRef}
+              className={`overflow-auto ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              style={{ maxHeight: '70vh' }}
+            >
+              <table className="w-full" style={{ userSelect: isDragging ? 'none' : 'auto' }}>
+                <thead className="bg-indigo-600 text-white sticky top-0 z-10">
                   <tr>
                     {getVisibleColumnsArray().map(({ key, label }) => (
                       <th 
