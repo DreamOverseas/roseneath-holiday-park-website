@@ -241,6 +241,13 @@
   "update_pwd.old": "请输入旧密码",
   "update_pwd.new": "新密码",
   "update_pwd.confirm": "确认新密码",
+  "update_detail.email": "电子邮件",
+  "update_detail.address": "地址",
+  "update_detail.second_person": "第二人信息",
+  "update_detail.firstName2": "名字（第二人）",
+  "update_detail.lastName2": "姓氏（第二人）",
+  "update_detail.email2": "电子邮件（第二人）",
+  "update_detail.contact2": "联系方式（第二人）",
   
   "annual_booking_title": "年度预订",
   "annual_booking_checkin": "入住日期",

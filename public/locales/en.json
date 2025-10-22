@@ -238,6 +238,13 @@
   "update_pwd.old": "Current password",
   "update_pwd.new": "New Password",
   "update_pwd.confirm": "Confirm Password",
+  "update_detail.email": "Email",
+  "update_detail.address": "Address",
+  "update_detail.second_person": "Second Person Information",
+  "update_detail.firstName2": "First Name (Person 2)",
+  "update_detail.lastName2": "Last Name (Person 2)",
+  "update_detail.email2": "Email (Person 2)",
+  "update_detail.contact2": "Contact (Person 2)",
 
   "annual_booking_title": "Annual Booking",
   "annual_booking_checkin": "Check-in Date",
