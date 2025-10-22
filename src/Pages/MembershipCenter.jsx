@@ -75,7 +75,12 @@ const MemberCenter = () => {
             email: userdata.Email,
             contact: userdata.Contact || 'Not Specified',
             is_member: userdata.IsMember,
-            tenant_type: userdata.TenantType
+            tenant_type: userdata.TenantType,
+            address: userdata.Address || 'Not Specified',
+            fname2: userdata.FirstName2 || 'Not Specified',
+            lname2: userdata.LastName2 || 'Not Specified',
+            email2: userdata.Email2 || 'Not Specified',
+            contact2: userdata.Contact2 || 'Not Specified'
         };
         // If the user is a member, add additional fields to the cookie.
         if (userdata.IsMember) {
@@ -143,6 +148,10 @@ const MemberCenter = () => {
                                     }
                                 </Row>
                                 <Row className="mb-3">
+                                    <Col sm={3} className="text-muted">{t("membership_address")}</Col>
+                                    <Col sm={9}>{user.address || '<Not Specified>'}</Col>
+                                </Row>
+                                <Row className="mb-3">
                                     <Col sm={3} className="text-muted">{t("membership_num")}</Col>
                                     <Col sm={3}>{ user.number=='N/A' ? t("membership_issuing") : user.number }</Col>
                                     <Col sm={3} className="text-muted">{t("membership_exp")}</Col>
@@ -161,6 +170,33 @@ const MemberCenter = () => {
                                         {/* <MemberPointTopupBtn /> */}
                                         <DetailUpdateBtn />
                                     </Col>
+                                </Row>
+                                
+                                {/* Second Person Information */}
+                                <hr className="my-4" />
+                                <h5 className="mb-3">{t("membership_second_person_info")}</h5>
+                                <Row className="mb-3">
+                                    {i18n.language == 'zh' ?
+                                        <>
+                                            <Col sm={3} className="text-muted">{t("membership_lname2")}</Col>
+                                            <Col sm={3}>{user.lname2 || '<Not Specified>'}</Col>
+                                            <Col sm={3} className="text-muted">{t("membership_fname2")}</Col>
+                                            <Col sm={3}>{user.fname2 || '<Not Specified>'}</Col>
+                                        </>
+                                        :
+                                        <>
+                                            <Col sm={3} className="text-muted">{t("membership_fname2")}</Col>
+                                            <Col sm={3}>{user.fname2 || '<Not Specified>'}</Col>
+                                            <Col sm={3} className="text-muted">{t("membership_lname2")}</Col>
+                                            <Col sm={3}>{user.lname2 || '<Not Specified>'}</Col>
+                                        </>
+                                    }
+                                </Row>
+                                <Row className="mb-3">
+                                    <Col sm={3} className="text-muted">{t("membership_email2")}</Col>
+                                    <Col sm={3}>{user.email2 || '<Not Specified>'}</Col>
+                                    <Col sm={3} className="text-muted">{t("membership_contact2")}</Col>
+                                    <Col sm={3}>{user.contact2 || '<Not Specified>'}</Col>
                                 </Row>
                             </>
                             : <></>}

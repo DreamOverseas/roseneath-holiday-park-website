@@ -24,7 +24,13 @@ const DetailUpdateBtn = () => {
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
+  const [address, setAddress] = useState('');
+  const [firstName2, setFirstName2] = useState('');
+  const [lastName2, setLastName2] = useState('');
+  const [email2, setEmail2] = useState('');
+  const [contact2, setContact2] = useState('');
 
   const { t } = useTranslation();
 
@@ -201,7 +207,13 @@ const DetailUpdateBtn = () => {
     setUserName('');
     setFirstName('');
     setLastName('');
+    setEmail('');
     setContact('');
+    setAddress('');
+    setFirstName2('');
+    setLastName2('');
+    setEmail2('');
+    setContact2('');
   };
 
   /**
@@ -211,7 +223,8 @@ const DetailUpdateBtn = () => {
   const handleSubmit = async () => {
     setError('');
     // Ensure at least one field has been changed
-    if (!userName && !firstName && !lastName && !contact) {
+    if (!userName && !firstName && !lastName && !email && !contact && !address && 
+        !firstName2 && !lastName2 && !email2 && !contact2) {
       setError('Please update at least one field.');
       return;
     }
@@ -221,7 +234,13 @@ const DetailUpdateBtn = () => {
     if (userName) payload.UserName = userName;
     if (firstName) payload.FirstName = firstName;
     if (lastName) payload.LastName = lastName;
+    if (email) payload.Email = email;
     if (contact) payload.Contact = contact;
+    if (address) payload.Address = address;
+    if (firstName2) payload.FirstName2 = firstName2;
+    if (lastName2) payload.LastName2 = lastName2;
+    if (email2) payload.Email2 = email2;
+    if (contact2) payload.Contact2 = contact2;
 
     try {
       const res = await fetch(
@@ -244,7 +263,13 @@ const DetailUpdateBtn = () => {
           ...(userName ? { name: userName } : {}),
           ...(firstName ? { fname: firstName } : {}),
           ...(lastName ? { lname: lastName } : {}),
+          ...(email ? { email: email } : {}),
           ...(contact ? { contact: contact } : {}),
+          ...(address ? { address: address } : {}),
+          ...(firstName2 ? { fname2: firstName2 } : {}),
+          ...(lastName2 ? { lname2: lastName2 } : {}),
+          ...(email2 ? { email2: email2 } : {}),
+          ...(contact2 ? { contact2: contact2 } : {}),
         };
 
         Cookies.set('user', JSON.stringify(updatedData), { expires: 7, path: '/' });
@@ -280,7 +305,7 @@ const DetailUpdateBtn = () => {
       {/* Modal overlay and content */}
       {showModal && (
         <div className="!fixed inset-0 bg-black/50 flex !items-center !justify-center !z-50">
-          <div className="!bg-white !rounded-lg shadow-lg !w-full max-w-md !mx-4">
+          <div className="!bg-white !rounded-lg shadow-lg !w-full max-w-2xl !mx-4 max-h-[90vh] overflow-y-auto">
             {/* Title */}
             <div className="px-6 py-4 border-b">
               <h2 className="text-lg font-semibold">{t("update_detail")}</h2>
@@ -297,6 +322,17 @@ const DetailUpdateBtn = () => {
                   placeholder={t("update_detail.placeholder")}
                   value={userName}
                   onChange={e => setUserName(e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">{t("update_detail.email")}</label>
+                <input
+                  type="email"
+                  placeholder={t("update_detail.placeholder")}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
               </div>
@@ -333,6 +369,65 @@ const DetailUpdateBtn = () => {
                       placeholder={t("update_detail.placeholder")}
                       value={lastName}
                       onChange={e => setLastName(e.target.value)}
+                      className="w-full border border-gray-300 rounded px-3 py-2"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">{t("update_detail.address")}</label>
+                    <textarea
+                      placeholder={t("update_detail.placeholder")}
+                      value={address}
+                      onChange={e => setAddress(e.target.value)}
+                      className="w-full border border-gray-300 rounded px-3 py-2"
+                      rows="3"
+                    />
+                  </div>
+
+                  {/* Second Person Information */}
+                  <hr className="my-4" />
+                  <h5 className="text-md font-semibold mb-3">{t("update_detail.second_person")}</h5>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">{t("update_detail.firstName2")}</label>
+                    <input
+                      type="text"
+                      placeholder={t("update_detail.placeholder")}
+                      value={firstName2}
+                      onChange={e => setFirstName2(e.target.value)}
+                      className="w-full border border-gray-300 rounded px-3 py-2"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">{t("update_detail.lastName2")}</label>
+                    <input
+                      type="text"
+                      placeholder={t("update_detail.placeholder")}
+                      value={lastName2}
+                      onChange={e => setLastName2(e.target.value)}
+                      className="w-full border border-gray-300 rounded px-3 py-2"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">{t("update_detail.email2")}</label>
+                    <input
+                      type="email"
+                      placeholder={t("update_detail.placeholder")}
+                      value={email2}
+                      onChange={e => setEmail2(e.target.value)}
+                      className="w-full border border-gray-300 rounded px-3 py-2"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">{t("update_detail.contact2")}</label>
+                    <input
+                      type="text"
+                      placeholder={t("update_detail.placeholder")}
+                      value={contact2}
+                      onChange={e => setContact2(e.target.value)}
                       className="w-full border border-gray-300 rounded px-3 py-2"
                     />
                   </div>

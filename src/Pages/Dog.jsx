@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ImportExcelModal from '../Components/Admin/ImportExcelModal';
 import MemberDetailModal from '../Components/Admin/MemberDetailModal';
+import BookingList from '../Components/Admin/BookingList';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -554,6 +555,8 @@ export default function Dog() {
         onUpdateSuccess={handleMemberUpdate}
         adminEmails={ADMIN_EMAILS}
       />
+
+      <BookingList/>
     </div>
   );
 }
