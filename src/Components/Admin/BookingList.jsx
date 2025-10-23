@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const BookingList = () => {
@@ -9,30 +9,9 @@ const BookingList = () => {
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [showDetailModal, setShowDetailModal] = useState(false);
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-    const [showColumnSelector, setShowColumnSelector] = useState(false);
-
-    // Drag state
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-    const [scrollStart, setScrollStart] = useState({ x: 0, y: 0 });
-    const tableContainerRef = useRef(null);
 
     const CMSEndpoint = import.meta.env.VITE_CMS_ENDPOINT;
     const CMSApiKey = import.meta.env.VITE_CMS_TOKEN;
-
-    // Column visibility state
-    const [visibleColumns, setVisibleColumns] = useState({
-        siteNumber: { label: 'Site Number', visible: true },
-        checkin: { label: 'Check-in', visible: true },
-        checkout: { label: 'Check-out', visible: true },
-        nights: { label: 'Nights', visible: true },
-        adultNumber: { label: 'Adults', visible: true },
-        childNumber: { label: 'Children', visible: true },
-        totalGuests: { label: 'Total Guests', visible: false },
-        totalPrice: { label: 'Total Price', visible: true },
-        extras: { label: 'Extras', visible: false },
-        createdAt: { label: 'Booked Date', visible: false },
-    });
 
     useEffect(() => {
         fetchBookings();
@@ -127,10 +106,6 @@ const BookingList = () => {
                     aValue = calculateNights(aAttrs.checkin, aAttrs.checkout);
                     bValue = calculateNights(bAttrs.checkin, bAttrs.checkout);
                     break;
-                case 'totalGuests':
-                    aValue = (aAttrs.adultNumber || 0) + (aAttrs.childNumber || 0);
-                    bValue = (bAttrs.adultNumber || 0) + (bAttrs.childNumber || 0);
-                    break;
                 case 'siteNumber':
                     const aStr = String(aAttrs.siteNumber || '');
                     const bStr = String(bAttrs.siteNumber || '');
@@ -168,119 +143,6 @@ const BookingList = () => {
         });
     };
 
-    const toggleColumnVisibility = (columnKey) => {
-        setVisibleColumns(prev => ({
-            ...prev,
-            [columnKey]: {
-                ...prev[columnKey],
-                visible: !prev[columnKey].visible
-            }
-        }));
-    };
-
-    const getVisibleColumnsArray = () => {
-        return Object.entries(visibleColumns)
-            .filter(([_, config]) => config.visible)
-            .map(([key, config]) => ({ key, label: config.label }));
-    };
-
-    const renderCellContent = (booking, columnKey) => {
-        const attrs = booking.attributes || booking;
-        
-        switch(columnKey) {
-            case 'siteNumber':
-                return attrs.siteNumber || '-';
-            case 'checkin':
-                return formatDate(attrs.checkin);
-            case 'checkout':
-                return formatDate(attrs.checkout);
-            case 'nights':
-                const nights = calculateNights(attrs.checkin, attrs.checkout);
-                return (
-                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                        {nights} {nights === 1 ? 'night' : 'nights'}
-                    </span>
-                );
-            case 'adultNumber':
-                return attrs.adultNumber || 0;
-            case 'childNumber':
-                return attrs.childNumber || 0;
-            case 'totalGuests':
-                return (attrs.adultNumber || 0) + (attrs.childNumber || 0);
-            case 'totalPrice':
-                return (
-                    <span className="font-semibold text-green-600">
-                        ${attrs.totalPrice?.toFixed(2) || '0.00'}
-                    </span>
-                );
-            case 'extras':
-                return attrs.extra && attrs.extra.length > 0 ? (
-                    <span className="inline-block px-2 py-1 rounded bg-yellow-100 text-yellow-800 text-xs">
-                        {attrs.extra.length} item(s)
-                    </span>
-                ) : '-';
-            case 'createdAt':
-                return formatDate(attrs.createdAt);
-            default:
-                return attrs[columnKey] || '-';
-        }
-    };
-
-    // Drag handlers
-    const handleMouseDown = (e) => {
-        if (!tableContainerRef.current) return;
-        setIsDragging(true);
-        setDragStart({
-            x: e.clientX,
-            y: e.clientY
-        });
-        setScrollStart({
-            x: tableContainerRef.current.scrollLeft,
-            y: tableContainerRef.current.scrollTop
-        });
-        e.preventDefault();
-    };
-
-    const handleMouseMove = (e) => {
-        if (!isDragging || !tableContainerRef.current) return;
-        
-        const deltaX = e.clientX - dragStart.x;
-        const deltaY = e.clientY - dragStart.y;
-        
-        tableContainerRef.current.scrollLeft = scrollStart.x - deltaX;
-        tableContainerRef.current.scrollTop = scrollStart.y - deltaY;
-    };
-
-    const handleMouseUp = () => {
-        setIsDragging(false);
-    };
-
-    const handleMouseLeave = () => {
-        setIsDragging(false);
-    };
-
-    const handleRowClick = (booking, e) => {
-        const deltaX = Math.abs(e.clientX - dragStart.x);
-        const deltaY = Math.abs(e.clientY - dragStart.y);
-        
-        if (deltaX < 5 && deltaY < 5) {
-            setSelectedBooking(booking);
-            setShowDetailModal(true);
-        }
-    };
-
-    useEffect(() => {
-        if (isDragging) {
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
-            
-            return () => {
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseup', handleMouseUp);
-            };
-        }
-    }, [isDragging, dragStart, scrollStart]);
-
     const SortIcon = ({ columnKey }) => {
         if (sortConfig.key !== columnKey) {
             return (
@@ -313,60 +175,29 @@ const BookingList = () => {
             <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">Annual Bookings</h2>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                        <button
-                            onClick={() => setShowColumnSelector(!showColumnSelector)}
-                            className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
-                        >
-                            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-                            </svg>
-                            <span className="hidden sm:inline">Columns</span>
-                        </button>
-                        <button
-                            onClick={fetchBookings}
-                            className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
-                        >
-                            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                            <span className="hidden sm:inline">Refresh</span>
-                        </button>
-                    </div>
+                    <button
+                        onClick={fetchBookings}
+                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Refresh
+                    </button>
                 </div>
             </div>
-
-            {/* Column Selector */}
-            {showColumnSelector && (
-                <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Select Columns to Display</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
-                        {Object.entries(visibleColumns).map(([key, config]) => (
-                            <label key={key} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <input
-                                    type="checkbox"
-                                    checked={config.visible}
-                                    onChange={() => toggleColumnVisibility(key)}
-                                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                                />
-                                <span className="text-sm text-gray-700">{config.label}</span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-            )}
 
             {/* Loading State */}
             {loading && (
                 <div className="bg-white rounded-lg shadow p-8 text-center">
                     <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-                    <p className="mt-4 text-gray-600 text-sm sm:text-base">Loading bookings...</p>
+                    <p className="mt-4 text-gray-600">Loading bookings...</p>
                 </div>
             )}
 
             {/* Error State */}
             {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 mb-4 sm:mb-6 text-sm sm:text-base flex justify-between items-center">
+                <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 mb-6 flex justify-between items-center">
                     <span>{error}</span>
                     <button onClick={() => setError('')} className="text-red-700 hover:text-red-900">
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -378,7 +209,7 @@ const BookingList = () => {
 
             {/* Empty State */}
             {!loading && !error && sortedBookings.length === 0 && (
-                <div className="bg-white rounded-lg shadow p-8 text-center text-gray-600 text-sm sm:text-base">
+                <div className="bg-white rounded-lg shadow p-8 text-center text-gray-600">
                     <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
@@ -390,49 +221,122 @@ const BookingList = () => {
             {/* Table */}
             {!loading && !error && sortedBookings.length > 0 && (
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div 
-                        ref={tableContainerRef}
-                        className={`overflow-auto ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-                        onMouseDown={handleMouseDown}
-                        onMouseLeave={handleMouseLeave}
-                        style={{ maxHeight: '70vh' }}
-                    >
-                        <table className="w-full" style={{ userSelect: isDragging ? 'none' : 'auto' }}>
-                            <thead className="bg-indigo-600 text-white sticky top-0 z-10">
+                    <div className="overflow-x-auto">
+                        <table className="w-full">
+                            <thead className="bg-indigo-600 text-white">
                                 <tr>
-                                    {getVisibleColumnsArray().map(({ key, label }) => (
-                                        <th 
-                                            key={key}
-                                            className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors whitespace-nowrap"
-                                            onClick={() => handleSort(key)}
-                                        >
-                                            <div className="flex items-center">
-                                                {label}
-                                                <SortIcon columnKey={key} />
-                                            </div>
-                                        </th>
-                                    ))}
+                                    <th 
+                                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                                        onClick={() => handleSort('siteNumber')}
+                                    >
+                                        <div className="flex items-center">
+                                            Site Number
+                                            <SortIcon columnKey="siteNumber" />
+                                        </div>
+                                    </th>
+                                    <th 
+                                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                                        onClick={() => handleSort('checkin')}
+                                    >
+                                        <div className="flex items-center">
+                                            Check-in
+                                            <SortIcon columnKey="checkin" />
+                                        </div>
+                                    </th>
+                                    <th 
+                                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                                        onClick={() => handleSort('checkout')}
+                                    >
+                                        <div className="flex items-center">
+                                            Check-out
+                                            <SortIcon columnKey="checkout" />
+                                        </div>
+                                    </th>
+                                    <th 
+                                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                                        onClick={() => handleSort('nights')}
+                                    >
+                                        <div className="flex items-center">
+                                            Nights
+                                            <SortIcon columnKey="nights" />
+                                        </div>
+                                    </th>
+                                    <th 
+                                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                                        onClick={() => handleSort('adultNumber')}
+                                    >
+                                        <div className="flex items-center">
+                                            Adults
+                                            <SortIcon columnKey="adultNumber" />
+                                        </div>
+                                    </th>
+                                    <th 
+                                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                                        onClick={() => handleSort('childNumber')}
+                                    >
+                                        <div className="flex items-center">
+                                            Children
+                                            <SortIcon columnKey="childNumber" />
+                                        </div>
+                                    </th>
+                                    <th 
+                                        className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
+                                        onClick={() => handleSort('totalPrice')}
+                                    >
+                                        <div className="flex items-center">
+                                            Total Price
+                                            <SortIcon columnKey="totalPrice" />
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
-                                {sortedBookings.map((booking, index) => (
-                                    <tr 
-                                        key={booking.id || index} 
-                                        className="hover:bg-gray-50 cursor-pointer transition-colors"
-                                        onClick={(e) => handleRowClick(booking, e)}
-                                    >
-                                        {getVisibleColumnsArray().map(({ key }) => (
-                                            <td key={key} className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
-                                                {renderCellContent(booking, key)}
+                                {sortedBookings.map((booking, index) => {
+                                    const attrs = booking.attributes || booking;
+                                    const nights = calculateNights(attrs.checkin, attrs.checkout);
+                                    
+                                    return (
+                                        <tr 
+                                            key={booking.id || index} 
+                                            className="hover:bg-gray-50 cursor-pointer transition-colors"
+                                            onClick={() => {
+                                                setSelectedBooking(booking);
+                                                setShowDetailModal(true);
+                                            }}
+                                        >
+                                            <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                {attrs.siteNumber || '-'}
                                             </td>
-                                        ))}
-                                    </tr>
-                                ))}
+                                            <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                {formatDate(attrs.checkin)}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                {formatDate(attrs.checkout)}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                                                    {nights} {nights === 1 ? 'night' : 'nights'}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                {attrs.adultNumber || 0}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                {attrs.childNumber || 0}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                                <span className="font-semibold text-green-600">
+                                                    ${attrs.totalPrice?.toFixed(2) || '0.00'}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
-                    <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-200">
-                        <p className="text-xs sm:text-sm text-gray-600">
+                    <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                        <p className="text-sm text-gray-600">
                             Showing <span className="font-semibold">{sortedBookings.length}</span> booking{sortedBookings.length !== 1 ? 's' : ''}
                         </p>
                     </div>
@@ -485,6 +389,23 @@ const BookingList = () => {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {/* Vehicle Registration Numbers */}
+                                        {attrs.RegistrationNumber && attrs.RegistrationNumber.length > 0 && (
+                                            <div className="bg-purple-50 rounded-lg p-4 mb-4">
+                                                <h4 className="font-semibold text-gray-800 mb-2">Vehicle Registration Numbers</h4>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {attrs.RegistrationNumber.map((reg, index) => (
+                                                        <span 
+                                                            key={index} 
+                                                            className="inline-block px-3 py-1 bg-purple-200 text-purple-800 rounded-md text-sm font-medium"
+                                                        >
+                                                            {reg.RegistrationNumber}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
 
                                         <div className="bg-green-50 rounded-lg p-4 mb-4">
                                             <h4 className="font-semibold text-gray-800 mb-2">Guest Information</h4>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ImportExcelModal from '../Components/Admin/ImportExcelModal';
 import MemberDetailModal from '../Components/Admin/MemberDetailModal';
 import BookingList from '../Components/Admin/BookingList';
+import BusinessFunnel from '../Components/Admin/BusinessFunnel';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -557,6 +558,7 @@ export default function Dog() {
       />
 
       <BookingList/>
+      <BusinessFunnel/>
     </div>
   );
 }

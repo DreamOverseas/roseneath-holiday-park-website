@@ -9,6 +9,7 @@ const AnnualBooking = ({ userType }) => {
     const [siteNumber, setSiteNumber] = useState('');
     const [adultNumber, setAdultNumber] = useState(0);
     const [childNumber, setChildNumber] = useState(0);
+    const [registrationNumbers, setRegistrationNumbers] = useState(['']); // New state for vehicle registrations
     const [selectedExtras, setSelectedExtras] = useState([]);
     const [showBankDetails, setShowBankDetails] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -25,14 +26,28 @@ const AnnualBooking = ({ userType }) => {
     const extraItems = [
         { name: 'extra_horse', price: 20, basis: 'Per night' },
         { name: 'extra_motorbike', price: 20, basis: 'Per night' },
-        // { name: 'extra_leaf_bag', price: 15, basis: 'Per book' },
         { name: 'extra_firewood', price: 25, basis: 'Per book' },
-        // { name: 'extra_peking_duck', price: 300, basis: 'Per book' },
-        // { name: 'extra_roast_pig', price: 1200, basis: 'Per book' },
-        // { name: 'extra_roast_pig_package', price: 1600, basis: 'Per book' },
-        // { name: 'extra_roast_lamb', price: 1000, basis: 'Per book' },
-        // { name: 'extra_roast_lamb_package', price: 1600, basis: 'Per book' }
     ];
+
+    // Handler to add a new registration number field
+    const handleAddRegistration = () => {
+        setRegistrationNumbers([...registrationNumbers, '']);
+    };
+
+    // Handler to remove a registration number field
+    const handleRemoveRegistration = (index) => {
+        if (registrationNumbers.length > 1) {
+            const newRegistrations = registrationNumbers.filter((_, i) => i !== index);
+            setRegistrationNumbers(newRegistrations);
+        }
+    };
+
+    // Handler to update a specific registration number
+    const handleRegistrationChange = (index, value) => {
+        const newRegistrations = [...registrationNumbers];
+        newRegistrations[index] = value.toUpperCase(); // Convert to uppercase for consistency
+        setRegistrationNumbers(newRegistrations);
+    };
 
     const calculateNights = () => {
         if (!checkin || !checkout) return 0;
@@ -123,6 +138,13 @@ const AnnualBooking = ({ userType }) => {
             return;
         }
 
+        // Check if at least one registration number is provided
+        const hasValidRegistration = registrationNumbers.some(reg => reg.trim() !== '');
+        if (!hasValidRegistration) {
+            setError(t('annual_booking_need_registration') || 'Please enter at least one vehicle registration number');
+            return;
+        }
+
         setError('');
         setShowBankDetails(true);
     };
@@ -143,6 +165,11 @@ const AnnualBooking = ({ userType }) => {
                 };
             });
 
+            // Filter out empty registration numbers
+            const validRegistrations = registrationNumbers
+                .filter(reg => reg.trim() !== '')
+                .map(reg => ({ RegistrationNumber: reg.trim() }));
+
             const response = await fetch(`${CMSEndpoint}/api/annual-bookings`, {
                 method: 'POST',
                 headers: {
@@ -157,7 +184,8 @@ const AnnualBooking = ({ userType }) => {
                         adultNumber: parseInt(adultNumber) || 0,
                         childNumber: parseInt(childNumber) || 0,
                         totalPrice: calculateTotalPrice(),
-                        extra: extrasWithPrice
+                        extra: extrasWithPrice,
+                        RegistrationNumber: validRegistrations // Add registration numbers
                     }
                 })
             });
@@ -171,6 +199,7 @@ const AnnualBooking = ({ userType }) => {
                 setSiteNumber('');
                 setAdultNumber(0);
                 setChildNumber(0);
+                setRegistrationNumbers(['']); // Reset registration numbers
                 setSelectedExtras([]);
             } else {
                 const errorData = await response.json();
@@ -230,6 +259,57 @@ const AnnualBooking = ({ userType }) => {
                             </Form.Group>
                         </Col>
                     </Row>
+
+                    {/* Vehicle Registration Numbers Section */}
+                    <div className="mb-3">
+                        <Form.Label className="fw-bold">
+                            {t('annual_booking_registration_numbers') || 'Vehicle Registration Number(s)'}
+                        </Form.Label>
+                        {registrationNumbers.map((registration, index) => (
+                            <Row key={index} className="mb-2 align-items-center">
+                                <Col md={10}>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder={t('annual_booking_registration_placeholder') || 'Enter registration number (e.g., ABC123)'}
+                                        value={registration}
+                                        onChange={(e) => handleRegistrationChange(index, e.target.value)}
+                                        required={index === 0}
+                                    />
+                                </Col>
+                                <Col md={2} className="d-flex gap-2">
+                                    {index === registrationNumbers.length - 1 && (
+                                        <Button
+                                            variant="outline-primary"
+                                            size="sm"
+                                            onClick={handleAddRegistration}
+                                            title={t('annual_booking_add_registration') || 'Add another vehicle'}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                            </svg>
+                                        </Button>
+                                    )}
+                                    {registrationNumbers.length > 1 && (
+                                        <Button
+                                            variant="outline-danger"
+                                            size="sm"
+                                            onClick={() => handleRemoveRegistration(index)}
+                                            title={t('annual_booking_remove_registration') || 'Remove vehicle'}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                            </svg>
+                                        </Button>
+                                    )}
+                                </Col>
+                            </Row>
+                        ))}
+                        <Form.Text className="text-muted">
+                            {t('annual_booking_registration_help') || 'Add all vehicle registration numbers that will be parked at your site'}
+                        </Form.Text>
+                    </div>
 
                     {nights > 0 && (
                         <Alert variant="info" className="mb-3">
