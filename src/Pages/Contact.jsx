@@ -28,9 +28,9 @@ const Contact = () => {
                                     <p><strong>{t("contact_individual_subject")}</strong></p>
                                     
                                     <p><i className="bi bi-pin-angle"></i> &nbsp; {t("contact_individual_location")}</p>
-                                    <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_individual_land")}</p>
+                                    {/* <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_individual_land")}</p>
                                     <p><i className="bi bi-person"></i> &nbsp; {t("contact_individual_name")}</p>
-                                    <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_individual_phone")}</p>
+                                    <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_individual_phone")}</p> */}
                                     <p><i className="bi bi-person"></i> &nbsp; {t("contact_group_name")}</p>
                                     <p><i className="bi bi-telephone-inbound"></i> &nbsp; {t("contact_group_phone")}</p>
                                     <p><i className="bi bi-mailbox"></i> &nbsp; {t("contact_individual_email")}</p>
