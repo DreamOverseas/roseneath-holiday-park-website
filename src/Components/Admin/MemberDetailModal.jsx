@@ -12,6 +12,7 @@ export default function MemberDetailModal({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [uploadingFile, setUploadingFile] = useState(false);
+  const fileInputRef = React.useRef(null);
 
   // Reset state when member changes
   React.useEffect(() => {
@@ -223,6 +224,42 @@ export default function MemberDetailModal({
     });
   };
 
+  const handleDownloadFile = async (file) => {
+    try {
+      const id = typeof file === 'number' ? file : file?.id;
+      const attrs =
+        file && typeof file === 'object'
+          ? (file.attributes || file)
+          : null;
+
+      const url = attrs?.url || null;
+      const name = attrs?.name || `file-${id}`;
+
+      if (!url) return;
+
+      const href = buildFileUrl(url);
+      const res = await fetch(href);
+
+      if (!res.ok) throw new Error('Download failed');
+
+      const blob = await res.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (e) {
+      console.error(e);
+      alert('Failed to download file');
+    }
+  };
+
+  
+
   const detailSections = [
     {
       title: 'Basic Information',
@@ -311,8 +348,10 @@ export default function MemberDetailModal({
     const value = currentMember[field.key];
     const hasValue = value && value !== '-';
 
+
+
+    // View mode
     if (!isEditing) {
-      // View mode
       if (field.key === 'TenantType') {
         return (
           <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
@@ -326,15 +365,16 @@ export default function MemberDetailModal({
         );
       }
 
-      if (field.type === 'fileList') {
+      if (field.key === 'MemberFiles') {
         const files = getMemberFilesArray(value);
         if (!files.length) {
           return (
-            <span className="text-xs text-gray-400">
+            <div className="text-sm text-gray-500">
               (No file)
-            </span>
+            </div>
           );
         }
+
         return (
           <div className="space-y-1">
             {files.map((file) => {
@@ -343,20 +383,36 @@ export default function MemberDetailModal({
                 file && typeof file === 'object'
                   ? (file.attributes || file)
                   : null;
+
               const url = attrs?.url || null;
               const name = attrs?.name || `File #${id}`;
+
               if (!id) return null;
+
+              const href = buildFileUrl(url);
+
               return (
-                <a
+                <div
                   key={id}
-                  href={buildFileUrl(url)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-indigo-600 hover:underline flex items-center gap-1"
+                  className="flex items-center justify-between gap-2"
                 >
-                  <span className="inline-block w-2 h-2 rounded-full bg-indigo-400" />
-                  {name}
-                </a>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-indigo-600 hover:underline truncate max-w-xs"
+                    title={name}
+                  >
+                    {name}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleDownloadFile(file)}
+                    className="inline-flex items-center px-3 py-1 rounded-md border border-gray-300 text-xs text-gray-700 hover:bg-gray-100"
+                  >
+                    Download file
+                  </button>
+                </div>
               );
             })}
           </div>
@@ -431,13 +487,19 @@ export default function MemberDetailModal({
             <input
               type="file"
               multiple
+              ref={fileInputRef}
               onChange={(e) => handleFileInputChange(e.target.files)}
-              className="block w-full text-sm text-gray-900"
+              className="hidden"
             />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current && fileInputRef.current.click()}
+              className="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium"
+            >
+              Upload files
+            </button>
             {uploadingFile && (
-              <p className="text-xs text-gray-500 mt-1">
-                Uploading file(s)...
-              </p>
+              <p className="text-xs text-gray-500 mt-1">Uploading file(s)...</p>
             )}
           </div>
         </div>
