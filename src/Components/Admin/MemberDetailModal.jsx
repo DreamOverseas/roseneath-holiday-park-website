@@ -11,6 +11,7 @@ export default function MemberDetailModal({
   const [editedMember, setEditedMember] = useState(member);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [uploadingFile, setUploadingFile] = useState(false);
 
   // Reset state when member changes
   React.useEffect(() => {
@@ -62,6 +63,17 @@ export default function MemberDetailModal({
         // Skip system fields and documentId
         if (['documentId', 'id', 'createdAt', 'updatedAt', 'publishedAt', 'locale'].includes(key)) {
           return;
+        }
+
+        if (key === 'MemberFiles') {
+          const oldIds = memberFilesToIds(member.MemberFiles);
+          const newIds = memberFilesToIds(editedMember.MemberFiles);
+
+          if (JSON.stringify(oldIds) !== JSON.stringify(newIds)) {
+            updateData.MemberFiles = newIds; 
+            hasChanges = true;
+          }
+          return; 
         }
 
         // Compare values
@@ -121,6 +133,89 @@ export default function MemberDetailModal({
     setError('');
   };
 
+  const getMemberFilesArray = (raw) => {
+    if (!raw) return [];
+    if (Array.isArray(raw)) return raw;
+    if (typeof raw === 'object') return [raw];
+    return [];
+  };
+
+  const memberFilesToIds = (raw) => {
+    return getMemberFilesArray(raw)
+      .map((f) => {
+        if (!f) return null;
+        if (typeof f === 'number') return f;
+        if (typeof f === 'object' && f.id != null) return f.id;
+        return null;
+      })
+      .filter((id) => id != null);
+  };
+
+  const buildFileUrl = (url) => {
+    if (!url) return '#';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    // 和下面 handleSave 里一样，用你的 Strapi 域名
+    return `https://api.do360.com${url}`;
+  };
+
+  const handleFileInputChange = async (files) => {
+    if (!files || files.length === 0) return;
+
+    try {
+      setUploadingFile(true);
+      setError('');
+
+      const formData = new FormData();
+      Array.from(files).forEach((file) => {
+        formData.append('files', file);
+      });
+
+      const uploadRes = await fetch('https://api.do360.com/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!uploadRes.ok) {
+        let msg = 'Failed to upload file(s)';
+        try {
+          const errData = await uploadRes.json();
+          msg = errData.error?.message || msg;
+        } catch (_) {}
+        throw new Error(msg);
+      }
+
+      const uploadData = await uploadRes.json();
+      const uploadedArray = Array.isArray(uploadData) ? uploadData : [uploadData];
+
+      setEditedMember((prev) => {
+        const currentFiles = getMemberFilesArray(prev.MemberFiles);
+        return {
+          ...prev,
+          MemberFiles: [...currentFiles, ...uploadedArray],
+        };
+      });
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Failed to upload file(s)');
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  const handleRemoveFile = (fileIdToRemove) => {
+    setEditedMember((prev) => {
+      const currentFiles = getMemberFilesArray(prev.MemberFiles);
+      const nextFiles = currentFiles.filter((f) => {
+        const id = typeof f === 'number' ? f : f?.id;
+        return id !== fileIdToRemove;
+      });
+      return {
+        ...prev,
+        MemberFiles: nextFiles,
+      };
+    });
+  };
+
   const detailSections = [
     {
       title: 'Basic Information',
@@ -173,6 +268,18 @@ export default function MemberDetailModal({
       ]
     },
     {
+      title: 'Member Files',
+      fields: [
+        {
+          label: 'Attachments',
+          key: 'MemberFiles',       
+          editable: true,
+          type: 'fileList',        
+          fullWidth: true,
+        },
+      ]
+    },
+    {
       title: 'Notes',
       fields: [
         { label: 'Note', key: 'Note', editable: true, fullWidth: true, textarea: true },
@@ -211,6 +318,38 @@ export default function MemberDetailModal({
           </span>
         );
       }
+
+      if (field.type === 'fileList') {
+        const files = getMemberFilesArray(value);
+        if (!files.length) {
+          return <span className="text-xs text-gray-400">(No file)</span>;
+        }
+        return (
+          <div className="space-y-1">
+            {files.map((file) => {
+              const id = typeof file === 'number' ? file : file?.id;
+              const url = typeof file === 'object' ? file?.url : null;
+              const name =
+                typeof file === 'object'
+                  ? file.name || `File #${id}`
+                  : `File #${id}`;
+              if (!id) return null;
+              return (
+                <a
+                  key={id}
+                  href={buildFileUrl(url)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-indigo-600 hover:underline flex items-center gap-1"
+                >
+                  <span className="inline-block w-2 h-2 rounded-full bg-indigo-400" />
+                  {name}
+                </a>
+              );
+            })}
+          </div>
+        );
+      }
       
       if (field.textarea) {
         return (
@@ -232,6 +371,61 @@ export default function MemberDetailModal({
       return (
         <div className="text-sm text-gray-900 bg-gray-100 p-2 rounded border border-gray-200">
           {renderFieldValue(field)}
+        </div>
+      );
+    }
+
+
+    if (field.type === 'fileList') {
+      const files = getMemberFilesArray(value);
+
+      return (
+        <div className="space-y-2">
+          {files.length > 0 && (
+            <ul className="space-y-1 text-sm">
+              {files.map((file) => {
+                const id = typeof file === 'number' ? file : file?.id;
+                const url = typeof file === 'object' ? file?.url : null;
+                const name =
+                  typeof file === 'object'
+                    ? file.name || `File #${id}`
+                    : `File #${id}`;
+                if (!id) return null;
+                return (
+                  <li key={id} className="flex items-center justify-between gap-2">
+                    <a
+                      href={buildFileUrl(url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-600 hover:underline truncate max-w-xs"
+                      title={name}
+                    >
+                      {name}
+                    </a>
+                    <button
+                      type="button"
+                      className="text-xs text-red-500 hover:text-red-700"
+                      onClick={() => handleRemoveFile(id)}
+                    >
+                      Remove
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          <div>
+            <input
+              type="file"
+              multiple
+              onChange={(e) => handleFileInputChange(e.target.files)}
+              className="block w-full text-sm text-gray-900"
+            />
+            {uploadingFile && (
+              <p className="text-xs text-gray-500 mt-1">Uploading file(s)...</p>
+            )}
+          </div>
         </div>
       );
     }
