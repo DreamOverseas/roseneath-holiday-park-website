@@ -135,8 +135,15 @@ export default function MemberDetailModal({
 
   const getMemberFilesArray = (raw) => {
     if (!raw) return [];
+
+    if (typeof raw === 'object' && Array.isArray(raw.data)) {
+      return raw.data;
+    }
+
     if (Array.isArray(raw)) return raw;
+
     if (typeof raw === 'object') return [raw];
+
     return [];
   };
 
@@ -322,17 +329,22 @@ export default function MemberDetailModal({
       if (field.type === 'fileList') {
         const files = getMemberFilesArray(value);
         if (!files.length) {
-          return <span className="text-xs text-gray-400">(No file)</span>;
+          return (
+            <span className="text-xs text-gray-400">
+              (No file)
+            </span>
+          );
         }
         return (
           <div className="space-y-1">
             {files.map((file) => {
               const id = typeof file === 'number' ? file : file?.id;
-              const url = typeof file === 'object' ? file?.url : null;
-              const name =
-                typeof file === 'object'
-                  ? file.name || `File #${id}`
-                  : `File #${id}`;
+              const attrs =
+                file && typeof file === 'object'
+                  ? (file.attributes || file)
+                  : null;
+              const url = attrs?.url || null;
+              const name = attrs?.name || `File #${id}`;
               if (!id) return null;
               return (
                 <a
@@ -375,7 +387,6 @@ export default function MemberDetailModal({
       );
     }
 
-
     if (field.type === 'fileList') {
       const files = getMemberFilesArray(value);
 
@@ -385,11 +396,12 @@ export default function MemberDetailModal({
             <ul className="space-y-1 text-sm">
               {files.map((file) => {
                 const id = typeof file === 'number' ? file : file?.id;
-                const url = typeof file === 'object' ? file?.url : null;
-                const name =
-                  typeof file === 'object'
-                    ? file.name || `File #${id}`
-                    : `File #${id}`;
+                const attrs =
+                  file && typeof file === 'object'
+                    ? (file.attributes || file)
+                    : null;
+                const url = attrs?.url || null;
+                const name = attrs?.name || `File #${id}`;
                 if (!id) return null;
                 return (
                   <li key={id} className="flex items-center justify-between gap-2">
@@ -423,7 +435,9 @@ export default function MemberDetailModal({
               className="block w-full text-sm text-gray-900"
             />
             {uploadingFile && (
-              <p className="text-xs text-gray-500 mt-1">Uploading file(s)...</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Uploading file(s)...
+              </p>
             )}
           </div>
         </div>
