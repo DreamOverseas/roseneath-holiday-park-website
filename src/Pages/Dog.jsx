@@ -81,7 +81,9 @@ export default function Dog() {
       let totalPages = 1;
       
       do {
-        const response = await fetch(`https://api.do360.com/api/rhp-memberships?pagination[page]=${page}&pagination[pageSize]=100`);
+        const response = await fetch(
+          `https://api.do360.com/api/rhp-memberships?pagination[page]=${page}&pagination[pageSize]=100&populate=MemberFiles`
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

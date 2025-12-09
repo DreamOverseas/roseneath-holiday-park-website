@@ -11,6 +11,10 @@ export default function MemberDetailModal({
   const [editedMember, setEditedMember] = useState(member);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const fileInputRef = React.useRef(null);
+  const [renameTargetFile, setRenameTargetFile] = useState(null);
+  const [renameValue, setRenameValue] = useState('');
 
   // Reset state when member changes
   React.useEffect(() => {
@@ -62,6 +66,17 @@ export default function MemberDetailModal({
         // Skip system fields and documentId
         if (['documentId', 'id', 'createdAt', 'updatedAt', 'publishedAt', 'locale'].includes(key)) {
           return;
+        }
+
+        if (key === 'MemberFiles') {
+          const oldIds = memberFilesToIds(member.MemberFiles);
+          const newIds = memberFilesToIds(editedMember.MemberFiles);
+
+          if (JSON.stringify(oldIds) !== JSON.stringify(newIds)) {
+            updateData.MemberFiles = newIds; 
+            hasChanges = true;
+          }
+          return; 
         }
 
         // Compare values
@@ -121,6 +136,275 @@ export default function MemberDetailModal({
     setError('');
   };
 
+  const getMemberFilesArray = (raw) => {
+    if (!raw) return [];
+
+    if (typeof raw === 'object' && Array.isArray(raw.data)) {
+      return raw.data;
+    }
+
+    if (Array.isArray(raw)) return raw;
+
+    if (typeof raw === 'object') return [raw];
+
+    return [];
+  };
+
+  const memberFilesToIds = (raw) => {
+    return getMemberFilesArray(raw)
+      .map((f) => {
+        if (!f) return null;
+        if (typeof f === 'number') return f;
+        if (typeof f === 'object' && f.id != null) return f.id;
+        return null;
+      })
+      .filter((id) => id != null);
+  };
+
+  const buildFileUrl = (url) => {
+    if (!url) return '#';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    // 和下面 handleSave 里一样，用你的 Strapi 域名
+    return `https://api.do360.com${url}`;
+  };
+
+  const handleFileInputChange = async (files) => {
+    if (!files || files.length === 0) return;
+
+    try {
+      setUploadingFile(true);
+      setError('');
+
+      const formData = new FormData();
+      Array.from(files).forEach((file) => {
+        formData.append('files', file);
+      });
+
+      const uploadRes = await fetch('https://api.do360.com/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!uploadRes.ok) {
+        let msg = 'Failed to upload file(s)';
+        try {
+          const errData = await uploadRes.json();
+          msg = errData.error?.message || msg;
+        } catch (_) {}
+        throw new Error(msg);
+      }
+
+      const uploadData = await uploadRes.json();
+      const uploadedArray = Array.isArray(uploadData) ? uploadData : [uploadData];
+
+      setEditedMember((prev) => {
+        const currentFiles = getMemberFilesArray(prev.MemberFiles);
+        return {
+          ...prev,
+          MemberFiles: [...currentFiles, ...uploadedArray],
+        };
+      });
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Failed to upload file(s)');
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  const handleRemoveFile = (fileIdToRemove) => {
+    setEditedMember((prev) => {
+      const currentFiles = getMemberFilesArray(prev.MemberFiles);
+      const nextFiles = currentFiles.filter((f) => {
+        const id = typeof f === 'number' ? f : f?.id;
+        return id !== fileIdToRemove;
+      });
+      return {
+        ...prev,
+        MemberFiles: nextFiles,
+      };
+    });
+  };
+
+  const handleRenameFile = async (file) => {
+    try {
+      const id = typeof file === 'number' ? file : file?.id;
+      if (!id) return;
+
+      const attrs =
+        file && typeof file === 'object'
+          ? (file.attributes || file)
+          : null;
+
+      const oldName = attrs?.name || `file-${id}`;
+      const dotIndex = oldName.lastIndexOf('.');
+      const base = dotIndex > 0 ? oldName.slice(0, dotIndex) : oldName;
+      const ext = dotIndex > 0 ? oldName.slice(dotIndex) : '';
+
+      const newBase = window.prompt('Enter new file name', base);
+      if (!newBase) return;
+
+      const newName = `${newBase}${ext}`;
+
+      const res = await fetch(
+        `https://api.do360.com/api/upload/files/${id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: newName }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error('Failed to rename file');
+      }
+
+      setEditedMember((prev) => {
+        const currentFiles = getMemberFilesArray(prev.MemberFiles);
+        const updated = currentFiles.map((f) => {
+          const fid = typeof f === 'number' ? f : f?.id;
+          if (fid !== id) return f;
+
+          if (typeof f === 'object') {
+            if (f.attributes) {
+              return {
+                ...f,
+                attributes: {
+                  ...f.attributes,
+                  name: newName,
+                },
+              };
+            }
+            return { ...f, name: newName };
+          }
+
+          return f;
+        });
+
+        return {
+          ...prev,
+          MemberFiles: updated,
+        };
+      });
+    } catch (e) {
+      console.error(e);
+      alert(e.message || 'Failed to rename file');
+    }
+  };
+
+  const handleDownloadFile = async (file) => {
+    try {
+      const id = typeof file === 'number' ? file : file?.id;
+      const attrs =
+        file && typeof file === 'object'
+          ? (file.attributes || file)
+          : null;
+
+      const url = attrs?.url || null;
+      const name = attrs?.name || `file-${id}`;
+
+      if (!url) return;
+
+      const href = buildFileUrl(url);
+      const res = await fetch(href);
+
+      if (!res.ok) throw new Error('Download failed');
+
+      const blob = await res.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (e) {
+      console.error(e);
+      alert('Failed to download file');
+    }
+  };
+
+
+  const handleConfirmRename = async () => {
+    try {
+      const file = renameTargetFile;
+      if (!file) return;
+
+      const id = typeof file === 'number' ? file : file?.id;
+      if (!id) return;
+
+      const attrs =
+        file && typeof file === 'object'
+          ? (file.attributes || file)
+          : null;
+
+      const oldName = attrs?.name || `file-${id}`;
+      const dotIndex = oldName.lastIndexOf('.');
+      const ext = dotIndex > 0 ? oldName.slice(dotIndex) : '';
+
+      let newName = renameValue.trim();
+      if (!newName) return;
+      if (ext && !newName.endsWith(ext)) {
+        newName = newName + ext;
+      }
+
+      setEditedMember((prev) => {
+        const currentFiles = getMemberFilesArray(prev.MemberFiles);
+
+        const updatedFiles = currentFiles.map((f) => {
+          const fid = typeof f === 'number' ? f : f?.id;
+          if (fid !== id) return f;
+
+          if (typeof f === 'object') {
+            if (f.attributes) {
+              return {
+                ...f,
+                attributes: {
+                  ...f.attributes,
+                  name: newName,
+                },
+              };
+            }
+            return { ...f, name: newName };
+          }
+
+          return f;
+        });
+
+        const prevMap =
+          prev.fileNameMap && typeof prev.fileNameMap === 'object'
+            ? prev.fileNameMap
+            : {};
+
+        const nextMap = {
+          ...prevMap,
+          [id]: newName,
+        };
+
+        return {
+          ...prev,
+          MemberFiles: updatedFiles,
+          fileNameMap: nextMap,
+        };
+      });
+
+      setRenameTargetFile(null);
+      setRenameValue('');
+    } catch (e) {
+      console.error(e);
+      alert(e.message || 'Failed to rename file');
+    }
+  };
+
+  const fileButtonBaseClass =
+    "inline-flex items-center px-3 py-1 rounded-md border border-gray-300 text-xs hover:bg-gray-100";
+
+  
+
   const detailSections = [
     {
       title: 'Basic Information',
@@ -173,6 +457,18 @@ export default function MemberDetailModal({
       ]
     },
     {
+      title: 'Member Files',
+      fields: [
+        {
+          label: 'Attachments',
+          key: 'MemberFiles',       
+          editable: true,
+          type: 'fileList',        
+          fullWidth: true,
+        },
+      ]
+    },
+    {
       title: 'Notes',
       fields: [
         { label: 'Note', key: 'Note', editable: true, fullWidth: true, textarea: true },
@@ -197,8 +493,10 @@ export default function MemberDetailModal({
     const value = currentMember[field.key];
     const hasValue = value && value !== '-';
 
+
+
+    // View mode
     if (!isEditing) {
-      // View mode
       if (field.key === 'TenantType') {
         return (
           <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
@@ -209,6 +507,67 @@ export default function MemberDetailModal({
           }`}>
             {getTenantTypeLabel(displayType)}
           </span>
+        );
+      }
+
+      if (field.key === 'MemberFiles') {
+        const files = getMemberFilesArray(value);
+        if (!files.length) {
+          return (
+            <div className="text-sm text-gray-500">
+              (No file)
+            </div>
+          );
+        }
+
+        const fileNameMap =
+          currentMember.fileNameMap && typeof currentMember.fileNameMap === 'object'
+            ? currentMember.fileNameMap
+            : {};
+
+        return (
+          <div className="space-y-1">
+            {files.map((file) => {
+              const id = typeof file === 'number' ? file : file?.id;
+              const attrs =
+                file && typeof file === 'object'
+                  ? (file.attributes || file)
+                  : null;
+
+              const url = attrs?.url || null;
+              const defaultName = attrs?.name || `File #${id}`;
+              const name =
+                (id != null && fileNameMap[id]) || defaultName;
+
+              if (!id) return null;
+
+              const href = buildFileUrl(url);
+
+              return (
+                <div
+                  key={id}
+                  className="flex items-center justify-between gap-2"
+                >
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-indigo-600 hover:underline truncate max-w-xs"
+                    title={name}
+                  >
+                    {name}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleDownloadFile(file)}
+                    className={`${fileButtonBaseClass} text-gray-700`}
+                  >
+                    Download file
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         );
       }
       
@@ -232,6 +591,89 @@ export default function MemberDetailModal({
       return (
         <div className="text-sm text-gray-900 bg-gray-100 p-2 rounded border border-gray-200">
           {renderFieldValue(field)}
+        </div>
+      );
+    }
+
+    if (field.type === 'fileList') {
+      const files = getMemberFilesArray(value);
+      const fileNameMap =
+        currentMember.fileNameMap && typeof currentMember.fileNameMap === 'object'
+          ? currentMember.fileNameMap
+          : {};
+
+      return (
+        <div className="space-y-2">
+          {files.length > 0 && (
+            <ul className="space-y-1 text-sm">
+              {files.map((file) => {
+                const id = typeof file === 'number' ? file : file?.id;
+                const attrs =
+                  file && typeof file === 'object'
+                    ? (file.attributes || file)
+                    : null;
+                const url = attrs?.url || null;
+                const defaultName = attrs?.name || `File #${id}`;
+                const displayName =
+                  (id != null && fileNameMap[id]) || defaultName;
+
+                if (!id) return null;
+
+                return (
+                  <li key={id} className="flex items-center justify-between gap-2">
+                    <a
+                      href={buildFileUrl(url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-600 hover:underline truncate max-w-xs"
+                      title={displayName}
+                    >
+                      {displayName}
+                    </a>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        className={`${fileButtonBaseClass} text-gray-700`}
+                        onClick={() => {
+                          setRenameTargetFile(file);
+                          setRenameValue(displayName);
+                        }}
+                      >
+                        Rename file
+                      </button>
+                      <button
+                        type="button"
+                        className={`${fileButtonBaseClass} text-red-500 hover:text-red-700`}
+                        onClick={() => handleRemoveFile(id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          <div>
+            <input
+              type="file"
+              multiple
+              ref={fileInputRef}
+              onChange={(e) => handleFileInputChange(e.target.files)}
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current && fileInputRef.current.click()}
+              className="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium"
+            >
+              Upload files
+            </button>
+            {uploadingFile && (
+              <p className="text-xs text-gray-500 mt-1">Uploading file(s)...</p>
+            )}
+          </div>
         </div>
       );
     }
@@ -351,7 +793,7 @@ export default function MemberDetailModal({
                   const currentMember = isEditing ? editedMember : member;
                   const value = currentMember[field.key];
                   const hasValue = value && value !== '-' && value !== '';
-                  
+
                   return (
                     <div 
                       key={fieldIdx} 
@@ -418,6 +860,43 @@ export default function MemberDetailModal({
           </div>
         </div>
       </div>
+
+      {renameTargetFile && (
+        <div className="fixed inset-0 flex items-center justify-center z-[9999] pointer-events-none">
+          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md pointer-events-auto">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              Please enter new file name
+            </h3>
+
+            <input
+              type="text"
+              value={renameValue}
+              onChange={(e) => setRenameValue(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4 text-sm"
+            />
+
+            <div className="flex justify-end gap-3">
+              <button
+                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm"
+                onClick={() => {
+                  setRenameTargetFile(null);
+                  setRenameValue('');
+                }}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm"
+                onClick={handleConfirmRename}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
