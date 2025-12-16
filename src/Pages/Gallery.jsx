@@ -191,7 +191,7 @@ const Gallery = () => {
                         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
                             <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-blue-600 to-purple-600">
                                 <h3 className="text-xl font-semibold text-white">
-                                    {t('Shot in Roseneath Caravan Park')}
+                                    {t('Shot in Roseneath Holiday Park')}
                                 </h3>
                                 <button
                                     onClick={handleClose}
