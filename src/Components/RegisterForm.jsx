@@ -180,7 +180,7 @@ const RegisterForm = () => {
                         <option value="Campsite">Campsite (Camping Area)</option>
                         <option value="Big House">Big House</option>
                         <option value="Tent">Summer Tent</option>
-                        <option value="Caravan">Caravan</option>
+                        <option value="Holiday">Holiday</option>
                         <option value="Cabin 2 Bedroom">2 Bedrooms' Cabin</option>
                         <option value="Cabin 3 Bedroom">3 Bedrooms' Cabin</option>
                     </Form.Control>

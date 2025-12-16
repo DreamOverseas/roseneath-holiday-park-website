@@ -130,7 +130,7 @@ const LoginModal = ({ show, handleClose }) => {
         },
         body: JSON.stringify({
           verify_code: code,
-          from: 'Roseneath Caravan Park',
+          from: 'Roseneath Holiday Park',
           email: regEmail
         })
       });
