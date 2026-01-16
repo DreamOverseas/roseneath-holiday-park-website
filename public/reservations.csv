@@ -1,0 +1,563 @@
+Booked,Channel name,Guest first name,Guest last name,Guest email,Guest phone number,Check in date,Check out date,Length of stay (nights),Guest comments,Status,Room types,Subtotal amount (including tax),Extra adult amount,Extra child amount,Extras total amount,Payment total,Number of adults,Number of children,Number of Rooms
+13/11/2024,Extranet,test,test,,,14/11/2024,16/11/2024,2,,Cancelled,,0,0,0,0,500,2,0,1
+21/11/2024,Extranet,Joshua,Wang,xing142857@gmail.com,468410829,21/11/2024,22/11/2024,1,,Cancelled,,0,0,0,0,100,1,0,1
+21/11/2024,Extranet,Joshua,Wang,xing142857@gmail.com,468410829,21/11/2024,22/11/2024,1,,Checked-in,Cabin  2 Bedrooms - Roseneath Holiday Park,100,0,0,0,100,1,0,1
+21/11/2024,Extranet,Joshua,Wang,xing142857@gmail.com,468410829,30/11/2024,18/12/2024,18,,Cancelled,,0,0,0,0,1800,1,0,1
+8/12/2024,Mobile App,Peter,Johnstone,,,14/12/2024,16/12/2024,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,1,2,1
+18/12/2024,Mobile App,Mialla,Me,,459555640,19/12/2024,21/12/2024,2,,Checked-in,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,1,0,1
+19/12/2024,Mobile App,Vlad,2,,435669383,22/12/2024,25/12/2024,3,,Checked-in,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+19/12/2024,Mobile App,Vlad,1,,435669383,22/12/2024,25/12/2024,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+19/12/2024,Mobile App,Shaun,A,,468434823,23/12/2024,27/12/2024,4,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+5/12/2024,Mobile App,Brad,Begovic,,,24/12/2024,29/12/2024,5,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,900,0,0,0,900,1,0,1
+19/12/2024,Mobile App,Mark,A,,450255797,24/12/2024,26/12/2024,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,4,0,1
+19/12/2024,Mobile App,Mark,A,,450255797,24/12/2024,26/12/2024,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+19/12/2024,Mobile App,Bernard,A,,411637226,24/12/2024,29/12/2024,5,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+23/12/2024,Airbnb,Arshdeep Singh,Gill,,61459735028,24/12/2024,25/12/2024,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 167.00",Checked-in,6m Diameter Tent No.1,167,0,0,0,167,4,0,1
+4/12/2024,Airbnb,Binish,Aly,,61426206793,25/12/2024,27/12/2024,2,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 450.90",Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,450.9,0,0,0,450.9,5,0,1
+11/12/2024,Direct Booking,Jun,Wang,alexwang73@hotmail.com,423770300,25/12/2024,28/12/2024,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: LC330",Confirmed,Unpowered Camp Site Only (Tent is NOT included),135,0,0,30,135,2,0,1
+24/12/2024,Mobile App,Sissy,Joyce,,,25/12/2024,28/12/2024,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+24/12/2024,Airbnb,Ehong,Heng,,61434979916,25/12/2024,26/12/2024,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 167.00",Confirmed,6m Diameter Tent No.1,167,0,0,0,167,2,0,1
+19/12/2024,Mobile App,Linda,Gardiner,,406384022,26/12/2024,1/01/2025,6,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,1,0,1
+19/12/2024,Mobile App,Kayla,A,,473335954,26/12/2024,2/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+19/12/2024,Mobile App,Kayla,2,,473334595,26/12/2024,2/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+19/12/2024,Mobile App,Kayla,3,,473334595,26/12/2024,2/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+19/12/2024,Mobile App,Kayla,4,,473334595,26/12/2024,2/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+24/12/2024,Booking.com,Michael,JACK,mjack.583823@guest.booking.com,+61 416 007 518,26/12/2024,27/12/2024,1,"** THIS RESERVATION HAS BEEN PRE-PAID **
+BOOKING NOTE : Payment charge is AUD 3.73090909090909, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 196.36",Confirmed,6m Diameter Tent No.1,180,0,0,0,180,2,2,1
+24/11/2024,Airbnb,Lisa,Rinnhofer,,447587007930,27/12/2024,28/12/2024,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 83.50",Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,83.5,0,0,0,83.5,2,0,1
+21/12/2024,Mobile App,Leah,1,,0,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,2,,0,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,3,,0,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,4,,0,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,5,,0,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,6,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,7,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,8,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,9,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,10,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,11,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,12,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,13,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,14,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/12/2024,Mobile App,Leah,15,,,27/12/2024,3/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+24/12/2024,Airbnb,Keturah,Kenney,,61423935924,27/12/2024,28/12/2024,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 167.00",Confirmed,6m Diameter Tent No.1,167,0,0,0,167,2,2,1
+8/12/2024,Mobile App,Peter,Johnstone,,,28/12/2024,30/12/2024,2,,Cancelled,Big house - Roseneath Holiday Park,0,0,0,0,0,1,2,1
+10/12/2024,Mobile App,Peter,Johnston,,,28/12/2024,30/12/2024,2,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,1,2,1
+19/12/2024,Mobile App,Chris,Turner,,498002520,28/12/2024,2/01/2025,5,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,1,0,1
+21/12/2024,Mobile App,Katherine,1,,0,28/12/2024,5/01/2025,8,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+21/12/2024,Mobile App,Katherine,2,,0,28/12/2024,5/01/2025,8,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+22/12/2024,Mobile App,Daniel,Brooks,,466053886,28/12/2024,5/01/2025,8,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+24/12/2024,Mobile App,Aron,D,,,28/12/2024,5/01/2025,8,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+24/12/2024,Airbnb,Saurabh,Madhura,,61433547008,28/12/2024,29/12/2024,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 167.00",Cancelled,6m Diameter Tent No.1,167,0,0,0,167,3,1,1
+28/12/2024,Airbnb,Satyan,A,,61434175060,29/12/2024,30/12/2024,1,"Cleaning Fee- AUD 25.00, Cancellation Fee- AUD 162.83",Confirmed,6m Diameter Tent No.1,162.83,0,0,0,162.83,2,1,1
+5/12/2024,Mobile App,Tegan,Jones,,447778998,30/12/2024,1/01/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,2,0,1
+5/12/2024,Mobile App,T,Guest,,490935874,30/12/2024,31/12/2024,1,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,2,0,1
+13/12/2024,Airbnb,Dewey,Ngan,,61433603931,30/12/2024,2/01/2025,3,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 3757.50",Cancelled,Big house - Roseneath Holiday Park,3757.5,0,0,0,3757.5,9,2,1
+18/12/2024,Extranet,Dewey,Ngan,,61433603931,30/12/2024,2/01/2025,3,,Confirmed,Big house - Roseneath Holiday Park,4500,0,0,0,4500,9,2,1
+19/12/2024,Mobile App,Simonne,Peck,,0,30/12/2024,6/01/2025,7,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+23/12/2024,Airbnb,Lulu,Le,,61431790388,30/12/2024,31/12/2024,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 167.00",Cancelled,6m Diameter Tent No.1,167,0,0,0,167,3,1,1
+23/12/2024,Mobile App,Heather,Duncan,,,31/12/2024,5/01/2025,5,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,1,0,1
+30/12/2024,Airbnb,Lohith Reddy,Gajjala,,61466397011,31/12/2024,1/01/2025,1,"Cleaning Fee- AUD 25.00, Cancellation Fee- AUD 137.77",Confirmed,6m Diameter Tent No.1,137.77,0,0,0,137.77,2,0,1
+25/12/2024,Airbnb,Sandip,Khanal,,61426970928,1/01/2025,2/01/2025,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 167.00",Cancelled,6m Diameter Tent No.1,167,0,0,0,167,2,0,1
+8/12/2024,Mobile App,Luke,Airbnb,,,2/01/2025,4/01/2025,2,,Cancelled,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,1,0,1
+9/12/2024,Airbnb,Luke,Etheredge,,61417110321,2/01/2025,4/01/2025,2,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 300.60",Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,300.6,0,0,0,300.6,2,0,1
+30/12/2024,Booking.com,Harun,Tercan,hterca.484606@guest.booking.com,+61 431 058 769,2/01/2025,5/01/2025,3,"** THIS RESERVATION HAS BEEN PRE-PAID **
+BOOKING NOTE : Payment charge is AUD 14.4659090909091, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 761.36",Cancelled,Cabin 3 Bedrooms - Roseneath Holiday Park,675,0,0,0,675,4,0,1
+1/01/2025,Direct Booking,Louise,Cruikshank,louisecruikshank@gmail.com,434113758,2/01/2025,3/01/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 06G1ZK82B15L517002",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+1/01/2025,Airbnb,Abu,Dojana,,61451905960,2/01/2025,3/01/2025,1,"Cleaning Fee- AUD 25.00, Cancellation Fee- AUD 162.83",Confirmed,6m Diameter Tent No.1,162.83,0,0,0,162.83,3,0,1
+30/11/2024,Booking.com,Christopher,Clark,cclark.283057@guest.booking.com,+61 450 930 893,3/01/2025,6/01/2025,3,"** THIS RESERVATION HAS BEEN PRE-PAID **
+BOOKING NOTE : Payment charge is AUD x.xxxxxxxxxxxxxx, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 327.27",Cancelled,Caravan - Roseneath Holiday Park,300,0,0,0,300,1,0,1
+3/12/2024,Booking.com,Harrison,Lambooy,hlambo.596717@guest.booking.com,+61 450 490 898,3/01/2025,4/01/2025,1,"** THIS RESERVATION HAS BEEN PRE-PAID **
+BOOKING NOTE : Payment charge is AUD x.xxxxxxxxxxxxxx
+Approximate time of arrival: between 13:00 and 14:00, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 163.64",Cancelled,6m Diameter Tent No.1,150,0,0,0,150,3,0,1
+19/12/2024,Mobile App,A,Jones,,0,3/01/2025,13/01/2025,10,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,4,0,1
+2/01/2025,Airbnb,Milob,Kc,,61404219141,3/01/2025,4/01/2025,1,"Cleaning Fee- AUD 25.00, Cancellation Fee- AUD 212.93",Confirmed,6m Diameter Tent No.1,212.93,0,0,0,212.93,5,0,1
+2/01/2025,Direct Booking,Olivia,Gorman,oliviamiagorman57@gmail.com,416307873,3/01/2025,4/01/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: SXR240",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,4,0,1
+31/12/2024,Booking.com,CARLA,Ruhe,cruhe.395331@guest.booking.com,+61 499 996 979,4/01/2025,5/01/2025,1,"** THIS RESERVATION HAS BEEN PRE-PAID **
+BOOKING NOTE : Payment charge is AUD x.xxxxxxxxxxxxxx, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 162.45",Cancelled,6m Diameter Tent No.1,126,0,0,0,126,2,0,1
+4/01/2025,Direct Booking,Sean,Dykman,Seandykman@gmail.com,433810816,7/01/2025,11/01/2025,4,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),180,0,0,40,180,2,1,1
+5/01/2025,Direct Booking,Adin,Birchall,adinbirchall@gmail.com,407211611,7/01/2025,10/01/2025,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: -",Confirmed,Unpowered Camp Site Only (Tent is NOT included),155,0,0,50,155,1,2,1
+4/01/2025,Mobile App,Kin,Guest,,,8/01/2025,10/01/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+4/01/2025,Mobile App,Kin,Guest,,,8/01/2025,10/01/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+4/01/2025,Mobile App,Kin,Guests,,,8/01/2025,10/01/2025,2,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,6,0,1
+6/01/2025,Airbnb,Runfang,Wang,,61434098520,8/01/2025,10/01/2025,2,"Cleaning Fee- AUD 25.00, Cancellation Fee- AUD 396.63",Confirmed,6m Diameter Tent No.1,396.64,0,0,0,396.64,4,0,1
+28/11/2024,Direct Booking,Mina,O?€?Halloran,mi-ogi-savignac@hotmail.co.jp,403344438,9/01/2025,12/01/2025,3,We have a small dog,Cancelled,6m Diameter Tent No.1,465,0,0,15,465,2,1,1
+12/01/2025,Mobile App,Rachael,B,,,14/01/2025,25/01/2025,11,Poweredsite72,Checked-in,Unpowered Camp Site Only (Tent is NOT included),495,0,110,0,495,2,2,1
+15/01/2025,Direct Booking,Sandra,Zeh,sandra.zeh67@gmx.de,455634571,17/01/2025,18/01/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: Bicycle",Checked-in,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+16/01/2025,Mobile App,Sandra,Zan,,,17/01/2025,18/01/2025,1,,Checked-in,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+20/01/2025,Mobile App,Shelly,Ison,,458529620,23/01/2025,24/01/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),40,0,5,0,40,2,1,1
+14/01/2025,Mobile App,School,Group,,,24/01/2025,27/01/2025,3,,Checked-in,Big house - Roseneath Holiday Park,0,0,0,0,0,2,14,1
+14/01/2025,Mobile App,Scott,P,,407724733,24/01/2025,27/01/2025,3,,Checked-in,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+17/01/2025,Mobile App,Wayne,Bailey,,456593947,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+17/01/2025,Mobile App,Wayne,Bailey,,456593947,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+17/01/2025,Mobile App,Wayne,Bailey,,456593947,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+17/01/2025,Mobile App,Wayne,Bailey,,456593947,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+18/01/2025,Mobile App,Dillion,S 1,,431006566,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/01/2025,Mobile App,Dillion,S 2,,431006566,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/01/2025,Mobile App,Dillion,S 3,,431006566,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/01/2025,Mobile App,Dillion,S 4,,431006566,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/01/2025,Mobile App,Dillion,S 5,,431006566,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/01/2025,Mobile App,Dillion,S 6,,431006566,24/01/2025,26/01/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/01/2025,Mobile App,Dillion,S 7,,431006566,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/01/2025,Mobile App,Dillion,S 8,,431006566,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),105,0,0,0,105,2,0,1
+20/01/2025,Mobile App,Nick,Zhang,,433438812,24/01/2025,27/01/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+24/01/2025,Direct Booking,Max,Leiu,max.leiu@hotmail.com,452502637,24/01/2025,26/01/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: K1NGWM",Confirmed,Unpowered Camp Site Only (Tent is NOT included),100,0,0,30,100,2,0,1
+5/12/2024,Mobile App,Marg,Hagarty,,,25/01/2025,27/01/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,1,0,1
+16/01/2025,Direct Booking,danuthicsan,Julan,DANUTHICSAN@GMAIL.COM,466347969,25/01/2025,27/01/2025,2,"prefer a site close the amenity as 1 of our guest requires special needs. Also prefer being close the lake side.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: JM0BN547610201291",Confirmed,Unpowered Camp Site Only (Tent is NOT included),240,0,0,100,240,7,1,2
+20/01/2025,Mobile App,Lee,1,,409978534,25/01/2025,26/01/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+20/01/2025,Extranet,Vadim,.,,451142632,25/01/2025,27/01/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,3,0,1
+21/01/2025,Direct Booking,Josselin,Ortiou,Josselin.ortiou@gmail.com,450921754,25/01/2025,27/01/2025,2,,Confirmed,6m Diameter Tent No.1,445,0,0,165,445,4,0,1
+22/01/2025,Direct Booking,Chelsea,Wellman,chelseawellman84@gmail.com,427658615,25/01/2025,27/01/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: YFA084",Confirmed,Unpowered Camp Site Only (Tent is NOT included),90,0,0,20,90,4,0,1
+22/01/2025,Direct Booking,Wei Meng,Soh,weimengsoh3@gmail.com,431750055,25/01/2025,26/01/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: CEJ132",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+23/01/2025,Direct Booking,Volodymyr,Yudko,vladpike69@gmail.com,401440448,25/01/2025,28/01/2025,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1RL4YV",Confirmed,Unpowered Camp Site Only (Tent is NOT included),105,0,0,0,105,2,0,1
+20/01/2025,Mobile App,Lee,2,,409978534,26/01/2025,27/01/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,1,0,1
+23/01/2025,Direct Booking,Wei meng,Soh,weimengsoh3@gmail.com,431750066,26/01/2025,27/01/2025,1,"Hi, I already have a booking Saturday to Sunday
+Exntending for one night on same campsite thanks
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: CEJ132",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+29/01/2025,Mobile App,Brian,Fisk,,,30/01/2025,3/02/2025,4,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,520,0,0,0,520,1,0,1
+28/01/2025,Direct Booking,Irene,Harrison,ireneandwayne@hotmail.com,429473632,31/01/2025,2/02/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),90,0,0,20,90,2,0,1
+1/02/2025,Direct Booking,YANG,HAIBO,195394302@qq.com,466410695,1/02/2025,2/02/2025,1,,Cancelled,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+3/02/2025,Direct Booking,Sean,McMahon,Seanmcmahon89@msn.com,415968834,10/02/2025,12/02/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1HD5AM",Checked-in,Unpowered Camp Site Only (Tent is NOT included),75,0,0,5,75,2,0,1
+4/02/2025,Mobile App,Muresh,Site 1,,430201357,18/02/2025,20/02/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+4/02/2025,Mobile App,Muresh,Site 2,,430201357,18/02/2025,20/02/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+4/02/2025,Mobile App,Muresh,Site 3,,430201357,18/02/2025,20/02/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+4/02/2025,Mobile App,Muresh,Site 4,,430201357,18/02/2025,20/02/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+10/02/2025,Mobile App,Jessica,Reverse,j.reveese@federation.edu.au,,18/02/2025,19/02/2025,1,,Confirmed,Big house - Roseneath Holiday Park,770,0,0,0,770,2,10,1
+27/02/2025,Direct Booking,Nikita,Hayes,rarahboy@gmail.com,455998563,28/02/2025,2/03/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: JM0ER10A200236028",Confirmed,Unpowered Camp Site Only (Tent is NOT included),165,0,0,95,165,2,2,1
+3/03/2025,Booking.com,Parth,Pandya,ppandy.339536@guest.booking.com,+61 427 601 075,5/03/2025,6/03/2025,1,"** THIS RESERVATION HAS BEEN PRE-PAID **
+I am travelling for business and I may be using a business credit card.
+Approximate time of arrival: between 17:00 and 18:00
+Parking required.
+BOOKING NOTE : Payment charge is AUD 5.25781818181818
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 276.73",Confirmed,Big house - Roseneath Holiday Park,162,0,0,0,162,1,0,1
+13/02/2025,Direct Booking,Lloyd,Bryant,lloydwkbryant@gmail.com,490474219,7/03/2025,10/03/2025,3,"Can we please have an area somewhere secluded and quiet if possible, we are bringing my elderly mother camping with us for a little holiday.
+
+regards in advance, Lloyd and Sandy
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 2BR1KS",Confirmed,Unpowered Camp Site Only (Tent is NOT included),120,0,0,15,120,3,0,1
+5/03/2025,Mobile App,Laure,Not know,,0427 964 069,7/03/2025,13/03/2025,6,Powered site from Friday for 7 days will come to the park to pay by credit card,Confirmed,Unpowered Camp Site Only (Tent is NOT included),315,0,0,0,315,1,0,1
+5/03/2025,Direct Booking,Joshua,Wang,xing142857@gmail.com,468410829,7/03/2025,8/03/2025,1,,Cancelled,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+12/02/2025,Extranet,Cedric,Shao,somnus.shao@gmail.com,421366681,8/03/2025,10/03/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),330,0,0,0,330,7,5,3
+18/02/2025,Direct Booking,Shaun,Liu,shaunliu70@gmail.com,425215688,8/03/2025,11/03/2025,3,"I am a new caravaning camping starter, would you please help to reserve one easy parking power site for me if in your convenience? Appreciated and thank you very much! From Shaun &Tracy
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1XX7TS +Caravan (21Ft)",Confirmed,Unpowered Camp Site Only (Tent is NOT included),105,0,0,0,105,2,0,1
+26/02/2025,Direct Booking,Lauren,Donnelly,laurendonnelly00@outlook.com,432235324,8/03/2025,10/03/2025,2,,Cancelled,6m Diameter Tent No.1,750,0,0,190,750,6,0,2
+3/03/2025,Direct Booking,Katrina,Taylor,katiet2388@gmail.com,488637095,8/03/2025,9/03/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: APD020",Confirmed,Unpowered Camp Site Only (Tent is NOT included),60,0,0,25,60,2,2,1
+4/03/2025,Direct Booking,Johann,Tirtha,johann.tirtha@gmail.com,401292833,8/03/2025,10/03/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1TG5HP",Confirmed,Unpowered Camp Site Only (Tent is NOT included),145,0,0,75,145,4,2,1
+4/03/2025,Direct Booking,Handri,Tjhia,Handri_chia@yahoo.co.uk,476803546,8/03/2025,10/03/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),105,0,0,35,105,2,0,1
+6/03/2025,Direct Booking,Paul,Tirtha,Ptirtha@gmail.com,430882324,8/03/2025,10/03/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),120,0,0,50,120,3,2,1
+6/03/2025,Direct Booking,Paul,Tirtha,Ptirtha@gmail.com,430882324,8/03/2025,10/03/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),80,0,0,10,80,2,0,1
+6/03/2025,Direct Booking,Rebecca,Riepma,rebecca.riepma@gmail.com,426136873,8/03/2025,9/03/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1zu4hq",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+6/03/2025,Direct Booking,yixin,cao,caoyixin81@gmail.com,488315777,8/03/2025,9/03/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: USF266",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+7/03/2025,Direct Booking,Margaret,Morton,morton.margaret@gmail.com,423160225,8/03/2025,10/03/2025,2,"Near the lake but if possible not under trees that might drop limbs.
+Many thanks,
+Marg and Tom.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: JMFLYV77W5J002438",Confirmed,Unpowered Camp Site Only (Tent is NOT included),80,0,0,10,80,2,0,1
+8/03/2025,Direct Booking,Violette,Magnan,violette.magnan@mail.mcgill.ca,15148210490,8/03/2025,9/03/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 797YES",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+26/02/2025,Direct Booking,Stephen,Delaney,Stephendelaney10@gmail.com,432235502,9/03/2025,10/03/2025,1,,Cancelled,6m Diameter Tent No.1,220,0,0,80,220,3,0,1
+5/03/2025,Direct Booking,Craig,Millsom,craigmillsom@gmail.com,438323021,9/03/2025,10/03/2025,1,"Will be there early to assist with Leanne Millsom's permanent onsite place. Don't need to check in until allowed.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1SO1NC",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+9/03/2025,Direct Booking,Sam,Green,samgreen-design@outlook.com,426043667,11/03/2025,12/03/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: VVWZZZ1JZ1P029375",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+12/03/2025,Direct Booking,Karen,Leccese,karenleccese@bigpond.com,415090609,15/03/2025,16/03/2025,1,"Please can we have a powered site. I couldn't find where to book this. I will pay the extra on arrival. Thank you
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: DBV995",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+6/12/2024,Mobile App,****,****,,****,20/03/2025,23/03/2025,3,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+6/12/2024,Mobile App,Clayton,Fishing Club,,,20/03/2025,23/03/2025,3,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+6/12/2024,Mobile App,Clayton,Fishing Club,,,20/03/2025,23/03/2025,3,,Confirmed,Big house - Roseneath Holiday Park,0,0,0,0,0,10,0,1
+17/03/2025,Extranet,Clayton,Fishing Club,,,20/03/2025,23/03/2025,3,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+20/03/2025,Direct Booking,YUCIAN,HUANG,cianmi880621@gmail.com,61472785662,20/03/2025,21/03/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+26/03/2025,Direct Booking,Zac,Stoddard,zacstoddard12@gmail.com,491779745,26/03/2025,27/03/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1zu1vo",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+8/04/2025,Direct Booking,zhi cheng,chen,910785782@qq.com,403373954,8/04/2025,9/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+8/04/2025,Direct Booking,zhi cheng,chen,910785782@qq.com,403373954,8/04/2025,9/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+28/03/2025,Direct Booking,Heather,Smith,wordsmithheather@gmail.com,419466005,9/04/2025,11/04/2025,2,"If we can have three sites together that would be great, as we share camping resources etc.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: JMFLYV98W7J001802",Confirmed,Powered Camp Site Only (Tent is NOT included),360,0,0,90,360,10,1,3
+9/04/2025,Direct Booking,Paul,Bawden,Paul.bawden@ecolab.com,417079843,11/04/2025,14/04/2025,3,"Flat ground needed
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: ZAH056",Confirmed,Unpowered Camp Site Only (Tent is NOT included),150,0,0,45,150,3,1,1
+10/04/2025,Direct Booking,Cheryl,Sheilds,us6owner@bigpond.com,439997312,11/04/2025,13/04/2025,2,"There will be 3 of us travelling together, the other 2 are towing horse floats which they will be camping in. Could we please be close to the water say 130, 125, 121 area? I will be towing a pop up caravan and a dog.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: UBY169",Confirmed,Unpowered Camp Site Only (Tent is NOT included),70,0,0,0,70,1,0,1
+10/04/2025,Direct Booking,Gayle,Hall,us6owner@bigpond.com,409846566,11/04/2025,13/04/2025,2,"Travelling with UBY-169
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: DENIMS",Confirmed,Unpowered Camp Site Only (Tent is NOT included),70,0,0,0,70,1,0,1
+10/04/2025,Direct Booking,Irene,Pederson,us6owner@bigpond.com,409846566,11/04/2025,13/04/2025,2,"Travelling with UBY-169 & DENIMS
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: IBP-001",Confirmed,Unpowered Camp Site Only (Tent is NOT included),70,0,0,0,70,1,0,1
+12/01/2025,Mobile App,Kate,Fox,,439337994,17/04/2025,21/04/2025,4,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+29/03/2025,Direct Booking,Doug,Clark,doug.clark@tripstop.net,439466331,17/04/2025,22/04/2025,5,"Large site
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1ZM50V",Confirmed,Powered Camp Site Only (Tent is NOT included),225,0,0,0,225,2,0,1
+15/04/2025,Mobile App,Laura,Marduglio,,431850736,17/04/2025,20/04/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),210,60,45,0,210,4,3,1
+15/04/2025,Extranet,Deano,Hawkins,djhawkins99@hotmail.com,418554002,17/04/2025,21/04/2025,4,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),112.14,0,0,0,112.14,2,0,1
+17/04/2025,Extranet,Ben,Clancy,clangatow205@gmail.com,404576390,17/04/2025,20/04/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),146.85,0,0,0,146.85,4,0,1
+12/01/2025,Mobile App,Powered,Site,,,18/04/2025,21/04/2025,3,,Confirmed,Powered Camp Site Only (Tent is NOT included),0,0,0,0,0,4,0,1
+12/01/2025,Mobile App,Azulika,F,,437178447,18/04/2025,21/04/2025,3,Guest just called to cancel 9 April. John,Cancelled,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,2,3,1
+12/01/2025,Mobile App,Kate,7,,427556306,18/04/2025,24/04/2025,6,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,2,1
+28/01/2025,Mobile App,Kristen,Beech,,412876244,18/04/2025,21/04/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,1,0,1
+13/02/2025,Direct Booking,Rohan,Morcom,rohanmorcom@morco.org,425711403,18/04/2025,19/04/2025,1,"Hi, we are coming in a campervan and bringing a Labrador, is your park dog friendly?
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1JX1NT",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+13/03/2025,Mobile App,Sam,Friend Of Joe,,433932996,18/04/2025,20/04/2025,2,,Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,650,0,0,0,650,1,0,1
+16/03/2025,Airbnb,Michael,Andrewes,,61448003545,18/04/2025,20/04/2025,2,"Cleaning Fee- AUD 200.00, Cancellation Fee- AUD 2672.00",Checked-out,Big house - Roseneath Holiday Park,2672,0,0,0,2672,10,6,1
+18/03/2025,Mobile App,Joe,Plus 2 Sites,,433190957,18/04/2025,20/04/2025,2,,Checked-out,Cabin 3 Bedrooms - Roseneath Holiday Park,800,0,0,0,800,6,2,1
+18/03/2025,Mobile App,Tracy,Guo,,481387512,18/04/2025,20/04/2025,2,,Confirmed,Powered Camp Site Only (Tent is NOT included),20,0,0,20,20,2,0,1
+18/03/2025,Mobile App,Bill,Gross,,439456155,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site1,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site2,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site 3,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site4,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site5,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),80,0,10,0,80,2,1,1
+18/03/2025,Mobile App,Muresh,Site6,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site7,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site7,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site8,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site9,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site10,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site11,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site12,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site13,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),80,0,10,0,80,2,1,1
+18/03/2025,Mobile App,Muresh,Site13,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site14,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,1,1
+18/03/2025,Mobile App,Muresh,Site15,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),80,0,10,0,80,2,1,1
+18/03/2025,Mobile App,Muresh,Site16,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site17,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site18,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site18,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site19,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site20,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site21,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site21,,,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+18/03/2025,Mobile App,Muresh,Site22,,,18/04/2025,20/04/2025,2,,Checked-in,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+21/03/2025,Direct Booking,Melanie,Boulton,melanieboulton@hotmail.com,432033205,18/04/2025,21/04/2025,3,,Confirmed,Powered Camp Site Only (Tent is NOT included),420,0,0,210,420,6,3,2
+24/03/2025,Direct Booking,Elaine,Chiang,1423elaine.chiang@gmail.com,481716803,18/04/2025,20/04/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: ULZ 876",Confirmed,Powered Camp Site Only (Tent is NOT included),100,0,0,10,100,2,0,1
+1/04/2025,Mobile App,John,Du,,413168533,18/04/2025,20/04/2025,2,,Checked-out,6m Diameter Tent No.1,0,0,0,0,0,1,3,1
+3/04/2025,Extranet,Bowen,.,,,18/04/2025,21/04/2025,3,,Confirmed,4m Diameter Tent No.2,0,0,0,0,0,1,0,1
+5/04/2025,Direct Booking,James,Hoang,jhoang96@gmail.com,479104411,18/04/2025,20/04/2025,2,"Can you please place us in Dear Park?
+Prefer any of these below: Thank you so much!
+106,107,110,111,114,115,118,119
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: BHO119",Confirmed,Unpowered Camp Site Only (Tent is NOT included),80,0,0,10,80,2,0,1
+6/04/2025,Direct Booking,Stephanie,Mejia,stephaniemejiayela@gmail.com,435909319,18/04/2025,20/04/2025,2,"Hi there, we are going to camp on a rooftop tent and a tent. We would like to be located in a green area if possible. Thanks
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: WLZ049",Confirmed,Unpowered Camp Site Only (Tent is NOT included),100,0,0,30,100,3,0,1
+11/04/2025,Mobile App,Brian,Fisk,,,18/04/2025,21/04/2025,3,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,1,0,1
+13/04/2025,Direct Booking,Koko wakako,Kato,Hihoi96s2@gmail.com,402769394,18/04/2025,20/04/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 2BN2SV",Cancelled,Unpowered Camp Site Only (Tent is NOT included),75,0,0,5,75,2,0,1
+15/04/2025,Direct Booking,Marcus,Boyd,Marcusbanjoboyd@gmail.com,411300608,18/04/2025,21/04/2025,3,"We will have our dog with us (1 year old English springer spaniel)- please contact if this is unsuitable (website does not indicate that pets are not allowed).
+Cheers,
+Marcus
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1TM8NG",Confirmed,Unpowered Camp Site Only (Tent is NOT included),180,0,0,75,180,2,0,1
+15/04/2025,Extranet,Shan,Nirmalan,nimal179@yahoo.com,414916048,18/04/2025,19/04/2025,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),36.93,0,0,0,36.93,2,2,1
+15/04/2025,Direct Booking,Emily,Willocks,emily.willocks@gmail.com,430363557,18/04/2025,19/04/2025,1,"1 4WD with rooftop tent- need a campsite that can park vehicle on. Thanks!
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1RW8ZZ",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+15/04/2025,Direct Booking,Andy,Nguyen,andynguyen917@gmail.com,420459785,18/04/2025,20/04/2025,2,"More secluded area away from people please.
+Somewhere we can light a campfire?
+We will also have 2 cars arriving at different times.",Confirmed,Unpowered Camp Site Only (Tent is NOT included),145,0,0,75,145,4,0,1
+15/04/2025,Extranet,Luca,Guagni,luca.guagni@gmail.com,452471463,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),56.07,0,0,0,56.07,2,0,1
+15/04/2025,Booking.com,Yong,Zhang,vgwbhx.947789@guest.booking.com,+61 451 052 199,18/04/2025,19/04/2025,1,"** THIS RESERVATION HAS BEEN PRE-PAID **
+Reservation has a cancellation grace period. Do not charge if cancelled before 2025-04-16 13:55:43
+Approximate time of arrival: between 17:00 and 18:00
+BOOKING NOTE : Payment charge is AUD 6.0454542
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 318.18",Cancelled,6m Diameter Tent No.4,200,0,0,0,200,8,0,1
+15/04/2025,Direct Booking,Yen Ling,Fu,lynn0437@gmail.com,434586385,18/04/2025,19/04/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: DFB220",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+16/04/2025,Direct Booking,Jack,Mcnaughton,Wackomcn@hotmail.com,428390113,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),70,0,0,0,70,2,0,1
+16/04/2025,Direct Booking,Pravanjan,Behera,pravanjanb7@gmail.com,416838356,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),270,0,0,200,270,12,0,1
+16/04/2025,Direct Booking,Tess,Otto,t.fuhrmann@hotmail.com,481750557,18/04/2025,21/04/2025,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: YOU832",Confirmed,Unpowered Camp Site Only (Tent is NOT included),120,0,0,15,120,2,1,1
+16/04/2025,Direct Booking,Yitong,Chen,eatonc999@gmail.com,452580737,18/04/2025,20/04/2025,2,"Can we please have 2 sites next to each other, and it will be great if we can get the site close to the lake. Thank you.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: YT1996",Confirmed,Unpowered Camp Site Only (Tent is NOT included),140,0,0,0,140,4,0,2
+17/04/2025,Extranet,Ray,Kelly,ray-kelly-94@hotmail.com,460335883,18/04/2025,19/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),31.15,0,0,0,31.15,2,0,1
+17/04/2025,Extranet,Harry,Heenan,harryheenan7@gmail.com,490533587,18/04/2025,20/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),97.9,0,0,0,97.9,2,0,1
+17/04/2025,Direct Booking,Amanda,Milligan,amanda_milligan@icloud.com,447102512,18/04/2025,21/04/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),285,0,0,120,285,2,7,1
+18/04/2025,Direct Booking,Fatemeh,Mirabedini,fatemehmirabedini56@yahoo.com,411140318,18/04/2025,20/04/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: Bsp391",Confirmed,Unpowered Camp Site Only (Tent is NOT included),120,0,0,10,120,2,1,1
+18/04/2025,Extranet,Bowen,.,,,18/04/2025,20/04/2025,2,,Confirmed,3m Diameter Tent No.3,0,0,0,0,0,2,0,1
+9/02/2025,Direct Booking,Jolie,Naylor,jolie.naylor@gmail.com,419734816,19/04/2025,20/04/2025,1,"Dear Park preferred for camp spot
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: BY81CE",Confirmed,Unpowered Camp Site Only (Tent is NOT included),45,0,0,10,45,2,0,1
+3/04/2025,Extranet,Bowen,.,,,19/04/2025,21/04/2025,2,,Confirmed,6m Diameter Tent No.4,0,0,0,0,0,1,0,1
+8/04/2025,Direct Booking,Alyce,Wilson,bouby1@hotmail.com,413815354,19/04/2025,21/04/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: CLI-207",Confirmed,Powered Camp Site Only (Tent is NOT included),180,0,0,0,180,4,0,2
+10/04/2025,Direct Booking,Shrien,Jackson,Shrienr88@gmail.com,427356050,19/04/2025,20/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+13/04/2025,Direct Booking,Tarsha,Verrall,Tarsha.verrall@gmail.com,456560339,19/04/2025,21/04/2025,2,"Can we please have two unpowered sites side by side please for two vehicles
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: MPBUMFF50KX259614",Confirmed,Unpowered Camp Site Only (Tent is NOT included),130,0,0,60,130,4,1,1
+15/04/2025,Extranet,Nick,Dawson,ndworkonly@gmail.com,480578571,19/04/2025,22/04/2025,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),93.45,0,0,0,93.45,2,0,1
+17/04/2025,Extranet,Hampar,Issaian,hamparissaian5@gmail.com,451112953,19/04/2025,20/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),48.95,0,0,0,48.95,4,0,1
+18/04/2025,Extranet,Dipsina,Gurung,dipsinagurung@gmail.com,449737313,19/04/2025,20/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),48.95,0,0,0,48.95,2,0,1
+18/04/2025,Direct Booking,Kim,Vu,Tklvu@hotmail.com,424305568,19/04/2025,21/04/2025,2,,Checked-in,Single tiny cabin,625,0,0,115,625,3,3,2
+19/04/2025,Extranet,Nikita,Bishokarma,5f9hk2qvy7@privaterelay.appleid.com,413127806,19/04/2025,20/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),48.95,0,0,0,48.95,2,0,1
+19/04/2025,Extranet,Jo,Ye,416355562@qq.com,451280522,19/04/2025,20/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),48.95,0,0,0,48.95,2,0,1
+6/04/2025,Direct Booking,Christie,Robbs,christierobbs@gmail.com,403930573,20/04/2025,21/04/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: AE42QF",Confirmed,Unpowered Camp Site Only (Tent is NOT included),35,0,0,0,35,2,0,1
+14/04/2025,Direct Booking,Thida,Ngin,nginthida@yahoo.com,415743944,20/04/2025,21/04/2025,1,"We have 3 car
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: BYV606",Confirmed,Powered Camp Site Only (Tent is NOT included),157,0,0,112,157,7,6,1
+20/04/2025,Airbnb,Sajid,Khan,,61426170030,20/04/2025,21/04/2025,1,"Cleaning Fee- AUD 100.00, Cancellation Fee- AUD 417.50",Checked-in,Cabin 3 Bedrooms - Roseneath Holiday Park,417.5,0,0,0,417.5,4,0,1
+20/04/2025,Extranet,Juan Diego,Vargas London??o,d7w8fqdkqj@privaterelay.appleid.com,435474418,20/04/2025,21/04/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),76.93,0,0,0,76.93,4,0,1
+15/04/2025,Mobile App,Prabsimran,singh,Prabsimran5020@gmail.com,411044114,21/04/2025,23/04/2025,2,4 aldults came here before,Checked-in,Cabin  2 Bedrooms - Roseneath Holiday Park,758,120,0,100,758,4,0,1
+21/04/2025,Direct Booking,jiawei,chen,c15174249298@gmail.com,416606919,22/04/2025,23/04/2025,1,,Confirmed,Single tiny cabin,100,0,0,0,100,2,0,1
+22/04/2025,Mobile App,Geoff,Watt,,+61 402 292 961,22/04/2025,23/04/2025,1,"Paid cash to john du , as room hasnt been cleaned charge flat rate",Checked-in,Cabin  2 Bedrooms - Roseneath Holiday Park,120,0,0,0,120,1,0,1
+22/04/2025,Extranet,Raj,Kattalai,rajkattalai@gmail.com,469161992,24/04/2025,26/04/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),115.7,0,0,0,115.7,4,2,1
+15/04/2025,Extranet,Sumit,Sharma,,,25/04/2025,26/04/2025,1,,Confirmed,4m Diameter Tent No.2,0,0,0,0,0,3,0,1
+2/05/2025,Direct Booking,Jason,Kissane,jasondkissane@gmail.com,407123802,8/05/2025,10/05/2025,2,,Checked-in,Unpowered Camp Site Only (Tent is NOT included),70,0,0,0,70,2,0,1
+9/05/2025,Direct Booking,Mason,Smith,masonsmith026@gmail.com,432208363,9/05/2025,10/05/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: WYW 547",Checked-in,Powered Camp Site Only (Tent is NOT included),45,0,0,0,45,2,0,1
+7/05/2025,Direct Booking,Jana,Stephenson,Flutterlashes81@gmail.com,412054479,23/05/2025,25/05/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 2ab9yt",Checked-in,Unpowered Camp Site Only (Tent is NOT included),120,0,0,50,120,3,3,1
+27/05/2025,Direct Booking,Helena,Pekar,helena.pekar@gmail.com,423431091,6/06/2025,9/06/2025,3,Arriving late. Need instructions via text/email please. Thank you.,Confirmed,4m Diameter Tent No.2,345,0,0,45,345,2,0,1
+2/06/2025,Mobile App,Marcus,Friend,,,6/06/2025,9/06/2025,3,,Confirmed,Powered Camp Site Only (Tent is NOT included),135,0,0,0,135,2,0,1
+2/06/2025,Direct Booking,Daryl,Irwin,daryl.irwin@dic.com.au,408626164,6/06/2025,9/06/2025,3,No.,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,788,0,0,80,788,2,0,1
+5/06/2025,Direct Booking,Tyler,Norris,Tjnorris94@gmail.com,452399292,6/06/2025,9/06/2025,3,"Over near the alpaca paddock please
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1ut5md",Confirmed,Unpowered Camp Site Only (Tent is NOT included),135,0,0,30,135,3,0,1
+31/05/2025,Airbnb,Funda,Tunjel,,61404811882,7/06/2025,8/06/2025,1,"Cleaning Fee- AUD 100.00, Cancellation Fee- AUD 334.00",Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,334,0,0,0,334,4,0,1
+2/06/2025,Mobile App,Paul,Hi Tent,,,8/06/2025,9/06/2025,1,,Confirmed,3m Diameter Tent No.3,100,0,0,0,100,2,0,1
+11/06/2025,Extranet,???,??????,shinee86924@gmail.com,470241910,15/06/2025,16/06/2025,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),31.15,0,0,0,31.15,2,0,1
+18/06/2025,Direct Booking,Karin,Meszaros,karin.marty.meszaros@live.com,435591481,18/06/2025,20/06/2025,2,A water view would be nice and close to amenities,Confirmed,Powered Camp Site Only (Tent is NOT included),110,0,0,0,110,2,0,1
+22/06/2025,Mobile App,Simin,Qian,,,23/06/2025,25/06/2025,2,John friend,Confirmed,Powered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+22/06/2025,Mobile App,Jerry,Zhu,,419168811,28/06/2025,2/07/2025,4,RHP sharehold visit,Cancelled,Big house - Roseneath Holiday Park,0,0,0,0,0,8,6,1
+8/07/2025,Direct Booking,Lucas,Teng,lucasteng060708@gmail.com,478640427,15/07/2025,17/07/2025,2,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,540,0,0,100,540,2,2,1
+8/07/2025,Direct Booking,Lucas,Teng,lucasteng060708@gmail.com,478640427,15/07/2025,17/07/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,456,0,0,80,456,2,0,1
+6/07/2025,Mobile App,Jerry,Zhu,,413168533,18/07/2025,20/07/2025,2,Rhp shareholder trial,Confirmed,Big house - Roseneath Holiday Park,0,0,0,0,0,6,6,1
+8/07/2025,Mobile App,Jerry,Zhu,,413168533,18/07/2025,20/07/2025,2,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,2,2,1
+8/07/2025,Mobile App,Jerry,Zhu,,413168533,18/07/2025,20/07/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,2,2,1
+28/07/2025,Direct Booking,Alexander,Davies,amdavies1211@gmail.com,447907063322,28/07/2025,29/07/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: Don't know yet- picking up motorhome today and will call to give numerplate",Confirmed,Powered Camp Site Only (Tent is NOT included),107,0,0,52,107,5,0,1
+13/08/2025,Direct Booking,Suboor,Syed,Suboor80@gmail.com,470375605,13/08/2025,14/08/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1la4nj",Confirmed,Single tiny cabin,153,0,0,73,153,2,0,1
+23/07/2025,Extranet,Lindsay,Flower,lindsayjflower@gmail.com,424049468,27/08/2025,29/08/2025,2,From Hipcamp,Confirmed,Powered Camp Site Only (Tent is NOT included),97.9,0,0,0,97.9,2,0,1
+29/06/2025,Direct Booking,Robyn,Smith,robynfsmith@outlook.com,421325783,28/08/2025,31/08/2025,3,,Confirmed,Single tiny cabin,400,0,0,50,400,2,0,1
+27/08/2025,Mobile App,John,Du,,413168533,29/08/2025,31/08/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,200,0,0,0,200,4,0,1
+27/08/2025,Mobile App,John,Du,,413168533,29/08/2025,31/08/2025,2,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+27/08/2025,Mobile App,John,Du,,,29/08/2025,31/08/2025,2,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,300,0,0,0,300,5,0,1
+24/08/2025,Direct Booking,Jemma,Mckay,jema.7@hotmail.com,481256856,12/09/2025,14/09/2025,2,"Were bringing our 5 dirtbikes, 2 big ones 2 medium 1 pee wee .
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1ET5DW",Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,610,0,0,210,610,3,3,1
+12/09/2025,Mobile App,Lockie,Kennedy,,0408 173 710,12/09/2025,13/09/2025,1,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,230,0,0,0,230,2,2,1
+8/09/2025,Mobile App,Diamond,Singh,Diamond03xx@gmail.com,479088183,13/09/2025,14/09/2025,1,,Cancelled,Cabin  2 Bedrooms - Roseneath Holiday Park,340,0,0,0,340,4,0,1
+9/09/2025,Mobile App,Jemma mum,Jemma mum,,412616680,13/09/2025,15/09/2025,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),80,0,0,0,80,1,0,1
+22/09/2025,Mobile App,Amenda,H,,413168533,24/09/2025,29/09/2025,5,,Confirmed,Big house - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+21/09/2025,Mobile App,Bill,Yang,,,25/09/2025,26/09/2025,1,,Cancelled,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+21/09/2025,Mobile App,Bill,Yang 2,,431092089,25/09/2025,27/09/2025,2,,Checked-in,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+21/09/2025,Mobile App,Bill,Yang 1,,431092089,25/09/2025,27/09/2025,2,,Checked-in,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+22/09/2025,Extranet,Katherine,Stevenson,katherinestevenson@live.com,,25/09/2025,28/09/2025,3,,Confirmed,Powered Camp Site Only (Tent is NOT included),221,0,66,0,221,2,2,1
+24/09/2025,Direct Booking,Stafanus,Meyer,spmeyer72@gmail.com,61491386575,25/09/2025,28/09/2025,3,"Prefer 144
+If not available 143
+If not available 142
+If not available 152
+If not available 147
+If not available 146
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: MPAUCS85GJT007343",Checked-in,Unpowered Camp Site Only (Tent is NOT included),259,0,0,134,259,4,1,1
+6/03/2025,Direct Booking,Nigel,So,nigelso.ns@gmail.com,4888000888,26/09/2025,28/09/2025,2,"Booking with the group of 6 RVs. Need Power.
+Site 72.",Checked-in,Unpowered Camp Site Only (Tent is NOT included),110,0,0,40,110,2,1,1
+6/03/2025,Direct Booking,Yvonne,Shea,yvonnesheayh@gmail.com,433027710,26/09/2025,28/09/2025,2,"Group of 6 RV for AFL Long weekend, Power needed. Site 77 please. Thank you",Checked-in,Unpowered Camp Site Only (Tent is NOT included),110,0,0,40,110,2,1,1
+6/03/2025,Direct Booking,peter,huang,Huangpete@yahoo.com,402946312,26/09/2025,28/09/2025,2,"Powered site #76. Group of 6 RV for AFL Long weekend, Power needed. Site 76.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: TBA",Checked-in,Unpowered Camp Site Only (Tent is NOT included),110,0,0,40,110,2,1,1
+6/03/2025,Direct Booking,Yuen kit,Chan,Yuenkitc@gmail.com,452520158,26/09/2025,28/09/2025,2,"Group of 6 RV for AFL long weekend, power needed. Site:71",Checked-in,Unpowered Camp Site Only (Tent is NOT included),110,0,0,40,110,2,2,1
+6/03/2025,Direct Booking,Thomas,Lau,kaiheithomas@gmail.com,411387837,26/09/2025,28/09/2025,2,Group of 6 RV for AFL long weekend. Power needed. Site 70.,Checked-in,Unpowered Camp Site Only (Tent is NOT included),110,0,0,40,110,2,2,1
+6/03/2025,Direct Booking,Wing i,So,sososo_215@outlook.com,450064157,26/09/2025,28/09/2025,2,"Group of 6 RV for AFL Long weekend, Power needed. Site 69",Checked-in,Unpowered Camp Site Only (Tent is NOT included),100,0,0,30,100,2,1,1
+8/03/2025,Booking.com,Ian,Tang,itang.155668@guest.booking.com,+61 432 418 728,26/09/2025,28/09/2025,2,"** THIS RESERVATION HAS BEEN PRE-PAID **
+Approximate time of arrival: between 13:00 and 14:00
+BOOKING NOTE : Payment charge is AUD 7.49636363636364, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 394.55",Checked-in,Cabin  2 Bedrooms - Roseneath Holiday Park,270,0,0,0,270,2,0,1
+19/09/2025,Extranet,Georgia,.,,,26/09/2025,28/09/2025,2,,Checked-in,Powered Camp Site Only (Tent is NOT included),212,0,0,0,212,2,3,1
+19/09/2025,Extranet,Corrine,.,,,26/09/2025,28/09/2025,2,,Checked-in,Powered Camp Site Only (Tent is NOT included),158,0,0,0,158,2,2,1
+19/09/2025,Extranet,Jae,.,,,26/09/2025,28/09/2025,2,,Checked-in,Powered Camp Site Only (Tent is NOT included),144,0,0,0,144,1,2,1
+19/09/2025,Extranet,Kaite,.,,,26/09/2025,28/09/2025,2,,Checked-in,Powered Camp Site Only (Tent is NOT included),65,0,0,0,65,1,1,1
+19/09/2025,Direct Booking,Jemma,Blandford,jemmablandford@hotmail.com,411820666,26/09/2025,28/09/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: E114.14",Confirmed,Powered Camp Site Only (Tent is NOT included),140,0,0,50,140,1,1,1
+19/09/2025,Direct Booking,Jemma,Blandford,jemmablandford@hotmail.com,411820666,26/09/2025,28/09/2025,2,,Confirmed,Powered Camp Site Only (Tent is NOT included),224,0,0,134,224,4,2,1
+29/09/2025,Mobile App,Min Hong,Song,2593957@qq.com,415802777,2/10/2025,4/10/2025,2,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+10/10/2025,Direct Booking,Vern,MacPherson,vernette0505@gmail.com,61403553565,17/10/2025,19/10/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: TBC",Confirmed,Unpowered Camp Site Only (Tent is NOT included),160,0,0,0,160,3,0,2
+17/10/2025,Direct Booking,Jessica,Kovac,Jekovac@outlook.com,61457726660,18/10/2025,19/10/2025,1,2 x horses,Confirmed,Unpowered Camp Site Only (Tent is NOT included),40,0,0,0,40,2,0,1
+18/10/2025,Direct Booking,Simon,Gibson,Simongibson151@gmail.com,431657585,18/10/2025,19/10/2025,1,,Cancelled,Unpowered Camp Site Only (Tent is NOT included),60,0,0,20,60,2,0,1
+19/10/2025,Direct Booking,Summer,Yong,summeryong20@gmail.com,434514844,20/10/2025,21/10/2025,1,,Cancelled,Powered Camp Site Only (Tent is NOT included),45,0,0,0,45,2,0,1
+4/09/2025,Mobile App,Daniel,Daniel,,0403 550 915,23/10/2025,26/10/2025,3,,Cancelled,Cabin 3 Bedrooms - Roseneath Holiday Park,1410,0,0,0,1410,4,0,1
+22/09/2025,Extranet,Catherine,Stevenson,katherinestevenson@live.com,,25/10/2025,28/10/2025,3,,Cancelled,Powered Camp Site Only (Tent is NOT included),221,0,66,0,221,2,2,1
+24/10/2025,Airbnb,Tom,Clappers,,61402912036,27/10/2025,29/10/2025,2,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 242.15",Confirmed,Single tiny cabin,242.16,0,0,0,242.16,1,0,1
+25/10/2025,Mobile App,Dan,1,,414807044,27/10/2025,2/11/2025,6,5 powersites together,Checked-in,Powered Camp Site Only (Tent is NOT included),432,0,132,0,432,2,2,1
+25/10/2025,Mobile App,Dan,2,,414807044,27/10/2025,2/11/2025,6,5 powersites together,Checked-in,Powered Camp Site Only (Tent is NOT included),432,0,132,0,432,2,2,1
+25/10/2025,Mobile App,Dan,3,,414807044,27/10/2025,2/11/2025,6,5 poweresites together,Confirmed,Powered Camp Site Only (Tent is NOT included),432,0,132,0,432,2,2,1
+25/10/2025,Mobile App,Dan,4,,414807044,27/10/2025,2/11/2025,6,5 powersites together,Confirmed,Powered Camp Site Only (Tent is NOT included),432,0,132,0,432,2,2,1
+25/10/2025,Mobile App,Dan,5,,414807044,27/10/2025,2/11/2025,6,5 powersite together,Confirmed,Powered Camp Site Only (Tent is NOT included),432,0,132,0,432,2,2,1
+28/09/2025,Mobile App,Linda,Gardener,,406384022,31/10/2025,4/11/2025,4,,Confirmed,Powered Camp Site Only (Tent is NOT included),210,0,0,0,210,1,0,1
+14/10/2025,Direct Booking,Tricia,Randle,triciarandle@bigpond.com,429968596,31/10/2025,3/11/2025,3,"I spoke to John about getting Sites 69 & 70.
+So the price will be $320 for the two sites.",Confirmed,Powered Camp Site Only (Tent is NOT included),160,0,0,0,160,2,0,1
+14/10/2025,Direct Booking,Tricia,Randle,triciarandle@bigpond.com,429968596,31/10/2025,3/11/2025,3,John - This is the second booking for Sites 69 & 70.,Confirmed,Powered Camp Site Only (Tent is NOT included),160,0,0,0,160,2,0,1
+25/10/2025,Direct Booking,Dhan,De Mel,dhanushka.demel@gmail.com,414807044,31/10/2025,2/11/2025,2,"Could you please book all five sites together at either Emu Park (sites xxx, xxx, xxx, xxx, and 132) or Deer Park (sites 121, 117, 113, 109, and 108)?
+
+We?€?ll also need access to a power cable at the site and are happy to pay extra at the site.
+
+Thank you!",Confirmed,Unpowered Camp Site Only (Tent is NOT included),612,0,0,112,612,10,8,5
+13/09/2025,Direct Booking,Jodi,Brunner,Jodi@fengshuimaster.com.au,0408 173 710,1/11/2025,7/11/2025,6,"A powered site near the lake path, next door to Lesley and John Stewart please.",Checked-in,Powered Camp Site Only (Tent is NOT included),360,0,0,50,360,2,0,1
+13/09/2025,Direct Booking,Lesley,Stewart,lesleystewart0410@gmail.com,418408135,1/11/2025,5/11/2025,4,,Confirmed,Powered Camp Site Only (Tent is NOT included),210,0,0,0,210,2,0,1
+17/09/2025,Direct Booking,Rameshkumar,Damodaraswamy,rameshinmel@gmail.com,402496343,1/11/2025,3/11/2025,2,,Confirmed,Powered Camp Site Only (Tent is NOT included),498,0,0,388,498,15,1,1
+26/10/2025,Extranet,Carps,Dan,carpelld@gmail.com,403258509,1/11/2025,4/11/2025,3,From Hipcamp,Checked-in,Unpowered Camp Site Only (Tent is NOT included),110.62,0,0,0,110.62,2,1,1
+27/10/2025,Direct Booking,Wanshanath,Samarakoon,wanshanath@gmail.com,478370370,1/11/2025,2/11/2025,1,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,410,0,0,110,410,2,2,1
+2/11/2025,Direct Booking,Tony,Gan,tony@awesomesupply.com.au,412684668,2/11/2025,3/11/2025,1,,Checked-in,Powered Camp Site Only (Tent is NOT included),60,0,0,0,60,2,0,1
+12/11/2025,Direct Booking,Indy,Stegeman,indystegeman@gmail.com,31640988983,12/11/2025,13/11/2025,1,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),40,0,0,0,40,2,0,1
+7/11/2025,Extranet,Charlotte,Earl,charlotteearl66@gmail.com,447436835536,14/11/2025,15/11/2025,1,From Hipcamp,Checked-in,Powered Camp Site Only (Tent is NOT included),41.75,0,0,0,41.75,2,0,1
+15/11/2025,Mobile App,Hans-peter,Ziegler,hans-peter.ziegler@gmx.de,423387369,15/11/2025,16/11/2025,1,Car reg No 1TP 2 QT,Confirmed,Powered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+17/11/2025,Extranet,Jessica,C,,447909091314,15/11/2025,16/11/2025,1,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),40.08,0,0,0,40.08,2,1,1
+22/11/2025,Mobile App,Tim,Gosby,timgosby@icloud.com,418461550,22/11/2025,23/11/2025,1,,Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,180,0,0,0,180,2,0,1
+25/11/2025,Direct Booking,Michelle,Stivala,Michelle.stivala@hotmail.com,419518729,26/11/2025,28/11/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1XH 7DP",Checked-in,Unpowered Camp Site Only (Tent is NOT included),103,0,0,23,103,1,0,1
+12/11/2025,Booking.com,Bonnie,Cooper,bcoope.891558@guest.booking.com,+61 477 352 392,29/11/2025,30/11/2025,1,"** THIS RESERVATION HAS BEEN PRE-PAID **
+BOOKING NOTE : Payment charge is AUD 7.1232729, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 374.91",Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,252,0,0,0,252,2,0,1
+30/11/2025,Direct Booking,Quirin,Boneberger,quirin.boneberger@web.de,411640255,30/11/2025,1/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 969KS5",Checked-in,Powered Camp Site Only (Tent is NOT included),55,0,0,0,55,2,0,1
+4/12/2025,Direct Booking,Wendy,Prestney,Wendy.prestney@icloud.com,447828681858,6/12/2025,7/12/2025,1,"Quiet flat site for 6m campervan if possible. Thanks.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1ZO 9ZD",Confirmed,Powered Camp Site Only (Tent is NOT included),55,0,0,0,55,2,0,1
+15/12/2025,Direct Booking,Jenna,McMahon,jennam3@live.com.au,61437749943,15/12/2025,16/12/2025,1,,Confirmed,Single tiny cabin,250,0,0,100,250,2,0,1
+15/12/2025,Direct Booking,Emma,Robinson,robinsonemma80@gmail.com,0416 284 980,15/12/2025,16/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1XV3RB",Confirmed,Powered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+17/12/2025,Extranet,Amedy,Buchanan,amedyb@icloud.com,484371332,17/12/2025,18/12/2025,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),29.39,0,0,0,29.39,1,0,1
+17/12/2025,Direct Booking,Joanna,Sulanowska,joanna.sulanowska@onet.eu,4121247001,17/12/2025,18/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: JTFHX02P200122018",Confirmed,Powered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+23/02/2025,Trip.com(New),Jessica,Anania,rs.7cb.9u2807umz4.1.2234@guest.trip.com,44-7385841045,19/12/2025,20/12/2025,1,"VCC Amount: AUD 127.5, paid by Trip.com(EML: vcc@trip.com);Please charge VCC between 2025-12-19 00:00:00- 2026-06-18 00:00:00(local time).(EML: vcc@trip.com);For contacting the guest please dial: +61272541999(verification code:928292)or +61256574328(verification code:928292);Please contact guest by system generated mail (rs.7cb.9u2807umz4.1.2234@guest.trip.com), preferred language: (English);Customer phone number:44-7385841045;This booking was made through Trip.com, a Ctrip Group brand;Contact guest by English; Contact Trip.com via hotelSupport@trip.com;+xx-xx-xxxx-xxxx (Global Line);+61-2-3820-1716 (Local Line)",Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,127.5,0,0,0,127.5,2,0,1
+12/11/2025,Direct Booking,Charles,Nie,charlesnie490@gmail.com,478114045,21/12/2025,23/12/2025,2,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),100,0,0,0,100,2,0,1
+12/11/2025,Direct Booking,Jiaxin,Chen,Jacksonxxx95@gmail.com,422281978,21/12/2025,23/12/2025,2,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),100,0,0,0,100,2,0,1
+25/11/2025,Direct Booking,ziheng,zhang,zihengz123@gmail.com,61488977776,21/12/2025,23/12/2025,2,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),200,0,0,0,200,4,0,2
+11/11/2025,Mobile App,Cindy,Wilson,,413168533,22/12/2025,27/12/2025,5,,Checked-out,Big house - Roseneath Holiday Park,0,0,0,0,0,7,0,1
+11/12/2025,Extranet,Ankeet,Shrestha,shrestha.ankeet@gmail.com,424033738,22/12/2025,24/12/2025,2,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),192.05,0,0,0,192.05,4,0,1
+21/12/2025,Direct Booking,Bernard,Baltrusaitis,bernard@runawaylover.info,0411 637 226,22/12/2025,27/12/2025,5,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: YXW585",Checked-out,Unpowered Camp Site Only (Tent is NOT included),343,0,0,93,343,2,2,1
+4/09/2025,Mobile App,Sharon And Bill,Warren,,490518609,23/12/2025,28/12/2025,5,,Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,1420,0,0,0,1420,2,0,1
+14/10/2025,Extranet,Elias,Gaulke,eliasgaulke1@gmail.com,493293953,24/12/2025,27/12/2025,3,From Hipcamp,Checked-out,Powered Camp Site Only (Tent is NOT included),259.02,0,0,0,259.02,4,0,1
+22/10/2025,Extranet,Elias,Gaulke,eliasgaulke1@gmail.com,493293953,24/12/2025,27/12/2025,3,From Hipcamp,Cancelled,Powered Camp Site Only (Tent is NOT included),259.02,0,0,0,259.02,4,0,1
+23/12/2025,Direct Booking,Phanee,Katta,phaneesmail@gmail.com,415991437,24/12/2025,26/12/2025,2,We have booked a powered site with the same email address. Can you please make sure we these 2 un-powered sites and the other powered site are side-by-side please.,Checked-out,Unpowered Camp Site Only (Tent is NOT included),381,0,0,181,381,6,7,2
+23/12/2025,Direct Booking,Phanee,Katta,phaneesmail@gmail.com,415991437,24/12/2025,26/12/2025,2,We have booked two un-powered sites with the same email address. Can you please make sure we this powered site is closer to the 2 un-powered sites please.,Checked-out,Powered Camp Site Only (Tent is NOT included),140,0,0,0,140,2,0,1
+6/10/2025,Direct Booking,Kiran,Patel,patel_kiran2@yahoo.com,433570657,25/12/2025,28/12/2025,3,Could we please have are 147,Checked-out,Powered Camp Site Only (Tent is NOT included),921,0,0,726,921,11,4,1
+19/12/2025,Extranet,Pragesh,Shrestha,prageshs79@gmail.com,416790382,25/12/2025,27/12/2025,2,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),217.1,0,0,0,217.1,6,0,1
+22/12/2025,Mobile App,My details: Pranish Ban 0416 642 182 Pranishbanau@gmail.com 371 murray st colac 3250,Ban,Pranishbanau@gmail.com,416642182,25/12/2025,27/12/2025,2,Waived cleaning fee $100,Checked-out,Cabin 3 Bedrooms - Roseneath Holiday Park,960,120,0,0,960,6,0,1
+23/12/2025,Direct Booking,Pranish,Ban,pranishbanau@gmail.com,61416642182,25/12/2025,27/12/2025,2,"Hi,
+I have also booked 3 bdr cabin under the name Pranish Ban. Is there any powered camping site near this 3bdr cabin.",Checked-out,Powered Camp Site Only (Tent is NOT included),140,0,0,0,140,2,0,1
+28/09/2025,Mobile App,Simonne,Peck,,,26/12/2025,2/01/2026,7,,Cancelled,Powered Camp Site Only (Tent is NOT included),532,0,77,0,532,2,1,1
+28/09/2025,Mobile App,Linda,Gardener,,406384022,26/12/2025,4/01/2026,9,,Checked-out,Powered Camp Site Only (Tent is NOT included),585,0,0,0,585,1,0,1
+18/10/2025,Mobile App,Donna,Mortimer,mortsx4@msn.com,432169058,26/12/2025,2/01/2026,7,,Cancelled,Powered Camp Site Only (Tent is NOT included),763,308,0,0,763,4,0,1
+1/11/2025,Direct Booking,Wanita,Sherchan,wanita.sherchan@gmail.com,402764233,26/12/2025,29/12/2025,3,,Checked-out,Powered Camp Site Only (Tent is NOT included),944,0,0,749,944,10,6,1
+17/11/2025,Direct Booking,Richard,Ortiz,Coholdem111@gmail.com,480797886,26/12/2025,30/12/2025,4,,Checked-out,Powered Camp Site Only (Tent is NOT included),479,0,0,199,479,4,0,1
+23/11/2025,Booking.com,Jaslon,Fernandes,jferna.430198@guest.booking.com,+61 412 964 684,26/12/2025,28/12/2025,2,"** THIS RESERVATION HAS BEEN PRE-PAID **
+BOOKING NOTE : Payment charge is AUD 17.5698187, booker_is_genius
+smoking preference: Non-Smoking, The amount the guest prepaid to Booking.com is AUD 924.73",Cancelled,Cabin 3 Bedrooms - Roseneath Holiday Park,756,0,0,0,756,6,0,1
+5/12/2025,Direct Booking,Peter,Dinehin,dinehin@hotmail.com,422715342,26/12/2025,30/12/2025,4,Will bring a dog.,Checked-in,Unpowered Camp Site Only (Tent is NOT included),436,0,0,236,436,5,2,1
+9/12/2025,Direct Booking,Amy,Beedie,amybeedie@rocketmail.com,422959357,26/12/2025,28/12/2025,2,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),100,0,0,0,100,2,0,1
+12/12/2025,Extranet,Cesar,Lopez,c-jl@live.com.au,421777815,26/12/2025,30/12/2025,4,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),167,0,0,0,167,1,0,1
+23/12/2025,Direct Booking,Jirakharin,Takaew,koooff@hotmail.com,61405855639,26/12/2025,27/12/2025,1,,Checked-out,Powered Camp Site Only (Tent is NOT included),103,0,0,33,103,3,1,1
+25/12/2025,Mobile App,Wendy,Li,,0406 255 272,26/12/2025,27/12/2025,1,,Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,2,0,1
+12/01/2026,Extranet,Grace,M.,,417148405,26/12/2025,27/12/2025,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),58.45,0,0,0,58.45,2,2,1
+4/11/2025,Direct Booking,Monica,Capusso,mon165@hotmail.com.au,412505524,27/12/2025,3/01/2026,7,,Checked-out,Powered Camp Site Only (Tent is NOT included),455,0,0,0,455,2,0,1
+24/11/2025,Direct Booking,Hugh,Jellie,hughjellie@gmail.com,0411 650 443,27/12/2025,1/01/2026,5,"Would love to camp at Emu Park or Dear Park if possible, thank you!
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1ZW3XG",Checked-out,Unpowered Camp Site Only (Tent is NOT included),540,0,0,290,540,4,4,1
+26/11/2025,Direct Booking,Brendan,Winter,Brendanthebricky@gmail.com,488234610,27/12/2025,29/12/2025,2,"Hi we stayed grand final weekend and got put on the corner across from the toilet block if we could get that spot if possible
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1sr8dz",Checked-out,Powered Camp Site Only (Tent is NOT included),140,0,0,0,140,2,0,1
+28/11/2025,Direct Booking,Merryll-Anne,Cobb-Clark,m.morris.bcba@gmail.com,422060868,27/12/2025,29/12/2025,2,"We are conscious that we are camping in a tent with a 2 year old. A space not far from some toilets and/or the playground area would be good.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: FEF22D",Cancelled,Unpowered Camp Site Only (Tent is NOT included),114,0,0,14,114,2,1,1
+4/12/2025,Airbnb,Xavier,Ivisic,,61422840542,27/12/2025,28/12/2025,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 223.97",Checked-out,Single tiny cabin,223.97,0,0,0,223.97,2,0,1
+15/12/2025,Direct Booking,Amy-Lea,Gibbs,amy-lea.gibbs0320@hotmail.com,61403274569,27/12/2025,30/12/2025,3,If possible we would love a campsite that offers some privacy and not too far from a fire pit please.,Checked-out,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,2,0,1
+23/12/2025,Mobile App,Kenny,Cuong,,+61 432 369 095,27/12/2025,30/12/2025,3,3 -site together 2 three nights 1 one night,Checked-out,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,2,0,1
+23/12/2025,Mobile App,Kenny,Cuong,,+61 432 369 095,27/12/2025,30/12/2025,3,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,2,0,1
+23/12/2025,Mobile App,Kenny,Cuong,,+61 432 369 095,27/12/2025,28/12/2025,1,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),71,0,21,0,71,2,3,1
+25/12/2025,Direct Booking,Jordan,Pleiter,jordypleiter@gmail.com,435460015,27/12/2025,28/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: YEQ070",Checked-out,Unpowered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+25/12/2025,Direct Booking,Matt,Coombes,coombes4519@gmail.com,+852 94711192,27/12/2025,28/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1UF8VQ",Checked-out,Powered Camp Site Only (Tent is NOT included),114,0,0,44,114,4,0,1
+27/12/2025,Direct Booking,Kayla,Surry,Ksurry380@gmail.com,474229916,27/12/2025,28/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: FLB29V",Checked-out,Unpowered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+12/01/2026,Extranet,James,T.,,413875103,27/12/2025,29/12/2025,2,From Hipcamp,Confirmed,Powered Camp Site Only (Tent is NOT included),116.9,0,0,0,116.9,2,0,1
+12/01/2026,Extranet,Nicklas,E.,,482380871,27/12/2025,28/12/2025,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),41.7,0,0,0,41.7,2,0,1
+12/01/2026,Extranet,Casper,C.,,420925363,27/12/2025,28/12/2025,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),75.15,0,0,0,75.15,4,0,1
+12/01/2026,Extranet,Georgia,D.,,414241998,27/12/2025,28/12/2025,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),41.7,0,0,0,41.7,2,0,1
+3/08/2025,Direct Booking,Andreas,Deiseroth,andreas@deiseroth.com,4915154726244,28/12/2025,29/12/2025,1,,Checked-out,Powered Camp Site Only (Tent is NOT included),93,0,0,28,93,4,0,1
+29/11/2025,Direct Booking,Shea,Turner,sheaturner@hotmail.co.nz,61420204911,28/12/2025,29/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: MA3JJC74W00188203",Checked-out,Unpowered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+6/12/2025,Direct Booking,Brendan,Winter,Brendanthebricky@gmail.com,488234610,28/12/2025,2/01/2026,5,"We have already booked from the 27th so it?€?s just an extension
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1sr8dz",Checked-out,Powered Camp Site Only (Tent is NOT included),350,0,0,0,350,2,0,1
+18/12/2025,Trip.com(New),ZHAOQI,HUANG,lodgingsupport@trip.com,5477,28/12/2025,31/12/2025,3,"Please charge VCC between 2025-12-28 00:00:00- 2026-06-29 00:00:00(local time).(EML: vcc@trip.com);VCC Amount: AUD 896.0, paid by Trip.com(EML: vcc@trip.com);This booking was made through Trip.com, a Ctrip Group brand;Contact Trip.com via lodgingsupport@trip.com;+xx-xx-xxxx-xxxx (Global Line);+61-2-3820-1716 (Local Line)",Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,896,0,0,0,896,2,0,1
+20/12/2025,Extranet,Ramin,.,raminandnaima@gmail.com,401653461,28/12/2025,30/12/2025,2,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),83.5,0,0,0,83.5,2,0,1
+27/12/2025,Direct Booking,Joe,Roseman,roseman.joe@gmail.com,407105081,28/12/2025,30/12/2025,2,"Grassy and level site if available. We will be in a tent.
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: ZYR 894",Checked-out,Powered Camp Site Only (Tent is NOT included),162,0,0,22,162,2,1,1
+28/09/2025,Mobile App,Dave,Matthews,,414738602,29/12/2025,2/01/2026,4,Site76,Cancelled,Powered Camp Site Only (Tent is NOT included),392,0,132,0,392,2,3,1
+11/10/2025,Direct Booking,Sarah,Gear,sarah.gear1989@yahoo.com,425653083,29/12/2025,2/01/2026,4,Requesting site beside David Mathews permanent caravan site. He is my Dad and we want to be next to him.,Checked-out,Powered Camp Site Only (Tent is NOT included),392,0,0,132,392,2,3,1
+29/10/2025,Direct Booking,Jessica,Taylor,jessicaclaretaylor13@gmail.com,491037895,29/12/2025,30/12/2025,1,,Cancelled,Unpowered Camp Site Only (Tent is NOT included),75,0,0,20,75,2,0,1
+7/11/2025,Direct Booking,Daniel,Cameron,cameron.daniel@gmail.com,61451791880,29/12/2025,31/12/2025,2,,Checked-out,Powered Camp Site Only (Tent is NOT included),248,0,0,108,248,4,0,1
+9/11/2025,Mobile App,Yalamber,Yalamber,,,29/12/2025,5/01/2026,7,,Cancelled,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+9/11/2025,Mobile App,Yalamber,Yalamber,,,29/12/2025,5/01/2026,7,,Cancelled,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,5,0,1
+9/11/2025,Mobile App,Yalamber,Yalamber,yhlimbu@yahoo.com,0432 999 555,29/12/2025,2/01/2026,4,,Checked-out,Big house - Roseneath Holiday Park,0,0,0,0,0,1,0,1
+9/11/2025,Mobile App,Yalamber,Yalamber,,,29/12/2025,5/01/2026,7,,Cancelled,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+9/11/2025,Mobile App,Yalamber,Yalamber,,,29/12/2025,2/01/2026,4,,Cancelled,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,7,0,1
+9/11/2025,Mobile App,Yalamber,Yalamber,,,29/12/2025,5/01/2026,7,,Cancelled,Single tiny cabin,0,0,0,0,0,2,0,1
+11/11/2025,Mobile App,Yelamba,Yelamba,,,29/12/2025,2/01/2026,4,,Checked-out,Powered Camp Site Only (Tent is NOT included),0,0,0,0,0,4,0,1
+11/11/2025,Mobile App,Yelamba,Y,,0432 999 555,29/12/2025,2/01/2026,4,,Checked-out,Powered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+11/11/2025,Mobile App,Yelamba,Y,,0432 999 555,29/12/2025,2/01/2026,4,,Cancelled,Big house - Roseneath Holiday Park,0,0,0,0,0,14,0,1
+7/12/2025,Extranet,Jasper,Chui,jasperchui1101@gmail.com,435063061,29/12/2025,1/01/2026,3,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),225.45,0,0,0,225.45,4,0,1
+12/12/2025,Direct Booking,daniel,goodchild,goodchildelectrical@gmail.com,448155963,29/12/2025,3/01/2026,5,"If we could be as close to the lake as possible please. Also we will be bringing two dogs and we understand that it is an extra $50 dog. They are both well behaved and will be controlled at all time. This will be our first time staying and we are very excited!!
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: BNJ779",Checked-out,Unpowered Camp Site Only (Tent is NOT included),870,0,0,370,870,8,2,2
+16/12/2025,Direct Booking,Charis,Ormesher,char.orme@gmail.com,61478133743,29/12/2025,3/01/2026,5,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),250,0,0,0,250,2,0,1
+20/12/2025,Direct Booking,Sidney,James,sidney_james18@hotmail.com,420257064,29/12/2025,31/12/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 415XLY",Checked-out,Unpowered Camp Site Only (Tent is NOT included),130,0,0,30,130,3,0,1
+29/12/2025,Direct Booking,Grace,Foster,fostergrace350@gmail.com,427047747,29/12/2025,30/12/2025,1,,Checked-out,Powered Camp Site Only (Tent is NOT included),70,0,0,0,70,2,0,1
+29/12/2025,Direct Booking,Jenny,Tran,jennytctran@gmail.com,452569557,29/12/2025,31/12/2025,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: Enb92d",Checked-out,Unpowered Camp Site Only (Tent is NOT included),256,0,0,56,256,4,4,2
+30/12/2025,Extranet,Imogen,C.,,447584426208,29/12/2025,30/12/2025,1,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),41.75,0,0,0,41.75,2,0,1
+30/12/2025,Extranet,Peter,G.,,460013622,29/12/2025,30/12/2025,1,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),41.75,0,0,0,41.75,2,0,1
+21/10/2025,Direct Booking,Kim,MacPherson,pkbsmac1@bigpond.com,406090824,30/12/2025,5/01/2026,6,,Checked-out,Powered Camp Site Only (Tent is NOT included),780,0,0,0,780,4,0,2
+13/12/2025,Direct Booking,Vernette,MacPherson,vernette0505@gmail.com,61403553565,30/12/2025,3/01/2026,4,"Camping in the tree area at the end of possum st (near the lake) as arranged with Katrina.
+Possibly more ppl will be booking, they will mention my name, please put them near our sites
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1TR6AR",Confirmed,Unpowered Camp Site Only (Tent is NOT included),468,0,0,268,468,6,1,1
+20/12/2025,Direct Booking,Alban,Comparat,alban.comparat@hotmail.fr,61493256480,30/12/2025,2/01/2026,3,"We would prefer one location between n??63 and 66
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: YSI56M",Cancelled,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,2,0,1
+22/12/2025,Direct Booking,Takuma,Sawada,schatomeshi@gmail.com,818049832935,30/12/2025,31/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: rent car",Checked-out,Powered Camp Site Only (Tent is NOT included),92,0,0,22,92,3,0,1
+23/12/2025,Direct Booking,Rohan,Basukala,rohanbasukala2018@gmail.com,61478251370,30/12/2025,2/01/2026,3,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,2,0,1
+27/12/2025,Direct Booking,Erin,Dunne,e.dunne2839@gmail.com,432422231,30/12/2025,1/01/2026,2,"If possible not right next to other dogs. She?€?s dog aggressive but we always have her on leash and carry a muzzle. Just less stressful if we aren?€?t directly next to someone with a dog
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1YS4XZ",Checked-out,Unpowered Camp Site Only (Tent is NOT included),100,0,0,0,100,2,0,1
+30/12/2025,Direct Booking,Sue,Upton,xsueuptonx@gmail.com,7870980890,30/12/2025,31/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 580 GQ7",Confirmed,Powered Camp Site Only (Tent is NOT included),70,0,0,0,70,2,0,1
+30/12/2025,Extranet,Alannah,Wilson,9xk5mwrjhn@privaterelay.appleid.com,490257293,30/12/2025,2/01/2026,3,From Hipcamp,Checked-out,Powered Camp Site Only (Tent is NOT included),252.5,0,0,0,252.5,3,0,1
+30/12/2025,Direct Booking,Ayush,Dhariwal,dhariwalayush4488@gmail.com,412720973,30/12/2025,31/12/2025,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 4WD kluger",Checked-out,Powered Camp Site Only (Tent is NOT included),70,0,0,0,70,2,0,1
+30/11/2025,Mobile App,Kelly,Duncan,,,31/12/2025,3/01/2026,3,,Checked-out,Powered Camp Site Only (Tent is NOT included),210,0,0,0,210,1,0,1
+6/12/2025,Direct Booking,Faina,Kerr,faina.kerr@outlook.com,424860712,31/12/2025,2/01/2026,2,,Checked-out,Powered Camp Site Only (Tent is NOT included),140,0,0,0,140,2,0,1
+11/12/2025,Direct Booking,Nicole,Liao,Wclliao@gmail.com,478675418,31/12/2025,2/01/2026,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: Bvs265",Cancelled,Powered Camp Site Only (Tent is NOT included),140,0,0,0,140,2,0,1
+23/12/2025,Airbnb,Luca,Diane,,393493673158,31/12/2025,1/01/2026,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 373.27",Cancelled,Cabin  2 Bedrooms - Roseneath Holiday Park,373.27,0,0,0,373.27,2,0,1
+26/12/2025,Direct Booking,Tom,McKendrick,tommckendrick@gmail.com,404332924,31/12/2025,1/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1SL9PW",Checked-out,Powered Camp Site Only (Tent is NOT included),70,0,0,0,70,1,0,1
+26/12/2025,Direct Booking,Darren,Hailes,darrenhailes@gmail.com,455413159,31/12/2025,1/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 069XXF",Checked-out,Unpowered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+29/12/2025,Direct Booking,Alice,McCorry,stalihome@hotmail.com,61494419362,31/12/2025,1/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 361663",Checked-out,Powered Camp Site Only (Tent is NOT included),81,0,0,11,81,2,1,1
+30/12/2025,Extranet,Cameron,Majewski,cmajewski40@gmail.com,411727067,31/12/2025,1/01/2026,1,From Hipcamp,Checked-out,Powered Camp Site Only (Tent is NOT included),41.75,0,0,0,41.75,2,0,1
+31/12/2025,Mobile App,Si Lin,Zhang,,0434 448 018,31/12/2025,2/01/2026,2,2nites may extend,Checked-out,Unpowered Camp Site Only (Tent is NOT included),114,0,14,0,114,2,1,1
+7/12/2025,Extranet,Juliette,Neal,pug2603@outlook.com,401845447,1/01/2026,2/01/2026,1,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),41.75,0,0,0,41.75,2,0,1
+23/12/2025,Mobile App,Hunter,Miao,,488818088,1/01/2026,3/01/2026,2,John du friend,Checked-out,Cabin 3 Bedrooms - Roseneath Holiday Park,930,0,90,0,930,4,3,1
+23/12/2025,Mobile App,Hunter,Miao,,488818088,1/01/2026,3/01/2026,2,,Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,760,120,0,0,760,4,0,1
+26/12/2025,Direct Booking,Matt,Lima,Technical.lima@gmail.com,409978385,1/01/2026,4/01/2026,3,,Checked-in,Powered Camp Site Only (Tent is NOT included),420,0,0,0,420,4,0,2
+29/12/2025,Direct Booking,Javier,Santo,javiersanto@hotmail.com,409270880,1/01/2026,4/01/2026,3,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),240,0,0,90,240,4,0,1
+30/12/2025,Extranet,David,Newland,davidnewland.author@gmail.com,439836629,1/01/2026,2/01/2026,1,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),58.45,0,0,0,58.45,3,0,1
+31/12/2025,Mobile App,John,Du,,,1/01/2026,3/01/2026,2,,Checked-out,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,4,0,1
+31/12/2025,Direct Booking,Kaeli,Labriola,kaelilabriola1@gmail.com,400060207,1/01/2026,2/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1js5bf",Cancelled,Unpowered Camp Site Only (Tent is NOT included),73,0,0,23,73,2,0,1
+12/01/2026,Extranet,Annie,M.,,403320788,1/01/2026,3/01/2026,2,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),83.5,0,0,0,83.5,2,0,1
+19/08/2025,Direct Booking,Carmen,Elera,carmen_elera@yahoo.com,421947542,2/01/2026,6/01/2026,4,,Cancelled,Big house - Roseneath Holiday Park,3550,0,0,550,3550,6,5,1
+27/08/2025,Direct Booking,Thomas,Gillespie,aoifemarriott0907@googlemail.com,459891865,2/01/2026,4/01/2026,2,71,Checked-out,Powered Camp Site Only (Tent is NOT included),110,0,0,0,110,2,0,1
+15/11/2025,Extranet,William,Ung,gtsti6@gmail.com,487151078,2/01/2026,5/01/2026,3,From Hipcamp,Checked-out,Powered Camp Site Only (Tent is NOT included),638.27,0,0,0,638.27,8,0,3
+30/12/2025,Extranet,Chris,Forden,pn28dp8hsz@privaterelay.appleid.com,405544958,2/01/2026,4/01/2026,2,From Hipcamp,Checked-out,Powered Camp Site Only (Tent is NOT included),116.9,0,0,0,116.9,2,0,1
+31/12/2025,Direct Booking,mohammad,azizi,azizi16mohammad@gmail.com,470408133,2/01/2026,4/01/2026,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1kr3vv",Cancelled,Powered Camp Site Only (Tent is NOT included),184,0,0,44,184,2,2,1
+12/01/2026,Extranet,Balazs,V.,,481574767,2/01/2026,4/01/2026,2,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),116.9,0,0,0,116.9,2,2,1
+11/10/2025,Mobile App,Joy n leon,Li,,0411 473 207,3/01/2026,5/01/2026,2,,Cancelled,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+14/10/2025,Extranet,Nick,Nick,nickburnz@gmail.com,409332145,3/01/2026,4/01/2026,1,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),37.57,0,0,0,37.57,2,0,1
+27/10/2025,Direct Booking,ANDREA,VELASCO LOBATO,AVELASCOLOBATO@GMAIL.COM,452680474,3/01/2026,4/01/2026,1,,Checked-out,Powered Camp Site Only (Tent is NOT included),131,0,0,66,131,5,0,1
+1/01/2026,Airbnb,Biju,Maharjan,,17204802161,3/01/2026,4/01/2026,1,"Cleaning Fee- AUD 0.00, Cancellation Fee- AUD 356.68",Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,356.68,0,0,0,356.68,3,0,1
+3/01/2026,Direct Booking,Katharina,Braun,katha15braun@web.de,0483 863 708,3/01/2026,6/01/2026,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: VZ95WA",Checked-out,Unpowered Camp Site Only (Tent is NOT included),345,0,0,45,345,5,0,2
+12/01/2026,Extranet,Imogen,N.,,447742003188,3/01/2026,4/01/2026,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),41.75,0,0,0,41.75,2,0,1
+9/07/2025,Direct Booking,Dennis,Meuleman,petrameuleman@hotmail.com,31616348807,4/01/2026,5/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: Not available yet (Rental)",Checked-out,Powered Camp Site Only (Tent is NOT included),75,0,0,10,75,2,0,1
+23/09/2025,Extranet,Lachlan,Gollings,gollingslachlan@gmail.com,474069271,4/01/2026,7/01/2026,3,From Hipcamp,Checked-out,Powered Camp Site Only (Tent is NOT included),183.7,0,0,0,183.7,3,0,1
+8/12/2025,Extranet,Mitchell,Fidas,caught_inside@hotmail.com,402675552,4/01/2026,5/01/2026,1,From Hipcamp,Checked-out,Unpowered Camp Site Only (Tent is NOT included),41.75,0,0,0,41.75,1,0,1
+29/12/2025,Mobile App,Simon,Qian,Simonqian8888@gmail.com,458008888,4/01/2026,10/01/2026,6,John friend,Checked-in,Powered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+2/01/2026,Direct Booking,Arthur,Chiang,twix5739@gmail.com,61411723831,4/01/2026,6/01/2026,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: BVS265",Checked-out,Powered Camp Site Only (Tent is NOT included),140,0,0,0,140,2,0,1
+3/01/2026,Direct Booking,Aimee,Carrolan,Aimeesmitchell@hotmail.com,0438 999 509,4/01/2026,7/01/2026,3,"We are camping with other friends wayne Brian and Dennis Johnson so if we can be near them
+Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: Cuh936",Confirmed,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,2,0,1
+31/12/2025,Direct Booking,Wayne,Brien,waynebrien.78@gmail.com,487228967,5/01/2026,8/01/2026,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: DDX091",Checked-out,Unpowered Camp Site Only (Tent is NOT included),327,0,0,177,327,5,2,1
+4/01/2026,Direct Booking,Andre,van leersum,aghvanleersum@outlook.com,31620173926,5/01/2026,6/01/2026,1,,Checked-out,Powered Camp Site Only (Tent is NOT included),76,0,0,6,76,2,0,1
+6/01/2026,Mobile App,Frank,Sun( johm Du B partner),john.du@do360.com,413168533,5/01/2026,6/01/2026,1,,Checked-out,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,3,0,1
+28/12/2025,Direct Booking,Joshua,King,joshuaking041@gmail.com,61476269273,6/01/2026,7/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: JMFLYV98WBJ005319",Checked-out,Unpowered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+6/01/2026,Mobile App,John,Du,,413168533,6/01/2026,7/01/2026,1,,Checked-in,Big house - Roseneath Holiday Park,0,0,0,0,0,3,0,1
+6/01/2026,Direct Booking,Lea Skriver,Juhl,skriver72@gmail.com,4520681157,6/01/2026,8/01/2026,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 350 JPJ",Checked-out,Powered Camp Site Only (Tent is NOT included),184,0,0,44,184,3,0,1
+5/12/2025,Direct Booking,Jemima,Ninnes,jemimaninnes@gmail.com,61400015240,8/01/2026,9/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: S124CMV",Checked-out,Unpowered Camp Site Only (Tent is NOT included),64,0,0,14,64,2,0,1
+7/01/2026,Direct Booking,Sandra,Sigrist,sandysigrist@bluewin.ch,456527987,8/01/2026,9/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: bicycle",Checked-out,Unpowered Camp Site Only (Tent is NOT included),50,0,0,0,50,2,0,1
+8/12/2025,Direct Booking,Leo,Kuyunzhi,leo.kuyunzhi@outlook.com,493731324,9/01/2026,12/01/2026,3,,Checked-in,Powered Camp Site Only (Tent is NOT included),299,0,0,89,299,2,2,1
+4/01/2026,Direct Booking,Anna,Kulik,Annakulik02@mail.ru,491040309,9/01/2026,11/01/2026,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),100,0,0,0,100,2,0,1
+12/01/2026,Extranet,Hamza,S.,,402447319,10/01/2026,11/01/2026,1,From Hipcamp,Confirmed,Unpowered Camp Site Only (Tent is NOT included),66.8,0,0,0,66.8,2,3,1
+11/12/2025,Direct Booking,Marco,van der Zwaan,afzwanistan@hotmail.com,31612980941,12/01/2026,15/01/2026,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: CZ93FN",Checked-out,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,2,0,1
+14/12/2025,Direct Booking,Andrew,Clarke,Clarkey152@hotmail.co.uk,447851931487,15/01/2026,16/01/2026,1,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: TBC",Checked-in,Powered Camp Site Only (Tent is NOT included),70,0,0,0,70,2,0,1
+15/01/2026,Direct Booking,Tamara,Hawthorn,tamara261090@gmail.com,61428180528,16/01/2026,18/01/2026,2,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),288,0,0,188,288,5,7,1
+8/12/2025,Direct Booking,Harinath Reddy,Bussu,harinathreddybussu@gmail.com,61424507714,17/01/2026,19/01/2026,2,,Confirmed,Powered Camp Site Only (Tent is NOT included),313,0,0,73,313,4,3,2
+15/01/2026,Direct Booking,Ramazan,Neghhat,info@rmenga.com.au,405112547,17/01/2026,18/01/2026,1,,Confirmed,Single tiny cabin,270,0,0,50,270,2,0,1
+12/01/2026,Direct Booking,Ben,Healey,Bhealey1110@gmail.com,451136337,18/01/2026,21/01/2026,3,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: 1FJ2UH",Confirmed,Unpowered Camp Site Only (Tent is NOT included),150,0,0,0,150,1,1,1
+8/01/2026,Mobile App,John,Du,,413168533,22/01/2026,27/01/2026,5,,Confirmed,Big house - Roseneath Holiday Park,0,0,0,0,0,12,0,1
+11/10/2025,Mobile App,Joy and leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Cancelled,Big house - Roseneath Holiday Park,0,0,0,0,0,16,0,1
+11/10/2025,Mobile App,Joy n leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Cabin 3 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+11/10/2025,Mobile App,Joy n leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Single tiny cabin,0,0,0,0,0,2,0,1
+11/10/2025,Mobile App,Joy n leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,23,4,1
+11/10/2025,Mobile App,Joy n leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+11/10/2025,Mobile App,Joy n leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Cabin  2 Bedrooms - Roseneath Holiday Park,0,0,0,0,0,4,0,1
+11/10/2025,Mobile App,Join n leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,5,0,1
+11/10/2025,Mobile App,Leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,1,0,1
+11/10/2025,Mobile App,Leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+11/10/2025,Mobile App,Leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+11/10/2025,Mobile App,Leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+11/10/2025,Mobile App,Leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+11/10/2025,Mobile App,Leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+11/10/2025,Mobile App,Leon,Li,,0411 473 207,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,1,0,1
+11/10/2025,Mobile App,Leon,Li,,,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+11/10/2025,Mobile App,Leon,Li,,,23/01/2026,26/01/2026,3,,Confirmed,Unpowered Camp Site Only (Tent is NOT included),0,0,0,0,0,3,0,1
+7/01/2026,Direct Booking,Katie,Heatley,kagbirch@hotmail.com,61451791341,23/01/2026,26/01/2026,3,We will be in our camper trailer and also bringing our dog- on lead at all times.,Confirmed,Unpowered Camp Site Only (Tent is NOT included),192,0,0,42,192,2,2,1
+8/01/2026,Mobile App,John for leon,Du,,413168533,23/01/2026,26/01/2026,3,,Confirmed,Powered Camp Site Only (Tent is NOT included),0,0,0,0,0,2,0,1
+8/01/2026,Mobile App,Donna,Mortimer,,432168058,24/01/2026,27/01/2026,3,,Confirmed,Powered Camp Site Only (Tent is NOT included),210,0,0,0,210,2,0,1
+8/01/2026,Mobile App,Donna,Paul,,432168058,24/01/2026,28/01/2026,4,,Confirmed,Powered Camp Site Only (Tent is NOT included),280,0,0,0,280,2,0,1
+15/01/2026,Direct Booking,Matthew,Howe,moet.9999@gmail.com,61434190941,24/01/2026,26/01/2026,2,"Vehicle Identification Number (VIN) If you booking a camp, you must fill this field.: UAA990",Confirmed,Unpowered Camp Site Only (Tent is NOT included),100,0,0,0,100,2,0,1
