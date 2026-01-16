@@ -3,6 +3,8 @@ import ImportExcelModal from '../Components/Admin/ImportExcelModal';
 import MemberDetailModal from '../Components/Admin/MemberDetailModal';
 import BookingList from '../Components/Admin/BookingList';
 import BusinessFunnel from '../Components/Admin/BusinessFunnel';
+import ReservationTable from '../Components/Admin/ReservationTable';
+import AnalysisGraph from '../Components/Admin/AnalysisGraph';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -560,6 +562,8 @@ export default function Dog() {
       />
 
       <BookingList/>
+      <ReservationTable/>
+      <AnalysisGraph/>
       <BusinessFunnel/>
     </div>
   );
