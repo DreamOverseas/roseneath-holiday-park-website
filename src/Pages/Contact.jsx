@@ -52,7 +52,6 @@ const Contact = () => {
                             <Row>
                                 <div>
                                     <p><strong>{t("contact_real_estate_agent_title")} &#128100;</strong></p>
-                                    <p><strong>{t("contact_real_estate_agent_subject")}</strong></p>
                                     
                                     <p><i className="bi bi-person"></i> &nbsp; Jacinta</p>
                                     <p><i className="bi bi-telephone-inbound"></i> &nbsp; +61 (04) 1361 6660</p>
@@ -63,6 +62,7 @@ const Contact = () => {
                             <Row>
                                 <div>
                                     <p><strong>{t("contact_lawyer_title")} &#128100;</strong></p>
+                                    <p><strong>{t("contact_real_estate_agent_subject")}</strong></p>
                                     <p><strong>{t("contact_lawyer_subject")}</strong></p>
                                     
                                     <p><i className="bi bi-pin-angle"></i> &nbsp; {t("contact_lawyer_location")}</p>
