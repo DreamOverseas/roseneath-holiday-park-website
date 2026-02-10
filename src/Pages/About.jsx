@@ -85,7 +85,8 @@ function AboutUs() {
           <Row className="about-attraction-row">         
             <Col><Image className="home-food" src="/about/Wilsons_Promontory_National_Park.jpg" /></Col>
             <Col><div dangerouslySetInnerHTML={{ __html: t('wp_national_park') }}/></Col>
-          </Row>
+          </Row>        
+          <Image className="home-food" src="/about/Sale_Explorers_Guide.jpg" />
         </Container>
       </section>
     </main>

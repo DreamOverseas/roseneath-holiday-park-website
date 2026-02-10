@@ -150,6 +150,9 @@ const Navigation = () => {
                   <NavDropdown.Item href='/contact-us'>
                     {t("Contact")}
                   </NavDropdown.Item>
+                  <NavDropdown.Item href='/cooperation'>
+                    {t("Joinus")}
+                  </NavDropdown.Item>
                   <NavDropdown.Item href='/policy'>
                     {t("Policy")}
                   </NavDropdown.Item>
@@ -157,14 +160,11 @@ const Navigation = () => {
 
                 <NavDropdown
                   className='NavNoHighlightWord'
-                  title={t("Investment")}
+                  title={t("360space")}
                   id='investment-dropdown'
                 >
                   <NavDropdown.Item href='/smarthouse'>
                     {t("Smarthouse")}
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href='/cooperation'>
-                    {t("Cooperation")}
                   </NavDropdown.Item>
                   <NavDropdown.Item href='/tiny-house'>
                     {t("TinyHouse")}
