@@ -32,12 +32,12 @@ export default function Dog() {
     FirstName: { label: 'First Name', visible: true },
     LastName: { label: 'Last Name', visible: true },
     Email: { label: 'Email', visible: true },
-    Contact: { label: 'Phone Number', visible: true },
+    ContactString: { label: 'Phone Number', visible: true },
     TenantType: { label: 'Member Type', visible: true },
     FirstName2: { label: 'First Name 2', visible: false },
     LastName2: { label: 'Last Name 2', visible: false },
     Email2: { label: 'Email 2', visible: false },
-    Contact2: { label: 'Phone 2', visible: false },
+    ContactString2: { label: 'Phone 2', visible: false },
     Address: { label: 'Address', visible: false },
     UserName: { label: 'Username', visible: false },
     StartDate: { label: 'Start Date', visible: false },
@@ -106,7 +106,7 @@ export default function Dog() {
         FirstName: row['First Name'] || '',
         LastName: row['Last Name'] || '',
         Email: row['Email'] || '',
-        Contact: row['Phone Number'] || '',
+        ContactString: row['Phone Number'] || '',
         TenantType: 'Guest',
       };
     });
