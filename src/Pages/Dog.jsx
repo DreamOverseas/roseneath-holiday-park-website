@@ -11,34 +11,33 @@ export default function Dog() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [memberships, setMemberships] = useState([]);
+  const [guestMembers, setGuestMembers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dataError, setDataError] = useState('');
   const [filterType, setFilterType] = useState('All User');
+  const [searchQuery, setSearchQuery] = useState('');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [showColumnSelector, setShowColumnSelector] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
-  // Drag state
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [scrollStart, setScrollStart] = useState({ x: 0, y: 0 });
   const tableContainerRef = useRef(null);
 
-  // Column visibility state - all available columns with their display names
   const [visibleColumns, setVisibleColumns] = useState({
     SiteNumber: { label: 'Site Number', visible: true },
     FirstName: { label: 'First Name', visible: true },
     LastName: { label: 'Last Name', visible: true },
     Email: { label: 'Email', visible: true },
-    Contact: { label: 'Phone Number', visible: true },
+    ContactString: { label: 'Phone Number', visible: true },
     TenantType: { label: 'Member Type', visible: true },
-    // Additional columns that can be toggled
     FirstName2: { label: 'First Name 2', visible: false },
     LastName2: { label: 'Last Name 2', visible: false },
     Email2: { label: 'Email 2', visible: false },
-    Contact2: { label: 'Phone 2', visible: false },
+    ContactString2: { label: 'Phone 2', visible: false },
     Address: { label: 'Address', visible: false },
     UserName: { label: 'Username', visible: false },
     StartDate: { label: 'Start Date', visible: false },
@@ -71,8 +70,59 @@ export default function Dog() {
   useEffect(() => {
     if (isAuthenticated) {
       fetchMemberships();
+      fetchGuestCSV();
     }
   }, [isAuthenticated]);
+
+  const parseCSV = (text) => {
+    const lines = text.trim().split('\n');
+    if (lines.length < 2) return [];
+    const headers = lines[0].split(',').map(h => h.trim());
+    return lines.slice(1).map((line, idx) => {
+      // Handle quoted fields
+      const values = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        if (line[i] === '"') {
+          inQuotes = !inQuotes;
+        } else if (line[i] === ',' && !inQuotes) {
+          values.push(current.trim());
+          current = '';
+        } else {
+          current += line[i];
+        }
+      }
+      values.push(current.trim());
+
+      const row = {};
+      headers.forEach((header, i) => {
+        row[header] = values[i] || '';
+      });
+
+      return {
+        _id: `guest-csv-${idx}`,
+        _isGuestCSV: true,
+        FirstName: row['First Name'] || '',
+        LastName: row['Last Name'] || '',
+        Email: row['Email'] || '',
+        ContactString: row['Phone Number'] || '',
+        TenantType: 'Guest',
+      };
+    });
+  };
+
+  const fetchGuestCSV = async () => {
+    try {
+      const response = await fetch('/guest.csv');
+      if (!response.ok) throw new Error('Could not load guest.csv');
+      const text = await response.text();
+      const guests = parseCSV(text);
+      setGuestMembers(guests);
+    } catch (err) {
+      console.warn('Guest CSV load failed:', err.message);
+    }
+  };
 
   const fetchMemberships = async () => {
     setLoading(true);
@@ -81,31 +131,26 @@ export default function Dog() {
       let allMemberships = [];
       let page = 1;
       let totalPages = 1;
-      
+
       do {
         const response = await fetch(
           `https://api.do360.com/api/rhp-memberships?pagination[page]=${page}&pagination[pageSize]=100&populate=MemberFiles`
         );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        
+
         if (data.data && Array.isArray(data.data)) {
           allMemberships = [...allMemberships, ...data.data];
         }
-        
+
         if (data.meta && data.meta.pagination) {
           totalPages = data.meta.pagination.pageCount || data.meta.pagination.totalPages || 1;
-          console.log(`Loaded page ${page} of ${totalPages} (${data.data.length} records)`);
         }
-        
+
         page++;
       } while (page <= totalPages);
-      
+
       setMemberships(allMemberships);
-      console.log(`Total loaded: ${allMemberships.length} memberships`);
-      
     } catch (err) {
       setDataError(`Failed to load memberships: ${err.message}`);
     } finally {
@@ -114,41 +159,51 @@ export default function Dog() {
   };
 
   const getDisplayTenantType = (member) => {
-    if (ADMIN_EMAILS.includes(member.Email?.toLowerCase())) {
-      return 'Admin';
-    }
+    if (member._isGuestCSV) return 'Guest';
+    if (ADMIN_EMAILS.includes(member.Email?.toLowerCase())) return 'Admin';
     return member.TenantType || 'Guest';
   };
 
   const getTenantTypeLabel = (type) => {
-    const labels = {
-      'Guest': 'Guest',
-      'Annual': 'Annual',
-      'Permanent': 'Permanent',
-      'Admin': 'Admin'
-    };
+    const labels = { Guest: 'Guest', Annual: 'Annual', Permanent: 'Permanent', Admin: 'Admin' };
     return labels[type] || type;
   };
 
+  const getAllMembers = () => [...memberships, ...guestMembers];
+
   const getFilteredMemberships = () => {
+    const all = getAllMembers();
+
+    let filtered;
     if (filterType === 'All User') {
-      return memberships;
-    }
-    
-    if (filterType === 'Tenant') {
-      return memberships.filter(member => {
-        const displayType = getDisplayTenantType(member);
-        return displayType === 'Annual' || displayType === 'Permanent';
+      filtered = all;
+    } else if (filterType === 'Tenant') {
+      filtered = all.filter(m => {
+        const t = getDisplayTenantType(m);
+        return t === 'Annual' || t === 'Permanent';
       });
+    } else if (filterType === 'Guest') {
+      filtered = all.filter(m => getDisplayTenantType(m) === 'Guest');
+    } else if (filterType === 'Admin') {
+      filtered = all.filter(m => ADMIN_EMAILS.includes(m.Email?.toLowerCase()));
+    } else {
+      filtered = all.filter(m => getDisplayTenantType(m) === filterType);
     }
-    
-    if (filterType === 'Admin') {
-      return memberships.filter(member => 
-        ADMIN_EMAILS.includes(member.Email?.toLowerCase())
+
+    if (searchQuery.trim() === '') return filtered;
+
+    const q = searchQuery.toLowerCase();
+    return filtered.filter(m => {
+      return (
+        (m.FirstName || '').toLowerCase().includes(q) ||
+        (m.LastName || '').toLowerCase().includes(q) ||
+        (m.Email || '').toLowerCase().includes(q) ||
+        (m.Contact || '').toLowerCase().includes(q) ||
+        (m.SiteNumber != null && String(m.SiteNumber).toLowerCase().includes(q)) ||
+        (m.UserName || '').toLowerCase().includes(q) ||
+        (m.Address || '').toLowerCase().includes(q)
       );
-    }
-    
-    return memberships.filter(member => getDisplayTenantType(member) === filterType);
+    });
   };
 
   const handleSort = (key) => {
@@ -159,58 +214,39 @@ export default function Dog() {
     setSortConfig({ key, direction });
   };
 
-  const getSortedMemberships = (memberships) => {
-    if (!sortConfig.key) return memberships;
+  const getSortedMemberships = (list) => {
+    if (!sortConfig.key) return list;
 
-    return [...memberships].sort((a, b) => {
+    return [...list].sort((a, b) => {
       let aValue = a[sortConfig.key] || '';
       let bValue = b[sortConfig.key] || '';
 
       if (sortConfig.key === 'SiteNumber') {
         const aStr = String(aValue);
         const bStr = String(bValue);
-        
         const aMatch = aStr.match(/^(\d+)(.*)$/);
         const bMatch = bStr.match(/^(\d+)(.*)$/);
-        
+
         if (aMatch && bMatch) {
           const aNum = parseInt(aMatch[1]);
           const bNum = parseInt(bMatch[1]);
-          
-          if (aNum !== bNum) {
-            return sortConfig.direction === 'asc' ? aNum - bNum : bNum - aNum;
-          }
-          
+          if (aNum !== bNum) return sortConfig.direction === 'asc' ? aNum - bNum : bNum - aNum;
           const aSuffix = aMatch[2].toLowerCase();
           const bSuffix = bMatch[2].toLowerCase();
-          
-          if (aSuffix < bSuffix) {
-            return sortConfig.direction === 'asc' ? -1 : 1;
-          }
-          if (aSuffix > bSuffix) {
-            return sortConfig.direction === 'asc' ? 1 : -1;
-          }
+          if (aSuffix < bSuffix) return sortConfig.direction === 'asc' ? -1 : 1;
+          if (aSuffix > bSuffix) return sortConfig.direction === 'asc' ? 1 : -1;
           return 0;
         }
-        
-        if (aStr < bStr) {
-          return sortConfig.direction === 'asc' ? -1 : 1;
-        }
-        if (aStr > bStr) {
-          return sortConfig.direction === 'asc' ? 1 : -1;
-        }
+
+        if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
+        if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
         return 0;
       }
 
       aValue = String(aValue).toLowerCase();
       bValue = String(bValue).toLowerCase();
-
-      if (aValue < bValue) {
-        return sortConfig.direction === 'asc' ? -1 : 1;
-      }
-      if (aValue > bValue) {
-        return sortConfig.direction === 'asc' ? 1 : -1;
-      }
+      if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
       return 0;
     });
   };
@@ -218,10 +254,7 @@ export default function Dog() {
   const toggleColumnVisibility = (columnKey) => {
     setVisibleColumns(prev => ({
       ...prev,
-      [columnKey]: {
-        ...prev[columnKey],
-        visible: !prev[columnKey].visible
-      }
+      [columnKey]: { ...prev[columnKey], visible: !prev[columnKey].visible },
     }));
   };
 
@@ -233,14 +266,15 @@ export default function Dog() {
 
   const renderCellContent = (member, columnKey) => {
     const displayType = getDisplayTenantType(member);
-    
-    switch(columnKey) {
+
+    switch (columnKey) {
       case 'TenantType':
         return (
           <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
             displayType === 'Admin' ? 'bg-purple-100 text-purple-800' :
             displayType === 'Permanent' ? 'bg-green-100 text-green-800' :
             displayType === 'Annual' ? 'bg-blue-100 text-blue-800' :
+            displayType === 'Guest' ? 'bg-yellow-100 text-yellow-800' :
             'bg-gray-100 text-gray-800'
           }`}>
             {getTenantTypeLabel(displayType)}
@@ -262,61 +296,41 @@ export default function Dog() {
     }
   };
 
-  // Drag handlers
   const handleMouseDown = (e) => {
     if (!tableContainerRef.current) return;
     setIsDragging(true);
-    setDragStart({
-      x: e.clientX,
-      y: e.clientY
-    });
+    setDragStart({ x: e.clientX, y: e.clientY });
     setScrollStart({
       x: tableContainerRef.current.scrollLeft,
-      y: tableContainerRef.current.scrollTop
+      y: tableContainerRef.current.scrollTop,
     });
     e.preventDefault();
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging || !tableContainerRef.current) return;
-    
-    const deltaX = e.clientX - dragStart.x;
-    const deltaY = e.clientY - dragStart.y;
-    
-    tableContainerRef.current.scrollLeft = scrollStart.x - deltaX;
-    tableContainerRef.current.scrollTop = scrollStart.y - deltaY;
+    tableContainerRef.current.scrollLeft = scrollStart.x - (e.clientX - dragStart.x);
+    tableContainerRef.current.scrollTop = scrollStart.y - (e.clientY - dragStart.y);
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
+  const handleMouseUp = () => setIsDragging(false);
+  const handleMouseLeave = () => setIsDragging(false);
 
   const handleRowClick = (member, e) => {
-    // Only open detail if we didn't drag
     const deltaX = Math.abs(e.clientX - dragStart.x);
     const deltaY = Math.abs(e.clientY - dragStart.y);
-    
-    // If movement is less than 5px, consider it a click not a drag
     if (deltaX < 5 && deltaY < 5) {
       setSelectedMember(member);
       setShowDetailModal(true);
     }
   };
 
-  const handleMemberUpdate = (updatedMember) => {
-    // Refresh the memberships list after update
-    fetchMemberships();
-  };
+  const handleMemberUpdate = () => fetchMemberships();
 
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
-      
       return () => {
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
@@ -332,7 +346,6 @@ export default function Dog() {
         </svg>
       );
     }
-    
     if (sortConfig.direction === 'asc') {
       return (
         <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -340,7 +353,6 @@ export default function Dog() {
         </svg>
       );
     }
-    
     return (
       <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -349,6 +361,7 @@ export default function Dog() {
   };
 
   const filteredMemberships = getSortedMemberships(getFilteredMemberships());
+  const totalAll = getAllMembers().length;
 
   if (!isAuthenticated) {
     return (
@@ -358,7 +371,6 @@ export default function Dog() {
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">RHP Admin Portal</h1>
             <p className="text-sm sm:text-base text-gray-600">Enter password to access membership data</p>
           </div>
-          
           <div>
             <div className="mb-4">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
@@ -374,13 +386,11 @@ export default function Dog() {
                 placeholder="Enter password"
               />
             </div>
-            
             {error && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
                 {error}
               </div>
             )}
-            
             <button
               onClick={handlePasswordSubmit}
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
@@ -396,7 +406,8 @@ export default function Dog() {
   return (
     <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
+
+        {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">RHP Memberships</h1>
@@ -447,27 +458,57 @@ export default function Dog() {
           </div>
         )}
 
-        {/* Filter Section */}
-        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-3">Filter by Member Type</label>
-          <div className="flex flex-wrap gap-2">
-            {['All User', 'Tenant', 'Annual', 'Permanent', 'Admin'].map((type) => (
-              <button
-                key={type}
-                onClick={() => setFilterType(type)}
-                className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition duration-200 text-sm sm:text-base ${
-                  filterType === type
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {type}
-              </button>
-            ))}
+        {/* Filter + Search */}
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-3">Filter by Member Type</label>
+            <div className="flex flex-wrap gap-2">
+              {['All User', 'Tenant', 'Permanent', 'Annual', 'Guest', 'Admin'].map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setFilterType(type)}
+                  className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition duration-200 text-sm sm:text-base ${
+                    filterType === type
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by name, email, phone, site number..."
+                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm sm:text-base"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Loading State */}
+        {/* Loading */}
         {loading && (
           <div className="bg-white rounded-lg shadow p-8 text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
@@ -475,24 +516,26 @@ export default function Dog() {
           </div>
         )}
 
-        {/* Error State */}
+        {/* Error */}
         {dataError && (
           <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 mb-4 sm:mb-6 text-sm sm:text-base">
             {dataError}
           </div>
         )}
 
-        {/* Empty State */}
+        {/* Empty */}
         {!loading && !dataError && filteredMemberships.length === 0 && (
           <div className="bg-white rounded-lg shadow p-8 text-center text-gray-600 text-sm sm:text-base">
-            No memberships found for the selected filter.
+            {searchQuery
+              ? `No results found for "${searchQuery}".`
+              : 'No memberships found for the selected filter.'}
           </div>
         )}
 
         {/* Table */}
         {!loading && !dataError && filteredMemberships.length > 0 && (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div 
+            <div
               ref={tableContainerRef}
               className={`overflow-auto ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
               onMouseDown={handleMouseDown}
@@ -503,7 +546,7 @@ export default function Dog() {
                 <thead className="bg-indigo-600 text-white sticky top-0 z-0">
                   <tr>
                     {getVisibleColumnsArray().map(({ key, label }) => (
-                      <th 
+                      <th
                         key={key}
                         className="px-6 py-3 text-left text-sm font-semibold cursor-pointer hover:bg-indigo-700 transition-colors"
                         onClick={() => handleSort(key)}
@@ -518,8 +561,8 @@ export default function Dog() {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {filteredMemberships.map((member, index) => (
-                    <tr 
-                      key={member.documentID || member.MembershipNumber || index} 
+                    <tr
+                      key={member._id || member.documentID || member.MembershipNumber || index}
                       className="hover:bg-gray-50 cursor-pointer transition-colors"
                       onClick={(e) => handleRowClick(member, e)}
                     >
@@ -535,21 +578,25 @@ export default function Dog() {
             </div>
             <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-200">
               <p className="text-xs sm:text-sm text-gray-600">
-                Showing <span className="font-semibold">{filteredMemberships.length}</span> of <span className="font-semibold">{memberships.length}</span> memberships
+                Showing <span className="font-semibold">{filteredMemberships.length}</span> of{' '}
+                <span className="font-semibold">{totalAll}</span> members
+                {searchQuery && (
+                  <span className="ml-1 text-indigo-600">
+                    — filtered by "<span className="font-medium">{searchQuery}</span>"
+                  </span>
+                )}
               </p>
             </div>
           </div>
         )}
       </div>
 
-      {/* Import Excel Modal */}
       <ImportExcelModal
         isOpen={showUploadModal}
         onClose={() => setShowUploadModal(false)}
         onImportSuccess={fetchMemberships}
       />
 
-      {/* Member Detail Modal */}
       <MemberDetailModal
         member={selectedMember}
         isOpen={showDetailModal}
@@ -561,10 +608,10 @@ export default function Dog() {
         adminEmails={ADMIN_EMAILS}
       />
 
-      <BookingList/>
-      <ReservationTable/>
-      <AnalysisGraph/>
-      <BusinessFunnel/>
+      <BookingList />
+      <ReservationTable />
+      <AnalysisGraph />
+      <BusinessFunnel />
     </div>
   );
 }

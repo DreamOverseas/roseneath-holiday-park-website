@@ -72,7 +72,8 @@ const Contact = () => {
                             <br />
                             <Row>
                                 <div>
-                                    <p><strong>{t("contact_member_trust")} &#127793;</strong></p>
+                                    <p><strong>{t("contact_member_trust")} </strong></p>
+                                    <p><strong>{t("contact_member_covenant")} &#127793;</strong></p>
                                     <p><i className="bi bi-telephone-inbound"></i> &nbsp; 1800 999 933</p>
                                     <p><i className="bi bi-globe2"></i> &nbsp; https://www.trustfornature.org.au/</p>
                                 </div>
