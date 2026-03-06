@@ -327,6 +327,62 @@ export default function Dog() {
 
   const handleMemberUpdate = () => fetchMemberships();
 
+  // 新增：CSV 导出功能
+  const handleDownloadCSV = () => {
+    const allMembers = getAllMembers();
+    if (allMembers.length === 0) {
+      alert('没有可供导出的数据');
+      return;
+    }
+
+    // 定义 CSV 的列（导出所有在 visibleColumns 中定义的字段）
+    const columns = Object.entries(visibleColumns).map(([key, config]) => ({
+      key,
+      label: config.label
+    }));
+
+    const csvRows = [];
+    // 写入表头
+    csvRows.push(columns.map(col => `"${col.label}"`).join(','));
+
+    // 写入数据行
+    allMembers.forEach(member => {
+      const row = columns.map(col => {
+        let val = '';
+        if (col.key === 'TenantType') {
+          val = getDisplayTenantType(member);
+        } else if (col.key === 'StartDate' || col.key === 'EndDate') {
+          val = member[col.key] ? new Date(member[col.key]).toLocaleDateString() : '-';
+        } else {
+          val = member[col.key] || '';
+        }
+        // 转义双引号并处理换行
+        return `"${String(val).replace(/"/g, '""')}"`;
+      });
+      csvRows.push(row.join(','));
+    });
+
+    // 组合 CSV 内容并添加 BOM 确保 Excel 正确识别 UTF-8（中文不乱码）
+    const csvContent = "\uFEFF" + csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    // 生成文件名：RHP用户数据 + 当前日期时间
+    const now = new Date();
+    const dateStr = now.toLocaleDateString().replace(/\//g, '-');
+    const timeStr = now.toLocaleTimeString().replace(/:/g, '-').replace(/\s/g, '');
+    const fileName = `RHP用户数据_${dateStr}_${timeStr}.csv`;
+
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', fileName);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
@@ -421,6 +477,20 @@ export default function Dog() {
                 </svg>
                 <span className="hidden sm:inline">Columns</span>
               </button>
+              
+              {/* 新增：导出 CSV 按钮 */}
+              <button
+                onClick={handleDownloadCSV}
+                className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 border border-indigo-200 rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
+                title="Download all memberships as CSV"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span className="hidden sm:inline">Export CSV</span>
+                <span className="sm:hidden">Export</span>
+              </button>
+
               <button
                 onClick={() => setShowUploadModal(true)}
                 className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200 font-medium text-sm sm:text-base"
@@ -609,7 +679,7 @@ export default function Dog() {
       />
 
       <BookingList />
-      <ReservationTable />
+      {/* <ReservationTable /> */}
       <AnalysisGraph />
       <BusinessFunnel />
     </div>
