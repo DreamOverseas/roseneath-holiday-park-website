@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function MemberDetailModal({ 
   member, 
@@ -16,14 +16,63 @@ export default function MemberDetailModal({
   const [renameTargetFile, setRenameTargetFile] = useState(null);
   const [renameValue, setRenameValue] = useState('');
 
+  // 新增：用于存储该成员的 Annual Bookings
+  const [memberBookings, setMemberBookings] = useState([]);
+  const [bookingsLoading, setBookingsLoading] = useState(false);
+
+  const CMSEndpoint = import.meta.env.VITE_CMS_ENDPOINT || 'https://api.do360.com';
+  const CMSApiKey = import.meta.env.VITE_CMS_TOKEN;
+
   // Reset state when member changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (member) {
       setEditedMember(member);
       setIsEditing(false);
       setError('');
+      
+      // 如果是 Annual 成员，则获取其预订信息
+      if (getDisplayTenantType(member) === 'Annual' && member.SiteNumber) {
+        fetchMemberBookings(member.SiteNumber);
+      } else {
+        setMemberBookings([]);
+      }
     }
-  }, [member]);
+  }, [member, isOpen]);
+
+  // 获取该 Site Number 对应的预订记录
+  const fetchMemberBookings = async (siteNumber) => {
+    setBookingsLoading(true);
+    try {
+      const response = await fetch(
+        `${CMSEndpoint}/api/annual-bookings?filters[siteNumber][$eq]=${siteNumber}&sort=checkin:desc`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${CMSApiKey}`
+          }
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        setMemberBookings(result.data || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch bookings:', err);
+    } finally {
+      setBookingsLoading(false);
+    }
+  };
+
+  // 计算晚数 (逻辑参考 BookingList.jsx)
+  const calculateNights = (checkin, checkout) => {
+    if (!checkin || !checkout) return 0;
+    const start = new Date(checkin);
+    const end = new Date(checkout);
+    const diffTime = Math.abs(end - start);
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
 
   if (!isOpen || !member) return null;
 
@@ -58,12 +107,10 @@ export default function MemberDetailModal({
     setError('');
 
     try {
-      // Prepare update data - only include changed fields
       const updateData = {};
       let hasChanges = false;
 
       Object.keys(editedMember).forEach(key => {
-        // Skip system fields and documentId
         if (['documentId', 'id', 'createdAt', 'updatedAt', 'publishedAt', 'locale'].includes(key)) {
           return;
         }
@@ -71,7 +118,6 @@ export default function MemberDetailModal({
         if (key === 'MemberFiles') {
           const oldIds = memberFilesToIds(member.MemberFiles);
           const newIds = memberFilesToIds(editedMember.MemberFiles);
-
           if (JSON.stringify(oldIds) !== JSON.stringify(newIds)) {
             updateData.MemberFiles = newIds; 
             hasChanges = true;
@@ -79,7 +125,6 @@ export default function MemberDetailModal({
           return; 
         }
 
-        // Compare values
         if (editedMember[key] !== member[key]) {
           updateData[key] = editedMember[key];
           hasChanges = true;
@@ -91,17 +136,14 @@ export default function MemberDetailModal({
         return;
       }
 
-      // Use documentId for Strapi 5 update
       const documentId = member.documentId;
-      
-      if (!documentId) {
-        throw new Error('No documentId found for this member');
-      }
+      if (!documentId) throw new Error('No documentId found');
 
-      const response = await fetch(`https://api.do360.com/api/rhp-memberships/${documentId}`, {
+      const response = await fetch(`${CMSEndpoint}/api/rhp-memberships/${documentId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${CMSApiKey}`
         },
         body: JSON.stringify({ data: updateData })
       });
@@ -112,16 +154,9 @@ export default function MemberDetailModal({
       }
 
       const result = await response.json();
-      
-      // Success
       alert('Member information updated successfully!');
       setIsEditing(false);
-      
-      // Notify parent to refresh data
-      if (onUpdateSuccess) {
-        onUpdateSuccess(result.data);
-      }
-      
+      if (onUpdateSuccess) onUpdateSuccess(result.data);
       onClose();
     } catch (err) {
       setError(`Failed to update: ${err.message}`);
@@ -130,288 +165,49 @@ export default function MemberDetailModal({
     }
   };
 
-  const handleCancel = () => {
-    setEditedMember(member);
-    setIsEditing(false);
-    setError('');
-  };
-
   const getMemberFilesArray = (raw) => {
     if (!raw) return [];
-
-    if (typeof raw === 'object' && Array.isArray(raw.data)) {
-      return raw.data;
-    }
-
+    if (typeof raw === 'object' && Array.isArray(raw.data)) return raw.data;
     if (Array.isArray(raw)) return raw;
-
-    if (typeof raw === 'object') return [raw];
-
-    return [];
+    return typeof raw === 'object' ? [raw] : [];
   };
 
   const memberFilesToIds = (raw) => {
     return getMemberFilesArray(raw)
-      .map((f) => {
-        if (!f) return null;
-        if (typeof f === 'number') return f;
-        if (typeof f === 'object' && f.id != null) return f.id;
-        return null;
-      })
+      .map((f) => (typeof f === 'number' ? f : f?.id))
       .filter((id) => id != null);
   };
 
   const buildFileUrl = (url) => {
     if (!url) return '#';
-    if (url.startsWith('http://') || url.startsWith('https://')) return url;
-    // 和下面 handleSave 里一样，用你的 Strapi 域名
-    return `https://api.do360.com${url}`;
-  };
-
-  const handleFileInputChange = async (files) => {
-    if (!files || files.length === 0) return;
-
-    try {
-      setUploadingFile(true);
-      setError('');
-
-      const formData = new FormData();
-      Array.from(files).forEach((file) => {
-        formData.append('files', file);
-      });
-
-      const uploadRes = await fetch('https://api.do360.com/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!uploadRes.ok) {
-        let msg = 'Failed to upload file(s)';
-        try {
-          const errData = await uploadRes.json();
-          msg = errData.error?.message || msg;
-        } catch (_) {}
-        throw new Error(msg);
-      }
-
-      const uploadData = await uploadRes.json();
-      const uploadedArray = Array.isArray(uploadData) ? uploadData : [uploadData];
-
-      setEditedMember((prev) => {
-        const currentFiles = getMemberFilesArray(prev.MemberFiles);
-        return {
-          ...prev,
-          MemberFiles: [...currentFiles, ...uploadedArray],
-        };
-      });
-    } catch (err) {
-      console.error(err);
-      setError(err.message || 'Failed to upload file(s)');
-    } finally {
-      setUploadingFile(false);
-    }
-  };
-
-  const handleRemoveFile = (fileIdToRemove) => {
-    setEditedMember((prev) => {
-      const currentFiles = getMemberFilesArray(prev.MemberFiles);
-      const nextFiles = currentFiles.filter((f) => {
-        const id = typeof f === 'number' ? f : f?.id;
-        return id !== fileIdToRemove;
-      });
-      return {
-        ...prev,
-        MemberFiles: nextFiles,
-      };
-    });
-  };
-
-  const handleRenameFile = async (file) => {
-    try {
-      const id = typeof file === 'number' ? file : file?.id;
-      if (!id) return;
-
-      const attrs =
-        file && typeof file === 'object'
-          ? (file.attributes || file)
-          : null;
-
-      const oldName = attrs?.name || `file-${id}`;
-      const dotIndex = oldName.lastIndexOf('.');
-      const base = dotIndex > 0 ? oldName.slice(0, dotIndex) : oldName;
-      const ext = dotIndex > 0 ? oldName.slice(dotIndex) : '';
-
-      const newBase = window.prompt('Enter new file name', base);
-      if (!newBase) return;
-
-      const newName = `${newBase}${ext}`;
-
-      const res = await fetch(
-        `https://api.do360.com/api/upload/files/${id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name: newName }),
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error('Failed to rename file');
-      }
-
-      setEditedMember((prev) => {
-        const currentFiles = getMemberFilesArray(prev.MemberFiles);
-        const updated = currentFiles.map((f) => {
-          const fid = typeof f === 'number' ? f : f?.id;
-          if (fid !== id) return f;
-
-          if (typeof f === 'object') {
-            if (f.attributes) {
-              return {
-                ...f,
-                attributes: {
-                  ...f.attributes,
-                  name: newName,
-                },
-              };
-            }
-            return { ...f, name: newName };
-          }
-
-          return f;
-        });
-
-        return {
-          ...prev,
-          MemberFiles: updated,
-        };
-      });
-    } catch (e) {
-      console.error(e);
-      alert(e.message || 'Failed to rename file');
-    }
+    if (url.startsWith('http')) return url;
+    return `${CMSEndpoint}${url}`;
   };
 
   const handleDownloadFile = async (file) => {
     try {
-      const id = typeof file === 'number' ? file : file?.id;
-      const attrs =
-        file && typeof file === 'object'
-          ? (file.attributes || file)
-          : null;
-
-      const url = attrs?.url || null;
-      const name = attrs?.name || `file-${id}`;
-
-      if (!url) return;
-
-      const href = buildFileUrl(url);
-      const res = await fetch(href);
-
-      if (!res.ok) throw new Error('Download failed');
-
+      const attrs = file?.attributes || file;
+      if (!attrs?.url) return;
+      const res = await fetch(buildFileUrl(attrs.url));
       const blob = await res.blob();
       const blobUrl = window.URL.createObjectURL(blob);
-
       const a = document.createElement('a');
       a.href = blobUrl;
-      a.download = name;
+      a.download = attrs.name || 'file';
       document.body.appendChild(a);
       a.click();
       a.remove();
-      window.URL.revokeObjectURL(blobUrl);
     } catch (e) {
-      console.error(e);
       alert('Failed to download file');
     }
   };
-
-
-  const handleConfirmRename = async () => {
-    try {
-      const file = renameTargetFile;
-      if (!file) return;
-
-      const id = typeof file === 'number' ? file : file?.id;
-      if (!id) return;
-
-      const attrs =
-        file && typeof file === 'object'
-          ? (file.attributes || file)
-          : null;
-
-      const oldName = attrs?.name || `file-${id}`;
-      const dotIndex = oldName.lastIndexOf('.');
-      const ext = dotIndex > 0 ? oldName.slice(dotIndex) : '';
-
-      let newName = renameValue.trim();
-      if (!newName) return;
-      if (ext && !newName.endsWith(ext)) {
-        newName = newName + ext;
-      }
-
-      setEditedMember((prev) => {
-        const currentFiles = getMemberFilesArray(prev.MemberFiles);
-
-        const updatedFiles = currentFiles.map((f) => {
-          const fid = typeof f === 'number' ? f : f?.id;
-          if (fid !== id) return f;
-
-          if (typeof f === 'object') {
-            if (f.attributes) {
-              return {
-                ...f,
-                attributes: {
-                  ...f.attributes,
-                  name: newName,
-                },
-              };
-            }
-            return { ...f, name: newName };
-          }
-
-          return f;
-        });
-
-        const prevMap =
-          prev.fileNameMap && typeof prev.fileNameMap === 'object'
-            ? prev.fileNameMap
-            : {};
-
-        const nextMap = {
-          ...prevMap,
-          [id]: newName,
-        };
-
-        return {
-          ...prev,
-          MemberFiles: updatedFiles,
-          fileNameMap: nextMap,
-        };
-      });
-
-      setRenameTargetFile(null);
-      setRenameValue('');
-    } catch (e) {
-      console.error(e);
-      alert(e.message || 'Failed to rename file');
-    }
-  };
-
-  const fileButtonBaseClass =
-    "inline-flex items-center px-3 py-1 rounded-md border border-gray-300 text-xs hover:bg-gray-100";
-
-  
 
   const detailSections = [
     {
       title: 'Basic Information',
       fields: [
         { label: 'Site Number', key: 'SiteNumber', editable: true },
-        { label: 'Member Type', key: 'TenantType', editable: true, type: 'select', 
-          options: ['Guest', 'Annual', 'Permanent'] },
+        { label: 'Member Type', key: 'TenantType', editable: true, type: 'select', options: ['Guest', 'Annual', 'Permanent'] },
         { label: 'Username', key: 'UserName', editable: true },
       ]
     },
@@ -425,47 +221,9 @@ export default function MemberDetailModal({
       ]
     },
     {
-      title: 'Secondary Contact',
-      fields: [
-        { label: 'First Name 2', key: 'FirstName2', editable: true },
-        { label: 'Last Name 2', key: 'LastName2', editable: true },
-        { label: 'Email 2', key: 'Email2', editable: true, type: 'email' },
-        { label: 'Phone 2', key: 'Contact2', editable: true, type: 'tel' },
-      ]
-    },
-    {
-      title: 'Address & Location',
-      fields: [
-        { label: 'Address', key: 'Address', editable: true, fullWidth: true, textarea: true },
-      ]
-    },
-    {
-      title: 'Membership Details',
-      fields: [
-        { label: 'Start Date', key: 'StartDate', editable: true, type: 'date' },
-        { label: 'End Date', key: 'EndDate', editable: true, type: 'date' },
-        { label: 'CR', key: 'CR', editable: true, type: 'number' },
-        { label: 'Power', key: 'Power', editable: true, type: 'select',
-          options: ['', 'Powered', 'Unpowered'] },
-      ]
-    },
-    {
-      title: 'Points & Rewards',
-      fields: [
-        { label: 'Points', key: 'Point', editable: true, type: 'number' },
-        { label: 'Discount Points', key: 'DiscountPoint', editable: true, type: 'number' },
-      ]
-    },
-    {
       title: 'Member Files',
       fields: [
-        {
-          label: 'Attachments',
-          key: 'MemberFiles',       
-          editable: true,
-          type: 'fileList',        
-          fullWidth: true,
-        },
+        { label: 'Attachments', key: 'MemberFiles', editable: true, type: 'fileList', fullWidth: true },
       ]
     },
     {
@@ -476,427 +234,154 @@ export default function MemberDetailModal({
     }
   ];
 
-  const renderFieldValue = (field) => {
-    const currentMember = isEditing ? editedMember : member;
-    const value = currentMember[field.key];
-    
-    // Format dates for display
-    if (field.type === 'date' && value) {
-      return new Date(value).toLocaleDateString();
-    }
-    
-    return value || '-';
-  };
-
   const renderField = (field) => {
     const currentMember = isEditing ? editedMember : member;
     const value = currentMember[field.key];
-    const hasValue = value && value !== '-';
 
-
-
-    // View mode
     if (!isEditing) {
       if (field.key === 'TenantType') {
         return (
           <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
             displayType === 'Admin' ? 'bg-purple-100 text-purple-800' :
             displayType === 'Permanent' ? 'bg-green-100 text-green-800' :
-            displayType === 'Annual' ? 'bg-blue-100 text-blue-800' :
-            'bg-gray-100 text-gray-800'
+            displayType === 'Annual' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
           }`}>
             {getTenantTypeLabel(displayType)}
           </span>
         );
       }
-
       if (field.key === 'MemberFiles') {
         const files = getMemberFilesArray(value);
-        if (!files.length) {
-          return (
-            <div className="text-sm text-gray-500">
-              (No file)
-            </div>
-          );
-        }
-
-        const fileNameMap =
-          currentMember.fileNameMap && typeof currentMember.fileNameMap === 'object'
-            ? currentMember.fileNameMap
-            : {};
-
+        if (!files.length) return <div className="text-sm text-gray-500">(No file)</div>;
         return (
           <div className="space-y-1">
-            {files.map((file) => {
-              const id = typeof file === 'number' ? file : file?.id;
-              const attrs =
-                file && typeof file === 'object'
-                  ? (file.attributes || file)
-                  : null;
-
-              const url = attrs?.url || null;
-              const defaultName = attrs?.name || `File #${id}`;
-              const name =
-                (id != null && fileNameMap[id]) || defaultName;
-
-              if (!id) return null;
-
-              const href = buildFileUrl(url);
-
+            {files.map((file, idx) => {
+              const attrs = file?.attributes || file;
               return (
-                <div
-                  key={id}
-                  className="flex items-center justify-between gap-2"
-                >
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-indigo-600 hover:underline truncate max-w-xs"
-                    title={name}
-                  >
-                    {name}
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => handleDownloadFile(file)}
-                    className={`${fileButtonBaseClass} text-gray-700`}
-                  >
-                    Download file
-                  </button>
+                <div key={idx} className="flex items-center justify-between gap-2">
+                  <span className="text-sm text-indigo-600 truncate">{attrs.name}</span>
+                  <button onClick={() => handleDownloadFile(file)} className="text-xs text-gray-600 border px-2 py-1 rounded hover:bg-gray-50">Download</button>
                 </div>
               );
             })}
           </div>
         );
       }
-      
-      if (field.textarea) {
-        return (
-          <div className="text-sm text-gray-900 bg-gray-50 p-3 rounded border border-gray-200 whitespace-pre-wrap min-h-[60px]">
-            {renderFieldValue(field)}
-          </div>
-        );
-      }
-      
-      return (
-        <div className="text-sm text-gray-900 bg-gray-50 p-2 rounded border border-gray-200">
-          {renderFieldValue(field)}
-        </div>
-      );
+      return <div className="text-sm text-gray-900">{value || '-'}</div>;
     }
 
-    // Edit mode
-    if (!field.editable) {
-      return (
-        <div className="text-sm text-gray-900 bg-gray-100 p-2 rounded border border-gray-200">
-          {renderFieldValue(field)}
-        </div>
-      );
-    }
-
-    if (field.type === 'fileList') {
-      const files = getMemberFilesArray(value);
-      const fileNameMap =
-        currentMember.fileNameMap && typeof currentMember.fileNameMap === 'object'
-          ? currentMember.fileNameMap
-          : {};
-
-      return (
-        <div className="space-y-2">
-          {files.length > 0 && (
-            <ul className="space-y-1 text-sm">
-              {files.map((file) => {
-                const id = typeof file === 'number' ? file : file?.id;
-                const attrs =
-                  file && typeof file === 'object'
-                    ? (file.attributes || file)
-                    : null;
-                const url = attrs?.url || null;
-                const defaultName = attrs?.name || `File #${id}`;
-                const displayName =
-                  (id != null && fileNameMap[id]) || defaultName;
-
-                if (!id) return null;
-
-                return (
-                  <li key={id} className="flex items-center justify-between gap-2">
-                    <a
-                      href={buildFileUrl(url)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-indigo-600 hover:underline truncate max-w-xs"
-                      title={displayName}
-                    >
-                      {displayName}
-                    </a>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        className={`${fileButtonBaseClass} text-gray-700`}
-                        onClick={() => {
-                          setRenameTargetFile(file);
-                          setRenameValue(displayName);
-                        }}
-                      >
-                        Rename file
-                      </button>
-                      <button
-                        type="button"
-                        className={`${fileButtonBaseClass} text-red-500 hover:text-red-700`}
-                        onClick={() => handleRemoveFile(id)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
-          <div>
-            <input
-              type="file"
-              multiple
-              ref={fileInputRef}
-              onChange={(e) => handleFileInputChange(e.target.files)}
-              className="hidden"
-            />
-            <button
-              type="button"
-              onClick={() => fileInputRef.current && fileInputRef.current.click()}
-              className="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium"
-            >
-              Upload files
-            </button>
-            {uploadingFile && (
-              <p className="text-xs text-gray-500 mt-1">Uploading file(s)...</p>
-            )}
-          </div>
-        </div>
-      );
-    }
-
+    // Editing mode...
     if (field.type === 'select') {
       return (
-        <select
-          value={value || ''}
+        <select 
+          value={value || ''} 
           onChange={(e) => handleInputChange(field.key, e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
+          className="w-full px-3 py-2 border rounded-lg text-sm"
         >
-          {field.options.map(option => (
-            <option key={option} value={option}>
-              {option || '(None)'}
-            </option>
-          ))}
+          {field.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
         </select>
       );
     }
-
-    if (field.textarea) {
-      return (
-        <textarea
-          value={value || ''}
-          onChange={(e) => handleInputChange(field.key, e.target.value)}
-          rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm resize-vertical"
-        />
-      );
-    }
-
-    if (field.type === 'date') {
-      // Convert date to YYYY-MM-DD format for input
-      const dateValue = value ? new Date(value).toISOString().split('T')[0] : '';
-      return (
-        <input
-          type="date"
-          value={dateValue}
-          onChange={(e) => handleInputChange(field.key, e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
-        />
-      );
-    }
-
-    if (field.type === 'number') {
-      return (
-        <input
-          type="number"
-          value={value || ''}
-          onChange={(e) => handleInputChange(field.key, e.target.value ? parseFloat(e.target.value) : '')}
-          step={field.key === 'CR' ? '0.01' : '1'}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
-        />
-      );
-    }
-
-    if (field.type === 'tel') {
-      return (
-        <input
-          type="tel"
-          value={value || ''}
-          onChange={(e) => handleInputChange(field.key, e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
-        />
-      );
-    }
-
     return (
-      <input
+      <input 
         type={field.type || 'text'}
         value={value || ''}
         onChange={(e) => handleInputChange(field.key, e.target.value)}
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
+        className="w-full px-3 py-2 border rounded-lg text-sm"
       />
     );
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[100vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="bg-indigo-600 text-white p-6 flex justify-between items-center">
-          <div>
-            <h2 className="text-2xl font-bold">
-              {isEditing ? 'Edit Member' : 'Member Details'}
-            </h2>
-            <p className="text-indigo-100 mt-1">
-              {member.FirstName} {member.LastName}
-            </p>
-          </div>
-          <button
-            onClick={onClose}
-            className="text-white hover:bg-indigo-700 rounded-full p-2 transition-colors"
-            disabled={saving}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+        <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+          <h2 className="text-xl font-bold text-gray-800">Member Details</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">&times;</button>
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-180px)]">
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          {detailSections.map((section, sectionIdx) => (
-            <div key={sectionIdx} className="mb-6 last:mb-0">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">
-                {section.title}
-              </h3>
-              <div className={`grid ${section.fields.some(f => f.fullWidth) ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'} gap-4`}>
-                {section.fields.map((field, fieldIdx) => {
-                  const currentMember = isEditing ? editedMember : member;
-                  const value = currentMember[field.key];
-                  const hasValue = value && value !== '-' && value !== '';
-
-                  return (
-                    <div 
-                      key={fieldIdx} 
-                      className={`${field.fullWidth ? 'md:col-span-2' : ''} ${!hasValue && !isEditing ? 'opacity-50' : ''}`}
-                    >
-                      <label className="block text-sm font-medium text-gray-600 mb-1">
-                        {field.label}
-                      </label>
+        <div className="flex-1 overflow-y-auto p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {detailSections.map((section, idx) => (
+              <div key={idx} className={`${section.fields.some(f => f.fullWidth) ? 'md:col-span-2' : ''} bg-white p-4 rounded-lg border border-gray-100 shadow-sm`}>
+                <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-4">{section.title}</h3>
+                <div className="grid grid-cols-1 gap-4">
+                  {section.fields.map(field => (
+                    <div key={field.key}>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">{field.label}</label>
                       {renderField(field)}
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
+            ))}
+          </div>
+
+          {/* 新增：Annual Bookings 区块 */}
+          {displayType === 'Annual' && (
+            <div className="mt-8 bg-white p-4 rounded-lg border border-indigo-100 shadow-sm">
+              <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Annual Bookings (Site: {member.SiteNumber})
+              </h3>
+              
+              {bookingsLoading ? (
+                <div className="text-center py-4 text-sm text-gray-500">Loading bookings...</div>
+              ) : memberBookings.length > 0 ? (
+                <div className="overflow-x-auto border border-gray-200 rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Check-in</th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Check-out</th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Nights</th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Total Price</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {memberBookings.map((booking) => {
+                        const attrs = booking.attributes || booking;
+                        return (
+                          <tr key={booking.id}>
+                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{new Date(attrs.checkin).toLocaleDateString('en-AU')}</td>
+                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{new Date(attrs.checkout).toLocaleDateString('en-AU')}</td>
+                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{calculateNights(attrs.checkin, attrs.checkout)}</td>
+                            <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-green-600">${attrs.totalPrice?.toFixed(2)}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500 italic">No annual bookings found for this site.</p>
+              )}
             </div>
-          ))}
+          )}
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-50 px-6 py-4 border-t flex justify-between items-center">
-          <div>
-            {isEditing && (
-              <p className="text-sm text-gray-600">
-                Make your changes and click Save
-              </p>
-            )}
-          </div>
-          <div className="flex gap-3">
-            {!isEditing ? (
-              <>
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition duration-200 font-medium"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={onClose}
-                  className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition duration-200 font-medium"
-                >
-                  Close
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={handleCancel}
-                  disabled={saving}
-                  className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition duration-200 font-medium disabled:bg-gray-100 disabled:cursor-not-allowed"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSave}
-                  disabled={saving}
-                  className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200 font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center gap-2"
-                >
-                  {saving && (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  )}
-                  {saving ? 'Saving...' : 'Save Changes'}
-                </button>
-              </>
-            )}
-          </div>
+        <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-end gap-3">
+          {error && <div className="text-red-500 text-sm mr-auto self-center">{error}</div>}
+          {!isEditing ? (
+            <>
+              <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Close</button>
+              <button onClick={() => setIsEditing(true)} className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Edit Member</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => setIsEditing(false)} className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+              <button onClick={handleSave} disabled={saving} className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50">
+                {saving ? 'Saving...' : 'Save Changes'}
+              </button>
+            </>
+          )}
         </div>
       </div>
-
-      {renameTargetFile && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] pointer-events-none">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md pointer-events-auto">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Please enter new file name
-            </h3>
-
-            <input
-              type="text"
-              value={renameValue}
-              onChange={(e) => setRenameValue(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4 text-sm"
-            />
-
-            <div className="flex justify-end gap-3">
-              <button
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm"
-                onClick={() => {
-                  setRenameTargetFile(null);
-                  setRenameValue('');
-                }}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm"
-                onClick={handleConfirmRename}
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }
