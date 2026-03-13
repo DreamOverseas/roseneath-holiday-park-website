@@ -2,8 +2,8 @@ import React from 'react';
 
 /**
  * PlatformManager Component
- * * Displays a list of media accounts with their credentials and notes.
- * Clicking a row redirects the user to the platform's login page.
+ * Displays a list of media accounts with their credentials.
+ * Automatically switches to a card-based layout on mobile.
  */
 
 const platformData = [
@@ -80,19 +80,22 @@ const PlatformManager = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8 font-sans antialiased text-slate-900">
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans antialiased text-slate-900">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-10">
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-800">
+        <header className="mb-6 md:mb-10">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-800">
             Media Platform Manager
           </h1>
-          <p className="mt-2 text-slate-600">
-            Centralized directory for media accounts and credentials. 
-            <span className="ml-1 font-medium text-blue-600">Click any row to open the login page.</span>
+          <p className="mt-2 text-sm md:text-base text-slate-600">
+            Centralized directory for media accounts. 
+            <span className="block md:inline mt-1 md:mt-0 md:ml-1 font-medium text-blue-600">
+              Tap any item to open the login page.
+            </span>
           </p>
         </header>
 
-        <div className="overflow-hidden bg-white shadow-sm ring-1 ring-slate-200 rounded-xl">
+        {/* --- Desktop Table View (Visible on md screens and up) --- */}
+        <div className="hidden md:block overflow-hidden bg-white shadow-sm ring-1 ring-slate-200 rounded-xl">
           <table className="min-w-full divide-y divide-slate-200">
             <thead className="bg-slate-50">
               <tr>
@@ -114,7 +117,7 @@ const PlatformManager = () => {
                       <div className="h-8 w-8 rounded bg-blue-100 flex items-center justify-center text-blue-700 font-bold mr-3 text-xs">
                         {item.name.charAt(0)}
                       </div>
-                      <span className="text-sm font-bold text-slate-800 group-hover:text-blue-700 underline-offset-4 decoration-2">
+                      <span className="text-sm font-bold text-slate-800 group-hover:text-blue-700">
                         {item.name}
                       </span>
                     </div>
@@ -125,9 +128,7 @@ const PlatformManager = () => {
                         {item.email}
                       </span>
                     ) : (
-                      <span className="text-xs uppercase tracking-wider font-semibold text-slate-400 italic">
-                        Unique per user
-                      </span>
+                      <span className="text-xs uppercase tracking-wider font-semibold text-slate-400 italic">Unique</span>
                     )}
                   </td>
                   <td className="px-6 py-5 whitespace-nowrap">
@@ -136,9 +137,7 @@ const PlatformManager = () => {
                         {item.password}
                       </span>
                     ) : (
-                      <span className="text-xs uppercase tracking-wider font-semibold text-slate-400 italic">
-                        Unique per user
-                      </span>
+                      <span className="text-xs uppercase tracking-wider font-semibold text-slate-400 italic">Unique</span>
                     )}
                   </td>
                   <td className="px-6 py-5">
@@ -150,6 +149,46 @@ const PlatformManager = () => {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* --- Mobile Card View (Visible on small screens only) --- */}
+        <div className="grid grid-cols-1 gap-4 md:hidden">
+          {platformData.map((item, index) => (
+            <div 
+              key={index}
+              onClick={() => handleRowClick(item.url)}
+              className="bg-white p-5 rounded-xl shadow-sm border border-slate-200 active:bg-blue-50 transition-colors"
+            >
+              <div className="flex items-center mb-4">
+                <div className="h-10 w-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold mr-3 text-sm">
+                  {item.name.charAt(0)}
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900">{item.name}</h3>
+                  {item.note && <p className="text-xs text-slate-500">{item.note}</p>}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="text-[10px] uppercase tracking-wider font-bold text-slate-400 block mb-1">Email Address</label>
+                  <div className="text-sm font-mono bg-slate-50 border border-slate-100 rounded px-3 py-2 text-slate-700 break-all">
+                    {item.email || "Unique per user"}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-wider font-bold text-slate-400 block mb-1">Password</label>
+                  <div className="text-sm font-mono bg-slate-50 border border-slate-100 rounded px-3 py-2 text-slate-700 break-all">
+                    {item.password || "Unique per user"}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-4 pt-4 border-t border-slate-100 flex justify-end">
+                <span className="text-xs font-semibold text-blue-600">Open Login →</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
