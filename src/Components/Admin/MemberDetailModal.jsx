@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AnnualBookingModal from './AnnualBookingModal';
 
 export default function MemberDetailModal({ 
   member, 
@@ -19,6 +20,9 @@ export default function MemberDetailModal({
   // 新增：用于存储该成员的 Annual Bookings
   const [memberBookings, setMemberBookings] = useState([]);
   const [bookingsLoading, setBookingsLoading] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [isCreatingNewBooking, setIsCreatingNewBooking] = useState(false);
 
   const CMSEndpoint = import.meta.env.VITE_CMS_ENDPOINT || 'https://api.do360.com';
   const CMSApiKey = import.meta.env.VITE_CMS_TOKEN;
@@ -332,33 +336,67 @@ export default function MemberDetailModal({
               {bookingsLoading ? (
                 <div className="text-center py-4 text-sm text-gray-500">Loading bookings...</div>
               ) : memberBookings.length > 0 ? (
-                <div className="overflow-x-auto border border-gray-200 rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Check-in</th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Check-out</th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Nights</th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Total Price</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {memberBookings.map((booking) => {
-                        const attrs = booking.attributes || booking;
-                        return (
-                          <tr key={booking.id}>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{new Date(attrs.checkin).toLocaleDateString('en-AU')}</td>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{new Date(attrs.checkout).toLocaleDateString('en-AU')}</td>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{calculateNights(attrs.checkin, attrs.checkout)}</td>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-green-600">${attrs.totalPrice?.toFixed(2)}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                <div className="space-y-2">
+                  <div className="overflow-x-auto border border-gray-200 rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Check-in</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Check-out</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Nights</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Total Price</th>
+                          <th className="px-4 py-2 text-center text-xs font-medium text-gray-500">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {memberBookings.map((booking) => {
+                          const attrs = booking.attributes || booking;
+                          return (
+                            <tr key={booking.id}>
+                              <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{new Date(attrs.checkin).toLocaleDateString('en-AU')}</td>
+                              <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{new Date(attrs.checkout).toLocaleDateString('en-AU')}</td>
+                              <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{calculateNights(attrs.checkin, attrs.checkout)}</td>
+                              <td className="px-4 py-2 whitespace-nowrap text-sm font-semibold text-green-600">${attrs.totalPrice?.toFixed(2)}</td>
+                              <td className="px-4 py-2 whitespace-nowrap text-center">
+                                <button
+                                  onClick={() => {
+                                    setSelectedBooking(booking);
+                                    setShowBookingModal(true);
+                                  }}
+                                  className="text-xs px-3 py-1 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded transition"
+                                >
+                                  Edit
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setIsCreatingNewBooking(true);
+                      setShowBookingModal(true);
+                    }}
+                    className="px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg transition text-sm font-medium"
+                  >
+                    + Add New Booking
+                  </button>
                 </div>
               ) : (
-                <p className="text-sm text-gray-500 italic">No annual bookings found for this site.</p>
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-gray-500 italic">No annual bookings found for this site.</p>
+                  <button
+                    onClick={() => {
+                      setIsCreatingNewBooking(true);
+                      setShowBookingModal(true);
+                    }}
+                    className="px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg transition text-sm font-medium"
+                  >
+                    + Add Booking
+                  </button>
+                </div>
               )}
             </div>
           )}
@@ -381,6 +419,50 @@ export default function MemberDetailModal({
             </>
           )}
         </div>
+
+        {/* Annual Booking Detail/Edit Modal */}
+        <AnnualBookingModal
+          booking={selectedBooking}
+          isOpen={showBookingModal && !isCreatingNewBooking}
+          onClose={() => {
+            setShowBookingModal(false);
+            setSelectedBooking(null);
+            setIsCreatingNewBooking(false);
+            // Refresh bookings after closing
+            if (member && member.SiteNumber) {
+              fetchMemberBookings(member.SiteNumber);
+            }
+          }}
+          onSaveSuccess={() => {
+            // Refresh bookings after successful save
+            if (member && member.SiteNumber) {
+              fetchMemberBookings(member.SiteNumber);
+            }
+          }}
+        />
+
+        {/* Create New Annual Booking Modal */}
+        <AnnualBookingModal
+          booking={null}
+          isOpen={showBookingModal && isCreatingNewBooking}
+          onClose={() => {
+            setShowBookingModal(false);
+            setIsCreatingNewBooking(false);
+            setSelectedBooking(null);
+            // Refresh bookings after closing
+            if (member && member.SiteNumber) {
+              fetchMemberBookings(member.SiteNumber);
+            }
+          }}
+          onSaveSuccess={() => {
+            // Refresh bookings after successful creation
+            if (member && member.SiteNumber) {
+              fetchMemberBookings(member.SiteNumber);
+            }
+          }}
+          siteNumber={member?.SiteNumber}
+          isNewBooking={true}
+        />
       </div>
     </div>
   );

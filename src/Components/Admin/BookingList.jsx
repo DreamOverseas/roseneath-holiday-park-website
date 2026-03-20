@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import AnnualBookingModal from './AnnualBookingModal';
 
 const BookingList = () => {
     const { t } = useTranslation();
@@ -9,7 +10,9 @@ const BookingList = () => {
     const [error, setError] = useState('');
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [showDetailModal, setShowDetailModal] = useState(false);
-    const [hideEmptySites, setHideEmptySites] = useState(false);
+    const [hideEmptySites, setHideEmptySites] = useState(true);
+    const [isCreatingNewBooking, setIsCreatingNewBooking] = useState(false);
+    const [selectedSiteForNew, setSelectedSiteForNew] = useState(null);
     
     // Timeline state
     const [startDate, setStartDate] = useState(() => {
@@ -246,18 +249,32 @@ const BookingList = () => {
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                         <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">Annual Bookings Timeline</h2>
-                        <button
-                            onClick={() => {
-                                fetchBookings();
-                                fetchMemberships();
-                            }}
-                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                            Refresh
-                        </button>
+                        <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+                            <button
+                                onClick={() => {
+                                    setIsCreatingNewBooking(true);
+                                    setSelectedSiteForNew(null);
+                                }}
+                                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                                </svg>
+                                New Booking
+                            </button>
+                            <button
+                                onClick={() => {
+                                    fetchBookings();
+                                    fetchMemberships();
+                                }}
+                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Refresh
+                            </button>
+                        </div>
                     </div>
 
                     {/* Timeline Controls */}
@@ -393,8 +410,20 @@ const BookingList = () => {
 
                                 return (
                                     <div key={siteNumber} className="flex border-b border-gray-200 hover:bg-gray-50 transition">
-                                        <div className="w-24 flex-shrink-0 border-r border-gray-200 p-3 text-sm font-semibold text-gray-900">
-                                            {siteNumber}
+                                        <div className="w-24 flex-shrink-0 border-r border-gray-200 p-3 text-sm font-semibold text-gray-900 flex items-center justify-between">
+                                            <span>{siteNumber}</span>
+                                            <button
+                                                onClick={() => {
+                                                    setSelectedSiteForNew(siteNumber);
+                                                    setIsCreatingNewBooking(true);
+                                                }}
+                                                className="hidden sm:inline-flex px-1 py-1 text-xs bg-green-100 hover:bg-green-200 text-green-700 rounded transition"
+                                                title="Add booking for this site"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                                                </svg>
+                                            </button>
                                         </div>
                                         <div className="flex flex-1 relative">
                                             {/* Day grid background */}
@@ -430,7 +459,7 @@ const BookingList = () => {
                                                         }}
                                                         title={`${nights} night${nights !== 1 ? 's' : ''} • ${adults} adult${adults !== 1 ? 's' : ''} • ${children} child${children !== 1 ? 'ren' : ''} • $${price} - Check-in: ${formatDate(attrs.checkin)}`}
                                                     >
-                                                        <div className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis">{nights}n • {totalPeople}p • ${price}</div>
+                                                        <div className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis">{nights} nights • {totalPeople} people • ${price}</div>
                                                     </div>
                                                 );
                                             })}
@@ -451,132 +480,34 @@ const BookingList = () => {
             )}
 
             {/* Detail Modal */}
-            {showDetailModal && selectedBooking && (
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" onClick={() => setShowDetailModal(false)}>
-                    <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white" onClick={(e) => e.stopPropagation()}>
-                        {/* Modal Header */}
-                        <div className="flex justify-between items-center pb-3 border-b">
-                            <h3 className="text-xl font-semibold text-gray-900">Booking Details</h3>
-                            <button
-                                onClick={() => setShowDetailModal(false)}
-                                className="text-gray-400 hover:text-gray-600 transition-colors"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
+            <AnnualBookingModal
+                booking={selectedBooking}
+                isOpen={showDetailModal}
+                onClose={() => {
+                    setShowDetailModal(false);
+                    setSelectedBooking(null);
+                }}
+                onSaveSuccess={(data) => {
+                    // Refresh the bookings list after successful save
+                    fetchBookings();
+                }}
+            />
 
-                        {/* Modal Body */}
-                        <div className="mt-4">
-                            {(() => {
-                                const attrs = selectedBooking.attributes || selectedBooking;
-                                const nights = calculateNights(attrs.checkin, attrs.checkout);
-                                
-                                return (
-                                    <>
-                                        <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                                            <h4 className="font-semibold text-gray-800 mb-2">Booking Information</h4>
-                                            <div className="grid grid-cols-2 gap-3">
-                                                <div>
-                                                    <p className="text-sm text-gray-600">Site Number</p>
-                                                    <p className="font-medium text-gray-900">{attrs.siteNumber}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm text-gray-600">Duration</p>
-                                                    <p className="font-medium text-gray-900">{nights} {nights === 1 ? 'night' : 'nights'}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm text-gray-600">Check-in</p>
-                                                    <p className="font-medium text-gray-900">{formatDate(attrs.checkin)}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm text-gray-600">Check-out</p>
-                                                    <p className="font-medium text-gray-900">{formatDate(attrs.checkout)}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Vehicle Registration Numbers */}
-                                        {attrs.RegistrationNumber && attrs.RegistrationNumber.length > 0 && (
-                                            <div className="bg-purple-50 rounded-lg p-4 mb-4">
-                                                <h4 className="font-semibold text-gray-800 mb-2">Vehicle Registration Numbers</h4>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {attrs.RegistrationNumber.map((reg, index) => (
-                                                        <span 
-                                                            key={index} 
-                                                            className="inline-block px-3 py-1 bg-purple-200 text-purple-800 rounded-md text-sm font-medium"
-                                                        >
-                                                            {reg.RegistrationNumber}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <div className="bg-green-50 rounded-lg p-4 mb-4">
-                                            <h4 className="font-semibold text-gray-800 mb-2">Guest Information</h4>
-                                            <div className="grid grid-cols-2 gap-3">
-                                                <div>
-                                                    <p className="text-sm text-gray-600">Adults</p>
-                                                    <p className="font-medium text-gray-900">{attrs.adultNumber}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm text-gray-600">Children</p>
-                                                    <p className="font-medium text-gray-900">{attrs.childNumber}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {attrs.extra && attrs.extra.length > 0 && (
-                                            <div className="bg-yellow-50 rounded-lg p-4 mb-4">
-                                                <h4 className="font-semibold text-gray-800 mb-2">Extra Items</h4>
-                                                <div className="space-y-2">
-                                                    {attrs.extra.map((item, index) => (
-                                                        <div key={index} className="flex justify-between items-center">
-                                                            <span className="text-sm text-gray-700">
-                                                                {item.Name} x {item.Number}
-                                                            </span>
-                                                            <span className="text-sm font-medium text-gray-900">
-                                                                ${item.Price?.toFixed(2) || '0.00'}
-                                                            </span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <div className="bg-gray-50 rounded-lg p-4">
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-lg font-semibold text-gray-800">Total Price</span>
-                                                <span className="text-2xl font-bold text-green-600">
-                                                    ${attrs.totalPrice?.toFixed(2) || '0.00'}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {attrs.createdAt && (
-                                            <div className="mt-4 text-xs text-gray-500 text-center">
-                                                Booked on {formatDate(attrs.createdAt)}
-                                            </div>
-                                        )}
-                                    </>
-                                );
-                            })()}
-                        </div>
-
-                        {/* Modal Footer */}
-                        <div className="flex justify-end mt-6 pt-4 border-t">
-                            <button
-                                onClick={() => setShowDetailModal(false)}
-                                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-medium"
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}            </div>        </div>
+            {/* Create New Booking Modal */}
+            <AnnualBookingModal
+                booking={null}
+                isOpen={isCreatingNewBooking}
+                onClose={() => {
+                    setIsCreatingNewBooking(false);
+                    setSelectedSiteForNew(null);
+                }}
+                onSaveSuccess={(data) => {
+                    // Refresh the bookings list after successful creation
+                    fetchBookings();
+                }}
+                siteNumber={selectedSiteForNew}
+                isNewBooking={true}
+            />            </div>        </div>
     );
 };
 
