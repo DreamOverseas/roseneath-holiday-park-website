@@ -5,6 +5,7 @@ import BookingList from '../Components/Admin/BookingList';
 import BusinessFunnel from '../Components/Admin/BusinessFunnel';
 import ReservationTable from '../Components/Admin/ReservationTable';
 import AnalysisGraph from '../Components/Admin/AnalysisGraph';
+import PlatformManager from '../Components/Admin/PlatformManager';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -460,7 +461,13 @@ export default function Dog() {
   }
 
   return (
+
     <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
+      
+      
+      <PlatformManager/>
+
+      
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
@@ -679,7 +686,7 @@ export default function Dog() {
       />
 
       <BookingList />
-      {/* <ReservationTable /> */}
+      <ReservationTable />
       <AnalysisGraph />
       <BusinessFunnel />
     </div>
