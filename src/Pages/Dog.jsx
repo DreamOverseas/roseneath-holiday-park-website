@@ -679,7 +679,7 @@ export default function Dog() {
       />
 
       <BookingList />
-      {/* <ReservationTable /> */}
+      <ReservationTable />
       <AnalysisGraph />
       <BusinessFunnel />
     </div>
