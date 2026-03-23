@@ -6,6 +6,7 @@ import BusinessFunnel from '../Components/Admin/BusinessFunnel';
 import ReservationTable from '../Components/Admin/ReservationTable';
 import AnalysisGraph from '../Components/Admin/AnalysisGraph';
 import PlatformManager from '../Components/Admin/PlatformManager';
+import SubscriberList from '../Components/Admin/SubscriberList';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -469,6 +470,7 @@ export default function Dog() {
 
       
       <div className="max-w-7xl mx-auto">
+        <SubscriberList />
 
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
