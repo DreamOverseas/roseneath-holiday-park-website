@@ -234,8 +234,10 @@
   "manual": "用户手册",
 
   "Download_PDF": "下载此PDF文件",
-
   "loading": "加载中...",
+  "coming_soon": "敬请期待",
+  "no_content_yet": "此内容即将上线",
+  "Error": "错误",
 
   "update_detail": "更新信息",
   "update_pwd": "更新密码",

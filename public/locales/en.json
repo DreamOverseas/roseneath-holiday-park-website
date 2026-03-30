@@ -231,9 +231,10 @@
   "manual": "User Manual",
 
   "Download_PDF": "Download this PDF document",
-  
   "loading": "Loading...",
-
+  "coming_soon": "Coming Soon",
+  "no_content_yet": "This content will be available soon",
+  "Error": "Error",
   "update_detail": "Update Details",
   "update_pwd": "Update Password",
   "update_detail.userName": "User Name",
