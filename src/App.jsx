@@ -88,7 +88,7 @@ function App() {
             />} />
           <Route path='/AI-stay' element={            
             <MediaImageDisplay
-              chineseUrl="ai-stay-english"
+              chineseUrl="ai-stay-chinese"
               englishUrl="ai-stay-english"
             />} />
           <Route path='/tiny-house' element={            

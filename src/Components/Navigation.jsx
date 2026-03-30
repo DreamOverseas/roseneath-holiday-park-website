@@ -157,9 +157,9 @@ const Navigation = () => {
                   <NavDropdown.Item href='/partnership'>
                     {t("Partnership")}
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='/influencer'>
+                  {/* <NavDropdown.Item href='/influencer'>
                     {t("Influencer")}
-                  </NavDropdown.Item>
+                  </NavDropdown.Item> */}
                   <NavDropdown.Item href='/360-culture-events'>
                     {t("360CultureAndEvents")}
                   </NavDropdown.Item>
