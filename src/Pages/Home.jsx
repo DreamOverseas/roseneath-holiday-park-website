@@ -36,6 +36,11 @@ const Home = () => {
       alt: "Horse Nearby",
       textKey: "horse_by_your_side",
     },
+    {
+      src: "/Icons/ai.png",
+      alt: "Ai-Powered Flexible Stay",
+      textKey: "ai_powered_flexible_stay",
+    },
   ];
 
   useEffect(() => {
@@ -147,8 +152,7 @@ const Home = () => {
                 <Col
                   key={index}
                   xs={6}
-                  sm={4}
-                  md={4}
+                  md={3}
                 >
                   <div className="d-flex flex-column align-items-center">
                     <Image
