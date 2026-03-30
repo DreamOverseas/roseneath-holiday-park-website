@@ -40,6 +40,7 @@ const Home = () => {
       src: "/Icons/ai.png",
       alt: "Ai-Powered Flexible Stay",
       textKey: "ai_powered_flexible_stay",
+      route: "/AI-stay",
     },
   ];
 
@@ -148,12 +149,8 @@ const Home = () => {
           <Container>
             <h1>{t("home_cheerup")}</h1>
             <Row >
-              {features.map((feature, index) => (
-                <Col
-                  key={index}
-                  xs={6}
-                  md={3}
-                >
+              {features.map((feature, index) => {
+                const featureContent = (
                   <div className="d-flex flex-column align-items-center">
                     <Image
                       src={feature.src}
@@ -163,9 +160,24 @@ const Home = () => {
                     />
                     <p style={{ fontSize: '16px' }}>{t(feature.textKey)}</p>
                   </div>
+                );
 
-                </Col>
-              ))}
+                return (
+                  <Col
+                    key={index}
+                    xs={6}
+                    md={3}
+                  >
+                    {feature.route ? (
+                      <Link to={feature.route} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        {featureContent}
+                      </Link>
+                    ) : (
+                      featureContent
+                    )}
+                  </Col>
+                );
+              })}
             </Row>
           </Container>
         </section>
