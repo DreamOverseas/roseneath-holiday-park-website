@@ -121,27 +121,12 @@ const Navigation = () => {
                   {t("Gallery")}
                 </Nav.Link>
 
-                <Nav.Link
+                {/* <Nav.Link
                   className={`NavWord ${ ['/news', '/annual-news', '/permanent-news'].includes(location.pathname) ? "NavActive" : ""}`}
                   href={whatsMyNews()}
                 >
                   {t("News")}
-                </Nav.Link>
-
-                {/* <NavDropdown
-                  className='NavNoHighlightWord'
-                  title={t("News")}
-                >
-                  <NavDropdown.Item href='/news'>
-                    {t("HolidayGuests")}
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href='/annual-news'>
-                    {t("AnnualNews")}
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href='/permanent-news'>
-                    {t("PermanentNews")}
-                  </NavDropdown.Item>
-                </NavDropdown> */}
+                </Nav.Link> */}
 
                 <NavDropdown
                   className='NavNoHighlightWord'
