@@ -52,9 +52,44 @@ function App() {
           <Route path='/policy' element={<Policy />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
+          <Route path='/360-space' element={            
+            <>
+              <MediaImageDisplay 
+                chineseUrl="investment"
+              />
+              <MediaImageDisplay 
+                chineseUrl="tiny-house-chinese"
+              />
+            </>
+          } />
+          <Route path='/partnership' element={            
+            <MediaImageDisplay
+              chineseUrl="partnership-chinese"
+              englishUrl="partnership-english"
+            />} />
+          <Route path='/influencer' element={            
+            <MediaImageDisplay
+              chineseUrl="influencer-chinese"
+              englishUrl="influencer-english"
+            />} />
+          <Route path='/360-culture-events' element={            
+            <MediaImageDisplay
+              chineseUrl="360-culture-events-chinese"
+              englishUrl="360-culture-events-english"
+            />} />
+          <Route path='/360-iip' element={            
+            <MediaImageDisplay
+              chineseUrl="360-iip-chinese"
+              englishUrl="360-iip-english"
+            />} />
           <Route path='/smarthouse' element={            
             <MediaImageDisplay 
               chineseUrl="investment"
+            />} />
+          <Route path='/AI-stay' element={            
+            <MediaImageDisplay
+              chineseUrl="ai-stay-english"
+              englishUrl="ai-stay-english"
             />} />
           <Route path='/tiny-house' element={            
             <MediaImageDisplay 

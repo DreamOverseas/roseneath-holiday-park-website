@@ -106,6 +106,9 @@ const Navigation = () => {
                   <NavDropdown.Item href='/book-membership'>
                     {t("BookMembership")}
                   </NavDropdown.Item>
+                  <NavDropdown.Item href='/AI-stay'>
+                    {t("GroupBookings")}
+                  </NavDropdown.Item>
                   <NavDropdown.Item href='/eco-and-culture-tours'>
                     {t("EcoAndCultureTours")}
                   </NavDropdown.Item>
@@ -118,27 +121,12 @@ const Navigation = () => {
                   {t("Gallery")}
                 </Nav.Link>
 
-                <Nav.Link
+                {/* <Nav.Link
                   className={`NavWord ${ ['/news', '/annual-news', '/permanent-news'].includes(location.pathname) ? "NavActive" : ""}`}
                   href={whatsMyNews()}
                 >
                   {t("News")}
-                </Nav.Link>
-
-                {/* <NavDropdown
-                  className='NavNoHighlightWord'
-                  title={t("News")}
-                >
-                  <NavDropdown.Item href='/news'>
-                    {t("HolidayGuests")}
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href='/annual-news'>
-                    {t("AnnualNews")}
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href='/permanent-news'>
-                    {t("PermanentNews")}
-                  </NavDropdown.Item>
-                </NavDropdown> */}
+                </Nav.Link> */}
 
                 <NavDropdown
                   className='NavNoHighlightWord'
@@ -160,16 +148,29 @@ const Navigation = () => {
 
                 <NavDropdown
                   className='NavNoHighlightWord'
-                  title={t("360space")}
-                  id='investment-dropdown'
+                  title={t("JoinUs")}
+                  id='joinus-dropdown'
                 >
-                  <NavDropdown.Item href='/smarthouse'>
-                    {t("Smarthouse")}
+                  <NavDropdown.Item href='/360-space'>
+                    {t("360Space")}
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='/tiny-house'>
-                    {t("TinyHouse")}
+                  <NavDropdown.Item href='/partnership'>
+                    {t("Partnership")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/influencer'>
+                    {t("Influencer")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/360-culture-events'>
+                    {t("360CultureAndEvents")}
                   </NavDropdown.Item>
                 </NavDropdown>
+
+                <Nav.Link
+                  className={`NavWord ${location.pathname === "/360-iip" ? "NavActive" : ""}`}
+                  href='/360-iip'
+                >
+                  {t("360IIP")}
+                </Nav.Link>
 
                 <NavDropdown
                   className='NavNoHighlightWord nav-language'
