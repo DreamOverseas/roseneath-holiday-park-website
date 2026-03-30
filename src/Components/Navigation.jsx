@@ -148,16 +148,29 @@ const Navigation = () => {
 
                 <NavDropdown
                   className='NavNoHighlightWord'
-                  title={t("360space")}
-                  id='investment-dropdown'
+                  title={t("JoinUs")}
+                  id='joinus-dropdown'
                 >
-                  <NavDropdown.Item href='/smarthouse'>
-                    {t("Smarthouse")}
+                  <NavDropdown.Item href='/360-space'>
+                    {t("360Space")}
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='/tiny-house'>
-                    {t("TinyHouse")}
+                  <NavDropdown.Item href='/partnership'>
+                    {t("Partnership")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/influencer'>
+                    {t("Influencer")}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/360-culture-events'>
+                    {t("360CultureAndEvents")}
                   </NavDropdown.Item>
                 </NavDropdown>
+
+                <Nav.Link
+                  className={`NavWord ${location.pathname === "/360-iip" ? "NavActive" : ""}`}
+                  href='/360-iip'
+                >
+                  {t("360IIP")}
+                </Nav.Link>
 
                 <NavDropdown
                   className='NavNoHighlightWord nav-language'
