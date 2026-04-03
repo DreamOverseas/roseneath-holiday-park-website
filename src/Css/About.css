@@ -6,6 +6,91 @@ main {
   overflow-x: hidden;
 }
 
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+.vision-text {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: #667eea;
+  padding: 20px;
+  background: rgba(102, 126, 234, 0.1);
+  border-left: 4px solid #667eea;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.qa-item {
+  margin: 30px 0;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.qa-question {
+  color: #667eea;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.subsections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.subsection {
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.subsection:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.15);
+}
+
+.subsection h3 {
+  color: #667eea;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.subsection p {
+  color: #34495e;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
 .about-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 80px 0;
@@ -50,6 +135,93 @@ main {
   right: 0;
   height: 4px;
   background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+}
+
+.why-visit-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  color: white;
+}
+
+.why-visit-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.why-visit-content {
+  position: relative;
+  z-index: 2;
+}
+
+.why-visit-content p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.why-visit-content p:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.flexible-accommodation-section,
+.membership-section {
+  padding: 80px 0;
+  background: #f0f4ff;
+  position: relative;
+}
+
+.flexible-accommodation-section::before,
+.membership-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+}
+
+.membership-content,
+.activities-content {
+  position: relative;
+  z-index: 2;
+}
+
+.membership-content h3,
+.activities-content h3 {
+  color: #667eea;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.membership-content p,
+.activities-content p {
+  color: #34495e;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.membership-content strong,
+.activities-content strong {
+  color: #667eea;
+  font-weight: 600;
 }
 
 .container {
@@ -152,19 +324,57 @@ main {
   margin-bottom: 25px;
   line-height: 1.8;
   font-size: 1.15rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   padding: 20px;
   border-radius: 12px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 4px solid #f5576c;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
+  color: #2c3e50;
 }
 
 .activities-section p:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.activities-section p strong {
+  color: #f5576c;
+  font-weight: 600;
+}
+
+.activities-section .qa-item {
+  background: rgba(255, 255, 255, 0.95);
+  color: #2c3e50;
+  border-left-color: #f5576c;
+}
+
+.activities-section .qa-item h3 {
+  color: #f5576c;
+}
+
+.activities-section .qa-item p {
+  color: #2c3e50;
+}
+
+.activities-section .activities-content h3 {
+  color: #f5576c;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #f5576c;
+}
+
+.activities-section .vision-text {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-left: 4px solid #f5576c !important;
+  color: #f5576c !important;
+  padding: 20px;
+  font-style: italic;
 }
 
 .about-attraction {
@@ -244,6 +454,14 @@ main {
   .row {
     gap: 30px;
   }
+
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .subsections-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -257,7 +475,10 @@ main {
 
   .info-section,
   .activities-section,
-  .about-attraction {
+  .about-attraction,
+  .why-visit-section,
+  .flexible-accommodation-section,
+  .membership-section {
     padding: 60px 0;
   }
 
@@ -290,6 +511,14 @@ main {
   .text-col p:first-child {
     font-size: 1.15rem;
   }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .subsections-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 576px) {
@@ -304,7 +533,10 @@ main {
   }
 
   .info-section,
-  .activities-section {
+  .activities-section,
+  .why-visit-section,
+  .flexible-accommodation-section,
+  .membership-section {
     padding: 40px 0;
   }
 
@@ -339,6 +571,27 @@ main {
   
   .container {
     padding: 0 10px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .subsection {
+    padding: 15px;
+  }
+
+  .subsection h3 {
+    font-size: 1.1rem;
+  }
+
+  .qa-item {
+    padding: 15px;
+  }
+
+  .qa-question {
+    font-size: 1.1rem;
   }
 }
 

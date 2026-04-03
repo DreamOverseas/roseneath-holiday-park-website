@@ -29,6 +29,7 @@ import CheckIn from "./Pages/CheckIn.jsx";
 import CheckOut from "./Pages/CheckOut.jsx";
 import News from "./Components/News.jsx";
 import Policy from "./Pages/Policy.jsx";
+import StayAndGuestGuide from "./Pages/StayAndGuestGuide.jsx";
 import MemberCenter from "./Pages/MembershipCenter.jsx";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
           <Route path='/policy' element={<Policy />} />
+          <Route path='/stay-and-guide' element={<StayAndGuestGuide />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
           <Route path='/360-space' element={            
