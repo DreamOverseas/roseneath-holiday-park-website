@@ -51,7 +51,7 @@ function App() {
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
           <Route path='/policy' element={<Policy />} />
-          <Route path='/stay-and-guide' element={<StayAndGuestGuide />} />
+          <Route path='/FAQ' element={<StayAndGuestGuide />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
           <Route path='/360-space' element={            
