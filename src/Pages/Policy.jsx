@@ -10,8 +10,8 @@ function Policy() {
     <Container>
       <div className="html-content" dangerouslySetInnerHTML={{ __html: t('guest_policy') }}/>
       <br />
-      <div className="html-content" dangerouslySetInnerHTML={{ __html: t('policy_content') }}/>
-      <br />
+      {/* <div className="html-content" dangerouslySetInnerHTML={{ __html: t('policy_content') }}/>
+      <br /> */}
     </Container>
   );
 }
