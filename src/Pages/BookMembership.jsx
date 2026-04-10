@@ -9,7 +9,7 @@ function BookMembership() {
   return (
     <Container>
         <br />
-        <img src={"public/360_smart_card.jpg"} alt="smart_card" />
+        <img src={"/360_smart_card.jpg"} alt="smart_card" />
         <br />
         <div className="html-content" dangerouslySetInnerHTML={{ __html: t('book.membership') }}/>
         <br />
