@@ -8,7 +8,9 @@ function BookMembership() {
 
   return (
     <Container>
-        <br /><br />
+        <br />
+        <img src={"public/360_smart_card.jpg"} alt="smart_card" />
+        <br />
         <div className="html-content" dangerouslySetInnerHTML={{ __html: t('book.membership') }}/>
         <br />
     </Container>
