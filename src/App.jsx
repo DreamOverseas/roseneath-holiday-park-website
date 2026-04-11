@@ -22,14 +22,11 @@ import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
 import GroupVisitors from "./Pages/GroupVisitors.jsx";
 import RoomDetail from "./Pages/RoomDetail.jsx";
 import RoomList from "./Pages/RoomList.jsx";
-import BookMembership from "./Pages/BookMembership.jsx";
 import MediaImageDisplay from "./Components/MediaImageDisplay.jsx";
+import HtmlContent from "./Components/HtmlContent.jsx";
 import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
-import CheckOut from "./Pages/CheckOut.jsx";
 import News from "./Components/News.jsx";
-import Policy from "./Pages/Policy.jsx";
-import StayAndGuestGuide from "./Pages/StayAndGuestGuide.jsx";
 import MemberCenter from "./Pages/MembershipCenter.jsx";
 
 function App() {
@@ -50,19 +47,14 @@ function App() {
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
-          <Route path='/policy' element={<Policy />} />
-          <Route path='/FAQ' element={<StayAndGuestGuide />} />
+          <Route path='/policy' element={<HtmlContent translationKey="guest_policy" />} />
+          <Route path='/FAQ' element={<HtmlContent translationKey="stay_and_guide_content" />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
           <Route path='/360-space' element={            
-            <>
               <MediaImageDisplay 
                 chineseUrl="investment"
               />
-              <MediaImageDisplay 
-                chineseUrl="tiny-house-chinese"
-              />
-            </>
           } />
           <Route path='/partnership' element={            
             <MediaImageDisplay
@@ -72,18 +64,9 @@ function App() {
           <Route path='/influencer' element={            
             <MediaImageDisplay
               chineseUrl="influencer-chinese"
-              englishUrl="influencer-english"
             />} />
-          <Route path='/360-culture-events' element={            
-            <MediaImageDisplay
-              chineseUrl="360-culture-events-chinese"
-              englishUrl="360-culture-events-english"
-            />} />
-          <Route path='/360-iip' element={            
-            <MediaImageDisplay
-              chineseUrl="360-iip-chinese"
-              englishUrl="360-iip-english"
-            />} />
+          <Route path='/360-culture-events' element={<HtmlContent translationKey="events_activities" />} />
+          <Route path='/360-iip' element={  <HtmlContent translationKey="innovation_lab" />} />
           <Route path='/smarthouse' element={            
             <MediaImageDisplay 
               chineseUrl="investment"
@@ -103,7 +86,7 @@ function App() {
               chineseUrl="cooperation-chinese"
             />} />
           <Route path='/roomlist' element={<RoomList />} />
-          <Route path='/book-membership' element={<BookMembership />} />
+          <Route path='/book-membership' element={<HtmlContent translationKey="book.membership" imageUrl="/360_smart_card.jpg" imageAlt="smart_card" />} />
           <Route path='/eco-and-culture-tours' element={        
             <MediaImageDisplay 
               englishUrl="eco-and-culture-tours-english"
@@ -112,7 +95,7 @@ function App() {
           <Route path="/room/:documentId" element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />
-          <Route path='/check-out' element={<CheckOut />} />
+          <Route path='/check-out' element={<HtmlContent translationKey="checkOut" />} />
           <Route path='/news' element={<News userType="forGuest"/>} />
           <Route path='/annual-news' element={<News userType="forAnnual"/>} />
           <Route path='/permanent-news' element={<News userType="forPermanent"/>} />
