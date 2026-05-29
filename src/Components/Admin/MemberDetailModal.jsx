@@ -271,6 +271,10 @@ export default function MemberDetailModal({
           </div>
         );
       }
+      // 为 textarea 字段（如 Note）保留换行符显示
+      if (field.textarea) {
+        return <div className="text-sm text-gray-900 whitespace-pre-wrap break-words">{value || '-'}</div>;
+      }
       return <div className="text-sm text-gray-900">{value || '-'}</div>;
     }
 
@@ -284,6 +288,17 @@ export default function MemberDetailModal({
         >
           {field.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
         </select>
+      );
+    }
+    // 为 textarea 字段使用 textarea 元素
+    if (field.textarea) {
+      return (
+        <textarea 
+          value={value || ''}
+          onChange={(e) => handleInputChange(field.key, e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg text-sm min-h-32 resize-vertical"
+          rows="5"
+        />
       );
     }
     return (
