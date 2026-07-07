@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Alert, Row, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
+import Seo from '../Components/Seo';
 import { useTranslation } from 'react-i18next';
 import "../Css/Components.css";
 
@@ -104,9 +105,17 @@ const RegisterForm = () => {
     };
 
     return (
-        <Container className="my-5">
-            <h1 className="mb-4">{t("regForm-title")}</h1>
-            {success && <Alert variant="success">Registration successful!</Alert>}
+        <>
+            <Seo
+                title="Register | Roseneath Holiday Park"
+                description="Register for Roseneath Holiday Park to book your holiday stay, campsite or cabin accommodation near Lake Willinton."
+                canonical="https://roseneathholidaypark.au/register"
+                image="/logo192.png"
+                keywords="Roseneath Holiday Park register, camping registration, holiday park signup"
+            />
+            <Container className="my-5">
+                <h1 className="mb-4">{t("regForm-title")}</h1>
+                {success && <Alert variant="success">Registration successful!</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                     <Row className="mb-3">

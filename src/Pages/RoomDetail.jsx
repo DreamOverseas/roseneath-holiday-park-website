@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Button, Modal } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import Seo from "../Components/Seo";
 import "../Css/RoomDetail.css";
 
 const RoomDetail = () => {
@@ -55,6 +56,13 @@ const RoomDetail = () => {
 
   return (
     <div className='room-detail'>
+      <Seo
+        title={`${i18n.language === "zh" ? room.Name_zh : room.Name_en} | Roseneath Holiday Park Room`}
+        description={i18n.language === "zh" ? (room.Title_zh || room.Description_zh) : (room.Title_en || room.Description_en)}
+        canonical={`https://roseneathholidaypark.au/room/${room.documentId}`}
+        image={room.Cover?.url ? `${CMS_endpoint}${room.Cover.url}` : undefined}
+        keywords="Roseneath Holiday Park, Lake Willinton room, holiday accommodation, cabin, camping"
+      />
       <h1 className='room-detail-name'>{i18n.language === "zh"
         ? room.Name_zh
         : room.Name_en}

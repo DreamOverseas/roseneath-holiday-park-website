@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PriceList from "../Components/PriceListSection";
+import Seo from "../Components/Seo";
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -139,6 +140,13 @@ const Home = () => {
 
   return (
     <main className="home-page">
+      <Seo
+        title="Roseneath Holiday Park | Lake Willinton Camping & Accommodation"
+        description="Experience lakeside camping, pet-friendly cabins and eco-friendly holiday accommodation at Roseneath Holiday Park near Lake Willinton."
+        canonical="https://roseneathholidaypark.au/"
+        image="/logo192.png"
+        keywords="Roseneath Holiday Park, Lake Willinton camping, accommodation, family holiday, nature stay"
+      />
       <div>
         <section className="home-banner-title">
           <h1>{t("home_place_name")}</h1>

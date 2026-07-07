@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Container, Col, Row } from 'react-bootstrap';
 import ContactForm from "../Components/ContactForm";
 import PageTitle from "../Components/PageTitle";
+import Seo from "../Components/Seo";
 
 const Contact = () => {
 
@@ -12,6 +13,13 @@ const Contact = () => {
 
     return (
         <div>
+            <Seo
+                title="Contact Roseneath Holiday Park | Booking & Inquiries"
+                description="Contact Roseneath Holiday Park for camping, cabin bookings, group stays and holiday enquiries near Lake Willinton."
+                canonical="https://roseneathholidaypark.au/contact-us"
+                image="/logo192.png"
+                keywords="Contact Roseneath Holiday Park, Lake Willinton booking, holiday park contact, camping enquiry"
+            />
             <PageTitle pageTitle={t("Contact_title")} />
             <Container style={{ padding: '3rem' }}>
                 <div className="html-content">

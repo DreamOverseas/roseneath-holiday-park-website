@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
+import Seo from "../Components/Seo";
 import "../Css/RoomList.css";
 
 const RoomList = () => {
@@ -34,6 +35,13 @@ const RoomList = () => {
 
   return (
     <div className='room-list'>
+      <Seo
+        title="Roseneath Holiday Park Rooms | Lake Willinton Accommodation"
+        description="View room types, cabins and camping options at Roseneath Holiday Park, including pet-friendly and family holiday accommodation."
+        canonical="https://roseneathholidaypark.au/roomlist"
+        image="/logo192.png"
+        keywords="Roseneath Holiday Park rooms, Lake Willinton accommodation, campsite rooms, cabin booking"
+      />
 
       <h1>{t("roomlist_title")}</h1>
       <div className='room-grid'>

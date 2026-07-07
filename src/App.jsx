@@ -28,6 +28,8 @@ import RegisterForm from "./Components/RegisterForm.jsx";
 import CheckIn from "./Pages/CheckIn.jsx";
 import News from "./Components/News.jsx";
 import MemberCenter from "./Pages/MembershipCenter.jsx";
+import Seo from "./Components/Seo";
+import seoData from "./data/seoData";
 
 function App() {
 
@@ -47,58 +49,66 @@ function App() {
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />
-          <Route path='/policy' element={<HtmlContent translationKey="guest_policy" />} />
-          <Route path='/FAQ' element={<HtmlContent translationKey="stay_and_guide_content" />} />
+          <Route path='/policy' element={<HtmlContent translationKey="guest_policy" seo={seoData.guest_policy} />} />
+          <Route path='/FAQ' element={<HtmlContent translationKey="stay_and_guide_content" seo={seoData.stay_and_guide_content} />} />
           <Route path='/individual-visitors' element={<IndividualVisitors />} />
           <Route path='/group-visitors' element={<GroupVisitors />} />
           <Route path='/360-space' element={            
               <MediaImageDisplay 
                 chineseUrl="investment"
+                seo={seoData.space_360}
               />
           } />
           <Route path='/partnership' element={            
             <MediaImageDisplay
               chineseUrl="partnership-chinese"
               englishUrl="partnership-english"
+              seo={seoData.partnership}
             />} />
           <Route path='/influencer' element={            
             <MediaImageDisplay
               chineseUrl="influencer-chinese"
+              seo={seoData.influencer}
             />} />
-          <Route path='/360-culture-events' element={<HtmlContent translationKey="events_activities" />} />
-          <Route path='/360-iip' element={  <HtmlContent translationKey="innovation_lab" />} />
+          <Route path='/360-culture-events' element={<HtmlContent translationKey="events_activities" seo={seoData.events_activities} />} />
+          <Route path='/360-iip' element={<HtmlContent translationKey="innovation_lab" seo={seoData.innovation_lab} />} />
           <Route path='/smarthouse' element={            
             <MediaImageDisplay 
               chineseUrl="investment"
+              seo={seoData.smarthouse}
             />} />
           <Route path='/AI-stay' element={            
             <MediaImageDisplay
               chineseUrl="ai-stay-chinese"
               englishUrl="ai-stay-english"
+              seo={seoData.ai_stay}
             />} />
           <Route path='/tiny-house' element={            
             <MediaImageDisplay 
               chineseUrl="tiny-house-chinese"
+              seo={seoData.tiny_house}
             />} />
           <Route path='/cooperation' element={
             <MediaImageDisplay 
               englishUrl="cooperation-english"
               chineseUrl="cooperation-chinese"
+              seo={seoData.cooperation}
             />} />
           <Route path='/roomlist' element={<RoomList />} />
-          <Route path='/book-membership' element={<HtmlContent translationKey="book.membership" imageUrl="/360_smart_card.jpg" imageAlt="smart_card" />} />
+          <Route path='/book-membership' element={<HtmlContent translationKey="book.membership" imageUrl="/360_smart_card.jpg" imageAlt="smart_card" seo={seoData.book_membership} />} />
           <Route path='/eco-and-culture-tours' element={        
             <MediaImageDisplay 
               englishUrl="eco-and-culture-tours-english"
               chineseUrl="eco-and-culture-tours-chinese"
+              seo={seoData.eco_and_culture_tours}
             />} />
           <Route path="/room/:documentId" element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />
-          <Route path='/check-out' element={<HtmlContent translationKey="checkOut" />} />
-          <Route path='/news' element={<News userType="forGuest"/>} />
-          <Route path='/annual-news' element={<News userType="forAnnual"/>} />
-          <Route path='/permanent-news' element={<News userType="forPermanent"/>} />
+          <Route path='/check-out' element={<HtmlContent translationKey="checkOut" seo={seoData.checkOut} />} />
+          <Route path='/news' element={<><Seo {...seoData.news_guest} /><News userType="forGuest"/></>} />
+          <Route path='/annual-news' element={<><Seo {...seoData.news_annual} /><News userType="forAnnual"/></>} />
+          <Route path='/permanent-news' element={<><Seo {...seoData.news_permanent} /><News userType="forPermanent"/></>} />
           <Route path='/membership' element={<MemberCenter />} />
           <Route path='/admin' element={<Dog />} />
         </Routes>
