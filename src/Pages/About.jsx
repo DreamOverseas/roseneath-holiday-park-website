@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { useTranslation } from "react-i18next";
 import PageTitle from "../Components/PageTitle";
+import Seo from "../Components/Seo";
 import "../Css/About.css";
 import "../Css/HtmlBeautify.css";
 
@@ -10,6 +11,13 @@ function AboutUs() {
 
   return (
     <main className="about-page">
+      <Seo
+        title="About Roseneath Holiday Park | Lake Willinton Holiday Park"
+        description="Learn about Roseneath Holiday Park, its nature lodgings, local attractions and family-friendly camping experiences near Lake Willinton."
+        canonical="https://roseneathholidaypark.au/about-us"
+        image="/logo192.png"
+        keywords="Roseneath Holiday Park, Lake Willinton holiday, camping park, nature accommodation, family stay"
+      />
 
       <PageTitle
         pageTitle={t("aboutUs.pageTitle")}

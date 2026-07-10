@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
 import { Image } from 'react-bootstrap';
+import Seo from "../Components/Seo";
 
 const CheckIn = () => {
 
@@ -38,10 +39,18 @@ const CheckIn = () => {
     }, [CMS_endpoint, CMS_token]);
 
     return (
-        <Container>
-            <div>
-                <br />
-                <div dangerouslySetInnerHTML={{ __html: t('checkIn.paragraph1') }}></div>
+        <>
+            <Seo
+                title="Check-In Guide | Roseneath Holiday Park"
+                description="Read check-in instructions for Roseneath Holiday Park and prepare for your holiday stay near Lake Willinton."
+                canonical="https://roseneathholidaypark.au/check-in"
+                image="/logo192.png"
+                keywords="Roseneath Holiday Park check-in, Lake Willinton holiday check-in, camping arrival guide"
+            />
+            <Container>
+                <div>
+                    <br />
+                    <div dangerouslySetInnerHTML={{ __html: t('checkIn.paragraph1') }}></div>
                 {checkInImages.length > 0 && checkInImages[0]?.url ? (
                     <Image
                         className="checkInImage"

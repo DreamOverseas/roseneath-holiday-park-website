@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import PageTitle from "../Components/PageTitle";
+import Seo from "../Components/Seo";
 
 const Gallery = () => {
     const { t } = useTranslation();
@@ -79,6 +80,13 @@ const Gallery = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pb-8">
+            <Seo
+                title="Roseneath Holiday Park Gallery | Lakeside Holiday Photos"
+                description="Browse images of Roseneath Holiday Park, lake views, cabins, campgrounds and nature activities near Lake Willinton."
+                canonical="https://roseneathholidaypark.au/gallery"
+                image="/logo192.png"
+                keywords="Roseneath Holiday Park gallery, Lake Willinton photos, camping images, holiday park photos"
+            />
             <div style={{ marginBottom: '3rem' }}>
                 <PageTitle pageTitle={t('Image Gallery')} />
             </div>
