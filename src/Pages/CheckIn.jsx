@@ -61,8 +61,9 @@ const CheckIn = () => {
                     <p>Loading image...</p>
                 )}
                 <div dangerouslySetInnerHTML={{ __html: t('checkIn.paragraph2') }}></div>
-            </div>
-        </Container>
+                </div>
+            </Container>
+        </>
     );
 };
 

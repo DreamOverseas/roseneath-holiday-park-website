@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PriceList from "../Components/PriceListSection";
 import Seo from "../Components/Seo";
+import RoomSection from "../Components/RoomSection";
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -90,30 +91,6 @@ const Home = () => {
     fetchGalleryPreview();
   }, [CMS_endpoint, CMS_token]);
 
-  const room_sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
-      }
-    ]
-  };
-
   const gallery_sliderSettings = {
     dots: true,
     infinite: true,
@@ -190,60 +167,7 @@ const Home = () => {
           </Container>
         </section>
 
-        <section className="room-presentation activities-section">
-          <Container>
-            <h1>{t("Room")}</h1>
-            <Slider {...room_sliderSettings}>
-              {rooms.map((room) => (
-                <div key={room.id} className="room_slider-card">
-                  <Card className="home-room-card">
-                    {room.Cover?.url ? (
-                      <Card.Img
-                        variant="top"
-                        src={`${CMS_endpoint}${room.Cover.url}`}
-                        alt={room.Name_en}
-                        className="slider-card-img"
-                      />
-                    ) : (
-                      <Card.Img
-                        variant="top"
-                        src="https://placehold.co/250x350"
-                        alt="Placeholder"
-                        className="slider-card-img"
-                      />
-                    )}
-                    <Card.Body>
-                      <Card.Title>{i18n.language === "zh"
-                        ? room.Name_zh
-                        : room.Name_en}
-                      </Card.Title>
-                      <p className="home-room-card-subtitle">{i18n.language === "zh"
-                        ? room.Title_zh
-                        : room.Title_en}
-                      </p>
-                      <Card.Text>{i18n.language === "zh"
-                        ? room.Description_zh
-                        : room.Description_en}
-                      </Card.Text>
-                      {room.Availability? 
-                      <a href={`${DBLink_LH}?room_type=${room.RoomTypeID}`} target="_blank" rel="noopener noreferrer">
-                        <Button>{t("book_Now")}</Button>
-                      </a>
-                      :
-                      <Button variant="secondary">{t("book_unavailable")}</Button>
-                      }
-                    </Card.Body>
-                  </Card>
-                </div>
-              ))}
-            </Slider>
-            <div className="more-btn-container">
-              <a href="/roomlist" className="gallery-link">
-                {t("btn_more")}
-              </a>
-            </div>
-          </Container>
-        </section>
+        <RoomSection rooms={rooms} CMS_endpoint={CMS_endpoint} DBLink_LH={DBLink_LH} />
 
         <Container className="other-service" >
           <h1>{t("our_service_title")}</h1>

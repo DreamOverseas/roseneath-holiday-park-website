@@ -275,7 +275,8 @@ const RegisterForm = () => {
                     </Button>
                 </p>
             </Form>
-        </Container>
+            </Container>
+        </>
     );
 };
 
