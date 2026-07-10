@@ -20,7 +20,6 @@ import Home from "./Pages/Home.jsx";
 import Dog from "./Pages/Dog.jsx";
 import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
 import GroupVisitors from "./Pages/GroupVisitors.jsx";
-import RoomDetail from "./Pages/RoomDetail.jsx";
 import RoomList from "./Pages/RoomList.jsx";
 import MediaImageDisplay from "./Components/MediaImageDisplay.jsx";
 import HtmlContent from "./Components/HtmlContent.jsx";
@@ -102,7 +101,6 @@ function App() {
               chineseUrl="eco-and-culture-tours-chinese"
               seo={seoData.eco_and_culture_tours}
             />} />
-          <Route path="/room/:documentId" element={<RoomDetail />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route path='/check-in' element={<CheckIn />} />
           <Route path='/check-out' element={<HtmlContent translationKey="checkOut" seo={seoData.checkOut} />} />

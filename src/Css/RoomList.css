@@ -3,6 +3,11 @@
   text-align: center;
 }
 
+.room-search-bar {
+  max-width: 400px;
+  margin: 0 auto 24px;
+}
+
 .room-grid {
   display: flex;
   flex-wrap: wrap;
@@ -10,19 +15,39 @@
   justify-content: center;
 }
 
+.room-card-wrapper {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .room-card {
   background: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 250px;
-  text-decoration: none;
+  border-radius: 8px 8px 0 0;
+  width: 100%;
   color: #333;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   padding: 15px;
+  flex: 1;
+  cursor: pointer;
 }
 
 .room-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.room-card:focus {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+.room-book-btn {
+  width: 100%;
+  border-radius: 0 0 8px 8px !important;
+  margin-top: 0 !important;
 }
 
 .room-image {
