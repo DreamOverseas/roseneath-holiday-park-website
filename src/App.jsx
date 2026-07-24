@@ -17,6 +17,7 @@ import About from "./Pages/About.jsx";
 import Contact from "./Pages/Contact.jsx";
 import Gallery from "./Pages/Gallery.jsx";
 import Home from "./Pages/Home.jsx";
+import ExplorerPass from "./Pages/ExplorerPass.jsx";
 import Dog from "./Pages/Dog.jsx";
 import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
 import GroupVisitors from "./Pages/GroupVisitors.jsx";
@@ -45,6 +46,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route exact path='/' element={<Home />} />
+          <Route path='/explorer_pass' element={<ExplorerPass />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/about-us' element={<About />} />
           <Route path='/contact-us' element={<Contact />} />

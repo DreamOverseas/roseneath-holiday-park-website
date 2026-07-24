@@ -116,6 +116,28 @@
     position: relative;
 }
 
+.membership-ad-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.membership-ad-section:hover {
+    opacity: 0.92;
+}
+
+.membership-ad-section img {
+    width: 50%;
+    height: auto;
+    display: block;
+    transition: var(--transition);
+}
+
 .home-banner-subtitle h1 {
     text-align: center;
     margin-bottom: 3rem;
