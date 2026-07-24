@@ -11,6 +11,7 @@ const fs = require('fs');
     { url: '/contact-us', changefreq: 'monthly', priority: 0.5 },
     { url: '/investment', changefreq: 'monthly', priority: 0.8 },
     { url: '/roomlist', changefreq: 'weekly', priority: 0.5 },
+    { url: '/explorer_pass', changefreq: 'monthly', priority: 0.7 },
     // More going here is we got
   ];
 

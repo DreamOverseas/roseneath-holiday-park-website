@@ -106,6 +106,9 @@ const Navigation = () => {
                   <NavDropdown.Item href='/book-membership'>
                     {t("BookMembership")}
                   </NavDropdown.Item>
+                  <NavDropdown.Item href='/explorer_pass'>
+                    {t("ExplorerPass")}
+                  </NavDropdown.Item>
                   <NavDropdown.Item href='/FAQ'>
                     {t("StayAndGuide")}
                   </NavDropdown.Item>

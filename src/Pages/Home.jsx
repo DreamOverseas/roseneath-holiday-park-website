@@ -169,6 +169,10 @@ const Home = () => {
 
         <RoomSection rooms={rooms} CMS_endpoint={CMS_endpoint} DBLink_LH={DBLink_LH} />
 
+        <Link to="/explorer_pass" className="membership-ad-section">
+          <Image src="/home/membership_ad.png" alt="Roseneath Holiday Park"/>
+        </Link>
+
         <Container className="other-service" >
           <h1>{t("our_service_title")}</h1>
           <Col className="our-service-button-group">
