@@ -6,7 +6,7 @@ import "../Css/ExplorerPass.css";
 
 const ExplorerPass = () => {
   const { t } = useTranslation();
-  const mail_API_endpoint = import.meta.env.VITE_EMAIL_ENQUIRY;
+  const CMS_endpoint = import.meta.env.VITE_CMS_ENDPOINT;
 
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,17 +25,19 @@ const ExplorerPass = () => {
     setErrorMessage(null);
 
     try {
-      const response = await fetch(mail_API_endpoint, {
+      const numericPhone = formData.phone ? Number(formData.phone.replace(/\D/g, "")) : undefined;
+
+      const response = await fetch(`${CMS_endpoint}/api/rhp-register-infos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          Name: formData.name,
-          PhoneNumber: formData.phone,
-          Email: formData.email,
-          Subject: "Roseneath Explorer Pass Enquiry",
-          Question: "I'm interested in the Roseneath Explorer Pass ($199/year). Please send me the payment details.",
+          data: {
+            FirstName: formData.name,
+            Email: formData.email,
+            PhoneNumber: Number.isNaN(numericPhone) ? undefined : numericPhone,
+          },
         }),
       });
 
