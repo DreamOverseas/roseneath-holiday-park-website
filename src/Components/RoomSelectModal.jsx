@@ -29,10 +29,12 @@ const getMapCoordinates = (option) => {
 const RoomSelectModal = ({ show, onHide, room, DBLink_LH }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState(null);
+  const [copied, setCopied] = useState(false);
   const roomOptions = room ? parseRoomJson(room.RoomJson) : [];
 
   useEffect(() => {
     setSelectedOption(roomOptions[0] || null);
+    setCopied(false);
   }, [room]);
 
   if (!room) return null;
@@ -44,6 +46,28 @@ const RoomSelectModal = ({ show, onHide, room, DBLink_LH }) => {
 
     window.open(`${DBLink_LH}?room_type=${selectedOption.uuid}`, '_blank', 'noopener,noreferrer');
     onHide();
+  };
+
+  const handleOpenInGoogleMaps = () => {
+    if (!selectedCoordinates) return;
+
+    window.open(
+      `https://www.google.com/maps?q=${selectedCoordinates.latitude},${selectedCoordinates.longitude}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  };
+
+  const handleCopyCoordinates = async () => {
+    if (!selectedCoordinates) return;
+
+    const text = `${selectedCoordinates.latitude}, ${selectedCoordinates.longitude}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
   };
 
   return (
@@ -61,7 +85,10 @@ const RoomSelectModal = ({ show, onHide, room, DBLink_LH }) => {
                   key={option.uuid}
                   variant={selectedOption?.uuid === option.uuid ? "primary" : "outline-secondary"}
                   className="text-start"
-                  onClick={() => setSelectedOption(option)}
+                  onClick={() => {
+                    setSelectedOption(option);
+                    setCopied(false);
+                  }}
                 >
                   {option.name}
                 </Button>
@@ -70,16 +97,31 @@ const RoomSelectModal = ({ show, onHide, room, DBLink_LH }) => {
           </Col>
           <Col xs={12} md={8}>
             {selectedCoordinates ? (
-              <iframe
-                title={selectedOption.name}
-                src={`https://www.google.com/maps?q=${selectedCoordinates.latitude},${selectedCoordinates.longitude}&t=k&z=16&output=embed`}
-                width="100%"
-                height="360"
-                style={{ border: 0, minHeight: '280px' }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              <>
+                <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+                  <span className="text-muted">
+                    {selectedCoordinates.latitude}, {selectedCoordinates.longitude}
+                  </span>
+                  <div className="d-flex gap-2">
+                    <Button size="sm" variant="outline-secondary" onClick={handleCopyCoordinates}>
+                      {copied ? t("room_select_copied") : t("room_select_copy_coordinates")}
+                    </Button>
+                    <Button size="sm" variant="outline-primary" onClick={handleOpenInGoogleMaps}>
+                      {t("room_select_open_in_maps")}
+                    </Button>
+                  </div>
+                </div>
+                <iframe
+                  title={selectedOption.name}
+                  src={`https://www.google.com/maps?q=${selectedCoordinates.latitude},${selectedCoordinates.longitude}&t=k&z=16&output=embed`}
+                  width="100%"
+                  height="360"
+                  style={{ border: 0, minHeight: '280px' }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </>
             ) : (
               <p className="text-muted">{t("room_select_map_unavailable")}</p>
             )}
