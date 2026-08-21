@@ -71,7 +71,7 @@ const RoomSelectModal = ({ show, onHide, room, DBLink_LH }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered size="lg" scrollable>
+    <Modal show={show} onHide={onHide} centered size="lg" scrollable backdrop="static">
       <Modal.Header closeButton>
         <Modal.Title>{t("room_select_title")}</Modal.Title>
       </Modal.Header>
