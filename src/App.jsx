@@ -78,6 +78,12 @@ function App() {
               chineseUrl="investment"
               seo={seoData.smarthouse}
             />} />
+          <Route path='/guideline-drinking-water' element={            
+            <MediaImageDisplay 
+              chineseUrl="drinking-water"
+              englishUrl="drinking-water"
+              seo={seoData.drinking_water}
+            />} />
           <Route path='/AI-stay' element={            
             <MediaImageDisplay
               chineseUrl="ai-stay-chinese"
