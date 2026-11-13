@@ -1,0 +1,24 @@
+name: Deploy Strapi finance module
+on:
+  workflow_dispatch:
+concurrency:
+  group: deploy-strapi-finance
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 8m
+          script: |
+            set -eu
+            cd "$HOME/roseneath-holiday-park-website"
+            git fetch origin Joshua
+            stage=$(mktemp -d /tmp/rhp-finance-deploy.XXXXXX)
+            git archive origin/Joshua backend/strapi scripts/deploy-finance.sh | tar -x -C "$stage"
+            bash "$stage/scripts/deploy-finance.sh" "$stage"
