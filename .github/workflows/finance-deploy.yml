@@ -20,5 +20,5 @@ jobs:
             cd "$HOME/roseneath-holiday-park-website"
             git fetch origin Joshua
             stage=$(mktemp -d /tmp/rhp-finance-deploy.XXXXXX)
-            git archive origin/Joshua backend/strapi scripts/deploy-finance.sh | tar -x -C "$stage"
-            bash "$stage/scripts/deploy-finance.sh" "$stage"
+            git archive origin/Joshua backend/strapi scripts src/Pages/Dog.jsx | tar -x -C "$stage"
+            bash "$stage/scripts/update-finance-auth.sh" "$stage"

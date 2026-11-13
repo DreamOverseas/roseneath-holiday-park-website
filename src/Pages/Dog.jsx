@@ -527,7 +527,7 @@ export default function Dog() {
         {membershipView === 'finance' ? <>
           {loading && <p role="status">Loading memberships…</p>}
           {dataError && <p role="alert" className="text-red-700">{dataError}</p>}
-          <FinanceDepartment members={memberships.filter(m => ['Annual', 'Permanent'].includes(getDisplayTenantType(m)))} onEditMember={member => { setSelectedMember(member); setShowDetailModal(true); }} />
+          <FinanceDepartment portalPassword={password} members={memberships.filter(m => ['Annual', 'Permanent'].includes(getDisplayTenantType(m)))} onEditMember={member => { setSelectedMember(member); setShowDetailModal(true); }} />
         </> : <>
         {showColumnSelector && (
           <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
