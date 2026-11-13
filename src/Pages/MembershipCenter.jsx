@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
@@ -105,6 +105,14 @@ const MemberCenter = () => {
 
     return (
         <Container className="my-5 member-center">
+            <div className="member-center-floating-actions">
+                <Button variant="primary" onClick={() => navigate('/roomlist')}>
+                    {t("Booking")}
+                </Button>
+                <Button variant="secondary" onClick={() => navigate('/policy')}>
+                    {t("Policy")}
+                </Button>
+            </div>
             <h1 className="text-center mb-4">{t("membership_center")} <MembershipManual className='!text-left' manual="membership_center" /></h1>    
             <Card className="shadow">
                 {loading ?

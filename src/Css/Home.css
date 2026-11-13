@@ -736,6 +736,10 @@
     .home-gallery {
         margin-bottom: 3rem;
     }
+
+    .membership-ad-section img {
+        width: 100%;
+    }
 }
 
 /* Ultra-wide screen optimizations */

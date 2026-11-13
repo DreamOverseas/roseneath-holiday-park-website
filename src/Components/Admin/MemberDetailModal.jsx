@@ -221,7 +221,7 @@ export default function MemberDetailModal({
         { label: 'First Name', key: 'FirstName', editable: true },
         { label: 'Last Name', key: 'LastName', editable: true },
         { label: 'Email', key: 'Email', editable: true, type: 'email' },
-        { label: 'Phone', key: 'Contact', editable: true, type: 'tel' },
+        { label: 'Phone', key: 'ContactString', editable: true, type: 'tel' },
       ]
     },
     {
