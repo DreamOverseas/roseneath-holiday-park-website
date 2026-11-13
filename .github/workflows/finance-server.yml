@@ -1,0 +1,22 @@
+name: Finance server discovery
+on:
+  workflow_dispatch:
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 8m
+          script: |
+            set -eu
+            printf 'USER: '; whoami
+            command -v node || true
+            command -v pm2 || true
+            if command -v pm2 >/dev/null; then pm2 jlist | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{for(const p of JSON.parse(s)) console.log(JSON.stringify({name:p.name,cwd:p.pm2_env.pm_cwd,script:p.pm2_env.pm_exec_path,status:p.pm2_env.status}))})'; fi
+            find /home /opt /var/www -maxdepth 5 -type f -name package.json -not -path '*/node_modules/*' -not -path '*/.cache/*' 2>/dev/null | while read p; do node -e 'const p=process.argv[1];try {const j=require(p);if(j.dependencies?.["@strapi/strapi"]) console.log("STRAPI",p,JSON.stringify({version:j.dependencies["@strapi/strapi"],scripts:j.scripts}));} catch{}' "$p"; done
+            systemctl list-units --type=service --all --no-pager | grep -Ei 'strapi|pm2|node|nginx' || true
