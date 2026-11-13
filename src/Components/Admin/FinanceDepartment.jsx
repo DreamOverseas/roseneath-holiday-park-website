@@ -32,7 +32,7 @@ function downloadStatement(member, summary, records) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-export default function FinanceDepartment({ members = [], onEditMember, standalone = false }) {
+export default function FinanceDepartment({ members = [], onEditMember, standalone = false, portalPassword = '' }) {
   const [accounts, setAccounts] = useState({});
   const [liveMembers, setLiveMembers] = useState([]);
   const [selectedKey, setSelectedKey] = useState('');
@@ -42,7 +42,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
-  const [connected, setConnected] = useState(LOCAL_REVIEW);
+  const [connected, setConnected] = useState(LOCAL_REVIEW || Boolean(portalPassword));
   const [token, setToken] = useState('');
   const [revision, setRevision] = useState(0);
   const [form, setForm] = useState(null);
@@ -60,6 +60,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
   const duplicateSite = selected && tenants.filter(m => String(m.SiteNumber).trim() === String(selected.SiteNumber).trim()).length > 1;
 
   useEffect(() => {
+    if (portalPassword && !LOCAL_REVIEW) setFinanceToken(portalPassword);
     if (!connected) { setLoading(false); return; }
     let cancelled = false;
     setLoading(true); setError('');
@@ -67,7 +68,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
       if (!cancelled) { setAccounts(result.accounts); if (result.members) setLiveMembers(result.members); }
     }).catch(err => { if (!cancelled) setError(err.message); }).finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [connected, revision]);
+  }, [connected, revision, portalPassword]);
   useEffect(() => { if (form) formRef.current?.focus(); }, [form?.type]);
 
   const visible = tenants.filter(m => {
@@ -111,7 +112,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
       <button type="button" disabled={loading || saving || !connected} onClick={() => setRevision(v => v + 1)}>Refresh accounts</button></div>
     {LOCAL_REVIEW && <div className="rhp-banner rhp-no-print"><strong>Local review only.</strong> {standalone ? 'Sample tenants for testing. ' : 'Existing member details; separate test finances. '}Financial changes stay in this browser and are not uploaded to Strapi.</div>}
     {!connected && <form className="rhp-connect rhp-no-print" onSubmit={e => { e.preventDefault(); setFinanceToken(token.trim()); setToken(''); setConnected(true); }}><h3>Staff finance access</h3><p>Enter your finance access code to load protected accounts.</p><label className="rhp-field">Finance access code<input type="password" required autoComplete="off" value={token} onChange={e => setToken(e.target.value)} /></label><button className="rhp-primary">Connect</button></form>}
-    {connected && !LOCAL_REVIEW && <button className="rhp-no-print" disabled={saving} onClick={() => { setFinanceToken(''); setConnected(false); setLiveMembers([]); setAccounts({}); setSelectedKey(''); setForm(null); setError(''); }}>Disconnect finance</button>}
+    {connected && !LOCAL_REVIEW && !portalPassword && <button className="rhp-no-print" disabled={saving} onClick={() => { setFinanceToken(''); setConnected(false); setLiveMembers([]); setAccounts({}); setSelectedKey(''); setForm(null); setError(''); }}>Disconnect finance</button>}
     {loading && <p role="status">Loading financial accounts…</p>}
     {error && !form && <div className="rhp-error" role="alert">{error}</div>}
     {notice && <div className="rhp-success rhp-no-print" role="status">{notice}</div>}
