@@ -19,6 +19,7 @@ import Gallery from "./Pages/Gallery.jsx";
 import Home from "./Pages/Home.jsx";
 import ExplorerPass from "./Pages/ExplorerPass.jsx";
 import Dog from "./Pages/Dog.jsx";
+import FinanceDepartment from "./Components/Admin/FinanceDepartment.jsx";
 import IndividualVisitors from "./Pages/IndividualVisitors.jsx";
 import GroupVisitors from "./Pages/GroupVisitors.jsx";
 import RoomList from "./Pages/RoomList.jsx";
@@ -32,6 +33,11 @@ import Seo from "./Components/Seo";
 import seoData from "./data/seoData";
 
 function App() {
+
+  // Development-only, isolated review page: no production API reads or writes.
+  if (import.meta.env.DEV && window.location.pathname === '/admin/finance-review') {
+    return <main style={{ maxWidth: 1560, margin: '0 auto', padding: '20px', background: '#f4f6fa', minHeight: '100vh' }}><FinanceDepartment standalone /></main>;
+  }
 
   const vite_openai_api_url = import.meta.env.VITE_OPENAI_API_URL;
   const vite_openai_asst_id = import.meta.env.VITE_OPENAI_ASST_ID;
