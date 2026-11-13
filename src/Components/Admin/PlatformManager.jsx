@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 /**
  * PlatformManager Component
@@ -6,71 +6,20 @@ import React from 'react';
  * Automatically switches to a card-based layout on mobile.
  */
 
-const platformData = [
-  {
-    name: "Little Hotelier",
-    email: "",
-    password: "",
-    url: "https://littlehotelier.authx.siteminder.com/login",
-  },
-  {
-    name: "Booking.com",
-    email: "John.du@do360.com",
-    password: "360Media@@",
-    url: "https://admin.booking.com/",
-  },
-  {
-    name: "Hipcamp",
-    email: "John.du@do360.com",
-    password: "Dreamoverseas171!",
-    url: "https://www.hipcamp.com/en-AU"
-  },
-  {
-    name: "Mail Chimp",
-    email: "John.du@do360.com",
-    password: "Dreamoverseas171!",
-    url: "https://mailchimp.com/?_gl=1*suzbtr*_up*MQ..*_gs*MQ..&gclid=EAIaIQobChMIw8LKjdabkwMVMqJmAh18-jeQEAAYASAAEgLccfD_BwE&gclsrc=aw.ds&gbraid=0AAAAADh1Fp2_dvy3eGrMGlAhzqQj5BWKQ&currency=AUD"
-  },
-  {
-    name: "Trip.com",
-    email: "61413168533",
-    password: "ukjqt!37",
-    url: "https://ebooking.trip.com/login/index",
-  },
-  {
-    name: "Airbnb",
-    email: "John.du@do360.com",
-    password: "Xiaobaibnb@1963",
-    url: "https://www.airbnb.com.au/login",
-  },
-  {
-    name: "Square",
-    email: "corp@roseneathholidaypark.au",
-    password: "Dreamoverseas171！",
-    url: "https://app.squareup.com/login",
-  },
-  {
-    name: "Xero",
-    email: "",
-    password: "",
-    url: "https://login.xero.com/identity/user/login",
-  },
-  {
-    name: "WikiCamp",
-    email: "corp@roseneathholidaypark.au",
-    password: "Dreamoverseas171!",
-    url: "",
-    note: "Need to download mobile app"
-  },
-  {
-    name: "Yodeck",
-    email: "dreamoverseasgroup@gmail.com",
-    password: "Dreamoverseas171!",
-    url: "https://app.yodeck.com/login",
-  }
-];
 
-const PlatformManager = () => {
+
+const PlatformManager = ({ sessionToken }) => {
+  const [platformData, setPlatformData] = useState([]);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    let active = true;
+    const endpoint = (import.meta.env.VITE_CMS_ENDPOINT || 'https://api.do360.com').replace(/\/$/, '');
+    fetch(endpoint + '/api/rhp-admin/platforms', { cache: 'no-store', headers: { Authorization: 'Bearer ' + sessionToken } })
+      .then(response => { if (!response.ok) throw new Error('Unable to load platform accounts. Please sign in again.'); return response.json(); })
+      .then(data => { if (active) setPlatformData(data); })
+      .catch(err => { if (active) setError(err.message); });
+    return () => { active = false; };
+  }, [sessionToken]);
   const handleRowClick = (url) => {
     if (url) {
       window.open(url, '_blank', 'noopener,noreferrer');
@@ -94,6 +43,7 @@ const PlatformManager = () => {
           </p>
         </header>
 
+        {error && <p role="alert" className="text-red-700">{error}</p>}
         {/* --- Desktop Table View (Visible on md screens and up) --- */}
         <div className="hidden md:block overflow-hidden bg-white shadow-sm ring-1 ring-slate-200 rounded-xl">
           <table className="min-w-full divide-y divide-slate-200">

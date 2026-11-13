@@ -12,6 +12,7 @@ i18n
       loadPath: '/locales/{{lng}}.json', // Specify the path to the translation file
     },
     lng: 'en',
+    supportedLngs: ['en', 'zh'],
     fallbackLng: 'zh',
     interpolation: {
       escapeValue: false, // Prevent XSS，React has its own protection.

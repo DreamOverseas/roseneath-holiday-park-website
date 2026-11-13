@@ -23,7 +23,7 @@ async function request(path, body) {
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
   if (!response.ok) {
-    if ([401, 403].includes(response.status)) throw new Error('Finance access denied. Check your staff access code.');
+    if ([401, 403].includes(response.status)) throw new Error('Your admin session has expired. Please log out and sign in again.');
     if (response.status === 404) throw new Error('Finance backend is not installed. Install the included Strapi module before using live accounts.');
     const error = await response.json().catch(() => ({}));
     throw new Error(error.error?.message || `Finance request failed (${response.status}).`);
