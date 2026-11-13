@@ -7,6 +7,7 @@ import ReservationTable from '../Components/Admin/ReservationTable';
 import AnalysisGraph from '../Components/Admin/AnalysisGraph';
 import PlatformManager from '../Components/Admin/PlatformManager';
 import SubscriberList from '../Components/Admin/SubscriberList';
+import FinanceDepartment from '../Components/Admin/FinanceDepartment';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,6 +18,7 @@ export default function Dog() {
   const [loading, setLoading] = useState(false);
   const [dataError, setDataError] = useState('');
   const [filterType, setFilterType] = useState('All User');
+  const [membershipView, setMembershipView] = useState('members');
   const [searchQuery, setSearchQuery] = useState('');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
@@ -200,7 +202,7 @@ export default function Dog() {
         (m.FirstName || '').toLowerCase().includes(q) ||
         (m.LastName || '').toLowerCase().includes(q) ||
         (m.Email || '').toLowerCase().includes(q) ||
-        (m.Contact || '').toLowerCase().includes(q) ||
+        String(m.ContactString || m.Contact || '').toLowerCase().includes(q) ||
         (m.SiteNumber != null && String(m.SiteNumber).toLowerCase().includes(q)) ||
         (m.UserName || '').toLowerCase().includes(q) ||
         (m.Address || '').toLowerCase().includes(q)
@@ -476,7 +478,7 @@ export default function Dog() {
         <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">RHP Memberships</h1>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3" style={membershipView === 'finance' ? { display: 'none' } : undefined}>
               <button
                 onClick={() => setShowColumnSelector(!showColumnSelector)}
                 className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
@@ -518,6 +520,15 @@ export default function Dog() {
         </div>
 
         {/* Column Selector */}
+        <div className="flex flex-wrap gap-2 mb-4" aria-label="Membership workspace">
+          <button type="button" aria-pressed={membershipView === 'members'} onClick={() => setMembershipView('members')} className={`px-4 py-2 rounded-lg font-medium ${membershipView === 'members' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 border border-gray-200'}`}>All memberships & guests</button>
+          <button type="button" aria-pressed={membershipView === 'finance'} onClick={() => setMembershipView('finance')} className={`px-4 py-2 rounded-lg font-medium ${membershipView === 'finance' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 border border-gray-200'}`}>Annual & Permanent · Finance</button>
+        </div>
+        {membershipView === 'finance' ? <>
+          {loading && <p role="status">Loading memberships…</p>}
+          {dataError && <p role="alert" className="text-red-700">{dataError}</p>}
+          <FinanceDepartment members={memberships.filter(m => ['Annual', 'Permanent'].includes(getDisplayTenantType(m)))} onEditMember={member => { setSelectedMember(member); setShowDetailModal(true); }} />
+        </> : <>
         {showColumnSelector && (
           <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
             <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Select Columns to Display</h3>
@@ -641,7 +652,7 @@ export default function Dog() {
                 <tbody className="divide-y divide-gray-200">
                   {filteredMemberships.map((member, index) => (
                     <tr
-                      key={member._id || member.documentID || member.MembershipNumber || index}
+                      key={member._id || member.documentId || member.MembershipNumber || index}
                       className="hover:bg-gray-50 cursor-pointer transition-colors"
                       onClick={(e) => handleRowClick(member, e)}
                     >
@@ -668,6 +679,7 @@ export default function Dog() {
             </div>
           </div>
         )}
+        </>}
       </div>
 
       <ImportExcelModal

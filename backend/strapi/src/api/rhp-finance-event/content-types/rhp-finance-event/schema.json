@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rhp_finance_events",
+  "info": { "singularName": "rhp-finance-event", "pluralName": "rhp-finance-events", "displayName": "RHP Finance Event" },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": { "content-manager": { "visible": false }, "content-type-builder": { "visible": false } },
+  "attributes": {
+    "eventKey": { "type": "string", "required": true, "unique": true },
+    "memberKey": { "type": "string", "required": true },
+    "payload": { "type": "json", "required": true },
+    "actor": { "type": "string", "required": true },
+    "recordedAt": { "type": "datetime", "required": true }
+  }
+}
