@@ -4,6 +4,14 @@ umask 077
 stage="$1"
 app="$HOME/strapi_media360"
 cd "$app"
+backup="$HOME/rhp-finance-backups/cm-$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$backup"
+tar -czf "$backup/finance-source.tar.gz" src/api/rhp-finance src/api/rhp-finance-event
+pm2 stop strapi-media360-dev >/dev/null
+trap 'pm2 restart strapi-media360-dev >/dev/null || true' EXIT
+cp -a .tmp "$backup/database"
+cp "$stage/backend/strapi/src/api/rhp-finance-event/content-types/rhp-finance-event/schema.json" src/api/rhp-finance-event/content-types/rhp-finance-event/
+cp "$stage/backend/strapi/src/api/rhp-finance-event/content-types/rhp-finance-event/lifecycles.js" src/api/rhp-finance-event/content-types/rhp-finance-event/
 cp src/api/rhp-finance/policies/finance-staff.js "src/api/rhp-finance/policies/finance-staff.js.$(date +%s).bak"
 node - "$stage/src/Pages/Dog.jsx" <<'NODE'
 const fs=require('fs'),crypto=require('crypto');
