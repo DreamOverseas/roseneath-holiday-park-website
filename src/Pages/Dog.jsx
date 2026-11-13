@@ -8,10 +8,14 @@ import AnalysisGraph from '../Components/Admin/AnalysisGraph';
 import PlatformManager from '../Components/Admin/PlatformManager';
 import SubscriberList from '../Components/Admin/SubscriberList';
 import FinanceDepartment from '../Components/Admin/FinanceDepartment';
+import { loginAdmin, logoutAdmin } from '../finance/adminAuth';
+import { setFinanceToken } from '../finance/store';
 
 export default function Dog() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
+  const [sessionToken, setSessionToken] = useState('');
+  const [signingIn, setSigningIn] = useState(false);
   const [error, setError] = useState('');
   const [memberships, setMemberships] = useState([]);
   const [guestMembers, setGuestMembers] = useState([]);
@@ -53,16 +57,20 @@ export default function Dog() {
     DiscountPoint: { label: 'Discount Points', visible: false },
   });
 
-  const CORRECT_PASSWORD = 'Dreamoverseas171!';
   const ADMIN_EMAILS = ['john.du@do360.com', 'hannyanhai@gmail.com', 'xing142857@gmail.com'];
 
-  const handlePasswordSubmit = () => {
-    if (password === CORRECT_PASSWORD) {
+  const handlePasswordSubmit = async () => {
+    if (signingIn) return;
+    setSigningIn(true);
+    setError('');
+    try {
+      const token = await loginAdmin(password);
+      setSessionToken(token);
+      setFinanceToken(token);
+      setPassword('');
       setIsAuthenticated(true);
-      setError('');
-    } else {
-      setError('Incorrect password. Please try again.');
-    }
+    } catch (err) { setError(err.message); }
+    finally { setSigningIn(false); }
   };
 
   const handleKeyPress = (e) => {
@@ -453,9 +461,10 @@ export default function Dog() {
             )}
             <button
               onClick={handlePasswordSubmit}
+              disabled={signingIn}
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
             >
-              Access Portal
+              {signingIn ? 'Signing in…' : 'Access Portal'}
             </button>
           </div>
         </div>
@@ -468,7 +477,7 @@ export default function Dog() {
     <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       
       
-      <PlatformManager/>
+      <PlatformManager sessionToken={sessionToken}/>
 
       
       <div className="max-w-7xl mx-auto">
@@ -510,7 +519,7 @@ export default function Dog() {
                 <span className="sm:hidden">Import</span>
               </button>
               <button
-                onClick={() => setIsAuthenticated(false)}
+                onClick={() => { logoutAdmin(sessionToken).catch(() => {}); setIsAuthenticated(false); setSessionToken(''); setFinanceToken(''); setPassword(''); }}
                 className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition duration-200 text-sm sm:text-base"
               >
                 Logout
@@ -527,7 +536,7 @@ export default function Dog() {
         {membershipView === 'finance' ? <>
           {loading && <p role="status">Loading memberships…</p>}
           {dataError && <p role="alert" className="text-red-700">{dataError}</p>}
-          <FinanceDepartment portalPassword={password} members={memberships.filter(m => ['Annual', 'Permanent'].includes(getDisplayTenantType(m)))} onEditMember={member => { setSelectedMember(member); setShowDetailModal(true); }} />
+          <FinanceDepartment sessionToken={sessionToken} members={memberships.filter(m => ['Annual', 'Permanent'].includes(getDisplayTenantType(m)))} onEditMember={member => { setSelectedMember(member); setShowDetailModal(true); }} />
         </> : <>
         {showColumnSelector && (
           <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">

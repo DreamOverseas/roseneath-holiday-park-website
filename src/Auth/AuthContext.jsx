@@ -14,8 +14,8 @@ const AuthProvider = ({ children }) => {
     // Check if user is logged in
     const checkUserLoggedIn = async () => {
       const userInfo = Cookies.get("user");
-      console.log("Checking if user is logged in, userInfo:", userInfo);
-      if (userInfo) {
+      const token = Cookies.get("token");
+      if (userInfo && token) {
         try {
           const response = await axios.get(
             `${BACKEND_HOST}/api/users/me?populate=avatar`,
@@ -43,7 +43,6 @@ const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log("Attempting to log in with:", email, password);
       const response = await axios.post(
         `${BACKEND_HOST}/api/auth/local`,
         {
