@@ -105,7 +105,17 @@ test('finance policy fails closed and derives the audit actor from the server cr
     assert.equal(policy(ctx('anything')), false);
   } finally { if (previous === undefined) delete process.env.RHP_FINANCE_STAFF_TOKENS; else process.env.RHP_FINANCE_STAFF_TOKENS = previous; }
 });
-test('stored financial events reject updates and deletions', () => {
+test('stored financial events allow individual edits and reject bulk changes or deletion', async () => {
   const hooks = require('../backend/strapi/src/api/rhp-finance-event/content-types/rhp-finance-event/lifecycles.js');
-  for (const hook of Object.values(hooks)) assert.throws(() => hook(), /append-only/);
+  for (const key of ['beforeUpdateMany', 'beforeDelete', 'beforeDeleteMany']) assert.throws(() => hooks[key](), /disabled/);
+  const previous = globalThis.strapi;
+  const original = { id: 1, memberKey: 'member21', eventKey: 'member21:standard-2024', payload: seed()[0], actor: 'Staff', recordedAt: '2026-11-13T00:00:00Z' };
+  globalThis.strapi = { db: { query: () => ({ findOne: async () => original, findMany: async () => [original] }) } };
+  try {
+    const event = { params: { where: { id: 1 }, data: { payload: { ...original.payload, amountCents: 100000 } } } };
+    await hooks.beforeUpdate(event);
+    assert.equal(event.params.data.payload.amountCents, 100000);
+    await assert.rejects(hooks.beforeUpdate({ params: { where: { id: 1 }, data: { memberKey: 'different' } } }), /cannot be changed/);
+    await assert.rejects(hooks.beforeUpdate({ params: { where: { id: 1 }, data: { payload: { ...original.payload, amountCents: -100 } } } }), /Invalid amount/);
+  } finally { globalThis.strapi = previous; }
 });

@@ -18,7 +18,7 @@ export default function Dog() {
   const [loading, setLoading] = useState(false);
   const [dataError, setDataError] = useState('');
   const [filterType, setFilterType] = useState('All User');
-  const [membershipView, setMembershipView] = useState('members');
+  const [membershipView, setMembershipView] = useState('finance');
   const [searchQuery, setSearchQuery] = useState('');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
