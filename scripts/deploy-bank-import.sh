@@ -31,6 +31,7 @@ cp "$stage/src/Components/Admin/FinanceDepartment.jsx" src/Components/Admin/
 cp "$stage/src/Components/Admin/BankImportReview.jsx" src/Components/Admin/
 cp "$stage/src/Css/FinanceDepartment.css" src/Css/
 cp "$stage/src/finance/store.js" src/finance/
+cp "$stage/src/finance/presentation.mjs" src/finance/
 cp -a "$stage/backend/." backend/
 npm run build > "$backup/frontend-build.log" 2>&1 || { tail -50 "$backup/frontend-build.log"; exit 1; }
 tail -5 "$backup/frontend-build.log"
