@@ -57,6 +57,46 @@ test('charge period boundaries are inclusive and reject cross-period service dat
 test('payments require payer, method, reference and source evidence', () => {
   for (const field of ['payer', 'method', 'reference', 'basis', 'description']) assert.throws(() => validateEvent(payment({ [field]: '' }), [], today));
 });
+
+test('unassigned receipts retain bank tags and do not assume annual charges or a period', () => {
+  const imported = record(payment({ period: '', accountTag: 'Trust' }), 'bank-1', []);
+  const info = summarize([imported], today);
+  assert.equal(info.charges, 0);
+  assert.equal(info.paid, 50000);
+  assert.equal(info.periods[''].paid, 50000);
+  assert.equal(info.periods.A.paid + info.periods.B.paid + info.periods.C.paid, 0);
+  assert.equal(info.rows[0].accountTag, 'Trust');
+  assert.equal(info.status, 'Review');
+  assert.throws(() => validateEvent(payment({ period: 'bad' }), [], today));
+  assert.throws(() => validateEvent(payment({ accountTag: 'Other' }), [], today));
+});
+
+test('allocation appends audit history, moves linked corrections and preserves account totals', () => {
+  const paid = record(payment({ period: '' }), 'bank-1', []);
+  const refund = record(payment({ type: 'Refund', period: '', amountCents: 10000, targetKey: paid.key }), 'refund', [paid]);
+  const events = [paid, refund];
+  const allocate = record({ type: 'Allocate', targetKey: paid.key, period: 'A', description: 'Confirmed historical invoice' }, 'allocate', events);
+  const result = summarize([...events, allocate], today);
+  assert.equal(result.periods.A.paid, 50000);
+  assert.equal(result.periods.A.refunds, 10000);
+  assert.equal(result.periods[''].balance, 0);
+  assert.equal(result.balance, summarize(events, today).balance);
+  assert.equal(paid.period, '');
+  assert.doesNotThrow(() => validateEvent(payment({ type: 'Refund', period: 'A', amountCents: 10000, targetKey: paid.key }), [...events, allocate], today));
+  const clear = record({ ...allocate, period: '', description: 'Allocation needs further review' }, 'clear', [...events, allocate]);
+  assert.equal(summarize([...events, allocate, clear], today).periods[''].balance, -40000);
+  assert.throws(() => validateEvent({ ...allocate, period: 'D' }, events, today));
+  assert.throws(() => validateEvent({ ...allocate, targetKey: refund.key }, events, today));
+});
+
+test('staff can select Current or Overdue without implying history has been reconciled', () => {
+  for (const status of ['Current', 'Overdue']) {
+    const review = record({ type: 'Review', status, historicalComplete: false, description: 'Staff status decision' }, status, []);
+    const summary = summarize([review], today);
+    assert.equal(summary.status, status);
+    assert.equal(summary.historicalComplete, false);
+  }
+});
 test('corrections retain originals and cannot exceed the original charge or payment', () => {
   const events = seed();
   const credit = record({ ...events[0], type: 'Credit', amountCents: 93600, targetKey: events[0].key, description: 'Agreed exemption' }, 'credit-1', events);

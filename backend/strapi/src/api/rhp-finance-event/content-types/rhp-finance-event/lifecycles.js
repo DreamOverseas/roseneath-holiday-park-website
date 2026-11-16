@@ -9,14 +9,16 @@ module.exports = {
     for (const key of ['eventKey', 'memberKey', 'actor', 'recordedAt']) {
       if (data[key] !== undefined && data[key] !== existing[key]) throw new Error(`${key} cannot be changed. Edit the financial payload instead.`);
     }
-    const { validateEvent } = await import('../../../rhp-finance/services/domain.mjs');
+    const { validateEvent, allocatedTransactions } = await import('../../../rhp-finance/services/domain.mjs');
     const rows = await strapi.db.query(UID).findMany({ where: { memberKey: existing.memberKey }, orderBy: { id: 'asc' } });
     const key = existing.eventKey.slice(existing.memberKey.length + 1);
     const records = rows.filter(row => row.id !== existing.id).map(row => ({ ...row.payload, key: row.eventKey.slice(row.memberKey.length + 1) }));
     const payload = data.payload === undefined ? existing.payload : data.payload;
     records.push({ ...payload, key });
-    for (const record of records) validateEvent(record, records.filter(other => other.key !== record.key));
-    data.payload = validateEvent(payload, records.filter(row => row.key !== key));
+    const allocated = new Map(allocatedTransactions(records).map(row => [row.key, row]));
+    const validationInput = record => ['Credit', 'Refund'].includes(record.type) ? { ...record, period: allocated.get(record.key).period } : record;
+    for (const record of records) validateEvent(validationInput(record), records.filter(other => other.key !== record.key));
+    data.payload = validateEvent(validationInput({ ...payload, key }), records.filter(row => row.key !== key));
   },
   beforeUpdateMany: immutable, beforeDelete: immutable, beforeDeleteMany: immutable,
 };

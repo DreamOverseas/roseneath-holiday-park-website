@@ -20,8 +20,10 @@ module.exports = {
     const events = await strapi.db.query(UID).findMany({ orderBy: { id: 'asc' } });
     const accounts = {};
     for (const event of events) (accounts[event.memberKey] ||= []).push(serialize(event));
+    const bankQuery = strapi.db.query('api::rhp-bank-transaction.rhp-bank-transaction');
+    const bankTransactions = await bankQuery.findMany({ orderBy: { id: 'asc' } });
     ctx.set('Cache-Control', 'no-store');
-    ctx.body = { members, accounts };
+    ctx.body = { members, accounts, bankTransactions };
   },
   async open(ctx) {
     const memberKey = ctx.params.memberKey;
@@ -55,7 +57,6 @@ module.exports = {
         await trx(metadata.tableName).where('document_id', memberKey).forUpdate().select('id');
         const records = await recordsFor(memberKey);
         if (records.some(e => e.key === requestId)) return;
-        if (!records.some(e => e.key === 'standard-2024')) throw new Error('Open this account first.');
         const payload = validateEvent(event || {}, records);
         await write(memberKey, requestId, payload, ctx.state.financeActor);
       });

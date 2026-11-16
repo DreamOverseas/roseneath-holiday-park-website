@@ -54,7 +54,6 @@ export function appendEvent(memberKey, event, requestId) {
   if (!LOCAL_REVIEW) return request(`/${encodeURIComponent(memberKey)}/events`, { event, requestId });
   return localMutation(memberKey, records => {
     if (records.some(e => e.key === requestId)) return records;
-    if (!records.some(e => e.key === 'standard-2024')) throw new Error('Open this account first.');
     return [...records, { ...validateEvent(event, records), key: requestId, actor: 'Local reviewer', recordedAt: new Date().toISOString() }];
   });
 }
