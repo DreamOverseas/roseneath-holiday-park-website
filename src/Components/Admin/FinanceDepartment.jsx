@@ -50,6 +50,8 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
   const [revision, setRevision] = useState(0);
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [allocatingKey, setAllocatingKey] = useState('');
+  const allocationRequest = useRef(null);
   const requestId = useRef(null);
   const savingRef = useRef(false);
   const formRef = useRef(null);
@@ -83,7 +85,24 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
   const begin = type => { setForm(blankForm(type, summary)); setNotice(''); setError(''); requestId.current = null; };
   const update = (field, value) => { setForm(prev => ({ ...prev, [field]: value })); requestId.current = null; };
   const selectPeriod = period => { setForm(prev => ({ ...prev, period, ...(PERIODS[period] ? { periodStart: PERIODS[period].start || '', periodEnd: PERIODS[period].end } : {}) })); requestId.current = null; };
-  const beginAllocation = (row, period) => { setForm({ ...blankForm('Allocate', summary), targetKey: row.targetKey || row.key, period }); setError(''); setNotice(''); requestId.current = null; };
+  const changeAllocation = async (row, period) => {
+    if (savingRef.current || !selected || row.period === period) return;
+    const memberKey = selected.documentId;
+    const targetKey = row.targetKey || row.key;
+    const changeKey = JSON.stringify([memberKey, targetKey, period]);
+    if (allocationRequest.current?.changeKey !== changeKey) allocationRequest.current = { changeKey, requestId: crypto.randomUUID() };
+    savingRef.current = true; setSaving(true); setAllocatingKey(row.key); setError(''); setNotice('');
+    try {
+      const result = await appendEvent(memberKey, {
+        type: 'Allocate', targetKey, period,
+        description: `Changed transaction allocation from ${PERIODS[row.period]?.title || 'Unassigned'} to ${PERIODS[period]?.title || 'Unassigned'} in transaction history.`,
+      }, allocationRequest.current.requestId);
+      setAccounts(prev => ({ ...prev, [memberKey]: result.records }));
+      allocationRequest.current = null;
+      setNotice(LOCAL_REVIEW ? 'Allocation saved in this browser’s local review ledger.' : 'Allocation saved. Account summary updated.');
+    } catch (err) { setError(`Allocation could not be confirmed. ${err.message} Refresh accounts to check the saved allocation, or choose the period again to retry.`); }
+    finally { savingRef.current = false; setSaving(false); setAllocatingKey(''); }
+  };
   const beginStatus = value => { setForm({ ...blankForm('Review', summary), status: value }); setError(''); setNotice(''); requestId.current = null; };
   const selectTarget = key => {
     const target = summary.rows.find(e => e.key === key);
@@ -100,7 +119,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
       if (form.type === 'Open') result = await openAccount(memberKey);
       else {
         const payload = { ...form };
-        if (!['Review', 'Verify', 'Allocate'].includes(form.type)) payload.amountCents = centsFromInput(form.amount);
+        if (!['Review', 'Verify'].includes(form.type)) payload.amountCents = centsFromInput(form.amount);
         requestId.current ||= crypto.randomUUID();
         result = await appendEvent(memberKey, payload, requestId.current);
       }
@@ -161,7 +180,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
           <div className="rhp-actions rhp-no-print">{!opened && <button disabled={saving} onClick={() => begin('Open')}>Add standard annual charges</button>}{['Charge', 'Payment'].map(t => <button className={t === 'Payment' ? 'rhp-primary' : ''} key={t} disabled={saving} onClick={() => begin(t)}>+ Add {t.toLowerCase()}</button>)}<button disabled={saving} onClick={() => begin('Credit')}>Correct a charge</button><button disabled={saving} onClick={() => begin('Refund')}>Refund / reverse payment</button><button disabled={saving} onClick={() => begin('Review')}>Review account</button><button disabled={saving} onClick={() => begin('Verify')}>Verify record</button></div>
           {!opened && <p className="rhp-banner">Standard annual charges have not been added. Imported payments are recorded separately. Add standard annual charges only after checking this tenant’s fees.</p>}
           <div className="rhp-table-wrap"><table><thead><tr>{['Date / Period', 'Type', 'Description / Evidence', 'Transaction amount (AUD)', 'Account balance (AUD)', 'Payer / Method', 'Reference / Verified'].map(v => <th key={v}>{v}</th>)}</tr></thead><tbody>{summary.rows.map(row => <tr key={row.key}>
-            <td>{displayDate(row.date)}<small>{row.period ? PERIODS[row.period]?.title : 'Unassigned'}</small><select className="rhp-no-print rhp-allocation" aria-label={`Allocate ${row.description} ${row.key}`} disabled={saving} value={row.period} onChange={e => beginAllocation(row, e.target.value)}><option value="">Unassigned</option>{Object.entries(PERIODS).map(([key, p]) => <option key={key} value={key}>{p.title}</option>)}</select></td><td><span className={`rhp-entry rhp-entry-${row.type.toLowerCase()}`}>{row.type}</span>{row.accountTag && <small className={`rhp-bank-tag rhp-bank-${row.accountTag.toLowerCase()}`}>{row.accountTag}</small>}</td>
+            <td>{displayDate(row.date)}<small>{row.period ? PERIODS[row.period]?.title : 'Unassigned'}</small><select className="rhp-no-print rhp-allocation" aria-label={`Allocate ${row.description} ${row.key}`} disabled={saving} value={row.period} onChange={e => changeAllocation(row, e.target.value)}><option value="">Unassigned</option>{Object.entries(PERIODS).map(([key, p]) => <option key={key} value={key}>{p.title}</option>)}</select>{allocatingKey === row.key && <small role="status">Saving allocation…</small>}</td><td><span className={`rhp-entry rhp-entry-${row.type.toLowerCase()}`}>{row.type}</span>{row.accountTag && <small className={`rhp-bank-tag rhp-bank-${row.accountTag.toLowerCase()}`}>{row.accountTag}</small>}</td>
             <td className="rhp-description"><strong>{row.description}</strong>{row.periodStart && <small>Service: {displayDate(row.periodStart)} – {displayDate(row.periodEnd)}</small>}{row.dueDate && <small>Due: {displayDate(row.dueDate)}</small>}<small>{row.basis}</small><small>By {row.actor} · {displayDate(row.recordedAt)}</small>{row.targetKey && <small>Corrects: {row.targetKey}</small>}</td>
             <td className={`rhp-money ${transactionAmount(row) < 0 ? 'rhp-negative' : ''}`}>{money(transactionAmount(row))}</td><td className="rhp-money">{money(Math.abs(row.balance))}<small>{balancePosition(row.balance)}</small></td><td>{row.payer || '—'}<small>{row.method || '—'}</small></td><td>{row.reference || '—'}<small>{row.verified ? 'Verified' : 'Unverified'}</small></td>
           </tr>)}</tbody></table>{!summary.rows.length && <p className="rhp-empty">No financial transactions recorded.</p>}</div>
@@ -170,13 +189,13 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
             <fieldset disabled={saving}>
             {form.type === 'Open' ? <><p>Confirm this member owes A$1,936 for each full year: 11/10/2024–10/10/2025, 11/10/2025–10/10/2026 and 11/10/2026–10/10/2027. No payment or historical A amount is assumed.</p><label className="rhp-check"><input type="checkbox" required /> I have checked these standard charges for this member. Any exemptions will be recorded as credits with evidence.</label></> : <>
               {['Credit', 'Refund', 'Verify'].includes(form.type) && <label className="rhp-field">Original record<select value={form.targetKey} required onChange={e => selectTarget(e.target.value)}><option value="">Choose a record…</option>{summary.rows.filter(e => form.type === 'Verify' ? !e.verified : e.type === (form.type === 'Credit' ? 'Charge' : 'Payment')).map(e => <option key={e.key} value={e.key}>{displayDate(e.date)} · {e.description} · {money(e.amountCents)}</option>)}</select></label>}
-              {form.type === 'Allocate' ? <><p>{summary.rows.find(e => e.key === form.targetKey)?.description}</p><label className="rhp-field">Financial period<select value={form.period} onChange={e => update('period', e.target.value)}><option value="">Unassigned</option>{Object.entries(PERIODS).map(([key, p]) => <option key={key} value={key}>{p.title}</option>)}</select></label><p className="rhp-summary-note">The original transaction and its corrections move together. The account total stays the same.</p></> : form.type === 'Review' ? <div className="rhp-form-grid"><label className="rhp-field">Account status<select value={form.status} onChange={e => update('status', e.target.value)}>{REVIEW_STATUSES.map(v => <option key={v}>{v}</option>)}</select></label>{field('Next payment date (optional)', 'nextPayment', 'date', false)}<label className="rhp-check rhp-wide"><input type="checkbox" checked={form.historicalComplete} onChange={e => update('historicalComplete', e.target.checked)} /> Historical A charges and payments have been fully reconciled against source records (including a verified nil balance, if applicable).</label></div> : form.type !== 'Verify' && <div className="rhp-form-grid">
+              {form.type === 'Review' ? <div className="rhp-form-grid"><label className="rhp-field">Account status<select value={form.status} onChange={e => update('status', e.target.value)}>{REVIEW_STATUSES.map(v => <option key={v}>{v}</option>)}</select></label>{field('Next payment date (optional)', 'nextPayment', 'date', false)}<label className="rhp-check rhp-wide"><input type="checkbox" checked={form.historicalComplete} onChange={e => update('historicalComplete', e.target.checked)} /> Historical A charges and payments have been fully reconciled against source records (including a verified nil balance, if applicable).</label></div> : form.type !== 'Verify' && <div className="rhp-form-grid">
                 {field('Transaction date', 'date', 'date')}<label className="rhp-field">Financial period<select value={form.period} disabled={['Credit', 'Refund'].includes(form.type)} onChange={e => selectPeriod(e.target.value)}><option value="">Unassigned</option>{Object.keys(PERIODS).map(key => <option key={key} value={key}>{key} · {PERIODS[key].title}</option>)}</select></label><label className="rhp-field">Bank account tag (optional)<select value={form.accountTag} onChange={e => update('accountTag', e.target.value)}><option value="">No tag</option>{ACCOUNT_TAGS.map(tag => <option key={tag}>{tag}</option>)}</select></label>
                 <label className="rhp-field">Amount (AUD)<input required inputMode="decimal" placeholder="0.00" value={form.amount} onChange={e => update('amount', e.target.value)} /></label>
                 {['Charge', 'Credit'].includes(form.type) ? <>{field('Service period start', 'periodStart', 'date')}{field('Service period end', 'periodEnd', 'date')}{form.type === 'Charge' && field('Due date', 'dueDate', 'date')}</> : <>{field('Payer / recipient', 'payer')}<label className="rhp-field">Payment method<select value={form.method} onChange={e => update('method', e.target.value)}>{METHODS.map(v => <option key={v}>{v}</option>)}</select></label>{field('Bank / receipt reference', 'reference')}</>}
               </div>}
-              <label className="rhp-field">{['Review', 'Verify', 'Allocate'].includes(form.type) ? 'Reason / verification evidence' : 'Description / correction reason'}<textarea required maxLength={2000} value={form.description} onChange={e => update('description', e.target.value)} /></label>
-              {!['Review', 'Verify', 'Allocate'].includes(form.type) && <>{field('Source / evidence (invoice, old-owner record or receipt)', 'basis')}<label className="rhp-check"><input type="checkbox" checked={form.verified} onChange={e => update('verified', e.target.checked)} /> Verified against source records</label><p className="rhp-summary-note">Choose a period only when the allocation is known. Otherwise leave Unassigned.</p></>}
+              <label className="rhp-field">{['Review', 'Verify'].includes(form.type) ? 'Reason / verification evidence' : 'Description / correction reason'}<textarea required maxLength={2000} value={form.description} onChange={e => update('description', e.target.value)} /></label>
+              {!['Review', 'Verify'].includes(form.type) && <>{field('Source / evidence (invoice, old-owner record or receipt)', 'basis')}<label className="rhp-check"><input type="checkbox" checked={form.verified} onChange={e => update('verified', e.target.checked)} /> Verified against source records</label><p className="rhp-summary-note">Choose a period only when the allocation is known. Otherwise leave Unassigned.</p></>}
             </>}
             <div className="rhp-actions"><button type="submit" className="rhp-primary">{saving ? 'Saving…' : form.type === 'Open' ? 'Confirm & open account' : 'Save record'}</button><button type="button" onClick={() => setForm(null)}>Cancel</button></div></fieldset>
           </form>}
