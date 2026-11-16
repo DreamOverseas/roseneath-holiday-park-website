@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rhp_bank_transactions",
+  "info": { "singularName": "rhp-bank-transaction", "pluralName": "rhp-bank-transactions", "displayName": "RHP Bank Transaction" },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": { "content-manager": { "visible": true }, "content-type-builder": { "visible": true } },
+  "attributes": {
+    "sourceKey": { "type": "string", "required": true, "unique": true },
+    "date": { "type": "date", "required": true },
+    "description": { "type": "text", "required": true },
+    "debitCents": { "type": "integer", "required": true, "min": 0 },
+    "creditCents": { "type": "integer", "required": true, "min": 0 },
+    "balanceCents": { "type": "integer", "required": true },
+    "accountTag": { "type": "enumeration", "enum": ["Trust", "Management"], "required": true },
+    "memberKey": { "type": "string" },
+    "matchStatus": { "type": "enumeration", "enum": ["Matched", "Review"], "required": true },
+    "matchReason": { "type": "text", "required": true },
+    "source": { "type": "json", "required": true },
+    "candidates": { "type": "json" }
+  }
+}

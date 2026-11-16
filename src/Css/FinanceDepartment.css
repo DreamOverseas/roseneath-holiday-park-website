@@ -52,6 +52,13 @@
 .rhp-period>div:first-child { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
 .rhp-period-letter { display:inline-grid; place-items:center; width:23px; height:23px; background:#e2e8f0; color:#475569; border-radius:5px; font-size:11px; font-weight:800; }
 .rhp-period-c .rhp-period-letter { background:#e0e7ff; color:#4338ca; }
+.rhp-period-unassigned { background:#fff7ed; padding:12px; border-radius:7px; }
+.rhp-allocation { display:block; max-width:180px; margin-top:8px; border:1px solid #cbd5e1; border-radius:5px; padding:6px; font-size:12px; }
+.rhp-bank-tag { display:inline-block; padding:3px 7px; border-radius:4px; font-weight:650; }
+.rhp-bank-trust { background:#e0e7ff; color:#3730a3; }
+.rhp-bank-management { background:#cffafe; color:#155e75; }
+.rhp-bank-import { border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:18px 0; }
+.rhp-bank-import>summary { cursor:pointer; font-weight:650; }
 .rhp-summary-line { display:flex; justify-content:space-between; gap:8px; font-size:12px; margin:8px 0; }
 .rhp-summary-line strong { white-space:nowrap; }
 .rhp-finance .rhp-due-note { color:#4338ca; font-weight:650; margin:8px 0; }

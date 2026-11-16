@@ -5,7 +5,18 @@ export const PERIODS = {
   C: { title: 'Advance annual fee', start: '2026-10-11', end: '2027-10-10', expected: 193600 },
 };
 export const METHODS = ['Bank transfer', 'Cash', 'Card', 'Cheque', 'Other'];
-export const REVIEW_STATUSES = ['Automatic', 'Review', 'Disputed', 'Arrangement'];
+export const REVIEW_STATUSES = ['Automatic', 'Current', 'Review', 'Overdue', 'Disputed', 'Arrangement'];
+export const ACCOUNT_TAGS = ['Trust', 'Management'];
+export const TRANSACTION_TYPES = ['Charge', 'Payment', 'Credit', 'Refund'];
+const validPeriod = value => value === '' || Object.hasOwn(PERIODS, value);
+export function allocatedTransactions(records) {
+  const allocations = new Map();
+  for (const event of records) if (event.type === 'Allocate') allocations.set(event.targetKey, event.period);
+  return records.filter(e => TRANSACTION_TYPES.includes(e.type)).map(e => {
+    const root = e.targetKey || e.key;
+    return { ...e, period: allocations.has(root) ? allocations.get(root) : (e.period || '') };
+  });
+}
 export const todaySydney = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Sydney', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 export const money = cents => new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(cents / 100);
 export const displayDate = value => value ? value.slice(0, 10).split('-').reverse().join('/') : '—';
@@ -32,6 +43,16 @@ const requiredText = (value, label, max = 2000) => {
 };
 export function validateEvent(input, records = [], today = todaySydney()) {
   const type = input.type;
+  if (type === 'Allocate') {
+    const original = records.find(e => e.key === input.targetKey && ['Charge', 'Payment'].includes(e.type));
+    if (!original) throw new Error('Choose an original charge or payment to allocate.');
+    if (!validPeriod(input.period)) throw new Error('Invalid financial period.');
+    if (original.type === 'Charge' && input.period) {
+      const p = PERIODS[input.period];
+      if ((p.start && original.periodStart < p.start) || original.periodEnd > p.end) throw new Error('Service dates must fall within the selected period.');
+    }
+    return { type, targetKey: original.key, period: input.period, description: requiredText(input.description, 'Allocation reason') };
+  }
   if (type === 'Review') {
     if (!REVIEW_STATUSES.includes(input.status)) throw new Error('Invalid account status.');
     if (typeof input.historicalComplete !== 'boolean') throw new Error('Historical reconciliation is required.');
@@ -44,14 +65,24 @@ export function validateEvent(input, records = [], today = todaySydney()) {
     return { type, targetKey: original.key, description: requiredText(input.description, 'Verification evidence') };
   }
   if (!['Charge', 'Payment', 'Credit', 'Refund'].includes(type)) throw new Error('Invalid transaction type.');
-  if (!PERIODS[input.period]) throw new Error('Choose a financial period.');
+  if (!validPeriod(input.period)) throw new Error('Choose a financial period or Unassigned.');
   if (!validDate(input.date) || input.date > today) throw new Error('Transaction date must be a valid date on or before today.');
   if (!Number.isSafeInteger(input.amountCents) || input.amountCents <= 0 || input.amountCents > 100000000) throw new Error('Invalid amount in AUD cents.');
   const result = { type, period: input.period, date: input.date, amountCents: input.amountCents, description: requiredText(input.description, 'Description'), basis: requiredText(input.basis, 'Source / evidence'), verified: input.verified === true };
+  if (input.accountTag) {
+    if (!ACCOUNT_TAGS.includes(input.accountTag)) throw new Error('Invalid bank account tag.');
+    result.accountTag = input.accountTag;
+  }
+  if (input.source) {
+    const s = input.source;
+    result.source = { workbook: requiredText(s.workbook, 'Source workbook', 200), sheet: requiredText(s.sheet, 'Source sheet', 100), row: s.row,
+      file: requiredText(s.file, 'Source statement', 200), page: s.page, fingerprint: requiredText(s.fingerprint, 'Source fingerprint', 100) };
+    if (!Number.isSafeInteger(s.row) || s.row < 2 || !Number.isSafeInteger(s.page) || s.page < 1 || !/^[a-f0-9]{64}$/.test(s.fingerprint)) throw new Error('Invalid import source.');
+  }
   if (type === 'Charge' || type === 'Credit') {
     const period = PERIODS[input.period];
     if (!validDate(input.periodStart) || !validDate(input.periodEnd) || input.periodStart > input.periodEnd) throw new Error('Enter a valid service period.');
-    if ((period.start && input.periodStart < period.start) || input.periodEnd > period.end) throw new Error('Service dates must fall within the selected A, B or C period. Split charges spanning periods.');
+    if (period && ((period.start && input.periodStart < period.start) || input.periodEnd > period.end)) throw new Error('Service dates must fall within the selected A, B or C period. Split charges spanning periods.');
     Object.assign(result, { periodStart: input.periodStart, periodEnd: input.periodEnd });
     if (type === 'Charge') {
       if (!validDate(input.dueDate)) throw new Error('Enter a valid due date.');
@@ -62,7 +93,7 @@ export function validateEvent(input, records = [], today = todaySydney()) {
     Object.assign(result, { payer: requiredText(input.payer, 'Payer / recipient', 200), method: input.method, reference: requiredText(input.reference, 'Bank / receipt reference', 200) });
   }
   if (input.targetKey) {
-    const original = records.find(e => e.key === input.targetKey);
+    const original = allocatedTransactions(records).find(e => e.key === input.targetKey);
     const expected = type === 'Credit' ? 'Charge' : type === 'Refund' ? 'Payment' : null;
     if (!original || original.type !== expected || original.period !== input.period) throw new Error('Correction must reference a matching charge or payment in the same period.');
     const corrected = records.filter(e => e.targetKey === original.key && e.type === type).reduce((sum, e) => sum + e.amountCents, 0);
@@ -84,9 +115,9 @@ export function standardCharges() {
 }
 export const signedAmount = entry => ['Payment', 'Credit'].includes(entry.type) ? -entry.amountCents : entry.amountCents;
 export function summarize(records, today = todaySydney()) {
-  const periods = Object.fromEntries(Object.keys(PERIODS).map(key => [key, { charges: 0, paid: 0, credits: 0, refunds: 0, balance: 0 }]));
+  const periods = Object.fromEntries([...Object.keys(PERIODS), ''].map(key => [key, { charges: 0, paid: 0, credits: 0, refunds: 0, balance: 0 }]));
   const verifiedKeys = new Set(records.filter(e => e.type === 'Verify').map(e => e.targetKey));
-  const transactions = records.filter(e => ['Charge', 'Payment', 'Credit', 'Refund'].includes(e.type))
+  const transactions = allocatedTransactions(records)
     .sort((a, b) => a.date.localeCompare(b.date) || String(a.recordedAt).localeCompare(String(b.recordedAt)) || a.key.localeCompare(b.key));
   let balance = 0;
   let hasUnverified = false;
@@ -108,7 +139,7 @@ export function summarize(records, today = todaySydney()) {
     return dueCharges - p.paid - p.credits + p.refunds > 0;
   });
   const status = review?.status && review.status !== 'Automatic' ? review.status :
-    !historicalComplete || hasUnverified ? 'Review' : overdue ? 'Overdue' :
+    !historicalComplete || hasUnverified || rows.some(e => !e.period) ? 'Review' : overdue ? 'Overdue' :
       Object.values(periods).some(p => p.balance > 0) ? 'Review' : 'Current';
   return { rows, periods, balance, historicalComplete, hasUnverified, status, review,
     charges: Object.values(periods).reduce((n, p) => n + p.charges, 0),

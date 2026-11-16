@@ -1,0 +1,24 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { matchTransaction } from '../scripts/match-bank-import.mjs';
+const member = (documentId, SiteNumber, FirstName, LastName) => ({ documentId, SiteNumber, FirstName, LastName });
+const members = [member('a', '8', 'Steve', 'Poole'), member('b', '9', 'Andrew', 'Meyn'), member('c', '106', 'Joanne', 'Park'), member('d', '108', 'Joanne', 'Park'), member('e', '33', 'Rosanne', 'Cole'), member('f', '33', 'Dale', 'Smith')];
+const row = description => ({ description, creditCents: 10000, debitCents: 0 });
+test('matching requires unambiguous names and rejects site conflicts and surname substrings', () => {
+  assert.equal(matchTransaction(row('Fast Transfer From Andrew John Meyn Site9Oct24'), members).memberKey, 'b');
+  assert.equal(matchTransaction(row('From Andrew Meyn'), members).memberKey, 'b');
+  assert.equal(matchTransaction(row('From Joanne Park fees site87'), members).memberKey, '');
+  assert.equal(matchTransaction(row('From Joanne Park'), members).memberKey, '');
+  assert.equal(matchTransaction(row('From ROSANNE MCCOLE site33'), members).memberKey, '');
+  assert.equal(matchTransaction(row('From Steve Poole Site 9'), members).memberKey, '');
+  assert.equal(matchTransaction(row('From Steve Poole Site 8A'), members).memberKey, '');
+  assert.equal(matchTransaction(row('From Steve Poole site 8 and site 9'), members).memberKey, '');
+  assert.equal(matchTransaction(row('Transfer site 8'), members).memberKey, '');
+  assert.equal(matchTransaction({ ...row('From Steve Poole site8'), debitCents: 10000, creditCents: 0 }, members).memberKey, '');
+  assert.equal(matchTransaction(row('Loan from Steve Poole site8'), members).memberKey, '');
+  assert.equal(matchTransaction(row('Reversal Transfer To Andrew Meyn'), members).memberKey, '');
+  assert.equal(matchTransaction(row('From Steve Poole Pay back'), members).memberKey, '');
+  assert.equal(matchTransaction(row('From ROSANNE MCCOLE site33'), members, [{ payer: 'ROSANNE MCCOLE', memberKey: 'e', referenceSites: ['33'] }]).memberKey, 'e');
+  assert.equal(matchTransaction(row('From Joanne Park site87A'), members, [{ payer: 'JOANNE PARK', memberKey: 'c', referenceSites: ['87', '87a'] }]).memberKey, 'c');
+  assert.equal(matchTransaction(row('From Joanne Park site108'), members, [{ payer: 'JOANNE PARK', memberKey: 'c', referenceSites: ['87', '87a'] }]).memberKey, '');
+});
