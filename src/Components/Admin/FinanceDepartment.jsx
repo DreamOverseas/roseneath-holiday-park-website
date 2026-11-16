@@ -51,7 +51,9 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
   const [allocatingKey, setAllocatingKey] = useState('');
+  const [savingStatus, setSavingStatus] = useState(false);
   const allocationRequest = useRef(null);
+  const statusRequest = useRef(null);
   const requestId = useRef(null);
   const savingRef = useRef(false);
   const formRef = useRef(null);
@@ -103,7 +105,26 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
     } catch (err) { setError(`Allocation could not be confirmed. ${err.message} Refresh accounts to check the saved allocation, or choose the period again to retry.`); }
     finally { savingRef.current = false; setSaving(false); setAllocatingKey(''); }
   };
-  const beginStatus = value => { setForm({ ...blankForm('Review', summary), status: value }); setError(''); setNotice(''); requestId.current = null; };
+  const changeStatus = async value => {
+    if (savingRef.current || !selected || value === (summary.review?.status || 'Automatic')) return;
+    const memberKey = selected.documentId;
+    const historicalComplete = summary.historicalComplete;
+    const nextPayment = summary.review?.nextPayment || '';
+    const changeKey = JSON.stringify([memberKey, value, historicalComplete, nextPayment]);
+    if (statusRequest.current?.changeKey !== changeKey) statusRequest.current = { changeKey, requestId: crypto.randomUUID() };
+    savingRef.current = true; setSaving(true); setSavingStatus(true); setError(''); setNotice('');
+    try {
+      const result = await appendEvent(memberKey, {
+        type: 'Review', status: value, historicalComplete, nextPayment,
+        description: `Changed account status from ${summary.review?.status || 'Automatic'} to ${value} using the status selector.`,
+      }, statusRequest.current.requestId);
+      setAccounts(prev => ({ ...prev, [memberKey]: result.records }));
+      setForm(prev => prev?.type === 'Review' ? { ...prev, status: value } : prev);
+      statusRequest.current = null;
+      setNotice(LOCAL_REVIEW ? 'Account status saved in this browser’s local review ledger.' : 'Account status saved.');
+    } catch (err) { setError(`Status change could not be confirmed. ${err.message} Refresh accounts to check the saved status, or choose the status again to retry.`); }
+    finally { savingRef.current = false; setSaving(false); setSavingStatus(false); }
+  };
   const selectTarget = key => {
     const target = summary.rows.find(e => e.key === key);
     setForm(prev => ({ ...prev, targetKey: key, ...(target && prev.type !== 'Verify' ? { period: target.period, periodStart: target.periodStart || '', periodEnd: target.periodEnd || '', payer: target.payer || '', method: target.method || 'Bank transfer', reference: '' } : {}) }));
@@ -163,7 +184,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
       {!selected && <div className="rhp-empty rhp-no-print">Select a tenant above to open their account summary and transaction history.</div>}
       {selected && <article className="rhp-account" aria-label={`Account for ${tenantId(selected.SiteNumber)}`}>
         <header className="rhp-account-heading"><div><p className="rhp-eyebrow">{tenantId(selected.SiteNumber)} · SITE {selected.SiteNumber}</p><h3>{nameOf(selected)}</h3><p>{selected.TenantType} · Other payer: {otherPayer(selected)}</p></div><span className={statusClass(summary.status)}>{summary.status}</span>
-          <div className="rhp-actions rhp-no-print"><label className="rhp-field">Set account status<select aria-label="Set tenant account status" disabled={saving} value={summary.review?.status || 'Automatic'} onChange={e => beginStatus(e.target.value)}>{REVIEW_STATUSES.map(v => <option key={v}>{v}</option>)}</select></label>{onEditMember && <button disabled={saving} onClick={() => onEditMember(selected)}>Member details</button>}<button disabled={!records.length} onClick={() => downloadStatement(selected, summary, records)}>Export statement</button><button disabled={!records.length} onClick={() => window.print()}>Print / PDF</button></div></header>
+          <div className="rhp-actions rhp-no-print"><label className="rhp-field">Set account status<select aria-label="Set tenant account status" disabled={saving} value={summary.review?.status || 'Automatic'} onChange={e => changeStatus(e.target.value)}>{REVIEW_STATUSES.map(v => <option key={v}>{v}</option>)}</select>{savingStatus && <small role="status">Saving status…</small>}</label>{onEditMember && <button disabled={saving} onClick={() => onEditMember(selected)}>Member details</button>}<button disabled={!records.length} onClick={() => downloadStatement(selected, summary, records)}>Export statement</button><button disabled={!records.length} onClick={() => window.print()}>Print / PDF</button></div></header>
         {duplicateSite && <p className="rhp-banner">More than one membership uses this site. This ledger belongs only to {nameOf(selected)} (member {selected.documentId}).</p>}
         <div className="rhp-account-grid"><aside className="rhp-summary"><h4>Account summary</h4>
           <div className="rhp-period rhp-period-unassigned"><strong>Unassigned</strong><small>{summary.rows.filter(e => !e.period).length} transactions awaiting allocation</small><small>Charges {money(summary.periods[''].charges)} · Paid {money(summary.periods[''].paid)}</small><small>Credits {money(summary.periods[''].credits)} · Refunds {money(summary.periods[''].refunds)}</small><div className="rhp-summary-line"><span>{balancePosition(summary.periods[''].balance)}</span><strong>{money(Math.abs(summary.periods[''].balance))}</strong></div><small>Choose a period beside a transaction below. Receipt dates do not assign a period.</small></div>
