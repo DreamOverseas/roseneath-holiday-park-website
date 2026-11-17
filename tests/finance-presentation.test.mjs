@@ -1,22 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { transactionAmount, balancePosition, displayBalance, outstandingDebt, totalOutstandingDebt } from '../src/finance/presentation.mjs';
+import { transactionAmount, balancePosition, displayBalance, periodDebt, totalOutstandingDebt } from '../src/finance/presentation.mjs';
 import { summarize } from '../backend/strapi/src/api/rhp-finance/services/domain.mjs';
 
-test('outstanding debt uses unpaid charges and keeps credits in their allocated period', () => {
+test('summary retains original period debts and deducts all receipts once from their total', () => {
   const entry = (key, type, period, amountCents) => ({ key, type, period, amountCents, date: '2026-11-01' });
-  const summary = summarize([
-    entry('a', 'Charge', 'A', 10000), entry('ap', 'Payment', 'A', 4000),
-    entry('ac', 'Credit', 'A', 1000), entry('ar', 'Refund', 'A', 500),
-    entry('b', 'Charge', 'B', 20000), entry('bp', 'Payment', 'B', 25000),
-    entry('c', 'Charge', 'C', 30000), entry('cp', 'Payment', 'C', 30000),
-    entry('u', 'Charge', '', 2000),
-  ]);
-  assert.equal(outstandingDebt(summary.periods.A.balance), 5500);
-  assert.equal(outstandingDebt(summary.periods.B.balance), 0);
-  assert.equal(outstandingDebt(summary.periods.C.balance), 0);
-  assert.equal(totalOutstandingDebt(summary.periods), 7500);
-  assert.equal(totalOutstandingDebt(summarize([]).periods), 0);
+  const records = [
+    entry('a', 'Charge', 'A', 10000), entry('ac', 'Credit', 'A', 1000),
+    entry('b', 'Charge', 'B', 387200), entry('c', 'Charge', 'C', 193600),
+    entry('ap', 'Payment', 'A', 4000), entry('bp', 'Payment', 'B', 25000),
+    entry('cp', 'Payment', 'C', 30000), entry('up', 'Payment', '', 2000),
+  ];
+  const incomplete = summarize(records);
+  assert.equal(periodDebt(incomplete, 'A'), null);
+  assert.equal(periodDebt(incomplete, 'B'), 387200);
+  assert.equal(periodDebt(incomplete, 'C'), 193600);
+  assert.equal(totalOutstandingDebt(incomplete), 519800); // Known portion, plus unknown A.
+  const complete = summarize([...records, { type: 'Review', historicalComplete: true }]);
+  assert.equal(periodDebt(complete, 'A'), 9000);
+  assert.equal(totalOutstandingDebt(complete), 528800);
+  // Standard fees apply even before matching charge transactions are recorded.
+  assert.equal(totalOutstandingDebt(summarize([entry('p', 'Payment', '', 10000)])), 570800);
+  assert.equal(totalOutstandingDebt(summarize([entry('p', 'Payment', '', 600000)])), -19200);
 });
 
 test('received payments display positive and refunds negative while receivables retain their meaning', () => {
