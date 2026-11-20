@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { PERIODS, METHODS, REVIEW_STATUSES, ACCOUNT_TAGS, centsFromInput, displayDate, money, summarize, tenantId, todaySydney } from '../../../backend/strapi/src/api/rhp-finance/services/domain.mjs';
+import { PERIODS, METHODS, ACCOUNT_STATUSES, REVIEW_STATUSES, ACCOUNT_TAGS, centsFromInput, displayDate, money, summarize, tenantId, todaySydney } from '../../../backend/strapi/src/api/rhp-finance/services/domain.mjs';
 import { transactionAmount, balancePosition, displayBalance, periodDebt, totalOutstandingDebt } from '../../finance/presentation.mjs';
 import { LOCAL_REVIEW, appendEvent, loadFinance, openAccount, reviewMembers, setFinanceToken } from '../../finance/store';
 import '../../Css/FinanceDepartment.css';
@@ -166,7 +166,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
       <div className="rhp-toolbar rhp-no-print">
         <label className="rhp-field rhp-search">Search tenants<input type="search" placeholder="Tenant ID, site, name, payer, phone or email…" value={query} onChange={e => setQuery(e.target.value)} /></label>
         <label className="rhp-field">Member type<select value={type} onChange={e => setType(e.target.value)}>{['All tenants', 'Annual', 'Permanent'].map(v => <option key={v}>{v}</option>)}</select></label>
-        <label className="rhp-field">Account status<select value={status} onChange={e => setStatus(e.target.value)}>{['All statuses', 'Current', 'Review', 'Overdue', 'Disputed', 'Arrangement'].map(v => <option key={v}>{v}</option>)}</select></label>
+        <label className="rhp-field">Account status<select value={status} onChange={e => setStatus(e.target.value)}>{['All statuses', ...ACCOUNT_STATUSES].map(v => <option key={v}>{v}</option>)}</select></label>
       </div>
       <div className="rhp-table-wrap rhp-tenant-list rhp-no-print"><table><caption>{visible.length} tenants · Select an account to view its financial records</caption><thead><tr>{['Tenant ID / Site', 'Tenant / Other payer', 'Contact', 'Type', 'Status', 'Recorded balance', 'Next payment', ''].map((v, i) => <th key={i}>{v}</th>)}</tr></thead>
         <tbody>{visible.map(member => {

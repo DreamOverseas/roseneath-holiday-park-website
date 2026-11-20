@@ -1,7 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { transactionAmount, balancePosition, displayBalance, periodDebt, totalOutstandingDebt } from '../src/finance/presentation.mjs';
-import { summarize } from '../backend/strapi/src/api/rhp-finance/services/domain.mjs';
+import { ACCOUNT_STATUSES, REVIEW_STATUSES, summarize } from '../backend/strapi/src/api/rhp-finance/services/domain.mjs';
+
+test('account status selectors share the requested status order', () => {
+  assert.deepEqual(ACCOUNT_STATUSES, ['Current', 'Overdue', 'Review', 'Arrangement', 'Disputed']);
+  assert.deepEqual(REVIEW_STATUSES, ['Automatic', ...ACCOUNT_STATUSES]);
+});
 
 test('summary retains original period debts and deducts all receipts once from their total', () => {
   const entry = (key, type, period, amountCents) => ({ key, type, period, amountCents, date: '2026-11-01' });
