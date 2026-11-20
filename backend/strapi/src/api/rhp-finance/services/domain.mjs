@@ -5,7 +5,8 @@ export const PERIODS = {
   C: { title: 'Advance annual fee', start: '2026-10-11', end: '2027-10-10', expected: 193600 },
 };
 export const METHODS = ['Bank transfer', 'Cash', 'Card', 'Cheque', 'Other'];
-export const REVIEW_STATUSES = ['Automatic', 'Current', 'Review', 'Overdue', 'Disputed', 'Arrangement'];
+export const ACCOUNT_STATUSES = ['Current', 'Overdue', 'Review', 'Arrangement', 'Disputed'];
+export const REVIEW_STATUSES = ['Automatic', ...ACCOUNT_STATUSES];
 export const ACCOUNT_TAGS = ['Trust', 'Management'];
 export const TRANSACTION_TYPES = ['Charge', 'Payment', 'Credit', 'Refund'];
 const validPeriod = value => value === '' || Object.hasOwn(PERIODS, value);
