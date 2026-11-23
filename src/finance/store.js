@@ -1,3 +1,4 @@
+import { validateSettings } from '../../backend/strapi/src/api/rhp-finance/services/member-settings.mjs';
 import { standardCharges, validateEvent } from '../../backend/strapi/src/api/rhp-finance/services/domain.mjs';
 
 export const LOCAL_REVIEW = import.meta.env.DEV && import.meta.env.VITE_FINANCE_LIVE !== 'true';
@@ -31,7 +32,7 @@ async function request(path, body) {
   return response.json();
 }
 export async function loadFinance() {
-  return LOCAL_REVIEW ? { accounts: readLocal() } : request('');
+  return LOCAL_REVIEW ? { accounts: readLocal(), memberSettings: JSON.parse(localStorage.getItem(storageKey + '-settings') || '{}') } : request('');
 }
 async function localMutation(memberKey, change) {
   const mutate = () => {
@@ -56,4 +57,17 @@ export function appendEvent(memberKey, event, requestId) {
     if (records.some(e => e.key === requestId)) return records;
     return [...records, { ...validateEvent(event, records), key: requestId, actor: 'Local reviewer', recordedAt: new Date().toISOString() }];
   });
+}
+
+export async function saveMemberSettings(memberKey, input) {
+  const data = validateSettings(input);
+  if (!LOCAL_REVIEW) return request(`/${encodeURIComponent(memberKey)}/settings`, data);
+  const mutate = () => {
+    const key = storageKey + '-settings';
+    const settings = JSON.parse(localStorage.getItem(key) || '{}');
+    settings[memberKey] = { ...settings[memberKey], ...data };
+    localStorage.setItem(key, JSON.stringify(settings));
+    return { member: { documentId: memberKey, ...settings[memberKey] } };
+  };
+  return navigator.locks ? navigator.locks.request(storageKey, mutate) : mutate();
 }

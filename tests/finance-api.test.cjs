@@ -3,6 +3,50 @@ const assert = require('node:assert/strict');
 const controller = require('../backend/strapi/src/api/rhp-finance/controllers/rhp-finance');
 const uuid = '12345678-1234-1234-1234-123456789abc';
 
+test('membership settings persist across reloads and isolate draft/published copies by documentId', async () => {
+  const rows = [
+    { id: 1, documentId: 'one', TenantType: 'Annual', Note: 'Unpublished edit', publishedAt: null },
+    { id: 2, documentId: 'one', TenantType: 'Annual', Note: 'Published note', publishedAt: '2026-11-01' },
+    { id: 3, documentId: 'two', TenantType: 'Permanent', OutstandingDebtA: 0, TenantId: 'RHP-002-P' },
+    { id: 4, documentId: 'guest', TenantType: 'Guest' },
+  ];
+  const previous = global.strapi;
+  let updates = 0;
+  global.strapi = {
+    documents: () => ({ findOne: async ({ documentId }) => rows.find(r => r.documentId === documentId && r.publishedAt !== null) }),
+    db: {
+      metadata: { get: () => ({ tableName: 'members' }) },
+      transaction: async fn => fn({ trx: () => ({ where() { return this; }, forUpdate() { return this; }, select: async () => [] }) }),
+      query: () => ({ updateMany: async ({ where, data }) => {
+        updates++;
+        rows.filter(row => row.documentId === where.documentId).forEach(row => Object.assign(row, data));
+      } }),
+    },
+  };
+  const ctx = (key, body) => ({ params: { memberKey: key }, request: { body }, set() {},
+    badRequest(message) { this.status = 400; this.body = message; }, notFound(message) { this.status = 404; this.body = message; } });
+  try {
+    const save = ctx('one', { OutstandingDebtA: '5000.00', OutstandingDebtB: 0, TenantId: 'CUSTOM-ONE' });
+    await controller.settings(save);
+    assert.equal(save.body.member.OutstandingDebtA, 5000);
+    assert.equal(rows[0].OutstandingDebtA, 5000);
+    assert.equal(rows[0].Note, 'Unpublished edit');
+    assert.equal(rows[0].publishedAt, null);
+    assert.equal(rows[1].Note, 'Published note');
+    assert.equal(rows[2].OutstandingDebtA, 0);
+    assert.equal(rows[2].TenantId, 'RHP-002-P');
+    const bad = ctx('one', { Password: 'forbidden' }); await controller.settings(bad);
+    assert.equal(bad.status, 400);
+    const guest = ctx('guest', { OutstandingDebtA: 100 }); await controller.settings(guest);
+    assert.equal(guest.status, 404);
+    const missing = ctx('missing', { OutstandingDebtA: 100 }); await controller.settings(missing);
+    assert.equal(missing.status, 404);
+    assert.equal(updates, 1);
+    const routes = require('../backend/strapi/src/api/rhp-finance/routes/rhp-finance').routes;
+    assert.deepEqual(routes.find(r => r.handler === 'rhp-finance.settings').config.policies, ['api::rhp-finance.finance-staff']);
+  } finally { global.strapi = previous; }
+});
+
 test('Strapi controller contract: tenant isolation, idempotency, append-only history and validation', async () => {
   const events = [];
   const members = [{ documentId: 'member-21', TenantType: 'Permanent' }, { documentId: 'member-99', TenantType: 'Annual' }, { documentId: 'guest', TenantType: 'Guest' }];

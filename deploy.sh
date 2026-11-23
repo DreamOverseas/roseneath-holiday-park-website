@@ -61,6 +61,9 @@ fi
 echo "[INFO] Reset to origin/${BRANCH}..."
 git reset --hard "origin/${BRANCH}"
 
+# Install membership fields and protected finance endpoints before building their UI.
+bash "$REPO_DIR/scripts/deploy-member-settings.sh" "$REPO_DIR"
+
 ############################################
 # Install with lockfile first, if not back to package.json
 ############################################
