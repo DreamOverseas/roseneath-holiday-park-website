@@ -21,11 +21,11 @@ export function allocatedTransactions(records) {
 export const todaySydney = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Sydney', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 export const money = cents => new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(cents / 100);
 export const displayDate = value => value ? value.slice(0, 10).split('-').reverse().join('/') : '—';
-export function tenantId(site) {
+export function tenantId(site, type = 'Annual') {
   const value = String(site ?? '').trim();
   if (!value) return 'Site not assigned';
   const match = value.match(/^(\d+)(.*)$/);
-  return `RHP-${match ? match[1].padStart(3, '0') + match[2].toUpperCase() : value.toUpperCase()}-A`;
+  return `RHP-${match ? match[1].padStart(3, '0') + match[2].toUpperCase() : value.toUpperCase()}-${type === 'Permanent' ? 'P' : 'A'}`;
 }
 export function centsFromInput(value) {
   const text = String(value).trim();

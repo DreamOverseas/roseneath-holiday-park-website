@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { PERIODS, METHODS, ACCOUNT_STATUSES, REVIEW_STATUSES, ACCOUNT_TAGS, centsFromInput, displayDate, money, summarize, tenantId, todaySydney } from '../../../backend/strapi/src/api/rhp-finance/services/domain.mjs';
+import { PERIODS, METHODS, ACCOUNT_STATUSES, REVIEW_STATUSES, ACCOUNT_TAGS, centsFromInput, displayDate, money, summarize, todaySydney } from '../../../backend/strapi/src/api/rhp-finance/services/domain.mjs';
 import { transactionAmount, balancePosition, displayBalance, periodDebt, totalOutstandingDebt } from '../../finance/presentation.mjs';
-import { LOCAL_REVIEW, appendEvent, loadFinance, openAccount, reviewMembers, setFinanceToken } from '../../finance/store';
+import { DEBT_FIELDS, memberTenantId, defaultSettings } from '../../../backend/strapi/src/api/rhp-finance/services/member-settings.mjs';
+import { saveMemberSettings, LOCAL_REVIEW, appendEvent, loadFinance, openAccount, reviewMembers, setFinanceToken } from '../../finance/store';
 import '../../Css/FinanceDepartment.css';
 import BankImportReview from './BankImportReview';
 
@@ -20,7 +21,7 @@ function downloadStatement(member, summary, records) {
     return `"${text.replaceAll('"', '""')}"`;
   };
   const rows = [
-    ['RHP tenant statement', tenantId(member.SiteNumber), nameOf(member), LOCAL_REVIEW ? 'LOCAL REVIEW ONLY' : ''],
+    ['RHP tenant statement', memberTenantId(member), nameOf(member), LOCAL_REVIEW ? 'LOCAL REVIEW ONLY' : ''],
     ['Historical A total', summary.historicalComplete ? 'Reconciled — see recorded charges' : 'Unknown / incomplete'],
     ['Recorded balance AUD', (Math.abs(summary.balance) / 100).toFixed(2), balancePosition(summary.balance)],
     ['Date', 'Type', 'Period', 'Description', 'Service start', 'Service end', 'Due date', 'Transaction amount AUD (receipts positive; refunds negative)', 'Running account balance AUD', 'Balance position', 'Payer / recipient', 'Method', 'Reference', 'Evidence', 'Verified', 'Recorded by', 'Recorded at', 'Entry key', 'Corrects', 'Bank account', 'Source sheet', 'Source row', 'Source statement', 'Source page'],
@@ -30,12 +31,14 @@ function downloadStatement(member, summary, records) {
   ];
   const url = URL.createObjectURL(new Blob(['\uFEFF' + rows.map(r => r.map(safeCell).join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' }));
   const a = document.createElement('a');
-  a.href = url; a.download = `${tenantId(member.SiteNumber)}-${member.documentId}-statement.csv`; a.click();
+  a.href = url; a.download = `${memberTenantId(member)}-${member.documentId}-statement.csv`; a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 export default function FinanceDepartment({ members = [], onEditMember, standalone = false, sessionToken = '' }) {
   const [accounts, setAccounts] = useState({});
+  const [memberSettings, setMemberSettings] = useState({});
+  const [settingsForm, setSettingsForm] = useState(null);
   const [liveMembers, setLiveMembers] = useState([]);
   const [bankTransactions, setBankTransactions] = useState([]);
   const [selectedKey, setSelectedKey] = useState('');
@@ -57,7 +60,8 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
   const requestId = useRef(null);
   const savingRef = useRef(false);
   const formRef = useRef(null);
-  const source = LOCAL_REVIEW ? (standalone ? reviewMembers : members) : liveMembers;
+  const baseSource = LOCAL_REVIEW ? (standalone ? reviewMembers : members) : liveMembers;
+  const source = useMemo(() => baseSource.map(member => ({ ...member, ...memberSettings[member.documentId] })), [baseSource, memberSettings]);
   const tenants = useMemo(() => source.filter(m => ['Annual', 'Permanent'].includes(m.TenantType) && m.documentId)
     .sort((a, b) => String(a.SiteNumber || '').localeCompare(String(b.SiteNumber || ''), undefined, { numeric: true })), [source]);
   const selected = tenants.find(m => m.documentId === selectedKey);
@@ -72,7 +76,7 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
     let cancelled = false;
     setLoading(true); setError('');
     loadFinance().then(result => {
-      if (!cancelled) { setAccounts(result.accounts); setBankTransactions(result.bankTransactions || []); if (result.members) setLiveMembers(result.members); }
+      if (!cancelled) { setAccounts(result.accounts); setMemberSettings(result.memberSettings || {}); setBankTransactions(result.bankTransactions || []); if (result.members) setLiveMembers(result.members); }
     }).catch(err => { if (!cancelled) setError(err.message); }).finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   }, [connected, revision, sessionToken]);
@@ -80,10 +84,10 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
 
   const visible = tenants.filter(m => {
     const s = accounts[m.documentId]?.length ? summarize(accounts[m.documentId]).status : 'Review';
-    const searchable = [tenantId(m.SiteNumber), m.SiteNumber, nameOf(m), otherPayer(m), m.Email, m.Email2, m.ContactString, m.Contact, m.ContactString2].join(' ').toLowerCase();
+    const searchable = [memberTenantId(m), m.SiteNumber, nameOf(m), otherPayer(m), m.Email, m.Email2, m.ContactString, m.Contact, m.ContactString2].join(' ').toLowerCase();
     return (type === 'All tenants' || m.TenantType === type) && (status === 'All statuses' || s === status) && searchable.includes(query.trim().toLowerCase());
   });
-  const chooseMember = member => { if (saving) return; setSelectedKey(member.documentId); setForm(null); setNotice(''); setError(''); requestId.current = null; };
+  const chooseMember = member => { if (saving) return; setSelectedKey(member.documentId); setSettingsForm(null); setForm(null); setNotice(''); setError(''); requestId.current = null; };
   const begin = type => { setForm(blankForm(type, summary)); setNotice(''); setError(''); requestId.current = null; };
   const update = (field, value) => { setForm(prev => ({ ...prev, [field]: value })); requestId.current = null; };
   const selectPeriod = period => { setForm(prev => ({ ...prev, period, ...(PERIODS[period] ? { periodStart: PERIODS[period].start || '', periodEnd: PERIODS[period].end } : {}) })); requestId.current = null; };
@@ -124,6 +128,19 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
       setNotice(LOCAL_REVIEW ? 'Account status saved in this browser’s local review ledger.' : 'Account status saved.');
     } catch (err) { setError(`Status change could not be confirmed. ${err.message} Refresh accounts to check the saved status, or choose the status again to retry.`); }
     finally { savingRef.current = false; setSaving(false); setSavingStatus(false); }
+  };
+  const saveSettings = async event => {
+    event.preventDefault();
+    if (savingRef.current || !selected) return;
+    const memberKey = selected.documentId;
+    savingRef.current = true; setSaving(true); setError(''); setNotice('');
+    try {
+      const { member } = await saveMemberSettings(memberKey, settingsForm);
+      setMemberSettings(prev => ({ ...prev, [memberKey]: member }));
+      setSettingsForm(null);
+      setNotice(LOCAL_REVIEW ? 'Account settings saved in this browser for local review.' : 'Account settings saved to this membership.');
+    } catch (err) { setError(err.message); }
+    finally { savingRef.current = false; setSaving(false); }
   };
   const selectTarget = key => {
     const target = summary.rows.find(e => e.key === key);
@@ -173,28 +190,38 @@ export default function FinanceDepartment({ members = [], onEditMember, standalo
           const events = accounts[member.documentId] || [];
           const info = summarize(events);
           return <tr key={member.documentId} className={selectedKey === member.documentId ? 'rhp-selected' : ''}>
-            <td><strong>{tenantId(member.SiteNumber)}</strong><small>Site {member.SiteNumber || '—'}</small></td>
+            <td><strong>{memberTenantId(member)}</strong><small>Site {member.SiteNumber || '—'}</small></td>
             <td><strong>{nameOf(member)}</strong><small>{otherPayer(member)}</small></td>
             <td>{member.ContactString || member.Contact || '—'}<small>{member.Email || '—'}</small></td>
             <td>{member.TenantType}</td><td><span className={statusClass(info.status)}>{info.status}</span></td>
             <td className="rhp-money">{events.length ? displayBalance(info.balance) : 'Not opened'}<small>{info.historicalComplete ? 'History reconciled' : 'A total unknown'}</small></td>
-            <td>{displayDate(info.review?.nextPayment)}</td><td><button disabled={saving} aria-label={`View ${tenantId(member.SiteNumber)} ${nameOf(member)}`} onClick={() => chooseMember(member)}>View ledger</button></td>
+            <td>{displayDate(info.review?.nextPayment)}</td><td><button disabled={saving} aria-label={`View ${memberTenantId(member)} ${nameOf(member)}`} onClick={() => chooseMember(member)}>View ledger</button></td>
           </tr>;
         })}</tbody></table>{!visible.length && <p className="rhp-empty">No annual or permanent tenants match these filters.</p>}</div>
       {!selected && <div className="rhp-empty rhp-no-print">Select a tenant above to open their account summary and transaction history.</div>}
-      {selected && <article className="rhp-account" aria-label={`Account for ${tenantId(selected.SiteNumber)}`}>
-        <header className="rhp-account-heading"><div><p className="rhp-eyebrow">{tenantId(selected.SiteNumber)} · SITE {selected.SiteNumber}</p><h3>{nameOf(selected)}</h3><p>{selected.TenantType} · Other payer: {otherPayer(selected)}</p></div><span className={statusClass(summary.status)}>{summary.status}</span>
+      {selected && <article className="rhp-account" aria-label={`Account for ${memberTenantId(selected)}`}>
+        <header className="rhp-account-heading"><div><p className="rhp-eyebrow">{memberTenantId(selected)} · SITE {selected.SiteNumber}</p><h3>{nameOf(selected)}</h3><p>{selected.TenantType} · Other payer: {otherPayer(selected)}</p></div><span className={statusClass(summary.status)}>{summary.status}</span>
           <div className="rhp-actions rhp-no-print"><label className="rhp-field">Set account status<select aria-label="Set tenant account status" disabled={saving} value={summary.review?.status || 'Automatic'} onChange={e => changeStatus(e.target.value)}>{REVIEW_STATUSES.map(v => <option key={v}>{v}</option>)}</select>{savingStatus && <small role="status">Saving status…</small>}</label>{onEditMember && <button disabled={saving} onClick={() => onEditMember(selected)}>Member details</button>}<button disabled={!records.length} onClick={() => downloadStatement(selected, summary, records)}>Export statement</button><button disabled={!records.length} onClick={() => window.print()}>Print / PDF</button></div></header>
         {duplicateSite && <p className="rhp-banner">More than one membership uses this site. This ledger belongs only to {nameOf(selected)} (member {selected.documentId}).</p>}
         <div className="rhp-account-grid"><aside className="rhp-summary"><h4>Account summary</h4>
+          <p>Tenant ID: <strong>{memberTenantId(selected)}</strong></p>
+          <button className="rhp-no-print" disabled={saving} onClick={() => { setSettingsForm(defaultSettings(selected)); setError(''); setNotice(''); }}>Edit account settings</button>
+          {settingsForm && <form className="rhp-entry-form rhp-no-print" onSubmit={saveSettings}>
+            <h4>Edit account settings</h4><p>Saved only for this membership. Amounts are in AUD.</p>
+            <fieldset disabled={saving}>
+              <label className="rhp-field">Tenant ID<input required maxLength={80} value={settingsForm.TenantId} onChange={e => setSettingsForm(prev => ({ ...prev, TenantId: e.target.value }))} /></label>
+              {Object.entries(DEBT_FIELDS).map(([period, field]) => <label className="rhp-field" key={field}>{period} · {PERIODS[period].title} — Outstanding debt<input required type="number" min="0" max="1000000" step="0.01" value={settingsForm[field]} onChange={e => setSettingsForm(prev => ({ ...prev, [field]: e.target.value }))} /></label>)}
+              <div className="rhp-actions"><button className="rhp-primary" type="submit">{saving ? 'Saving…' : 'Save account settings'}</button><button type="button" onClick={() => setSettingsForm(null)}>Cancel</button></div>
+            </fieldset>
+          </form>}
           <div className="rhp-period rhp-period-unassigned"><strong>Unassigned</strong><small>{summary.rows.filter(e => !e.period).length} transactions awaiting allocation</small><small>Charges {money(summary.periods[''].charges)} · Paid {money(summary.periods[''].paid)}</small><small>Credits {money(summary.periods[''].credits)} · Refunds {money(summary.periods[''].refunds)}</small><div className="rhp-summary-line"><span>{balancePosition(summary.periods[''].balance)}</span><strong>{money(Math.abs(summary.periods[''].balance))}</strong></div><small>Choose a period beside a transaction below. Receipt dates do not assign a period.</small></div>
           {Object.entries(PERIODS).map(([key, period]) => <div className={`rhp-period rhp-period-${key.toLowerCase()}`} key={key}><div><span className="rhp-period-letter">{key}</span><strong>{period.title}</strong></div><small>{period.start ? displayDate(period.start) : 'Up to'} – {displayDate(period.end)}</small>
-            <div className="rhp-summary-line"><span>Outstanding debt</span><strong>{periodDebt(summary, key) === null ? 'Unknown' : money(periodDebt(summary, key))}</strong></div>
+            <div className="rhp-summary-line"><span>Outstanding debt</span><strong>{periodDebt(summary, key, selected) === null ? 'Unknown' : money(periodDebt(summary, key, selected))}</strong></div>
             {key === 'C' && <small className="rhp-due-note">Payable in advance · due 11/10/2026</small>}
             <small>Total payments received {money(summary.periods[key].paid)}</small>
           </div>)}
-          <dl className="rhp-totals"><div><dt>Total payments received</dt><dd>{money(summary.paid)}</dd></div><div className="rhp-balance"><dt>Total outstanding debt</dt><dd>{money(totalOutstandingDebt(summary))}</dd></div></dl>
-          <p className="rhp-summary-note">{summary.historicalComplete ? 'Historical records marked complete by staff.' : 'A is not fully established. Total outstanding debt = A + B + C − all payments received (including Unassigned). A remains unknown until reconciled.'}{summary.hasUnverified ? ' Includes unverified records.' : ''}</p>
+          <dl className="rhp-totals"><div><dt>Total payments received</dt><dd>{money(summary.paid)}</dd></div><div className="rhp-balance"><dt>Total outstanding debt</dt><dd>{money(totalOutstandingDebt(summary, selected))}</dd></div></dl>
+          <p className="rhp-summary-note">A, B and C are this membership’s saved amounts. Total outstanding debt = A + B + C − all payments received (including Unassigned).{!summary.historicalComplete ? ' Historical records have not been fully reconciled.' : ''}{summary.hasUnverified ? ' Includes unverified records.' : ''}</p>
         </aside><div className="rhp-records"><div className="rhp-section-heading"><div><h4>Transaction history</h4><p>Payments received are positive · Refunds are negative · Account balance shows tenant credit or amount due</p></div></div>
           <div className="rhp-actions rhp-no-print">{!opened && <button disabled={saving} onClick={() => begin('Open')}>Add standard annual charges</button>}{['Charge', 'Payment'].map(t => <button className={t === 'Payment' ? 'rhp-primary' : ''} key={t} disabled={saving} onClick={() => begin(t)}>+ Add {t.toLowerCase()}</button>)}<button disabled={saving} onClick={() => begin('Credit')}>Correct a charge</button><button disabled={saving} onClick={() => begin('Refund')}>Refund / reverse payment</button><button disabled={saving} onClick={() => begin('Review')}>Review account</button><button disabled={saving} onClick={() => begin('Verify')}>Verify record</button></div>
           {!opened && <p className="rhp-banner">Standard annual charges have not been added. Imported payments are recorded separately. Add standard annual charges only after checking this tenant’s fees.</p>}

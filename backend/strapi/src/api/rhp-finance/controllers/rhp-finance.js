@@ -1,7 +1,7 @@
 'use strict';
 const UID = 'api::rhp-finance-event.rhp-finance-event';
 const domain = () => import('../services/domain.mjs');
-const memberFields = ['documentId', 'SiteNumber', 'TenantType', 'FirstName', 'LastName', 'FirstName2', 'LastName2', 'Email', 'Email2', 'ContactString', 'ContactString2', 'Contact', 'Contact2'];
+const memberFields = ['documentId', 'SiteNumber', 'TenantType', 'FirstName', 'LastName', 'FirstName2', 'LastName2', 'Email', 'Email2', 'ContactString', 'ContactString2', 'Contact', 'Contact2', 'TenantId', 'OutstandingDebtA', 'OutstandingDebtB', 'OutstandingDebtC'];
 const serialize = row => ({ ...row.payload, key: row.eventKey.split(':').slice(1).join(':'), actor: row.actor, recordedAt: row.recordedAt });
 const recordsFor = async memberKey => (await strapi.db.query(UID).findMany({ where: { memberKey }, orderBy: { id: 'asc' } })).map(serialize);
 async function tenant(memberKey) {
@@ -13,6 +13,22 @@ async function write(memberKey, key, payload, actor) {
   return strapi.db.query(UID).create({ data: { eventKey: `${memberKey}:${key}`, memberKey, payload, actor, recordedAt: new Date().toISOString() } });
 }
 module.exports = {
+  async settings(ctx) {
+    const memberKey = ctx.params.memberKey;
+    const { validateSettings } = await import('../services/member-settings.mjs');
+    let data;
+    try { data = validateSettings(ctx.request.body); }
+    catch (error) { return ctx.badRequest(error.message); }
+    if (!await tenant(memberKey)) return ctx.notFound('Annual or permanent member not found.');
+    await strapi.db.transaction(async ({ trx }) => {
+      const metadata = strapi.db.metadata.get('api::rhp-membership.rhp-membership');
+      await trx(metadata.tableName).where('document_id', memberKey).forUpdate().select('id');
+      // Update only these fields on existing draft/published copies; never publish other draft edits.
+      await strapi.db.query('api::rhp-membership.rhp-membership').updateMany({ where: { documentId: memberKey }, data });
+    });
+    ctx.set('Cache-Control', 'no-store');
+    ctx.body = { member: await tenant(memberKey) };
+  },
   async list(ctx) {
     const members = await strapi.documents('api::rhp-membership.rhp-membership').findMany({
       status: 'published', filters: { TenantType: { $in: ['Annual', 'Permanent'] } }, fields: memberFields,
