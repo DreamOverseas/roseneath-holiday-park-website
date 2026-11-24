@@ -8,16 +8,23 @@ on:
 
 concurrency:
   group: deploy-main
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
-      - name: Checkout (for completeness; not strictly required)
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Test deployment and application
+        run: |
+          for script in deploy.sh scripts/*.sh; do bash -n "$script"; done
+          python3 tests/strapi-deploy-db.test.py
+          npm ci
+          npm test
 
       - name: Run deploy shell commands on server via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -26,12 +33,10 @@ jobs:
           username: ${{ secrets.SSH_USER }}        # username
           key: ${{ secrets.SSH_PRIVATE_KEY }}      # SSH Secret (key pair)
           script_stop: true                        # Stop for any error
-          command_timeout: 10m
+          command_timeout: 15m
           script: |
             set -euo pipefail
             cd /home/ecs-user/roseneath-holiday-park-website
-            echo "[INFO] Current dir: $(pwd)"
-            # permission granting
-            chmod +x ./deploy.sh
-            # run as non-interactive, catches every error
-            ./deploy.sh
+            git fetch origin main
+            git merge --ff-only origin/main
+            bash ./deploy.sh

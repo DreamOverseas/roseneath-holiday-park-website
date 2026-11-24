@@ -8,8 +8,7 @@ async function main() {
   const input = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
   const { validateEvent, summarize } = await import(pathToFileURL(path.join(process.cwd(), 'src/api/rhp-finance/services/domain.mjs')));
   const { matchTransaction } = await import(pathToFileURL(path.join(__dirname, 'match-bank-import.mjs')));
-  const { createStrapi } = require(path.join(process.cwd(), 'node_modules/@strapi/strapi'));
-  const app = await createStrapi({ appDir: process.cwd(), distDir: process.cwd() }).load();
+  const app = await require('./open-strapi-deploy-db.cjs')();
   try {
     const members = await app.documents('api::rhp-membership.rhp-membership').findMany({ status: 'published', filters: { TenantType: { $in: ['Annual', 'Permanent'] } }, fields: ['SiteNumber', 'TenantType', 'FirstName', 'LastName', 'FirstName2', 'LastName2'] });
     const fields = ['SiteNumber', 'TenantType', 'FirstName', 'LastName', 'FirstName2', 'LastName2'];
