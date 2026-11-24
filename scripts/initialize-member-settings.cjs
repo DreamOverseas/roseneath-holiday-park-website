@@ -3,8 +3,7 @@ const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 async function main() {
   const { missingSettings } = await import(pathToFileURL(path.join(process.cwd(), 'src/api/rhp-finance/services/member-settings.mjs')));
-  const { createStrapi } = require(path.join(process.cwd(), 'node_modules/@strapi/strapi'));
-  const app = await createStrapi({ appDir: process.cwd(), distDir: process.cwd() }).load();
+  const app = await require('./open-strapi-deploy-db.cjs')();
   try {
     const query = app.db.query('api::rhp-membership.rhp-membership');
     let changed = 0;
