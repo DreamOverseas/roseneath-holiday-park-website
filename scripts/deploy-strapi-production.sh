@@ -25,16 +25,22 @@ node=$(systemctl show --value -p ExecStart "$unit" | sed -n 's/^{ path=\([^ ;]*\
 cd "$app"
 test -f .tmp/data.db
 test -f "$membership"
+
+exec 9>.tmp/rhp-finance-deploy.lock
+flock -w 60 9
+systemctl is-active --quiet "$unit"
+
 for module in "${modules[@]}"; do
   test -d "$source_root/$module"
   test -d "src/api/$module"
   unsupported=$(find "$source_root/$module" ! -type f ! -type d -print -quit)
   [[ -z "$unsupported" ]]
+  removed=$(rsync -rni --delete --exclude='*.bak' "$source_root/$module/" "src/api/$module/" | sed -n '/^\*deleting/p')
+  if [[ -n "$removed" ]]; then
+    echo "Refusing to remove existing server files from $module" >&2
+    exit 1
+  fi
 done
-
-exec 9>.tmp/rhp-finance-deploy.lock
-flock -w 60 9
-systemctl is-active --quiet "$unit"
 
 as_service() {
   sudo -n -u "$service_user" -g "$group" "$@"
@@ -133,7 +139,7 @@ sources_changed=1
 chmod go-w "$membership"
 setfacl -m "u:$service_user:r--" "$membership"
 for module in "${modules[@]}"; do
-  rsync -r --perms --chmod=D700,F600 --delete --exclude='*.bak' "$source_root/$module/" "src/api/$module/"
+  rsync -r --perms --chmod=D700,F600 --exclude='*.bak' "$source_root/$module/" "src/api/$module/"
   find "src/api/$module" -type d -exec setfacl -m "u:$service_user:rx" {} +
   find "src/api/$module" -type f ! -name '*.bak' -exec setfacl -m "u:$service_user:r--" {} +
 done
@@ -153,7 +159,7 @@ done
 
 run_candidate() {
   sudo -n systemd-run --quiet --wait --pipe --collect --uid="$service_user" --gid="$group" \
-    --working-directory="$app" --property=NoNewPrivileges=yes --property=PrivateNetwork=yes \
+    --property="WorkingDirectory=$app" --property=NoNewPrivileges=yes --property=PrivateNetwork=yes \
     --property=ProtectSystem=strict --property="ReadWritePaths=$work/db" --property=RuntimeMaxSec=120 \
     --setenv=NODE_ENV=production --setenv=HOST=127.0.0.1 --setenv=PORT=1337 \
     --setenv=DATABASE_CLIENT=sqlite --setenv="DATABASE_FILENAME=${candidate#"$app"/}" \
